@@ -7,51 +7,9 @@ format: pdf
 editor_options: 
   chunk_output_type: console
 ---
-## Format Notes
-##### Usual Format
-1. Introduction
-2. Notation (if relevant)
-3-5. Details of literature review broken into several sub sections. First usually provides context to the problem and the following sections answer questions that context highlights.
-6. Future Work/ Conclusion
 
-##### Usual Format for this paper
-1. Introduction
-2. Definitions of Uncertainty
-  - The more taxonomies I read the more convinced I am the "defining uncertainty" is the best one. Not only is it the most complete, but it also identifies WHY some uncertainties are difficult to visualise (specifically which part of the taxonomy) and suggests HOW you can best communicate these uncertainties.
-    - A lot of other papers just make a comment like "oh some of these are hard to communicate" but that paper actually goes into detail instead of hand waving the problem away.
-    - It also explains why the uncertainty visualisation literature focuses on a specific subset of uncertainty cases.
-  - Examples
-    - Null Values
-    - Variance
-    - Hypothesis Testing
-    - Distribution
-  - Combining uncertainty is also a reccurring theme in these papers
-3. Visualisation in the context of uncertainty communication
-  - Basically I want a brief section highlighting the importance of visualisation and discussing it in relation to other forms of uncertainty communication.
-  - especially considering some uncertainty visualisation papers discuss using just a text based method to communicate uncerainty
-4. Specific Section on Uncertainty Visualisation
-  - There is also two kinds of papers, those that compare elements of a plot (like mapping uncertainty to an aesthetic) and those that compare some expression of a distribution (like a scatter plot compared to a box plot).
-  - try to map back to david speigleholder paper i.e. uncertainty means lots of different things
-5. Future work/Conclusion
 
-# Random thoughts
-- I think it is also important to highlight if uncertainty is meta information or if it is a variable in of itself. Meta information (such as contiunity, exhangeability, etc) are usually set to specific visual features (e.g. VSUP clearly sees uncertainty as meta information)
-- A lot of work that evaluates uncertainty visualisations checks to see if the mean can be gathered from a visualisation, but if we view uncertainty as meta-information, then with a high uncertainty we wouldn't want the mean to be visible
-  - Also an example of why the motivation matters for these things. If you don't know "WHY" someone is using a visualisation for uncertainty and just pick the "best" one, you are going to get a visualisation that does a poor job of its task.
-  - put uncertainty in the context of other meta-data of variables
-
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-
-# Load libraries
-library(tidyverse)
-library(tsibbledata)
-library(Vizumap)
-library(fable)
-```
-# Introduction
+# 1. Introduction
 Think back to the last time you made some sort of data visualisation. What was the purpose of that visualisation? Was it to better understand your data? Was it to help you make a decision? Was it to to communicate that decision to someone else? Now think about the last time you expressed some form of uncertainty. Was it a set of numerical confidence intervals? Maybe they were expressed as a set of values in a table. Did you consider visualising your uncertainty instead? There are many stages in our analysis that benefit from the power of data visualisation, however this does not mean it is always done with success. Visualization is an important step in exploratory data analysis and it is often utilised to **learn** what is important about a data set. The importance of data driven discovery is highlighted by data sets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg]. Each of the pairwise plots in these data sets have the same summary statistics but strikingly different information when visualised. Anscombe quartet is shown in @fig-anscombe, because describing the data is never the same as seeing it. Instead of having to repeatedly check endless hypothesis to find interesting numerical features, visualisations **tell** us what is important about our data. This powerful aspect of data visualisation is poorly or seldom used in later stages when we are communicating our findings, specifically with respect to uncertainty. 
 
 ```{r}
@@ -60,6 +18,7 @@ Think back to the last time you made some sort of data visualisation. What was t
 #| message: false
 #| label: fig-anscombe
 #| fig-cap: "The four scatter plots that make up Anscombe's quartet. The four scatter plots are visually distinct but have the same mean, standard deviation, and correlation. The visualisation highlights the importance of plotting your data to identify interesting features that are hidden by other summary statistics."
+library(tidyverse)
 tibble(x = c(anscombe$x1, anscombe$x2,
              anscombe$x3, anscombe$x4),
        y = c(anscombe$y1, anscombe$y2,
@@ -76,82 +35,36 @@ tibble(x = c(anscombe$x1, anscombe$x2,
   scale_fill_brewer(type = "qual", palette = 4)
 ```
 
-##### Secondary Nature of Uncertainty
-An overwhelming consensus among visualisation authors seems to be that uncertainty is secondary to estimations. There is a belief held by those that work with data that the uncertainty associated with an estimate (the noise) only exists to hide the estimate itself (the signal). From this point of view uncertainty is optional information that only exists to hinder our message. Therefore despite its alleged importance, when simplifying a plot uncertainty the first thing to go. This belief is also reflected in the development of new uncertainty visualisations. Often when trying to visualise multi-dimensional data, uncertainty is relegated to unimportant aesthetics in the plot, often of lower importance than the estimate where it is easily ignored [@Correll2018; @Lucchesi2017]. Sometimes uncertainty is not relegated to an undesirable aesthetic but instead incorporated using interactivity to allow users to explore the complicated space themselves [@Potter2009]. Even the literature about uncertainty communication expresses an implicit belief that it is of secondary importance to the estimates or context of the data.
 
-####  no visual distinction between sample/pop variance
-@Bella2005 found that most participants were ignorant to the fact that error bars are used for both confidence intervals and standard error bars, two wildly different indicators of precision. 
-**also the paper sherry sent me**
-
-# Definitions of Uncertainty
-##### No clear definition of uncertainty
+# 2. Defining Uncertainty
 This issues surrounding uncertainty visualisation is not helped by the fact that the term "uncertainty" lacks a commonly accepted definition in the literature. @Lipshitz1997 even commented that “there are almost as many definitions of uncertainty as there are treatments of the subject” . This mishmash of terminology leads to a large body of work, all claiming to finding the best visualisation or expression of of "uncertainty" but most don't even seem to agree on what uncertainty is. The most encompassing definition of uncertainty I have seen comes from @utypo who define uncertainty as **"any deviation from the unachievable ideal of completely deterministic knowledge of the relevant system"**. This definition encapsulates many concepts adjacent to randomness such as predictions, probability mass distributions (PMF), estimate error, and any data that is not a set of deterministic outcomes. This is the definition of uncertainty I will use for the rest of this report.
+  
+## 2.1 The role of context in defining uncertainty
+- (no visual distinction between sample/pop variance) @Bella2005 found that most participants were ignorant to the fact that error bars are used for both confidence intervals and standard error bars, two wildly different indicators of precision. (**also the paper sherry sent me**)
+- **notes from the Xiao-li Meng papers**
+- **papers that talk about task specific stuff**
 
-##### Uncertainty taxonomy
-More commonly uncertainty is defined using a taxonomy rather than a strict definition. There are a few taxonomies for uncertainty, but, just like the definition, most of them are a subset of the one laid out by @utypo. To complete the definition I will include that taxonomy here. @fig-taxonomy is an illustration of the taxonomy presented by @utypo. In this taxonomy, there are three things we need to consider for each "uncertainty" we encounter through the modelling process. First, we need to consider the source of the uncertainty. Is this uncertainty coming from inaccurate measurements or a poorly defined model? This is the *location* of the uncertainty. Second, consider how well you can quantify this uncertainty. Do you know exactly how much measurement error there is in each observation or are you not even aware if there is a measurement error? This is the *level* of your uncertainty, and it ranges from discrete to total ignorance. Finally, consider how this uncertainty came into existence. Is it a result of a naturally random process (epistemic) or is it due to imperfect information and could be improved (aleatory). This is the *nature* of your uncertainty. @utypo then goes on to describe mapping our uncertainty in a 3D space that is defined by its location, level, and nature, but I think the taxonomy is more easily understood as a series of questions we need to consider when we are trying to quantify uncertainty.
+## 2.2 Taxonomies of Uncertainty
+More commonly uncertainty is defined using a taxonomy rather than a strict definition.
+
+@fig-taxonomy is an illustration of the taxonomy presented by @utypo. In this taxonomy, there are three things we need to consider for each "uncertainty" we encounter through the modelling process. First, we need to consider the source of the uncertainty. Is this uncertainty coming from inaccurate measurements or a poorly defined model? This is the *location* of the uncertainty. Second, consider how well you can quantify this uncertainty. Do you know exactly how much measurement error there is in each observation or are you not even aware if there is a measurement error? This is the *level* of your uncertainty, and it ranges from discrete to total ignorance. Finally, consider how this uncertainty came into existence. Is it a result of a naturally random process (epistemic) or is it due to imperfect information and could be improved (aleatory). This is the *nature* of your uncertainty. @utypo then goes on to describe mapping our uncertainty in a 3D space that is defined by its location, level, and nature, but I think the taxonomy is more easily understood as a series of questions we need to consider when we are trying to quantify uncertainty.
 
 ![Depicts an illustration of the taxonomy described in @utypo. From right to left the drawing shows the location, level and nature of uncertainty with examples of that category underneath. A specific source of uncertainty from the location can be mapped to a level of ignorance that can increase or decrease (i.e. moving up or down the green line) depending on the nature of the uncertainty. Identifying the location, level and nature of your uncertainty allows you to better understand it. ](taxonomyvis.jpeg){#fig-taxonomy}
 
-##### You should not ignore "uncertainty" that seems unrelated to your problem
-While information about the sources of our uncertainty and the type of uncertainty may seem like an unimportant secondary step in uncertainty visualisation, communicating these features of uncertainty helps decision makers make more informed choices. @Padilla2021 found that low forecaster confidence or high model uncertainty both contribute to more conservative judgements by decision makers. Failing to communicate the nature of your uncertainty can result in underestimation or overestimation of failure probabilities [@Kiureghian2009]. Additionally @Gustafson2019 found that the framing of our uncertainty, (i.e. if the source of uncertainty is from a lack of knowledge, approximations, unknown unknowns, or disagreement among parties) was found to not have a detrimental effect on the belief in the estimates, perceived credibility, or behavioural intentions of the decision makers. This means communicating secondary information about your uncertainty can provide additional benefits to decision makers without additional negative repercussions.
-# Unorganised
-
-##### The benefits of Unvertainty visualisaiton
-Visualisations can provide a more complete picture of a risk than numerical summaries alone. Even something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014]. While there is some evidence that confidence intervals provided in text form only are less likely to be misinterpreted than graphics [@Savelli2013], text is insufficient to express more complicated aspects of a distribution, such as mass. Expressing uncertainty verbally decreases the perceived reliability and trustworthiness of the source [@VanderBles2020]. Any confusion caused by expressing uncertainty as a visualisation could also be due to a lack of exposure, since @Kay2016 found people repeatedly exposed to the same uncertainty visualisations quickly get better at making judgements. Additionally, visualisation allow for interactive graphics that provide a more in depth understanding of probability [@Potter2009; @Ancker2009] and infographics that make uncertainty more accessible for people with poor numeracy skills [@Ancker2009]. 
-**application in energy**
-The use of uncertainty in high dimensional environments is especially important in energy data. Large models that incorporate spatial-temporal data from many sources and systems are used to predict energy uses in the short and long term. Understanding how to improve and make better decisions in these models is imperative in both the daily operation of the energy sector as well as in the transition from fossil fuels to clean energy. The energy sector needs better heuristics to make energy supply analysis less costly to conduct [@Stenclik2021], therefore it is an incredibly relevant application of uncertainty visualisation techniques. 
-
-##### People dont visualise uncertainty but it is considered important
-Despite these benefits, there is evidence that we don't visualise uncertainty as often as we should. A survey conducted by @Hullman2020a found that majority of visualisation authors agreed that expressing uncertainty is important and should be done more often than it currently is, some even agreed that failing to do so is tantamount to fraud. Despite this, only a quarter of respondents included uncertainty in 50% or more of their visualisations [@Hullman2020a]. Meaning participants were convinced that visualising uncertainty is morally important but were able to provide self sufficient reasoning that allows them to avoid doing it. Some economists suggest that visualisation authors are responding to incentives that make it tempting to avoid visualising uncertainty, even if those incentives are based more in perception than reality [@Manski2020]. The study by @Hullman2020a found that the most common reasons authors don't visualise uncertainty despite knowing it's moral importance are: not wanting to overwhelm the audience; an inability to calculate the uncertainty; a lack of access to the uncertainty information; and not wanting to make their data seem questionable [@Hullman2020a].
-
-##### Effect of uncertainty visualisation on decision making
-If decision markers are not presented with the uncertainty about an estimate the data analysts have, for all intents and purposes, made the decision for the decision maker. Upon further interviews @Hullman2020a found that authors believed uncertainty would overwhelm the audience and make their data seem questionable because decision makers are unable to understand uncertainty. This belief, while pervasive, is not true. There is some research that suggests laypeople cannot understand complicated concepts in statistical thinking (such as trick questions on hypothesis tests or the difference between Frequentist and Bayesian thinking) [@Hoekstra2014; @Bella2005] but there is a large amount of research suggesting that presenting uncertainty information improves decision making, both experimentally [@Joslyn2012; @Savelli2013; @Kay2016; @Fernandes2018] and in practice [@Al-Kassab2014]. As a matter of fact, doing what many authors currently do (providing only a deterministic outcome with no uncertainty) causes decision makers to be *less* decisive and have completely unbounded expectations on an outcome [@Savelli2013]. This reality cannot be avoided by providing secondary or non-specific information such as explaining calculations [@Joslyn2012], explaining the advantages of a recommendation [@Joslyn2012], or expressing uncertainty in vague terms [@Erev_1990; @Olson_1997], all of which are undesirable for decision makers and lead to measurably worse decisions [@Joslyn2012; @Erev_1990; @Olson_1997]. One of the most popular depictions of uncertainty for decision making is a quantile dotplot, shown in @fig-quantdot. It is important to avoid whittling down the problem **too** much. Providing a categorical decision alone is somewhat useless [@Joslyn2012], and visualising a single estimate is akin to providing a decision or expressing no uncertainty at all. 
-
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-#| label: fig-quantdot
-#| fig-cap: "This plot depicts an example of a a quantile dotplot that expresses the uncertainty associated with a daily maximum temperature. The probability associated with each temperature is expressed with discrete countable bins and the predicted temperature is expressed with a line. Discretised depictions such as this, make decision making in the face of uncertainty easier for the viewer."
-set.seed(1)
-dotplot_data <- tibble(temp = 10 + round(rnorm(40, mean=10, sd=2))) 
-mid <- round(mean(dotplot_data$temp), 2)
-dotplot_data %>%
-  ggplot(aes(x=temp)) +
-  geom_dotplot(binwidth = 0.75, fill="grey") +
-  theme_classic() +
-  geom_segment(x=round(mid), xend=round(mid), 
-               y=-1, yend=0.7, size=2) +
-  geom_label(x=round(mid), y=0.7, label=paste0(mid, "°C"),
-             fill = "black", fontface = "bold",
-             colour="white") +
-  scale_x_continuous(breaks = seq(10, 30, 5), 
-                     limits = c(10, 30)) +
-  theme(axis.line.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y = element_blank()) +
-  labs(x = "Tomorrow's Daily Max Temperature")
-```
-
-##### Avoiding uncertainty creates a lack of trust
-Not only does communicating uncertainty improve decisions but the mistrust created by communicating certainty in uncertain situations can be exploited. A 6-month survey of anti-mask groups on Facebook during the COVID-19 pandemic showed that the anti-maskers thought carefully about their grammar of graphics and made persuasive visualisations using the same data as pro-mask groups. They did this by exploiting information ignored by the pro-maskers [@Lee2021]. It is understood that deceptive plots can lead viewers to come to incorrect conclusions or significantly overstate effects or risks [@Pandey2015; @Padilla2022] but these incorrect takeaways cannot be mitigated with instructions in how to correctly understand the plot [@Boone2018]. This evidence indicates we are more likely than not to hurt our message when we ignore uncertainty information and trying to raise the general public's plot literacy is an insufficient strategy to curb conspiracy theories and misguided scientific communication.  In direct contrast to this, displaying numerical estimates of uncertainty information has shown to lead to greater trust in predictions [@Joslyn2012; @VanderBles2020]. While @Han2009 found people have more worry when presented with uncertainty regarding health outcomes, this worry is not a bad thing if the concern is warranted given the ambiguous situation.
-
-##### Poeple might simply be chosing to not visualise uncertainty
-The disconnect between the research in support of visualising uncertainty and the consensus against it may not be entirely driven by a lack of understanding of the literature. For example, at least one interviewee from the study by @Hullman2020a claimed that expertise implies that the signal being conveyed is significant, but also said they would omit uncertainty if it obfuscated the message they were trying to convey.  Other authors who were capable of calculating and and representing uncertainty well did not do it, and were unable to provide a self-satisfying reason why [@Hullman2020a]. These conflicting motivations are acknowledged in the paper itself where @Hullman2020a says:
-
-> "It is worth noting that many authors seemed confident in stating rationales, as though they perceived them to be truths that do not require examples to demonstrate. It is possible that rationales for omission represent ingrained beliefs more than conclusions authors have drawn from concrete experiences attempting to convey uncertainty". 
+  
+# 3. Visualisation as a form of uncertainty comunication
+## 3.1 General attitudes towards uncertainty
+## 3.2 Attitudes towards uncertainty visualisation
 
 
 
-#### Continuous vs discrete displays
-There are other distributional features, such as discreteness, that are important to consider in uncertainty visualisation. There is a reasonable amount of evidence that cumulative displays or discrete displays (such as a quantile dot-plots or histograms) are the best ways to express mass for decision making and probability estimates [@Fernandes2018; @Hofmann2012; Kay2016; @Hullman2018; @kale2019decision]. 
+# 4. Uncertainty Visualisation Best Practices
 
-#### Distributions shoud be in a single plot
-Elements from a single distribution should be displayed using a single plot, since displaying the features of one distribution across multiple plots makes the information hard to combine and results in some details (such as the estimate error) being completely ignored [@moritz2017trust; Correll2018]. 
 
-### Perceptual tasks wrt uncertainty
-Not only should we considered the hierarchy in the information we display, but we also need to consider the heuristics that connect some pieces of information to specific elementary tasks. For example @Hofmann2012 showed that polar co-ordinates are more effective than cartesian co-ordinates when considering data that depicts a 360 degree direction (a case where polar co-ordinates has a natural interpretation). Uncertainty also has a natural mapping that should be considered when we express it in a plot. Error is best mapped to fuzziness, location, and colour value; arrangement, size and transparency are an OK second choice; but saturation, hue, orientation and shape are unacceptable and have no intuitive connection to variance [@Maceachren2012]. No only do the graphical elements we map our features to matter, but the direction matters too. Graphical elements that are more fuzzy (fuzziness), further from centre (location), lighter (colour value), poorly arranged (arrangement), smaller (size), more transparent (transparency) are perceived to be more uncertain [@Maceachren2012]. This idea also extends to interval estimation, where questions about probability are best answered with gradients and questions about start and end times are easiest to answer with ambiguation [@Gschwandtnei2016]. Heuristics can work against us just as much as they can work for us. The sine illusion can cause the confidence interval of a smoothed sine curve to seem wider at the peaks than the troughs, causing us to underestimate uncertainty associated with changing values [@Vanderplas2015]. Therefore we should not only keep the hierarchy of information in mind when we map features of our distribution, but also take advantage of these intuitive mappings when we can.
+
+# 5. Future work/Conclusion
+
+
 
 
  
