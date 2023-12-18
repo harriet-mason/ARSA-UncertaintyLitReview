@@ -44,23 +44,24 @@ This issues surrounding uncertainty visualisation is not helped by the fact that
 - **notes from the Xiao-li Meng papers**
 - **papers that talk about task specific stuff**
 
-## 2.2 Taxonomies of Uncertainty
+## 2.2 Taxonomies
+### 2.2.1 Taxonomies of Uncertainty
 More commonly uncertainty is defined using a taxonomy rather than a strict definition.
 
 @fig-taxonomy is an illustration of the taxonomy presented by @utypo. In this taxonomy, there are three things we need to consider for each "uncertainty" we encounter through the modelling process. First, we need to consider the source of the uncertainty. Is this uncertainty coming from inaccurate measurements or a poorly defined model? This is the *location* of the uncertainty. Second, consider how well you can quantify this uncertainty. Do you know exactly how much measurement error there is in each observation or are you not even aware if there is a measurement error? This is the *level* of your uncertainty, and it ranges from discrete to total ignorance. Finally, consider how this uncertainty came into existence. Is it a result of a naturally random process (epistemic) or is it due to imperfect information and could be improved (aleatory). This is the *nature* of your uncertainty. @utypo then goes on to describe mapping our uncertainty in a 3D space that is defined by its location, level, and nature, but I think the taxonomy is more easily understood as a series of questions we need to consider when we are trying to quantify uncertainty.
 
 ![Depicts an illustration of the taxonomy described in @utypo. From right to left the drawing shows the location, level and nature of uncertainty with examples of that category underneath. A specific source of uncertainty from the location can be mapped to a level of ignorance that can increase or decrease (i.e. moving up or down the green line) depending on the nature of the uncertainty. Identifying the location, level and nature of your uncertainty allows you to better understand it. ](taxonomyvis.jpeg){#fig-taxonomy}
 
+### 2.2.1 Taxonomies of Visual Uncertainty
   
-# 3. Visualisation as a form of uncertainty comunication
-## 3.1 General attitudes towards uncertainty
-## 3.2 Attitudes towards uncertainty visualisation
+# 3.General Attitudes...
+## 3.1 Towards uncertainty in general
+## 3.2 Towards uncertainty visualisation
 
 
-
-# 4. Uncertainty Visualisation Best Practices
-
-
+# 4 Uncertainty Visualisation Best Practices
+# 4.1 The current landscape of uncertainty visualisation research
+# 4.2 Take aways from the literature
 
 # 5. Future work/Conclusion
 

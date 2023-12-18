@@ -7,7 +7,12 @@ format: html
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
 
 # General Thoughts For Actual Review
+##### General
+- I might need to go back through and add in notes about general visualisation stuff and bad papers for motivations
+- could also help to include a bunch of papers that talk about density visualisation without mentioning uncertainty visualisation in the "context" section. (for now have left those unsorted)
+
 ##### Introduction
+
 ##### Defining Uncertainty
   - The more taxonomies I read the more convinced I am the "defining uncertainty" is the best one. Not only is it the most complete, but it also identifies WHY some uncertainties are difficult to visualise (specifically which part of the taxonomy) and suggests HOW you can best communicate these uncertainties.
     - A lot of other papers just make a comment like "oh some of these are hard to communicate" but that paper actually goes into detail instead of hand waving the problem away.
@@ -24,6 +29,7 @@ I have an information hoarding problem, this helps me throw out sections of the 
   - put uncertainty in the context of other meta-data of variables
 
 ##### Visualisation as a form of Uncertainty communication
+- A LOT OF the work in uncertainty communication has a sub-field that is visualisation specific
   - Basically I want a brief section highlighting the importance of visualisation and discussing it in relation to other forms of uncertainty communication.
   - especially considering some uncertainty visualisation papers discuss using just a text based method to communicate uncerainty
   
