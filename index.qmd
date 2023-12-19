@@ -40,9 +40,21 @@ tibble(x = c(anscombe$x1, anscombe$x2,
 This issues surrounding uncertainty visualisation is not helped by the fact that the term "uncertainty" lacks a commonly accepted definition in the literature. @Lipshitz1997 even commented that “there are almost as many definitions of uncertainty as there are treatments of the subject” . This mishmash of terminology leads to a large body of work, all claiming to finding the best visualisation or expression of of "uncertainty" but most don't even seem to agree on what uncertainty is. The most encompassing definition of uncertainty I have seen comes from @utypo who define uncertainty as **"any deviation from the unachievable ideal of completely deterministic knowledge of the relevant system"**. This definition encapsulates many concepts adjacent to randomness such as predictions, probability mass distributions (PMF), estimate error, and any data that is not a set of deterministic outcomes. This is the definition of uncertainty I will use for the rest of this report.
   
 ## 2.1 The role of context in defining uncertainty
-- (no visual distinction between sample/pop variance) @Bella2005 found that most participants were ignorant to the fact that error bars are used for both confidence intervals and standard error bars, two wildly different indicators of precision. (**also the paper sherry sent me**)
-- **notes from the Xiao-li Meng papers**
+When statistics is, at its core, the study of uncertainty, discussing uncertainty visualisation as though it is separate from other statistical visualisations is inherrently confusing. This distinction is largely ignored rather than clarified in the literature, and it leads to adjacent unanswered questions. Is our goal in uncertainty communication to acknowledge and convey the inherrent randomness that exists in all statistical calculations and models? Is it to supress signal that could be the result of random variance? Is it to find the best way to convey the mass function of a random variable? A survey of the literature will leave the answers to these questions unclear, however this inherrent issue has not gone unnoticed.
+
+**need for task based understanding**
+- several review papers acknowledge this issue is causing 
 - **papers that talk about task specific stuff**
+- This problem of a task based philosiphy extends all the way back to philisophical uncerstandings of statistics and variance.
+- **notes from the Xiao-li Meng papers**
+- **notes from john paper**
+- While the statistics side brings up the purpose of a model or estimate for a philisophical consideration, it is a real, practical, and urgent problem for uncertainty visualisation. 
+- **go through papers with endless different goals**
+- **review paper that has an entire paragraph discussing differnet findings for box plots based on the task**
+
+**need for statistics links**
+- (no visual distinction between sample/pop variance) @Bella2005 found that most participants were ignorant to the fact that error bars are used for both confidence intervals and standard error bars, two wildly different indicators of precision. (**also the paper sherry sent me**)
+
 
 ## 2.2 Taxonomies
 ### 2.2.1 Taxonomies of Uncertainty
