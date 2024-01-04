@@ -6,6 +6,11 @@ format: html
 # Why this exists
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
 
+# context section outtakes
+This conceptual way of thinking about uncertainty has been rattling around in the different areas of data science for a while.
+For example, when we record coin flips we typically want to model the behavior with a binomial distribution, so we ignore the outcome of a coin landing on its side despite the fact it is a real world possibility.
+@Wallsten1997 argue that the best method for evaluating or combining subjective probabilities depends on the uncertainty the decision maker wants to represent and why it matters.  @Munzner2009 created a nested model for visualisation that highlighted how pitfalls in upstream levels, such as problem characterisation and data abstraction, can cause downstream effects and damage the effectivness of a visualisation. @Fischhoff2014 looks at uncertainty visualisation for decision making decides that we should have different ways of communicating uncertainty based off what the user is supposed to do with it.
+
 # General Thoughts For Actual Review
 ##### General
 - I might need to go back through and add in notes about general visualisation stuff and bad papers for motivations
