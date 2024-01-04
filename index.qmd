@@ -41,7 +41,7 @@ tibble(x = c(anscombe$x1, anscombe$x2,
 ## 2.1 Uncertainty is goal dependent
 Statistics is, at its core, the study of uncertainty. Therefore discussing uncertainty visualisation a a separate sub domain to "normal" data visualisation is inherently confusing. What is typically meant by "uncertainty" visualisation is "noise", that is, we want to present some signal cushioned by its natural variance. Unfortunately, this distinction between "signal" and "noise" is entirely goal dependent.
 
-The entire process of data analysis, from deciding what should be observed as data through to communicating that data in a plot is governed by human decision and the goal of analysis. This conceptual way of thinking about uncertainty has been rattling around in the philisophical discussions of uncertainty for quite a while. 
+The entire process of data analysis, from deciding what should be observed as data through to communicating that data in a plot is governed by human decision and the goal of analysis. This conceptual way of thinking about uncertainty has been rattling around in the philosophical discussions of uncertainty for quite a while. 
 
 @Otsuka2023 points out that the philosophy of statistics is build upon taking real world entities and boiling them down into probabilistic objects and this ontological process is largely dependent on our goals. For example, when we record coin flips we typically want to model the behavior with a binomial distribution, so we ignore the outcome of a coin landing on its side despite the fact it is a real world possibility.  
 
