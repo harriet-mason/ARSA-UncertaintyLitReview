@@ -55,7 +55,6 @@ Since uncertainty visualisation is largely goal dependent, hard and fast uncerta
 
 After all, the distinction between uncertainty and signal is largely determined by the goal of an analysis rather than any inherent properties of our data. 
 
-
 This leads to several unanswered questions. Is our goal in uncertainty communication to acknowledge and convey the inherrent randomness that exists in all statistical calculations and models? Is it to supress signal that could be the result of random variance? Is it to find the best way to convey the mass function of a random variable? A survey of the literature will leave the answers to these questions unclear, however this inherrent issue has not gone unnoticed.
 
 
@@ -91,11 +90,10 @@ More commonly uncertainty is defined using a taxonomy rather than a strict defin
 ## 3.1 Towards uncertainty in general
 ## 3.2 Towards uncertainty visualisation
 
-
-# 4 Uncertainty Visualisation Best Practices
 In this section we will first go over the current state of uncertainty visualisation research, which is currently a collection of evaluation studies and review papers, and discuss what it is doing well and what could be done better. Following that, we will provide general reccomendations from the literature.
 
-# 4.1 The current landscape of uncertainty visualisation research
+# 4 The current landscape of uncertainty visualisation research
+# 4.1 The landscape
 In section 2.1 it was mentioned that uncertainty must be defined within a specific motivating question, otherwise it inherently does not make sense. A large difficulty with the uncertainty visualisation evalusation studies is that this rule is not followed. There are a shockingly large number of evaluation studies that seem to pay no attention to the information that is relevant to the question they are asking, and show participants a selection of seemingly random visualisations from a statistical point of view. 
 
 - inferential uncertainty and outcome uncertainty ARE NOT THE SAME THING??? they visualise DIFFERENT DISTRIBUTIONS
@@ -104,7 +102,11 @@ We define two primary motivations for uncertainty visualisation.
   1) To prevent deterministic conclusions from a random signal (uncertainty as noise)
   2) To convey information about a variance, probability, or other random event (uncertainty as signal)
 
-# 4.2 Take aways from the literature
+# 4.2 Key points from the literature
+
+# 5 Great Examples
+- best things you have seen and why they are the best
+- can't have a best practices because you need experimental results and my point is that the experiments aren't testing the right things
 
 # 5. Future work/Conclusion
 
