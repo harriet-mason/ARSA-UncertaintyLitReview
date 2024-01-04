@@ -37,10 +37,28 @@ tibble(x = c(anscombe$x1, anscombe$x2,
 
 
 # 2. Defining Uncertainty
-This issues surrounding uncertainty visualisation is not helped by the fact that the term "uncertainty" lacks a commonly accepted definition in the literature. @Lipshitz1997 even commented that “there are almost as many definitions of uncertainty as there are treatments of the subject” . This mishmash of terminology leads to a large body of work, all claiming to finding the best visualisation or expression of of "uncertainty" but most don't even seem to agree on what uncertainty is. The most encompassing definition of uncertainty I have seen comes from @utypo who define uncertainty as **"any deviation from the unachievable ideal of completely deterministic knowledge of the relevant system"**. This definition encapsulates many concepts adjacent to randomness such as predictions, probability mass distributions (PMF), estimate error, and any data that is not a set of deterministic outcomes. This is the definition of uncertainty I will use for the rest of this report.
   
-## 2.1 The role of context in defining uncertainty
-When statistics is, at its core, the study of uncertainty, discussing uncertainty visualisation as though it is separate from other statistical visualisations is inherrently confusing. This distinction is largely ignored rather than clarified in the literature, and it leads to adjacent unanswered questions. Is our goal in uncertainty communication to acknowledge and convey the inherrent randomness that exists in all statistical calculations and models? Is it to supress signal that could be the result of random variance? Is it to find the best way to convey the mass function of a random variable? A survey of the literature will leave the answers to these questions unclear, however this inherrent issue has not gone unnoticed.
+## 2.1 Uncertainty is goal dependent
+Statistics is, at its core, the study of uncertainty. Therefore discussing uncertainty visualisation a a separate sub domain to "normal" data visualisation is inherently confusing. What is typically meant by "uncertainty" visualisation is "noise", that is, we want to present some signal cushioned by its natural variance. Unfortunately, this distinction between "signal" and "noise" is entirely goal dependent.
+
+The entire process of data analysis, from deciding what should be observed as data through to communicating that data in a plot is governed by human decision and the goal of analysis. This conceptual way of thinking about uncertainty has been rattling around in the philisophical discussions of uncertainty for quite a while. 
+
+@Otsuka2023 points out that the philosophy of statistics is build upon taking real world entities and boiling them down into probabilistic objects and this ontological process is largely dependent on our goals. For exmaple, when we record coin flips we typically want to model the behavior with a binomial distribution, so we ignore the outcome of a coin landing on its side despite the fact it is a real world possibility.  
+
+@Meng2014 shows that the entire concept of signal and noise are relative and the noise for one goal can be the signal for another. This break down is done by considering the data source, the "resolution" of the problem and data, and the phases involved in the analysis. 
+
+@Carlin2023 
+
+Since uncertainty visualisation is largely goal dependent, hard and fast uncertainty visualisation rules are difficult to design. Additionally communication of statistics cannot ignore the ontological process discussed by @Otsuka2023 because the goal of communication is to map those statistical objects back to real world entities.
+
+After all, the distinction between uncertainty and signal is largely determined by the goal of an analysis rather than any inherent properties of our data. 
+
+
+This leads to several unanswered questions. Is our goal in uncertainty communication to acknowledge and convey the inherrent randomness that exists in all statistical calculations and models? Is it to supress signal that could be the result of random variance? Is it to find the best way to convey the mass function of a random variable? A survey of the literature will leave the answers to these questions unclear, however this inherrent issue has not gone unnoticed.
+
+
+
+- Should the visualisations change based on these goals? 
 
 **need for task based understanding**
 - several review papers acknowledge this issue is causing 
@@ -55,6 +73,7 @@ When statistics is, at its core, the study of uncertainty, discussing uncertaint
 **need for statistics links**
 - (no visual distinction between sample/pop variance) @Bella2005 found that most participants were ignorant to the fact that error bars are used for both confidence intervals and standard error bars, two wildly different indicators of precision. (**also the paper sherry sent me**)
 
+Uncertainty can only be defines within a specific problem. There is not a universal motivation agnostic "uncertainty" similarly as there is no motivation agnostic "signal". Therefore, in our following definitions of uncertainty, we will assume that the uncertainties we discuss are connected to some specific question.
 
 ## 2.2 Taxonomies
 ### 2.2.1 Taxonomies of Uncertainty
@@ -72,7 +91,17 @@ More commonly uncertainty is defined using a taxonomy rather than a strict defin
 
 
 # 4 Uncertainty Visualisation Best Practices
+In this section we will first go over the current state of uncertainty visualisation research, which is currently a collection of evaluation studies and review papers, and discuss what it is doing well and what could be done better. Following that, we will provide general reccomendations from the literature.
+
 # 4.1 The current landscape of uncertainty visualisation research
+In section 2.1 it was mentioned that uncertainty must be defined within a specific motivating question, otherwise it inherently does not make sense. A large difficulty with the uncertainty visualisation evalusation studies is that this rule is not followed. There are a shockingly large number of evaluation studies that seem to pay no attention to the information that is relevant to the question they are asking, and show participants a selection of seemingly random visualisations from a statistical point of view. 
+
+- inferential uncertainty and outcome uncertainty ARE NOT THE SAME THING??? they visualise DIFFERENT DISTRIBUTIONS
+
+We define two primary motivations for uncertainty visualisation.
+  1) To prevent deterministic conclusions from a random signal (uncertainty as noise)
+  2) To convey information about a variance, probability, or other random event (uncertainty as signal)
+
 # 4.2 Take aways from the literature
 
 # 5. Future work/Conclusion
