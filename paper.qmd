@@ -9,36 +9,9 @@ editor_options:
 ---
 
 
-- Can discuss each uncertainty in isolation using distributions, ranges, and lists of alternatives, but the total cumulative uncertainty from every stage is more difficult (near impossible) @Spiegelhalter2017
-- "cannot assess the quality of risk communication unless the objectives are clear" circles back to motivation. He assumes we are fulfilling a duty to inform. @Spiegelhalter2017
-- the Affect heuristic comes to play in how people understand risk @Spiegelhalter2017
-- avoids the topic of risk at times of accute crisis because numerical risk would be inappropriate @Spiegelhalter2017
-- positive vs negative framing matters, can try to avoid it @Spiegelhalter2017
-- no preference between percent or frequency although (small interaction with numeracy skills though) @Spiegelhalter2017
-- Need careful specification of the reference class (e.g. % chance of rain should be fractions of situations like this in which is rains - over both time and location) @Spiegelhalter2017
-- Need to make time interval clear (50% each year) @Spiegelhalter2017
-- understanding better in a table than text @Spiegelhalter2017
-- if expressing as a frequency, note that larger numerators suggest a larger risk, exteme version of this is ignoring the denominator all together @Spiegelhalter2017
-- Graphical features that improve accuracy, features that facilitate behavioural change, and features that viewers like may be different (are not necessarily the same). @Spiegelhalter2017
-- also should consider graphical literacy @Spiegelhalter2017
-- graphs are good for gists and different graphics are good at different things (i.e. trends vs comparison etc) but hard to avoid framing (show information as part of a whole) @Spiegelhalter2017
-- scatting in pictograph increases the impression of randomness but makes it difficult to count @Spiegelhalter2017
-- people with high numeracy count pictographs but low numeracy assess area @Spiegelhalter2017
-- simplifying a multui-outcome array to two outcomes improved understanding @Spiegelhalter2017
-- using words to communicate numerical risk is generally discouraged and using words without numerical interpretation can lead to lower accuracy and higher risk aversion @Spiegelhalter2017
-- heath had a wide range of different metrics they adopted to communicate chronic risk of adverse events in the future @Spiegelhalter2017
-- hard to communicate small risks because people struggle to discrimintate between 1 in 10 000 and 1 in 100 000. Common solution is to use a logarithmic scale (if drawn vertically these are known as risk ladders). design of scale important because risk is associated with position rather than magnitude @Spiegelhalter2017
-- compares a bunch of stuff to the chance of getting struck by lightning since they are on a common scale (which is kind of funny) @Spiegelhalter2017
-- hierarchy for level of precision for epistemic uncertainty: 1) numbers given to appropriate levels of precision 2) a distribution range 3) a measure of statistical significance 4) verbal quantifiers to numbers 5) refusal to give a number unless the evidence is good enough @Spiegelhalter2017
-- Approaches to communicating limited understanding include 1) explicit model uncertainty 2) Qualitative scales expressed as strength of evidence (e.g. high to low certainty of evidence) 3) Acknowledge limitations and their possible impact 4) Acknowledged ignorance @Spiegelhalter2017
-- He then went through and explained how uncertainty is communicated across a wide range of areas @Spiegelhalter2017
-- Hurricane risk is not only the path, but also the storm surge and wind speed. @Spiegelhalter2017
-- coloured maps for earthquake risk are easily interpretable @Spiegelhalter2017
-- low-probability high-impact events are particularly difficult to communicate risks about @Spiegelhalter2017
-- industrial accidents have a "tollerable" risk chart based on risk and number of fatalities @Spiegelhalter2017
 
-- General issues when communicating risks: clear objectives, segment audience into target groups, use plain language and limit info to only what is necessary, allow for different levels of interest knowledge and numeracy (a gist level, numerical level, then evidence and uncertainty) @Spiegelhalter2017
-- Numerical risks: Use absolute risks (but relative risk when catastrophic event), for single unique event use percent chance, express change as a proportion, frequency, or percentage (and be clear about reference class), avoid framing bias by showing risk with and without the outcome, keep the denominator fixed when making comparisons, explicit about time interval, For more knowledgeable audiences consider providing epistemic uncertainty and confidence in analysis @Spiegelhalter2017
+
+
 
 # 1. Introduction
 Think back to the last time you made some sort of data visualisation. What was the purpose of that visualisation? Was it to better understand your data? Was it to help you make a decision? Was it to to communicate that decision to someone else? Now think about the last time you expressed some form of uncertainty. Was it a set of numerical confidence intervals? Maybe they were expressed as a set of values in a table. Did you consider visualising your uncertainty instead? There are many stages in our analysis that benefit from the power of data visualisation, however this does not mean it is always done with success. Visualization is an important step in exploratory data analysis and it is often utilised to **learn** what is important about a data set. The importance of data driven discovery is highlighted by data sets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg]. Each of the pairwise plots in these data sets have the same summary statistics but strikingly different information when visualised. Anscombe quartet is shown in @fig-anscombe, because describing the data is never the same as seeing it. Instead of having to repeatedly check endless hypothesis to find interesting numerical features, visualisations **tell** us what is important about our data. This powerful aspect of data visualisation is poorly or seldom used in later stages when we are communicating our findings, specifically with respect to uncertainty.
@@ -69,19 +42,14 @@ tibble(x = c(anscombe$x1, anscombe$x2,
 ```
 
 
+- industrial accidents have a "tollerable" risk chart based on risk and number of fatalities @Spiegelhalter2017
 # 2. Defining Uncertainty
+## 2.1 Coloquially
+## 2.2 Through Taxonomies
 Uncertainty visualisation is not made any easier by the fact that the term "uncertainty" lacks a commonly accepted definition in the literature. @Lipshitz1997 even commented that “there are almost as many definitions of uncertainty as there are treatments of the subject”. This mishmash of terminology leads to a large body of work, all claiming to finding the best visualisation or expression of of "uncertainty" but most don't even seem to agree on what uncertainty is. 
 - mentions uncertainty can be variance, precision, accuracy, reliability, or related concepts @Hullman2016
 
-## 2.2 Taxonomies
 Papers that mention uncertainty often use a single sentance definition that suits the purpose of the paper, while papers that seek to define uncertainty use a taxonomy. While
-
-Most definitions of uncertainty are done with a taxonomy. Most papers that provide a definition of uncert Within the context of a motivating uncertainty can be classified and  
-
-
-
-### 2.2.1 Taxonomies of Uncertainty
-
 
 More commonly uncertainty is defined using a taxonomy rather than a strict definition.
 
@@ -95,29 +63,64 @@ More commonly uncertainty is defined using a taxonomy rather than a strict defin
 - If the distinction between noise and uncertainty is largely task dependent, considerations of quantifying and expressing uncertainty should be considered for the entire duraction of a project; another concept that has been independently identified by several authors [@Kinkeldey2014; @Refsgaard2007]
 - The most encompassing definition of uncertainty I have seen comes from @utypo who define uncertainty as **"any deviation from the unachievable ideal of completely deterministic knowledge of the relevant system"**. This definition encapsulates many concepts adjacent to randomness such as predictions, probability mass distributions (PMF), estimate error, and any data that is not a set of deterministic outcomes. This is the definition of uncertainty I will use for the rest of this report.
 - While quantification of the uncertainty that arrises from statistical philosophy and data provenance are beyond the scope of this paper, how this uncertainty is communicated is not. The ontological process discussed by @Otsuka2023 where information is tossed as we boil our information down into statistical objects requires us to map our statistical objects back to real world entities. This means the noise introduced and signal lost in earlier stages of the data analysis need to be identified, quantified and expressed in terms of real world outcomes. Visualisation is often the final stage of larger data science project and the down stream effects of poor abstraction and problem at the lower levels become impossible to ignore [@Munzner2009]. 
-
-### 2.2.1 Taxonomies of Visual Uncertainty
-  - Most research had focused on developing taxonomies of uncertainty and developing methods to depict uncertainty visually @Kinkeldey2014
-- 5 dichotomous categories of uncertainty can be identified (1) explicit/implicit (directly mapping or showing multiple outcomes) (2) intrinsic/extrinsic (using existing symbols e.g. colour value, or new objects e.g. grids) (3) visually integral/separable (can or cannot be separated from the data) (4) coincidence/adjacent (if data and uncertainty are in integrated or separate views (5) static/dynamic (animation/interaction) @Kinkeldey2014
-- Based on those they only use (4), (2), and (5), left out (1) because most visualisations are explicit, and (3) corresponds to (1) in most cases. @Kinkeldey2014
-- They sugest that future typologies should take different categoeis of tasks into account (1) communication tasks (2) analytical tasks (3) exploratory takss. List task-centred typology as a main topic for future research in the field to facilitate practical guidelines in this field @Kinkeldey2014
-
-
+- Approaches to communicating limited understanding include 1) explicit model uncertainty 2) Qualitative scales expressed as strength of evidence (e.g. high to low certainty of evidence) 3) Acknowledge limitations and their possible impact 4) Acknowledged ignorance @Spiegelhalter2017
+- hierarchy for level of precision for epistemic uncertainty: 1) numbers given to appropriate levels of precision 2) a distribution range 3) a measure of statistical significance 4) verbal quantifiers to numbers 5) refusal to give a number unless the evidence is good enough @Spiegelhalter2017
 - @Spiegelhalter2017 Establishes that risk is known probabilities and uncertainty is estimated probabilities (i.e. more real world). Suggest uncertainty is what we have when you cannot accurately quantify risk
 - Highlights the lack of a clear definition of uncertainty "it depends on who you ask" @Spiegelhalter2017
 - ambiguity is also poorly defined, as it can be basically the same as uncertainty (uncertain probabilities) or contested values @Spiegelhalter2017
 - A lot of taxonomies for uncertainty, simple is "known knowns, known unknowns, and unknown unknowns", ka (known, unknown, nad unknowable), (risk, uncertainty, ignorance). This also breaks down into the framework of aleatory uncertainty (unavoidable randomness), epistemic uncertatiny (uncertainty about structure, still quantified), ontological uncertainty (uncertain about entire modelling process). @Spiegelhalter2017
-# 3.General Attitudes...
+- Can discuss each uncertainty in isolation using distributions, ranges, and lists of alternatives, but the total cumulative uncertainty from every stage is more difficult (near impossible) @Spiegelhalter2017
+# 3.General Attitude Towards Uncertainty + Its communication
 I dont think this is worth a section but it is mentioned a lot in .
 - the role of unertainty visualisation is to communicate accurate information
 - problem of communicating to a group thing (avoid communicating inaccurate information)
 - how people feel about uncertainty is irrelevant
   - natural disasters make people uncomfortable but to include it in a conversation about whether or not we should express it is rediculous.
+- Numerical risks: Use absolute risks (but relative risk when catastrophic event), for single unique event use percent chance, express change as a proportion, frequency, or percentage (and be clear about reference class), avoid framing bias by showing risk with and without the outcome, keep the denominator fixed when making comparisons, explicit about time interval, For more knowledgeable audiences consider providing epistemic uncertainty and confidence in analysis @Spiegelhalter2017
 
-## 3.1 Towards uncertainty in general
-## 3.2 Towards uncertainty visualisation
+- General issues when communicating risks: clear objectives, segment audience into target groups, use plain language and limit info to only what is necessary, allow for different levels of interest knowledge and numeracy (a gist level, numerical level, then evidence and uncertainty) @Spiegelhalter2017
+
+
+- compares a bunch of stuff to the chance of getting struck by lightning since they are on a common scale (which is kind of funny) @Spiegelhalter2017
+- hard to communicate small risks because people struggle to discrimintate between 1 in 10 000 and 1 in 100 000. Common solution is to use a logarithmic scale (if drawn vertically these are known as risk ladders). design of scale important because risk is associated with position rather than magnitude @Spiegelhalter2017
+- heath had a wide range of different metrics they adopted to communicate chronic risk of adverse events in the future @Spiegelhalter2017
+- using words to communicate numerical risk is generally discouraged and using words without numerical interpretation can lead to lower accuracy and higher risk aversion @Spiegelhalter2017
+- the Affect heuristic comes to play in how people understand risk @Spiegelhalter2017
+- avoids the topic of risk at times of accute crisis because numerical risk would be inappropriate @Spiegelhalter2017
+- positive vs negative framing matters, can try to avoid it @Spiegelhalter2017
+- no preference between percent or frequency although (small interaction with numeracy skills though) @Spiegelhalter2017
+- Need careful specification of the reference class (e.g. % chance of rain should be fractions of situations like this in which is rains - over both time and location) @Spiegelhalter2017
+- Need to make time interval clear (50% each year) @Spiegelhalter2017
+- understanding better in a table than text @Spiegelhalter2017
+- if expressing as a frequency, note that larger numerators suggest a larger risk, exteme version of this is ignoring the denominator all together @Spiegelhalter2017
 
 # 4 LITERATURE SUMMARY
+# 4. Similar work (other literature reviews)
+- If you just keep using rankings, you need to compare everything one by one forever to get an idea of the space @Hullman2016
+- people sometimes ignore uncertainty and instead look at the pattern (e.g. distance between means) and use a heuristic to answer the question. be proactive about possible heuristics, look for signes of heuristics in responses, ask subjects to describe their strategy, consider including degree of heuristic as a dependent variable @Hullman2016
+- People believe in the law of small numbers but dont believe in the lar of large numbers @Hullman2016
+- experiencing an event makes your percieved probability higher than if you see a description of it @Hullman2016
+- Blur and fog are suggested because they are metaphors for uncertainty, however the usefulness of these metaphors is rarely investigated @Kinkeldey2014
+- Frequency thing means that more effective communication to participants in a study means more effective science and we have a roll on effect @Hullman2016
+- Probability judgements are less relative than other psychophysical judgements, 0%, 50% and 100% all have well understood meanings. Subjective probability distributions are spontaneous, and subjects are constructing a distribution upon being asked rather than articulating a fully formed mental representation of their beliefs. Therefore it is subject to heuristics. consider anchoring a scale with farmiliar probabilities . not sure if being asked for the entire distribution helps, e.g. the graphical one reduces noise but asking people for an interval estimation leads to overprecision and overconfidence @Hullman2016
+- If the goal is to compare visualisation, ground truth is easy, if the goal is to evaluate how accurate the subjective probability distributions are, the ground truth becomes complex. ground truth issue e.g. if you provide a sample from a distribution, is the true value the mean of that sample or the population mean? @Hullman2016
+- believed that offering enough decisions with varying rewards you can observe the true subjective probability, however whether or not probability is the right representation of subjective uncertainty is a topic of debate @Hullman2016
+- she also discusses graphical interface (users have to draw the probability distribution) and framing probabilities as natural frequencies are better choices because they reduce noise and stuff.@Hullman2016
+- Consider incorperating utility functions. Include "probability-coherence" checks @Hullman2016
+- evidence that people do not follow the axioms of probability when conveying subjective probabilities. How do you deal with this as an analyst (e.g. if the probabilities do not sum to 1 @Hullman2016
+- If someone answers a question correctly it is hard to tell if it was because of the information provided or if the person was using a heuristic @Hullman2016
+- You cant tell if subjects in an experiment do poorly because the visualisation was bad or because the question was misinterpreted @Hullman2016
+- Visualisations risk: consider a good summary table as a visualisation, use multiple formats because no single representation suits all members of an audience, illuminate graphics with words and numbers, design graphics to allow a part-to-whole comparison on an appropriate scale, narrative labels are important (show magnitude through tick marks), use narrative, images and metaphors to gain/retain attention but dont arouse undue emotion, assume low numeracy of a general public audience and adopt a less-is-more approach by reducing the need for inderence and making clear and explicit comparison, be cautious about interactivity and animations (may introduce uncessary complexity), avoid chart junk (like 3d bar charts), assess the needs of the audience, and iterate towards a final design. @Spiegelhalter2017
+- Graphical features that improve accuracy, features that facilitate behavioural change, and features that viewers like may be different (are not necessarily the same). @Spiegelhalter2017
+- also should consider graphical literacy @Spiegelhalter2017
+- graphs are good for gists and different graphics are good at different things (i.e. trends vs comparison etc) but hard to avoid framing (show information as part of a whole) @Spiegelhalter2017
+- scatting in pictograph increases the impression of randomness but makes it difficult to count @Spiegelhalter2017
+- people with high numeracy count pictographs but low numeracy assess area @Spiegelhalter2017
+# 4.?? Taxonomies of Visual Uncertainty
+  - Most research had focused on developing taxonomies of uncertainty and developing methods to depict uncertainty visually @Kinkeldey2014
+- 5 dichotomous categories of uncertainty can be identified (1) explicit/implicit (directly mapping or showing multiple outcomes) (2) intrinsic/extrinsic (using existing symbols e.g. colour value, or new objects e.g. grids) (3) visually integral/separable (can or cannot be separated from the data) (4) coincidence/adjacent (if data and uncertainty are in integrated or separate views (5) static/dynamic (animation/interaction) @Kinkeldey2014
+- Based on those they only use (4), (2), and (5), left out (1) because most visualisations are explicit, and (3) corresponds to (1) in most cases. @Kinkeldey2014
+- They sugest that future typologies should take different categoeis of tasks into account (1) communication tasks (2) analytical tasks (3) exploratory takss. List task-centred typology as a main topic for future research in the field to facilitate practical guidelines in this field @Kinkeldey2014
 ## intro
 In this section we will first go over the current state of uncertainty visualisation research, which is currently a collection of evaluation studies and review papers, and discuss what it is doing well and what could be done better. Following that, we will provide general reccomendations from the literature.
 
@@ -126,6 +129,8 @@ In this section we will first go over the current state of uncertainty visualisa
 - The question in these papers is often "does method a work better than method B" which is an engineering approach, where the toal is to improve a particular product rather than create general principals @Kinkeldey2014
 - Authors then try to generalise beyond the specific constraints of the test even though the framing does not allow for it @Kinkeldey2014
 - Alternatively, we should ask how/why does method A work better than method B, which grounds work in perceptual and cognative theory and provides a framwork @Kinkeldey2014
+
+- low-probability high-impact events are particularly difficult to communicate risks about @Spiegelhalter2017
 
 # 4.?? Noise vs Signal (question +)
 The first issue that arises with uncertainty research is that uncertainty is frequently treated as a signal, not noise. This discrepancy is also noted by @Kinkeldey2014 who, in their own literature review on uncertainty methods, comment that the literature seems unsure if uncertainty is simply another variable or if it should be treated differently. This is a fair question to ask. If uncertainty is simply a signal we are trying to convey, why should it be treated any different to any other signal in a visualisation? 
@@ -147,7 +152,9 @@ Questions where uncertainty is a noise
 - When asking questions, researchers should focus on events that can be repeated (because of a misunderstanding of confidence intervals) @Hullman2016
 - Uncertainty defined as a by product of the process of making a visualisation, from data collection to commucating @Hullman2016
 - Some questions (e.g. what are the chances that the no.6 bus will arrive first) you can elicit the viewers subjective probability distribution @Hullman2016
+- communication tasks: This category comprises map reading tasks involving data and uncertainty value retrieval (which location is most uncertain?). For tasks from this category, visualisation techniques can be chosen following the traditional rules from cartography. @Kinkeldey2014 (basically saying why dont you just use what is already here if you are treating uncertainty as a signal, which I agree with) 
 # 4.?? Tasks and Motivating Questions
+- "cannot assess the quality of risk communication unless the objectives are clear" circles back to motivation. He assumes we are fulfilling a duty to inform. @Spiegelhalter2017
 ## 4.1?? In other statistics
 What is meant by "uncertainty" may seem obvious to some, but when you attempt to quantify or visualise it you will quickly find yourself asking, "uncertainty about... what?". Do you mean uncertainty on an estimate? On a forecast? How many steps ahead is this forecast? Are we only considering the uncertainty in the estimate or in the parameters or are we considering the possibility of measurement error or biased inputs? Signal and noise can only be untangled in the presence of a motivating question.
 
@@ -198,7 +205,7 @@ Notes from previous sections that were moved here
 - rarely used extension is aggregation of uncertainty over an area (retrieve overall estimation from a spatial distribution of uncertainty). Other tasks include comparisons, rankings. also have a task called "search" where participants have to identify entities that fulfill certainty characteristics (high or low values) @Kinkeldey2014
 - Whether to use classed or unclassed uncertainty is rarely discussed @Kinkeldey2014. e.g. land map with remotely sensed images has ambiguity in the boundaries, which can result from multiple sources (land cover class, measurement error, images from different dates). If you combine them all it might not make sense for someone who only needs one.
 
-## 4.?? Importance (and unimportance) of Meta information
+# 4.?? Importance (and unimportance) of Secondary and Meta information
 - Specifies uncertainty can be represented by three components attribute (what) position (where) and temporal (when) @Kinkeldey2014
 - Studies dealing with uncertainty information typically deal with attribute but rarely position and time @Kinkeldey2014
 - 10/44 studies involve multiple types of uncertainty @Kinkeldey2014
@@ -214,25 +221,8 @@ Notes from previous sections that were moved here
   - Not a feature of the data, but it is a feature of the question "how do I show uncertainty on a map?". This is a fine question to ask, but the lack of specificity in what is being done, and the zoning in on functionally irrelevant elements leads the literature as a huge mess.
 
 
-# 4.?? Required Changes and Considerations to the Experimental Space 
-- If you just keep using rankings, you need to compare everything one by one forever to get an idea of the space @Hullman2016
-- people sometimes ignore uncertainty and instead look at the pattern (e.g. distance between means) and use a heuristic to answer the question. be proactive about possible heuristics, look for signes of heuristics in responses, ask subjects to describe their strategy, consider including degree of heuristic as a dependent variable @Hullman2016
-- People believe in the law of small numbers but dont believe in the lar of large numbers @Hullman2016
-- experiencing an event makes your percieved probability higher than if you see a description of it @Hullman2016
-- Blur and fog are suggested because they are metaphors for uncertainty, however the usefulness of these metaphors is rarely investigated @Kinkeldey2014
-- Frequency thing means that more effective communication to participants in a study means more effective science and we have a roll on effect @Hullman2016
-- Probability judgements are less relative than other psychophysical judgements, 0%, 50% and 100% all have well understood meanings. Subjective probability distributions are spontaneous, and subjects are constructing a distribution upon being asked rather than articulating a fully formed mental representation of their beliefs. Therefore it is subject to heuristics. consider anchoring a scale with farmiliar probabilities . not sure if being asked for the entire distribution helps, e.g. the graphical one reduces noise but asking people for an interval estimation leads to overprecision and overconfidence @Hullman2016
-
-- If the goal is to compare visualisation, ground truth is easy, if the goal is to evaluate how accurate the subjective probability distributions are, the ground truth becomes complex. ground truth issue e.g. if you provide a sample from a distribution, is the true value the mean of that sample or the population mean? @Hullman2016
-- believed that offering enough decisions with varying rewards you can observe the true subjective probability, however whether or not probability is the right representation of subjective uncertainty is a topic of debate @Hullman2016
-- she also discusses graphical interface (users have to draw the probability distribution) and framing probabilities as natural frequencies are better choices because they reduce noise and stuff.@Hullman2016
-- Consider incorperating utility functions. Include "probability-coherence" checks @Hullman2016
-- evidence that people do not follow the axioms of probability when conveying subjective probabilities. How do you deal with this as an analyst (e.g. if the probabilities do not sum to 1 @Hullman2016
-- If someone answers a question correctly it is hard to tell if it was because of the information provided or if the person was using a heuristic @Hullman2016
-- You cant tell if subjects in an experiment do poorly because the visualisation was bad or because the question was misinterpreted @Hullman2016
-
-
-- Visualisations risk: consider a good summary table as a visualisation, use multiple formats because no single representation suits all members of an audience, illuminate graphics with words and numbers, design graphics to allow a part-to-whole comparison on an appropriate scale, narrative labels are important (show magnitude through tick marks), use narrative, images and metaphors to gain/retain attention but dont arouse undue emotion, assume low numeracy of a general public audience and adopt a less-is-more approach by reducing the need for inderence and making clear and explicit comparison, be cautious about interactivity and animations (may introduce uncessary complexity), avoid chart junk (like 3d bar charts), assess the needs of the audience, and iterate towards a final design.
+- Hurricane risk is not only the path, but also the storm surge and wind speed. @Spiegelhalter2017
+- coloured maps for earthquake risk are easily interpretable @Spiegelhalter2017
 # 5 Great Examples
 - best things you have seen and why they are the best
 - can't have a best practices because you need experimental results and my point is that the experiments aren't testing the right things
