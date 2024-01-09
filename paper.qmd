@@ -95,6 +95,47 @@ I dont think this is worth a section but it is mentioned a lot in .
 - if expressing as a frequency, note that larger numerators suggest a larger risk, exteme version of this is ignoring the denominator all together @Spiegelhalter2017
 
 # 4 LITERATURE SUMMARY
+# Experiment paper checklist
+General
+- Specific Field of Research
+- Question asked
+- Risk or Uncertainty: 
+- Noise vs signal (risk vs uncertainty)
+- Major task goal
+    - e.g. identify a bias or misunderstanding, compare two visualisation methods
+- Minor task goal
+    - Communication(value retrieval)
+    - Analytical(complex consideration)
+    - Exploration(free for all)
+
+Uncertainty Considerations
+	- Source
+	- Level (statistical-ignorance)
+	- Nature (Epistemic/Aleatory)
+
+Visual Uncertainty taxonomy
+- Explicit/implicit
+    - (directly mapping or showing multiple outcomes)
+- Intrinsic/Extrinsic 
+    - (using existing symbols e.g. colour value, or new objects e.g. grids)
+- Visually integral/separable 
+    - (can or cannot be separated from the data) 
+- Coincidence/adjacent 
+    - (if data and uncertainty are in integrated or separate views
+- Static/dynamic 
+    - (animation/interaction) 
+
+Other plot considerations
+	- Dimension of data
+	- Dimension of uncertainty
+	- Feature mappings
+
+Extra (not necessarily recorded)
+	- Metrics used (and recorded)
+	- Possible Heuristics
+	- What is the ground truth?
+	- Participant literacy
+
 # 4. Similar work (other literature reviews)
 - If you just keep using rankings, you need to compare everything one by one forever to get an idea of the space @Hullman2016
 - people sometimes ignore uncertainty and instead look at the pattern (e.g. distance between means) and use a heuristic to answer the question. be proactive about possible heuristics, look for signes of heuristics in responses, ask subjects to describe their strategy, consider including degree of heuristic as a dependent variable @Hullman2016
