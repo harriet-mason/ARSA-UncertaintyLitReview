@@ -194,6 +194,9 @@ Questions where uncertainty is a noise
 - Uncertainty defined as a by product of the process of making a visualisation, from data collection to commucating @Hullman2016
 - Some questions (e.g. what are the chances that the no.6 bus will arrive first) you can elicit the viewers subjective probability distribution @Hullman2016
 - communication tasks: This category comprises map reading tasks involving data and uncertainty value retrieval (which location is most uncertain?). For tasks from this category, visualisation techniques can be chosen following the traditional rules from cartography. @Kinkeldey2014 (basically saying why dont you just use what is already here if you are treating uncertainty as a signal, which I agree with) 
+- papers usually have same variance if there is a signal question, and use the mean as a proxy to answer the question. Really should ask a changing signal question where the signal IS impacted by the uncertainty information.
+- Weirdly When setting their ground truth it seems like a lot of papers EXPECT participants to completely ignore uncertainty information as noise. Like the participants are actually considered to be incorrect if they dampen their signal understanding because of noise considerations which I find FUNNY. 
+- I think the questions where uncertainty is a signal, not a noise, allow the authors of visualisation experiments to ignore the context and motivation that usually governs a visualisation.
 # 4.?? Tasks and Motivating Questions
 - "cannot assess the quality of risk communication unless the objectives are clear" circles back to motivation. He assumes we are fulfilling a duty to inform. @Spiegelhalter2017
 ## 4.1?? In other statistics
