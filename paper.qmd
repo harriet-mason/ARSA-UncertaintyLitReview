@@ -176,6 +176,10 @@ In this section we will first go over the current state of uncertainty visualisa
 # 4.?? Noise vs Signal (question +)
 The first issue that arises with uncertainty research is that uncertainty is frequently treated as a signal, not noise. This discrepancy is also noted by @Kinkeldey2014 who, in their own literature review on uncertainty methods, comment that the literature seems unsure if uncertainty is simply another variable or if it should be treated differently. This is a fair question to ask. If uncertainty is simply a signal we are trying to convey, why should it be treated any different to any other signal in a visualisation? 
 
+- if the experiment DOES use noise as a signal, it is often very unclear how the participants should include that in their respose and what would be a valid response from participants (e.g. the likelihood to how much question and the cone of uncertainty questions). separate to the data, uncertainty has its own goal. Is it to impact confidence in the estimate (like a bayesian thing)? to supress signal (like a barely noticiable difference line up plot thing)? to facilitate more efficient decisions (so accounting for risk thing)? 
+
+- will it impact their decision at all? there are a couple of papers where you can answer all the questions by just ignoring the uncertainty information because of the way they have set it up. e.g. difference in means when the variance is the same, experiments that check if someone can still get the signal and make sure the uncertainty information isnt in the way. 
+
 - The literature also does not discuss if uncertainty is another variable, or if it needs to be treated differently (i,.e. is it metadata of another variable). Most papers studies on uncertainty dont consider this issue, and the question remains, should someone have two separate values, or an integrated view uncertain data view @Kinkeldey2014
 
 This is best seen with a simple look at some papers
@@ -249,6 +253,7 @@ Notes from previous sections that were moved here
 - rarely used extension is aggregation of uncertainty over an area (retrieve overall estimation from a spatial distribution of uncertainty). Other tasks include comparisons, rankings. also have a task called "search" where participants have to identify entities that fulfill certainty characteristics (high or low values) @Kinkeldey2014
 - Whether to use classed or unclassed uncertainty is rarely discussed @Kinkeldey2014. e.g. land map with remotely sensed images has ambiguity in the boundaries, which can result from multiple sources (land cover class, measurement error, images from different dates). If you combine them all it might not make sense for someone who only needs one.
 
+- I think the dimension of the uncertainty should be considered every time there is aggregation from multiple sources of uncertainty and you want to maintain those sources. You can project the uncertainty down into one dimension if the source information is in of itself unimportant.
 # 4.?? Importance (and unimportance) of Secondary and Meta information
 - Specifies uncertainty can be represented by three components attribute (what) position (where) and temporal (when) @Kinkeldey2014
 - Studies dealing with uncertainty information typically deal with attribute but rarely position and time @Kinkeldey2014
