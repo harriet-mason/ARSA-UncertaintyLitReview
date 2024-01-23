@@ -5,7 +5,24 @@ format: html
 ---
 # Why this exists
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
+# Definition outtakes
+## Random
+- mentions uncertainty can be variance, precision, accuracy, reliability, or related concepts @Hullman2016
+-  @Spiegelhalter2017 defines risk as risk known probabilities and uncertainty as estimated probabilities, therefore uncertainty is what we have when you cannot accurately quantify risk.
 
+## Taxonomies
+To avoid alienating lay people with confusing complexity, many of these taxonomies are overly simplistic. Most taxonomies seek to organise uncertainty based off where the uncertainty is coming from. For example, @Spiegelhalter2017 organises uncertainty into three categories: 
+  - Aleatory uncertainty: inevitable unpredictability due to unforeseeable factors 
+  - Epistemic uncertainty: uncertainty about the structure and parameters of statistical models
+  - Ontological uncertainty: uncertainty about the entire modelling process as a description of reality.
+These three categories can be considered to be uncertainty when deciding which model we should use (ontological), uncertainty surrounding parameter estimates (epistemic), and uncertainty surrounding a forecast (aleatory), however it is not hard to find another, very different, example of a taxonomy that organises uncertainty based on what is seen to be causing it. @Gustafson2019 organises uncertainty into the four groups:
+  - Deficient: Lack of knowledge
+  – Technical: modelling approximations and measurement error
+  – Scientific Unknown unknowns
+  – Consensus: Disagreement among parties
+However the additional comments about the inherent variability of aleatory uncertainty results in a bit of confusion as to if our cateogirisation should change if we decide to treat the parameters of a statistical model to be inherently random (as is done in Bayesian statistics) or if we beleive a forecast variability to be caused by a lack of knowledge.
+
+He kept the taxonomy to three levels to maintain simplicity, however this organisation methods conflates amount of uncertainty present in an estimate with what is causing that uncertainty, and in doing so makes it hard for us to use this definition to better understand uncertainty within our own analysis.
 # context section outtakes
 Given that uncertainty estimation and communication seem to be largely task depenent, what questions should we be testing? This leads to several unanswered questions. Is our goal in uncertainty communication to acknowledge and convey the inherrent randomness that exists in all statistical calculations and models? Is it to supress signal that could be the result of random variance? Is it to find the best way to convey the mass function of a random variable? A survey of the literature will leave the answers to these questions unclear, however this inherrent issue has not gone unnoticed.
 This conceptual way of thinking about uncertainty has been rattling around in the different areas of data science for a while.
