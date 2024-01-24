@@ -61,38 +61,25 @@ This lack of precision has caused several pernicious issues in the literature, i
 ## 2.2 Taxonomy Definitions
 While colloquial definitions of uncertainty are useful when trying to communicate with laypeople who don't understand strict statistical definitions, these definitions are not helpful when we are trying to work out exactly what should be shown on a plot. When authors try to make a considerable effort to define what we mean when we talk about uncertainty, they often express it in the form of a taxonomy. 
 
-When reading any literature about uncertainty or an adjacent topic you will be overrun with more ways to organise uncertainty than you will know what to do with. The problem is so pervasive that it is almost impossible for two randomly selected papers that both claim to be about uncertainty will use the same definition. 
+When reading any literature about uncertainty or an adjacent topic you will be overrun with more ways to organise uncertainty than you will know what to do with. The problem is so pervasive that it is almost impossible for two randomly selected papers that both claim to be about uncertainty will use the same definition. What is worse is that the reason for using one taxonomy over another, or why a new taxonomy was established in the first place is rarely discussed. This leaves new authors in the field with a wide array of choices and no information that would allow them to determine which is most effective for them. The complete mess of this literature makes it more enticing for authors to just define their own definition of uncertainty, which only adds to this problem. This is not done in ignorance of the issue either, many papers that comment on the unending list of uncertainty definitions will still provide a new taxonomy of their own design. I would almost find this situation comical if I were not one of the people forced to sort through this mess.
 
-Some taxonomies contain overlapping terminology but also have alternative definitions and categories. For example *___* organises uncertainty into the two categories, Aleatroy (inherrent randomness) and epistemic (lack of knowledge), but *___* organises uncertainty into the three categories aleatory (inherrent randomness in a forecast) vs epistemic (uncertainty in structure and parameters of statistical models) vs ontological (uncertainty about the entire modelling process as a description of reality). Other taxonomies disucuss the degree of measurability
-
-Other taxonomies conflate features of the data with features of the uncertainty:
+Examples of Taxonomies used to untanlge the features of uncertainty:
+- Aleatroy (inherrent randomness) and epistemic (lack of knowledge)
 - measurement (uncertainty on a single varible), spatial (uncertainty in spatial data), temporal (uncertainty in a time data)
-
-there are even taxonomies
-
-What is worse is that the reason for using one taxonomy over another, or why a new taxonomy was established in the first place is rarely discussed. This leaves new authors in the field with a wide array of choices and no information that would allow them to determine which is most effective for them. The complete mess of this literature makes it more enticing for authors to just define their own definition of uncertainty, which only adds to this problem. This is not done in ignorance of the issue either, many papers that comment on the unending list of uncertainty definitions will still provide a new taxonomy of their own design. I would almost find this situation comical if I were not one of the people forced to sort through this mess.
-
-There are a handful of problems that is created by this lack of consensus. 
-The first issues is that 
-Which leaves the definition of aleatory and epistemic uncertainty confused. 
-
-
-
-
- Below is a list of ways some papers have organised uncertainty:
-
-
+- aleatory (inherrent randomness in a forecast) vs epistemic (uncertainty in structure and parameters of statistical models) vs ontological (uncertainty about the entire modelling process as a description of reality)
 - scientific methods (variance, distribution) vs human judgments (disagreement among parties)
 - Random vs systematic uncertainty
 - statistical (can provide a continuous pdf) vs bounded (know values will fall in a certain range) uncertainty
-
 - accuracy vs precision
 - Uncertainty from discovery, assessment and execution
 - risk vs uncertainty
 - Source of uncertainty (model structure, parameters, forcing functions, intial state, model operation) and diagnostic (past/current) vs prognostic (forecasting)
 - uncertainty is organised according to Satience (legal moral, societal, institutional, proprietary, situational) and level of severity (high, medium, low)
 
-There are several issues that become apparent when looking at this list. First of all, 
+This taxonomy issue creates several problems in the literature. Ideally, if we wanted to combine the literature on uncertainty visualisation, each paper would state the same definition of uncertainty and explain which aspect of uncertainty they are visualising, so the experiments would shift around the space while the definition of uncertainty and what it contains would remains stationary. This would make it easy for the typical reader to use the literature to find an appropriate visualisation for the particular category or case of uncertainty. Instead, one has to comb through the method of a particular design to understand if the uncertainty you are working with is amenable to this method. Another issue this creates is that the "space" of uncertainty visualisation is unclear. This means that several areas of uncertainty visualisation that have a real need for creative visualisation tools are left untouched, while the visualisations that are considered "uncertainty visualisations" simply because they are an expression of a probability mass function dominate the literature. Finally the taxonomies do little to help data analysts or statisticians untangle, estimate and understand the uncertainty that may be in their own projects. The endless set of constantly changing definitions implies their *is no* set meaning to the term "uncertainty" and something that cannot be defined certainly cannot be quantified for communication or estimation. This leads people to be less likely to visualise uncertainty due to its imprecision and difficulty to commincate.
+
+This does not mean there is nothing to be learned from these taxonomies, each in their own way show what apsect of uncertainty is important to certain cases.
+
 Looking at these taxonomies there are three key features of interest that become apparent. People seem to be interested in the:
 
 1) What stage of the analyis or what group is causing the uncertainty (the location)

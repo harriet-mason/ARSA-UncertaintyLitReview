@@ -11,6 +11,8 @@ I have an information hoarding problem, this helps me throw out sections of the 
 -  @Spiegelhalter2017 defines risk as risk known probabilities and uncertainty as estimated probabilities, therefore uncertainty is what we have when you cannot accurately quantify risk.
 
 ## Taxonomies
+Some taxonomies contain overlapping terminology but also have alternative definitions and categories. For example *___* organises uncertainty into the two categories, Aleatroy (inherrent randomness) and epistemic (lack of knowledge), but *___* organises uncertainty into the three categories aleatory (inherrent randomness in a forecast) vs epistemic (uncertainty in structure and parameters of statistical models) vs ontological (uncertainty about the entire modelling process as a description of reality). 
+
 To avoid alienating lay people with confusing complexity, many of these taxonomies are overly simplistic. Most taxonomies seek to organise uncertainty based off where the uncertainty is coming from. For example, @Spiegelhalter2017 organises uncertainty into three categories: 
   - Aleatory uncertainty: inevitable unpredictability due to unforeseeable factors 
   - Epistemic uncertainty: uncertainty about the structure and parameters of statistical models
