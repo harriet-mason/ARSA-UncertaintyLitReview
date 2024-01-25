@@ -47,24 +47,26 @@ tibble(x = c(anscombe$x1, anscombe$x2,
 - industrial accidents have a "tollerable" risk chart based on risk and number of fatalities @Spiegelhalter2017
 
 # 2. Defining Uncertainty
-Uncertainty visualisation is not made any easier by the fact that the term "uncertainty" lacks a commonly accepted definition in the literature. @Spiegelhalter2017 even commented that the definition of uncertainty essentially "depends on who you ask". This mishmash of terminology leads to a large body of work, all claiming to finding the best visualisation or expression of of "uncertainty" but most don't even seem to agree on what uncertainty is. In this section we will establish exactly what we mean when we talk about uncertainty.
+Uncertainty visualisation is not made any easier by the fact that the term "uncertainty" lacks a commonly accepted definition in the literature. @Spiegelhalter2017 even commented that the definition of uncertainty essentially "depends on who you ask". The disarray of organisation and definitions within the uncertainty literature is a common sentiment expressed by reviewers[@Spiegelhalter2017; @Kinkeldey2014]. This mishmash of terminology leads to a large body of work, all claiming to finding the best visualisation or expression of of "uncertainty" but most don't even seem to agree on what uncertainty is. In this section we will establish exactly what we mean when we talk about uncertainty.
 
 ## 2.1 Coloquial Definitions
 The most common definition of uncertainty used in papers that discuss visualising it are colloquial. Most definitions make some nod towards variance, precision, trust, error, missing values or another related concepts. Since *uncertainty*, unlike *probability*, does not have a strict definition that is established in mathematics, there is large variety in its usage. Some consider it to be synonymous with probabiltiy, some consider it to be an encompassing umbrella term of which probability is only an element, and some consider it to by something else entirely. This lack of a definition leads to uncertainty being swapped out freely with other vague words such as ambiguity and risk. Definitions presented in papers that discuss uncertainty visualisation want it to be encompassing and include everything a layperson might consider when trying to consider "uncertainty". The issue with these broad definitions is is that in order to visualize something, it needs to be quantified, and in order to quantify something, we need to know exactly what it is we are counting. This discrepancy appears regularly in the uncertainty visualisation literature. Often a vague definition such as "uncertainty is anything that isn't deterministic", or even a refusal to define uncertainty at all in an experiments introduction will be accompanied by a highly specific quantification of uncertainty as a probability density distribution of a forecast when providing the visualisation. Ironically it seems that many of the papers that refer to themselves as "uncertainty" papers are just suffering from a form of uncertainty, a lack of precision.[^1]
 
 This lack of precision has caused several pernicious issues in the literature, including different representation of uncertainty being compared despite not being realistic substitutes (with no acknowledgement of this from the authors); a lack of understanding as to *why* uncertainty should be included in a visualisation; a large swath of literature focused on a minute aspect of the entire uncertainty space with little attention to creative solutions to real world visualisation problems; and a swath of newly designed visualisations that are disconnected from the problems that they hope to solve. These problems means the literature either needs to transition away from the broad umbrella term "uncertainty", or consider the full range of sources of uncertainty and how they can be communicated when designing an experiment.[^2]
 
+The most encompassing definition of uncertainty I have seen comes from @utypo who define uncertainty as **"any deviation from the unachievable ideal of completely deterministic knowledge of the relevant system"**. This definition encapsulates many concepts adjacent to randomness such as predictions, probability mass distributions (PMF), estimate error, and any data that is not a set of deterministic outcomes. This is the definition of uncertainty I will use for the rest of this report.
 
 [^1]: Flesh out note - I think several of the sentences in this paragraph need examples (or quatified evidence) from the spreadsheet definition part
 [^2]: I am not sure if I should mention this here because I go into depth in the literature review and these comments might come across as unjustified if they are left in this section. Maybe this is more of a conclusion paragraph. 
 
 ## 2.2 Taxonomy Definitions
+# 2.2.1 Taxonomies of Uncertainty
 While colloquial definitions of uncertainty are useful when trying to communicate with laypeople who don't understand strict statistical definitions, these definitions are not helpful when we are trying to work out exactly what should be shown on a plot. When authors try to make a considerable effort to define what we mean when we talk about uncertainty, they often express it in the form of a taxonomy. 
 
 When reading any literature about uncertainty or an adjacent topic you will be overrun with more ways to organise uncertainty than you will know what to do with. The problem is so pervasive that it is almost impossible for two randomly selected papers that both claim to be about uncertainty will use the same definition. What is worse is that the reason for using one taxonomy over another, or why a new taxonomy was established in the first place is rarely discussed. This leaves new authors in the field with a wide array of choices and no information that would allow them to determine which is most effective for them. The complete mess of this literature makes it more enticing for authors to just define their own definition of uncertainty, which only adds to this problem. This is not done in ignorance of the issue either, many papers that comment on the unending list of uncertainty definitions will still provide a new taxonomy of their own design. I would almost find this situation comical if I were not one of the people forced to sort through this mess.
 
 Examples of Taxonomies used to untanlge the features of uncertainty:
-- Aleatroy (inherrent randomness) and epistemic (lack of knowledge)
+- aleatory uncertainty (unavoidable randomness), epistemic uncertatiny (uncertainty about structure, still quantified), ontological uncertainty (uncertain about entire modelling process). @Spiegelhalter2017
 - measurement (uncertainty on a single varible), spatial (uncertainty in spatial data), temporal (uncertainty in a time data)
 - aleatory (inherrent randomness in a forecast) vs epistemic (uncertainty in structure and parameters of statistical models) vs ontological (uncertainty about the entire modelling process as a description of reality)
 - scientific methods (variance, distribution) vs human judgments (disagreement among parties)
@@ -73,61 +75,55 @@ Examples of Taxonomies used to untanlge the features of uncertainty:
 - accuracy vs precision
 - Uncertainty from discovery, assessment and execution
 - risk vs uncertainty
+- "known knowns, known unknowns, and unknown unknowns", (risk, uncertainty, ignorance)
 - Source of uncertainty (model structure, parameters, forcing functions, intial state, model operation) and diagnostic (past/current) vs prognostic (forecasting)
 - uncertainty is organised according to Satience (legal moral, societal, institutional, proprietary, situational) and level of severity (high, medium, low)
+- Level of precision in epistemic uncertainty: 1) numbers given to appropriate levels of precision 2) a distribution range 3) a measure of statistical significance 4) verbal quantifiers to numbers 5) refusal to give a number unless the evidence is good enough @Spiegelhalter2017
 
 This taxonomy issue creates several problems in the literature. Ideally, if we wanted to combine the literature on uncertainty visualisation, each paper would state the same definition of uncertainty and explain which aspect of uncertainty they are visualising, so the experiments would shift around the space while the definition of uncertainty and what it contains would remains stationary. This would make it easy for the typical reader to use the literature to find an appropriate visualisation for the particular category or case of uncertainty. Instead, one has to comb through the method of a particular design to understand if the uncertainty you are working with is amenable to this method. Another issue this creates is that the "space" of uncertainty visualisation is unclear. This means that several areas of uncertainty visualisation that have a real need for creative visualisation tools are left untouched, while the visualisations that are considered "uncertainty visualisations" simply because they are an expression of a probability mass function dominate the literature. Finally the taxonomies do little to help data analysts or statisticians untangle, estimate and understand the uncertainty that may be in their own projects. The endless set of constantly changing definitions implies their *is no* set meaning to the term "uncertainty" and something that cannot be defined certainly cannot be quantified for communication or estimation. This leads people to be less likely to visualise uncertainty due to its imprecision and difficulty to commincate.
 
-This does not mean there is nothing to be learned from these taxonomies, each in their own way show what apsect of uncertainty is important to certain cases.
+This does not mean there is nothing to be learned from these taxonomies, each in their own way show what apsect of uncertainty is important to certain cases. There are a handful of overlapping features that indicate which elements of uncertainty are of interest to statistics and related applied fields. @utypo identified these similarities and used them to design a taxonomy that encapsulates a large proportion of the ad hoc definitions that currently overrun the literature, and is the definition of uncertainty that we will work with for the remainder of this paper. 
 
-Looking at these taxonomies there are three key features of interest that become apparent. People seem to be interested in the:
-
-1) What stage of the analyis or what group is causing the uncertainty (the location)
-2) How well the uncertainty can be quantified (the level), and
-3) Whether or not the uncertainty is believed to be caused by natural variance or a lack of information (Nature)
-
- . Additionally, since many papers will go on to define uncertainty as a probability or a density in their method, the actual organisation of "uncertainty" is irrelevant to their results since a probability distribution is 
-
-or where it exists in the broader scope of uncertainty communication. If a taxonomy is presented it is rarely considered when discussing differences in calculating, conceptualising,  The definition is also rarely dicussed beyond the introudction of a paper. to its place in the broader scope of of these definitions are presented with little justification as to why 
-
-
-Type A evaluation of standard uncertainty, and the other which is based on scientific judgement (such as experience and specifications), called the Type B evaluation of standard uncertainty.
-
-
-
-
-
-It can be seen that while these taxonomies are both attempting to organise similar aspects of uncertainty, they have little overlap. The reason for this is relatively simple. Uncertainty is often only defined in so far as it is needed. 
-
-
-Ultimately these taxonomies end up alienating those that actually work with uncertainty by being too narrow. Uncertainty is a broad and complicated topic and while oversimplified taxonomies might help us hold the concept of uncertainty in our head, they do little to help with the practical question of how to quantify, visualise, or communicate uncertainty.
-
-
-- mention that utypo taxonomy contains all these taxonomies and can be easily built upon without making a new taxonomy.
-
-
-@fig-taxonomy is an illustration of the taxonomy presented by @utypo. In this taxonomy, there are three things we need to consider for each "uncertainty" we encounter through the modelling process. First, we need to consider the source of the uncertainty. Is this uncertainty coming from inaccurate measurements or a poorly defined model? This is the *location* of the uncertainty. Second, consider how well you can quantify this uncertainty. Do you know exactly how much measurement error there is in each observation or are you not even aware if there is a measurement error? This is the *level* of your uncertainty, and it ranges from discrete to total ignorance. Finally, consider how this uncertainty came into existence. Is it a result of a naturally random process (epistemic) or is it due to imperfect information and could be improved (aleatory). This is the *nature* of your uncertainty. @utypo then goes on to describe mapping our uncertainty in a 3D space that is defined by its location, level, and nature, but I think the taxonomy is more easily understood as a series of questions we need to consider when we are trying to quantify uncertainty.
+@fig-taxonomy is an illustration of the taxonomy presented by @utypo. In this taxonomy, there are three things we need to consider for each "uncertainty" we encounter through the modelling process. First, we need to consider the source of the uncertainty. Is this uncertainty coming from the data (for example, from an inaccurate measurement), from the array of model choices we have, or from the assumptions on a parameter? This is the *location* of the uncertainty. Second, consider how well you can quantify this uncertainty. Do you know exactly how much measurement error there is in each observation or are you not even aware if there is a measurement error? This is the *level* of your uncertainty, and it ranges from discrete to total ignorance. Finally, consider how this uncertainty came into existence. Is it a result of a naturally random process (aleatory) or is it due to imperfect information and could be improved (epistemic). This is the *nature* of your uncertainty. @utypo then goes on to describe mapping our uncertainty in a 3D space that is defined by its location, level, and nature, but I think the taxonomy is more easily understood as a series of questions we should to consider when we are trying to quantify uncertainty. Location asks "where and at what stage in the modelling process is this uncertainty coming from", level asks "how well can we quantify this uncertainty", and nature asks "can we reduce this uncertainty with improves knowledge?". While this taxonomy specifically applies to the uncertainty in the model, it is easy to fit most of the uncertainty we would consider quantifying into this format.
 
 ![Depicts an illustration of the taxonomy described in @utypo. From right to left the drawing shows the location, level and nature of uncertainty with examples of that category underneath. A specific source of uncertainty from the location can be mapped to a level of ignorance that can increase or decrease (i.e. moving up or down the green line) depending on the nature of the uncertainty. Identifying the location, level and nature of your uncertainty allows you to better understand it. ](taxonomyvis.jpeg){#fig-taxonomy}
 
-This way of conceptualising and organising uncertainty is not a fringe idea and is backed up by several related ideas in statistics. 
+*The taxonomy* we will use in this paper may seem complicated and difficult to grasp at first glance, but it essentially boils down to three dimensions to consider.Uncertainty is a broad and complicated topic and while oversimplified taxonomies might help us hold the concept of uncertainty in our head, they do little to help with the practical question of how to quantify, visualise, or communicate uncertainty.
 - also makes it easier for people to communicate exactly what they need visualisation tools for. Look at geography papers and how their specific uncertainty considerations have been ignored for years.
+- Additionally, this definition of uncertainty is helpful in understanding *how* uncertainty should be communicated and the consideration we should make.
 - can organise other "uncertainties" according to this framework
-- it also gives us rules for combining uncertainty since statistical uncertainty can be combined with staitstical uncertainty, and outcome uncertainty can be combined with outcome uncertainty.
-Additionally, this definition of uncertainty is helpful in understanding *how* uncertainty should be communicated and the consideration we should make.
 
-*Notes from other section*
+*The location* axis of the taxonomy lines up neatly with the typical data analysis pipeline and its importance is backed up by a several philisophical perspectives on statistics as well as discussions on the practical needs of uncertainty visualisation. 
 - The usually uncertainty is only considered at the final stage but it needs to be considered through all stages. The big data paradox shrinks confidence intervals but magnifies bias [@Bradley2021] because the confidence intervals shrink due to the sample size but the imprecise target group creates bias.
 - @Meng2021 highlights that data needs to be treated as an output from another process rahter than an value neutral input.
 - If the distinction between noise and uncertainty is largely task dependent, considerations of quantifying and expressing uncertainty should be considered for the entire duraction of a project; another concept that has been independently identified by several authors [@Kinkeldey2014; @Refsgaard2007]
-- The most encompassing definition of uncertainty I have seen comes from @utypo who define uncertainty as **"any deviation from the unachievable ideal of completely deterministic knowledge of the relevant system"**. This definition encapsulates many concepts adjacent to randomness such as predictions, probability mass distributions (PMF), estimate error, and any data that is not a set of deterministic outcomes. This is the definition of uncertainty I will use for the rest of this report.
 - While quantification of the uncertainty that arrises from statistical philosophy and data provenance are beyond the scope of this paper, how this uncertainty is communicated is not. The ontological process discussed by @Otsuka2023 where information is tossed as we boil our information down into statistical objects requires us to map our statistical objects back to real world entities. This means the noise introduced and signal lost in earlier stages of the data analysis need to be identified, quantified and expressed in terms of real world outcomes. Visualisation is often the final stage of larger data science project and the down stream effects of poor abstraction and problem at the lower levels become impossible to ignore [@Munzner2009]. 
+
+*The level* axis forces us to identify how quantifiable the uncertainty is. 
+- it also gives us rules for combining uncertainty since statistical uncertainty can be combined with staitstical uncertainty, and outcome uncertainty can be combined with outcome uncertainty. 
+- Can discuss each uncertainty in isolation using distributions, ranges, and lists of alternatives, but the total cumulative uncertainty from every stage is more difficult (near impossible) @Spiegelhalter2017
 - Approaches to communicating limited understanding include 1) explicit model uncertainty 2) Qualitative scales expressed as strength of evidence (e.g. high to low certainty of evidence) 3) Acknowledge limitations and their possible impact 4) Acknowledged ignorance @Spiegelhalter2017
 
-- hierarchy for level of precision for epistemic uncertainty: 1) numbers given to appropriate levels of precision 2) a distribution range 3) a measure of statistical significance 4) verbal quantifiers to numbers 5) refusal to give a number unless the evidence is good enough @Spiegelhalter2017
+*The nature axis* allows us to easily communicate if the uncertainty can be reduced or if it needs to be accepted. While this level if not of particular importance to the visualisation of uncertainty, that is not the only purpose of the taxonomy. The nature of the uncertainty is an important element in expressing uncertainty, especually to stakeholders, and connecting the nature to the location makes it easier to understand *how* uncertainty can be reduced.
 
-- A lot of taxonomies for uncertainty, simple is "known knowns, known unknowns, and unknown unknowns", ka (known, unknown, nad unknowable), (risk, uncertainty, ignorance). This also breaks down into the framework of aleatory uncertainty (unavoidable randomness), epistemic uncertatiny (uncertainty about structure, still quantified), ontological uncertainty (uncertain about entire modelling process). @Spiegelhalter2017
-- Can discuss each uncertainty in isolation using distributions, ranges, and lists of alternatives, but the total cumulative uncertainty from every stage is more difficult (near impossible) @Spiegelhalter2017
+### 2.2.2 Taxonomies of Visual Uncertainty
+There are some taxonomies of visual uncertainty. These taxonmies seem to seek to define "uncertainty visualisation" and a combined term rather than as two separate words. We largely disagree with this conceptualization of uncertainty visualisations as it blurs the line between the mathematical estimations and assumptions (the uncertainty part) and the visual depiction of those mathematical objects (the visualisation part). While we will not focus on these taxonomies, it is still important to mention them and highlight the reasons they are not good practice.
+
+There are a small handful of taxonomies (or typologies) that are specifically for uncertainty visualisations. @Kinkeldey2014 identified give categories of uncertainty based on the work of other literature reivews of uncertainty visualisation. The five categories are: (1) explicit/implicit (directly mapping or showing multiple outcomes) (2) intrinsic/extrinsic (using existing symbols e.g. colour value, or new objects e.g. grids) (3) visually integral/separable (can or cannot be separated from the data) (4) coincidence/adjacent (if data and uncertainty are in integrated or separate views (5) static/dynamic (animation/interaction). Of the groups they identified, they actually only used (4), (2), and (5), left out (1) because most visualisations are explicit, and (3) corresponds to (1) in most cases [@Kinkeldey2014]. 
+
+@Potter2012 organised several existing uncertainty visualisations into groups based on the dimensionality of the data (1D, 2D, 3D, and No Dimension) and the dimensionality of the uncertainty (Scalar, Vector, Tensor). However, because the term "PDF", a statistical object that describes a random variable that is typically a one dimensional function, is used to describe both the data and the uncertainty for all dimensions, it is hard to understand how this dimensionality should work.
+
+@Grewal2021 created a taxonomy that mapped uncertainty visualisations to some point in a 2D space that was defined by the axis "domain expertise" and "continum of discreteness" that scaled from "point estimate" to "continuous distribtion". 
+
+@Thomson2005 titled their paper "A typology for visualizing uncertainty" however it is a taxonomy for the specific types of uncertainty that we may want to visualise and a way to calculate that uncertainty. While this paper is more about mathematics than visualisation, it is clearly written as a precursor to visualisation.
+
+These taxonomies are useful in the sense that they often identify areas where there is an over or under supply of uncertainty visualisations. Additionally taxonomies do highlight a concept of uncertainty dimensionality that was not directly covered in the uncertainty taxonomy, however the distinction between uncertainty as a single value versus as a PDF could be considered a sub-consideration of uncertainty that's level is statistical so it can be quantified. While uncertainty visualisation taxonomies are not the standard practice (generating a taxonomy of uncertainty and then developing methods to depict that uncertainty is) [@Kinkeldey2014], it is still important to acknowledge the existence of "uncertainty visualisation typologies" and why they may miss the mark in what is needed from the uncertainty visualisaiton literature. 
+
+The first issue with these taxonomies is that most of these taxonomies are created by observing existing uncertainty visualisations. This means under researched gaps in the taxonomy could be due to a lack of need just as well as a lack of attention, and the benefit of trying to create visualisations that land in uncharted areas of the taxonomy are unclear. 
+
+The second issue is that there does not seem to be anything these taxonomies offer that would not be better established by separate taxonomies for uncertainty and visualisation. These taxonomies seem to depict uncertainty visualisation as a field within itself, rather than a specific case of information visualisation that requires more attention to mathematics than usual. The difference between "uncertainty visualisations" and "data visualisations" is not technically in the visual element, it is mathematical. @Kinkeldey2014 almost acknowledges this in their own paper that discusses an uncertainty visualsiation taxonomy when they claim "future typologies should take different categories of tasks into account (1) communication tasks (2) analytical tasks (3) exploratory task", a common typology for information visualisation in general. The process of understanding and estimating uncertainty requires knowledge of the data, the statistical methods used to make an estimate, and the assumptions of a model. Visualising the statistics that represent uncertainty should be no different than depicting the statistics that represent any other element of a graphic, and therefore there seems to be no reason to have a separate taxonomy for uncertainty visualisation. 
+
+
 # 3.General Attitude Towards Uncertainty + Its communication
 I dont think this is worth a section but it is mentioned a lot in .
 - the role of unertainty visualisation is to communicate accurate information
@@ -152,49 +148,14 @@ I dont think this is worth a section but it is mentioned a lot in .
 - understanding better in a table than text @Spiegelhalter2017
 - if expressing as a frequency, note that larger numerators suggest a larger risk, exteme version of this is ignoring the denominator all together @Spiegelhalter2017
 
+- low-probability high-impact events are particularly difficult to communicate risks about @Spiegelhalter2017
 # 4 LITERATURE SUMMARY
-# Experiment paper checklist
-General
-- Specific Field of Research
-- Question asked
-- Risk or Uncertainty: 
-- Noise vs signal (risk vs uncertainty)
-- Major task goal
-    - e.g. identify a bias or misunderstanding, compare two visualisation methods
-- Minor task goal
-    - Communication(value retrieval)
-    - Analytical(complex consideration)
-    - Exploration(free for all)
-
-Uncertainty Considerations
-	- Source
-	- Level (statistical-ignorance)
-	- Nature (Epistemic/Aleatory)
-
-Visual Uncertainty taxonomy
-- Explicit/implicit
-    - (directly mapping or showing multiple outcomes)
-- Intrinsic/Extrinsic 
-    - (using existing symbols e.g. colour value, or new objects e.g. grids)
-- Visually integral/separable 
-    - (can or cannot be separated from the data) 
-- Coincidence/adjacent 
-    - (if data and uncertainty are in integrated or separate views
-- Static/dynamic 
-    - (animation/interaction) 
-
-Other plot considerations
-	- Dimension of data
-	- Dimension of uncertainty
-	- Feature mappings
-
-Extra (not necessarily recorded)
-	- Metrics used (and recorded)
-	- Possible Heuristics
-	- What is the ground truth?
-	- Participant literacy
-
-# 4. Similar work (other literature reviews)
+- methods used in uncertainty visualisation evaluation remain ad hoc. studies approach issue from a usability perspective instead of asking WHY representations DO or DO NOT work. Studies do not follow any methodology commonly agreed upon. @Kinkeldey2014
+- Lack of formalisation and eigour in empirical methdos is an issue that is much broader than uncertainty visualisation (extends to info-vis and related domains). Therefore this paper is a starting point, not a definitive summary @Kinkeldey2014
+- The question in these papers is often "does method a work better than method B" which is an engineering approach, where the toal is to improve a particular product rather than create general principals @Kinkeldey2014
+- Authors then try to generalise beyond the specific constraints of the test even though the framing does not allow for it @Kinkeldey2014
+- Alternatively, we should ask how/why does method A work better than method B, which grounds work in perceptual and cognative theory and provides a framwork @Kinkeldey2014
+# 4.?? Similar work (other literature reviews)
 - If you just keep using rankings, you need to compare everything one by one forever to get an idea of the space @Hullman2016
 - people sometimes ignore uncertainty and instead look at the pattern (e.g. distance between means) and use a heuristic to answer the question. be proactive about possible heuristics, look for signes of heuristics in responses, ask subjects to describe their strategy, consider including degree of heuristic as a dependent variable @Hullman2016
 - People believe in the law of small numbers but dont believe in the lar of large numbers @Hullman2016
@@ -215,22 +176,15 @@ Extra (not necessarily recorded)
 - graphs are good for gists and different graphics are good at different things (i.e. trends vs comparison etc) but hard to avoid framing (show information as part of a whole) @Spiegelhalter2017
 - scatting in pictograph increases the impression of randomness but makes it difficult to count @Spiegelhalter2017
 - people with high numeracy count pictographs but low numeracy assess area @Spiegelhalter2017
-# 4.?? Taxonomies of Visual Uncertainty
-  - Most research had focused on developing taxonomies of uncertainty and developing methods to depict uncertainty visually @Kinkeldey2014
-- 5 dichotomous categories of uncertainty can be identified (1) explicit/implicit (directly mapping or showing multiple outcomes) (2) intrinsic/extrinsic (using existing symbols e.g. colour value, or new objects e.g. grids) (3) visually integral/separable (can or cannot be separated from the data) (4) coincidence/adjacent (if data and uncertainty are in integrated or separate views (5) static/dynamic (animation/interaction) @Kinkeldey2014
-- Based on those they only use (4), (2), and (5), left out (1) because most visualisations are explicit, and (3) corresponds to (1) in most cases. @Kinkeldey2014
-- They sugest that future typologies should take different categoeis of tasks into account (1) communication tasks (2) analytical tasks (3) exploratory takss. List task-centred typology as a main topic for future research in the field to facilitate practical guidelines in this field @Kinkeldey2014
-## intro
-In this section we will first go over the current state of uncertainty visualisation research, which is currently a collection of evaluation studies and review papers, and discuss what it is doing well and what could be done better. Following that, we will provide general reccomendations from the literature.
+# 4.1 Plot Comparison Papers
+# 4.1.1 The problem of incomparable plots
+Visual inference can be seen as a process that combines multiple fields, from mathematics to psychology, to convey meaning. Unfortunately which tasks belong to mathematics, computer science, or psychology is poorly defined. The uncertainty visualisation taxonomies make the blur between these fields. A visualisation is, in a lot of ways, a statistic, or at the very least statistics are calculated prior to the visualisation being calculated, however this may be invisible to the user. A density plot does not just "appear" from the data, usually a smoothing function (that should be calibrated according to the sample size however how this should be done is a different matter of dispute) generates an estimated density function (statistics) which is then depicted on a plot using a line (design or computer science) which is then converted into information in your head using perceptual tasks and heuristics (psychology). 
 
-- methods used in uncertainty visualisation evaluation remain ad hoc. studies approach issue from a usability perspective instead of asking WHY representations DO or DO NOT work. Studies do not follow any methodology commonly agreed upon. @Kinkeldey2014
-- Lack of formalisation and eigour in empirical methdos is an issue that is much broader than uncertainty visualisation (extends to info-vis and related domains). Therefore this paper is a starting point, not a definitive summary @Kinkeldey2014
-- The question in these papers is often "does method a work better than method B" which is an engineering approach, where the toal is to improve a particular product rather than create general principals @Kinkeldey2014
-- Authors then try to generalise beyond the specific constraints of the test even though the framing does not allow for it @Kinkeldey2014
-- Alternatively, we should ask how/why does method A work better than method B, which grounds work in perceptual and cognative theory and provides a framwork @Kinkeldey2014
+These overlapping but distinct fields create a high burden of spanning expertise to understand if two visualisation are equivalent in each field. This is largely caused by the concept of "information" differing dramatically between fields. According to mathematics, a sufficient statistic for a parameter contains the same amount of information as an entire sample. Therefore, if you are trying to estimate a population mean, the sample mean and the entire data set are both equivalent, however a similar statistic, such as the median, is not and will become a worse and worse approximation for the mean the more skewed your underlying distribution in. Computer science considered two pieces of information to be equivalent if they come from the same data [^This is the justification that I have come across in several computer science field papers, I am not sure if this is true for the whole field so this is definitely a question for Sarah]. This definition of information is much looser and is contained within the mathematical definition of information. 
 
-- low-probability high-impact events are particularly difficult to communicate risks about @Spiegelhalter2017
+Most uncertainty visualisation papers show that the definition of information *should* be the one defined by mathematics, not the one defined by computer science. A close look at the visual inference literature shows this to be true, but a large amount of noise is added to the research through visual heuristics. This is simply because, if one visualisation depicts a "significant statistic" and another visualisation shows a similar statistic, then the graphic that shows the significant statistic holds more relevant information to the question and will lead to more accurate interpretations. If the information that is depicted on a plot cannot be used to *mathematically* generate a best estimate for a specific statistic, I do wonder how the visual system would be expected to cover that gap if *not* for heuristics. 
 
+While mathematical information *should* be considered the starting point in considering if two visualisations are equivalent, it is not the only consideration. A large amount of work in perceptual tasks, attention, and psychology surrounding charts shows that all the information depicted is not paid attention to in equal measure. Elements such as colour can have sizable impacts on the way a graphic is percieved. Mathematics identifies the information that is *shown* while psychology identifies the difference in information *recieved*. A failure to understand this distinction leads to graphics that are different not only in the way information is depicted but in the information itself. This problem is pervasive in uncertainty visualisation literature.
 # 4.?? Noise vs Signal (question +)
 The first issue that arises with uncertainty research is that uncertainty is frequently treated as a signal, not noise. This discrepancy is also noted by @Kinkeldey2014 who, in their own literature review on uncertainty methods, comment that the literature seems unsure if uncertainty is simply another variable or if it should be treated differently. This is a fair question to ask. If uncertainty is simply a signal we are trying to convey, why should it be treated any different to any other signal in a visualisation? 
 
@@ -259,8 +213,11 @@ Questions where uncertainty is a noise
 - papers usually have same variance if there is a signal question, and use the mean as a proxy to answer the question. Really should ask a changing signal question where the signal IS impacted by the uncertainty information.
 - Weirdly When setting their ground truth it seems like a lot of papers EXPECT participants to completely ignore uncertainty information as noise. Like the participants are actually considered to be incorrect if they dampen their signal understanding because of noise considerations which I find FUNNY. 
 - I think the questions where uncertainty is a signal, not a noise, allow the authors of visualisation experiments to ignore the context and motivation that usually governs a visualisation.
-# 4.?? Tasks and Motivating Questions
+# 4.?? Tasks and Motivating Questions (uncertainty about.. .what?)
 - "cannot assess the quality of risk communication unless the objectives are clear" circles back to motivation. He assumes we are fulfilling a duty to inform. @Spiegelhalter2017
+## 4.?? What are you uncertain about? A mathematical considerations
+- Should add plot comparison mathematical framework example here
+- take a plot and work through the entire example as a flow chart thing
 ## 4.1?? In other statistics
 What is meant by "uncertainty" may seem obvious to some, but when you attempt to quantify or visualise it you will quickly find yourself asking, "uncertainty about... what?". Do you mean uncertainty on an estimate? On a forecast? How many steps ahead is this forecast? Are we only considering the uncertainty in the estimate or in the parameters or are we considering the possibility of measurement error or biased inputs? Signal and noise can only be untangled in the presence of a motivating question.
 
@@ -333,17 +290,79 @@ Notes from previous sections that were moved here
 # 5 Great Examples
 - best things you have seen and why they are the best
 - can't have a best practices because you need experimental results and my point is that the experiments aren't testing the right things
+- pixel map
+  - Similar to what could be good but its computation isnt quite what I would like
+  - heaps of sample depictions are animated and that is not always possible, but this is a clear indicator of how you can do a sample visualisaiton
+  - hasnt been tested so it is unclear if this actually works at signal supression
 - VSUP
-- the map interactive map that susuan showed me
-- the pixel map
-- The new york times wealthy people that end up in different economics classes, white vs black people
+  - The purpose of uncertainty is clear in the design and it is signal supression
+  - Supression is not the only uncertainty feature we should be interested in (shape is also important which is why I have beef with over smoothing and something visualisation is very good to express) but by being clear in its goal it knows what it is
+  - It addresses several key issues with the bivariate map that arrise in general and especially when it is used for visualising uncertainty 
+- the census dot map (has been taken down but CNN replicated it [here](https://edition.cnn.com/interactive/2021/us/census-race-ethnicity-map/))
+  - I love a good depiction of a sample
+  - You can see the sparse regions and the pop 
+  - it is similar to the pixel map (could also be singal supression but it is not tested)
+  - the sample depiction works well with the interactivity and you can see the signal that is appropriate for a particular level of zoomed in. If you zoom out the points turn into solid colours and show clear signal.
+- The new york times class mobility and race animated plot [here](https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html) 
 - the animated surface classifications from that satelite images experimental paper
-- the climate change scenario uncertainty
+- the climate change scenario uncertainty. There are quite a few of these:
+  - [e.g.1](https://earthobservatory.nasa.gov/features/GlobalWarming/page5.php)
+  - [e.g.2](https://climatechange.chicago.gov/sites/production/files/2016-07/scenariotempgraph_0.jpg)
+  - there are a few examples on the [climate change scenario wiki](https://en.wikipedia.org/wiki/Climate_change_scenario)
+  - Good example of uncertainty that has uncertainty from two different sources (human decision in the form of inputs and statistical uncertainty), one of which cant be quantified.
+  - a good example in how you can combine two different  types of uncertainty
+
+Notes
+- Since a lot of the good visualisations are made by random people creating a new visualisation (likely through back and forth communication which is HOW you get good visualisations) 
+- A lot of these show the data instead of an inference which is probably better for this scenario because sample size is important for uncertainty. It is not always appropriate and sometimes dots are not exactly equal to one draw. 
+  - comments about smoothing in density plots and bin width in histograms. I do think the sample size should be communicated to people. While it is not the only thing that matters it seems kind of pointless to go to such lengths to hide it.
+- Sometimes points are used for things that are NOT samples which can get confusing and honestly I dont like it.
+
 
 # 5. Future work/Conclusion
 
 
+# Appendix (or information I am holding)
+## Experiment paper checklist
+General
+- Specific Field of Research
+- Question asked
+- Risk or Uncertainty: 
+- Noise vs signal (risk vs uncertainty)
+- Major task goal
+    - e.g. identify a bias or misunderstanding, compare two visualisation methods
+- Minor task goal
+    - Communication(value retrieval)
+    - Analytical(complex consideration)
+    - Exploration(free for all)
 
+Uncertainty Considerations
+	- Source
+	- Level (statistical-ignorance)
+	- Nature (Epistemic/Aleatory)
+
+Visual Uncertainty taxonomy
+- Explicit/implicit
+    - (directly mapping or showing multiple outcomes)
+- Intrinsic/Extrinsic 
+    - (using existing symbols e.g. colour value, or new objects e.g. grids)
+- Visually integral/separable 
+    - (can or cannot be separated from the data) 
+- Coincidence/adjacent 
+    - (if data and uncertainty are in integrated or separate views
+- Static/dynamic 
+    - (animation/interaction) 
+
+Other plot considerations
+	- Dimension of data
+	- Dimension of uncertainty
+	- Feature mappings
+
+Extra (not necessarily recorded)
+	- Metrics used (and recorded)
+	- Possible Heuristics
+	- What is the ground truth?
+	- Participant literacy
 
  
 
