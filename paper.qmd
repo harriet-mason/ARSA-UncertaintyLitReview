@@ -343,6 +343,7 @@ Notes from previous sections that were moved here
   - there are a few examples on the [climate change scenario wiki](https://en.wikipedia.org/wiki/Climate_change_scenario)
   - Good example of uncertainty that has uncertainty from two different sources (human decision in the form of inputs and statistical uncertainty), one of which cant be quantified.
   - a good example in how you can combine two different  types of uncertainty
+  - [This](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/graphical-cartograms-in-arcgis-pro/) has some good maps and some bonkers ones 
 
 Notes
 - Since a lot of the good visualisations are made by random people creating a new visualisation (likely through back and forth communication which is HOW you get good visualisations) 
