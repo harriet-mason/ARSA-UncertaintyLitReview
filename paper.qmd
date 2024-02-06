@@ -149,19 +149,25 @@ Authors that imply that a decrease in trust or an increase in ambiguity or risk 
 
 While this is a focus on uncertainty visualisation, these issues in uncertainty communication need to be acknowledged because they bleed into the uncertainty visualisation literature. Uncertainty visualisation are compared on their ability to communicate explicit risk, elicit trust, and prevent risk or ambiguity avoidance, continuing these issues in uncertainty communication at large. While uncertainty visualisation can make it easier to communicate the complicated details of uncertainty information, it carries some challenges that are unique to the visualisaition, specifically with respect to the "signal supression" concept. In simple estimates or verbal communication, the signal is often easy to identify because it is what we are explicitly saying. Visualisations are used in both data exploration and communication. This means what exactly is a *signal* in any particular visualisation is hard to identify, since we often let the visualisation *tell us* what the signal is. Additionally, you cannot add noise to *every single possible* signal one might take from a visualisation. Two people looking at the same visualisation might, just by chance, develop two entirely different insights. These unique and facinating challenges that are faced by viewing uncertainty visualisaiton through the lense of "signal supression" have been almost completely untouched by the literature. 
 
-# 4 LITERATURE SUMMARY
+# 4 Uncertainty Visualisation Literature Summary
+
+## 4.1 Similar work
+There are a wealth of uncertainty communication and visualisation literature reviews that already exist. 
+
+@Kinkeldey2014 summarised the literature specifically for geopsatial uncertainty visualisations and attempted to describe similarities in their characteristics. They found large difficulties in the ability
+
 - methods used in uncertainty visualisation evaluation remain ad hoc. studies approach issue from a usability perspective instead of asking WHY representations DO or DO NOT work. Studies do not follow any methodology commonly agreed upon. @Kinkeldey2014
 - Lack of formalisation and eigour in empirical methdos is an issue that is much broader than uncertainty visualisation (extends to info-vis and related domains). Therefore this paper is a starting point, not a definitive summary @Kinkeldey2014
 - The question in these papers is often "does method a work better than method B" which is an engineering approach, where the toal is to improve a particular product rather than create general principals @Kinkeldey2014
 - Authors then try to generalise beyond the specific constraints of the test even though the framing does not allow for it @Kinkeldey2014
 - Alternatively, we should ask how/why does method A work better than method B, which grounds work in perceptual and cognative theory and provides a framwork @Kinkeldey2014
+- Blur and fog are suggested because they are metaphors for uncertainty, however the usefulness of these metaphors is rarely investigated @Kinkeldey2014
 
-# 4.?? Similar work (other literature reviews)
+
 - If you just keep using rankings, you need to compare everything one by one forever to get an idea of the space @Hullman2016
 - people sometimes ignore uncertainty and instead look at the pattern (e.g. distance between means) and use a heuristic to answer the question. be proactive about possible heuristics, look for signes of heuristics in responses, ask subjects to describe their strategy, consider including degree of heuristic as a dependent variable @Hullman2016
 - People believe in the law of small numbers but dont believe in the lar of large numbers @Hullman2016
 - experiencing an event makes your percieved probability higher than if you see a description of it @Hullman2016
-- Blur and fog are suggested because they are metaphors for uncertainty, however the usefulness of these metaphors is rarely investigated @Kinkeldey2014
 - Frequency thing means that more effective communication to participants in a study means more effective science and we have a roll on effect @Hullman2016
 - Probability judgements are less relative than other psychophysical judgements, 0%, 50% and 100% all have well understood meanings. Subjective probability distributions are spontaneous, and subjects are constructing a distribution upon being asked rather than articulating a fully formed mental representation of their beliefs. Therefore it is subject to heuristics. consider anchoring a scale with farmiliar probabilities . not sure if being asked for the entire distribution helps, e.g. the graphical one reduces noise but asking people for an interval estimation leads to overprecision and overconfidence @Hullman2016
 - If the goal is to compare visualisation, ground truth is easy, if the goal is to evaluate how accurate the subjective probability distributions are, the ground truth becomes complex. ground truth issue e.g. if you provide a sample from a distribution, is the true value the mean of that sample or the population mean? @Hullman2016
@@ -171,12 +177,38 @@ While this is a focus on uncertainty visualisation, these issues in uncertainty 
 - evidence that people do not follow the axioms of probability when conveying subjective probabilities. How do you deal with this as an analyst (e.g. if the probabilities do not sum to 1 @Hullman2016
 - If someone answers a question correctly it is hard to tell if it was because of the information provided or if the person was using a heuristic @Hullman2016
 - You cant tell if subjects in an experiment do poorly because the visualisation was bad or because the question was misinterpreted @Hullman2016
-- Visualisations risk: consider a good summary table as a visualisation, use multiple formats because no single representation suits all members of an audience, illuminate graphics with words and numbers, design graphics to allow a part-to-whole comparison on an appropriate scale, narrative labels are important (show magnitude through tick marks), use narrative, images and metaphors to gain/retain attention but dont arouse undue emotion, assume low numeracy of a general public audience and adopt a less-is-more approach by reducing the need for inderence and making clear and explicit comparison, be cautious about interactivity and animations (may introduce uncessary complexity), avoid chart junk (like 3d bar charts), assess the needs of the audience, and iterate towards a final design. @Spiegelhalter2017
-- Graphical features that improve accuracy, features that facilitate behavioural change, and features that viewers like may be different (are not necessarily the same). @Spiegelhalter2017
-- also should consider graphical literacy @Spiegelhalter2017
-- graphs are good for gists and different graphics are good at different things (i.e. trends vs comparison etc) but hard to avoid framing (show information as part of a whole) @Spiegelhalter2017
-- scatting in pictograph increases the impression of randomness but makes it difficult to count @Spiegelhalter2017
-- people with high numeracy count pictographs but low numeracy assess area @Spiegelhalter2017
+
+@Spiegelhalter2017 presents an literature reivew of uncertainty communication as a whole and considers uncertainty visualisation as a subfield of communication as a whole. In this review he has several key findings that are of particular interest. First, the best visualisation is highly dependent on your audience, and depending on how broad your audience is, there may not be a best visualisation. No single representation will be accessible to all members of an audience, and even if most audience members can read a plot, they may not read it in the same way. For example, people with high numeracy skills count pictographs, but people with low numeracy assess area, and seemingly unrelated elements may not equally influence all these methods of reading, for example scattering in a pictograph makes counting particularly more difficult. For these reasons, it is better to understand your audience and iterate towards a final design, rather than only consider one option. Second, the best visualisation for one task is unlikely to be the best visualisation for another task. Graphics are good for "gists" and different graphics are good for different "gists", e.g. one plot may we good at identifying trend, while another might be good for comparison @Spiegelhalter2017. Therefore, if we change the goal of our visualisation, and therefore the metric, 
+
+Visualisations that improve accuracy, visualisations that improve behavioural change, and visualisation that viewers like may not necessarily all be the same visualisation @Spiegelhalter2017. 
+
+He highlights a theme that is a common theme in the uncertainty visualisation literature, which is no visualisation will cover enough information, graphics are good for "gists" and different graphics are good at different things (e.g. identifying trends vs comparison). 
+we consider a summary table as a visualisation
+
+
+illuminate graphics with words and numbers, 
+design graphics to allow a part-to-whole comparison on an appropriate scale, 
+include appropriate narrative labels (such as magnitudes through tick marks), 
+use images and metaphors to gain/retain attention but dont arouse undue emotion, 
+assume low numeracy of a general public audience and adopt a less-is-more approach by reducing the need for inference and making clear and explicit comparison, 
+be cautious about interactivity and animations (may introduce unnecessary complexity), 
+avoid chart junk (like 3d bar charts), 
+
+
+These literature reviews highlight a common theme,
+In contrast to these literature reviews, we do not have a specific domain or tool analysis we intend to perform. Rather, the point of this literature review is to understand the *purpose* of visualising uncertainty (i.e. signal supression), and understand if the current visualisation tools are sufficient to achieve that purpose and if not, where there is need for improvement. Additionally, rather than discussing "uncertainty visualisation" as its own field, we view it as a subfield of both uncertainty and visualisation, and understand if this change in conceptualisation can alleviate or help us understand some of the issues faced by previous authors attempting to summarise the uncertainty visualisation literature.
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 4.1 Plot Comparison Papers
 # 4.1.1 The problem of incomparable plots
@@ -220,11 +252,36 @@ Questions where uncertainty is a noise
 - I think the questions where uncertainty is a signal, not a noise, allow the authors of visualisation experiments to ignore the context and motivation that usually governs a visualisation.
 
 # 4.?? Tasks and Motivating Questions (uncertainty about.. .what?)
-- "cannot assess the quality of risk communication unless the objectives are clear" circles back to motivation. He assumes we are fulfilling a duty to inform. @Spiegelhalter2017
+
+### A navigating a forest analogy
+When communicating uncertainty information, it is important to ask if we should consider the bias to be variance. We often talk about the "bias variance trade off" but we rarely discuss bias as "cashed in" variance, which in some sense, it is. If you are struggling to understand how bias is just traded off variance, let us walk through an analogy. 
+
+Let us consider the data analysis pipeline a dense forest that you need to cross to get to your house. To prevent yourself from getting *too* lost you decide to bring some poles and rope so you can mark where you are going. You know your rope is long enough to get you to your house with enough wiggle room that you can reach the 5 houses either side of your house. This problem is drawn in @fig-forest1. @fig-forest2 depicts the typical data analysis pipeline and resulting uncertainty using this forest analogy. In this method, we navigate the forest by putting one of our poles down every time we notice the trees have changed (i.e. we have move to a new section of the forest). As we move down the line and we put our poles down, we cannot be certain we are always walking in the direction of our house, but we can do small checks or validation to make sure we are vaguely heading in the right direction. When we get to the final stage, we have enough rope remaining to get to the three houses directly in front of us, and we state that band as our "uncertainty". @fig-forest3 depicts the bias variance trade off in the case where we make no decisions, record as much information as possible, and check every single model with every single variable and keep every alternative as a possible option. This method will result in no bias (although it is often impossible to check the entirety of these spaces so it cannot) but a huge amount of variance.  In an effort to avoid putting down any poles, we have managed to navigate the forest, but have essentially no idea which of the 10 houses are ours. Of course, with sufficient feedback we can whittle down this vast array of choices (which is what a neural network can do) but feedback from an increased sample size can only influence variance, it cannot influence bias that was previously variance. @fig-forest4 shows an alternative way to perform the data analysis process to consider variance at stages beyond model uncertainty (such as the scenario uncertainty that comes with different human choices in climate change models). In this scenario you navigate the forest to a certain point, and then clone yourself three times and each put down a new pole at different distances to each other. All four versions of yourself will then walk in an identical fashion from the pole to the end of the forest, and each have your own path with your own confidence interval. This is how the [climate scenario uncertainty](https://climatechange.chicago.gov/sites/production/files/2016-07/scenariotempgraph_0.jpg) is constructed. 
+
+::: {#fig-forest layout="[[59,-2, 39], [59,-2, 39]]" layout-valign="bottom"}
+
+![Data analysis Goal](forestwalk/fig1.jpg){#fig-forest1}
+
+![The typical modelling process](forestwalk/fig2.jpg){#fig-forest2}
+
+![Making zero assumption at every stage](forestwalk/fig3.jpg){#fig-forest3}
+
+![An example of "scenario uncertainty" with a confidence interval](forestwalk/fig4.jpg){#fig-forest4}
+
+An analogy of walking through the forest to help understand how our conceptualization of uncertainty and bias can influence what we consider to be uncertainty and what we consider to be bias. 
+:::
+
+This analogy may seem silly but it is explaining a very real problem that exists in uncertainty communication. The bias and variance trade off is commonly discussed in modelling, but rarely mentioned when we discuss communicating uncertainty. The reality is that every point in our data analysis, is full of decisions. Every time we make a decision at some point in this pipeline, we are impacting this bias and variance trade off. We have swapped out the variance from a large range of choices for the bias that may arise from an incorrect decision. Validation methods (such as cross validation, assumption checks, etc) help to guide the choices we make in the data analysis pipeline, but they can never offer any kind of certainty or truth considering validation methods themselves are also only estimates. When we consider the "uncertainty" of a model we usually only consider the variance of the final stage, the prediction error for a specific model and a specific set of features, and ignore the variance (that has been converted into bias by our selections) that was introduced at earlier stages (e.g. such as in data collection, when cleaning the data, or when considering alternative models). This is *well known* in modelling, it is why big tech companies try to collect as much data as they can and then put it in a neural network and hope they have enough data and enough feedback to avoid the this bias at *all* stages of the analysis. Recording *everything* means we don't even have to put any poles down at the data collection stage. Sometimes these statements are couched in a single assumption, such as when a time series model's confidence interval is constructed "assuming previous trends will continue into the future". This trade off issue means the uncertainty we typically estimate, in the form of a confidence inteval or traces or whatever you choose, has confidence intervals that are too small for what you actually consider the goal of the analysis to be. Unfortunately factors that typically decrease the variance, such as sample size, can only have an effect at the levels where that information is used to inform the choices. So confidence intervals that are incredibly small but built on a biased sample will be misleading and will be too small to *actually* predict future data. It is not uncommon for true results or models produced by a different team to sit entirely outside of the confidence band of another. This might be obvious when it is read, but the conversation about whether or not we should consider what was previously variance, to be variance when we communicate our analysis, is something that is rarely discussed although it is important. 
+
+Therefore, we must ask ourselves, *why* are we visualsing uncertainty? Uncertainty is only thought of as the final stages because to give a point prediction for a random process feels silly. By hiding the selections we made at earlier stages, when we traded that variance in for bias, we functionally made *point predictions* but it was just invisible to us.
+
+
 ## 4.?? What are you uncertain about? A mathematical considerations
 - Should add plot comparison mathematical framework example here
 - take a plot and work through the entire example as a flow chart thing
 - tasks e.g. "What is the average of X" (how well lined up you are moving down the data pipeline) and resolution (uncertainty is very often moving back a resolution level in statisitcs - also can be an assumption - bootstrap is a replacement for an assumption, not a resolution change, but bootstrapping is centered on the data)  e.g. "What is the noise around the estimate of the value of X"
+- "cannot assess the quality of risk communication unless the objectives are clear" circles back to motivation. He assumes we are fulfilling a duty to inform. @Spiegelhalter2017
+
 ## 4.1?? In other statistics
 What is meant by "uncertainty" may seem obvious to some, but when you attempt to quantify or visualise it you will quickly find yourself asking, "uncertainty about... what?". Do you mean uncertainty on an estimate? On a forecast? How many steps ahead is this forecast? Are we only considering the uncertainty in the estimate or in the parameters or are we considering the possibility of measurement error or biased inputs? Signal and noise can only be untangled in the presence of a motivating question.
 
