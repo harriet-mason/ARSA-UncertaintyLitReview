@@ -5,10 +5,11 @@ format: html
 ---
 # Why this exists
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
-# Definition outtakes
-## Random
+
+# Moved over notes
 - mentions uncertainty can be variance, precision, accuracy, reliability, or related concepts @Hullman2016
 -  @Spiegelhalter2017 defines risk as risk known probabilities and uncertainty as estimated probabilities, therefore uncertainty is what we have when you cannot accurately quantify risk.
+
 
 ## Taxonomies
 Some taxonomies contain overlapping terminology but also have alternative definitions and categories. For example *___* organises uncertainty into the two categories, Aleatroy (inherrent randomness) and epistemic (lack of knowledge), but *___* organises uncertainty into the three categories aleatory (inherrent randomness in a forecast) vs epistemic (uncertainty in structure and parameters of statistical models) vs ontological (uncertainty about the entire modelling process as a description of reality). 
