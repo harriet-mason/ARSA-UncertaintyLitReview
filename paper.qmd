@@ -159,7 +159,7 @@ The second issue is that there does not seem to be anything these taxonomies off
 I should add something in about the actual quantified uncertainty vs the discussed uncertanty thing (i.e. what is defined with words and what is defined with maths)
 :::
 
-# 5.General Attitude Towards Uncertainty (Uncertainty Communication Boradly)
+# 4.General Attitude Towards Uncertainty (Uncertainty Communication Boradly)
 It would be impossible to discuss uncertainty visualisation without mentioning the broader conversation around uncertainty communication. The conversation around uncertainty communication is often centered around the psychology is communicating risks.
 
 Most research into general uncertainty communication seems to focus specifically on how we communicate risks. Risk and uncertainty are not perfect synonyms of one another. @Spiegelhalter2017 makes the distinction clear by specifying *risk* as *a precise random event* (such as a coin flip) while *uncertainty* (also sometimes referred to as abiguity) is imprecision (such as the estimated probability associated with a coin that might be biased). For this reason, risk is often seen as a specific case of uncertainty and that well defined sub area has a lot of detailled research. Some markers of probability that have common uses, probabilities such as 0 (impossible), 0.5 (a fair coin flip), 1 (certain) are easy for people to have an internal sense of *hullman paper*. It is incredibly hard to communicate small risks, because people cannot differentiate between 1/100 an 1/1000, and communicating low probability but high impact risks are particularly challenging [@Spiegelhalter2017]. This issue can be somewhat alleviated by communicating the likelihood of an event in relation to another event on a similar scale (such as being struck by lightning) [@Spiegelhalter2017]. The framing of how we communicate risks matters due to the affect heuristic, so there will be a difference in peoples behaviours if, for example, you tell people they have a 90% chance of survival vs a 10% chance of death, and when expressing a frequency, a larger numerator communicates a larger risk [@Spiegelhalter2017]. The reference class of a particular risk should be explicitly stated to avoid confusion, for example if we are communicating the chance of rain, the time period over which we are expecting this chance of rain (i.e. 50% chance today or this week) needs to be specified [@Spiegelhalter2017]. The problem with a risk focus is that it is only a small piece of the uncertainty pie, and very few of these findings can be reasonably assumed to go beyond risk communication. Even less can be assumed to translate to uncertainty visualisation.
@@ -207,11 +207,37 @@ assume low numeracy of a general public audience and adopt a less-is-more approa
 be cautious about interactivity and animations (may introduce unnecessary complexity), 
 avoid chart junk (like 3d bar charts), 
 
-# 4 Uncertainty Visualisation Literature Summary
-The previous sections of this paper established several issues in uncertainty visualisaiton.
+# 5. Uncertainty Visualisation Literature Summary
+The previous sections of this paper established several issues in uncertainty communication at large. In this section, we will discuss the current literature on uncertainty visualisation, how the uncertainty communication issues more broadly manifest in the specific case of visualisation, and what general lessons we can take from the existing work.
+
 ## Types of Uncertainty Visualisation Papers
+Evaluation experiments are the standard rule for visualisations because the human brain is not as reliable as mathematical calculation. Therefore, user studies often aim to assess the limitations, biases, and heuristics of our mental calculator so that we can better understand the problems we may encounter when we plot our data. This is not to say any paper that suggests a visualisation without an evaluation experiment is completely lacking in justification, and there are many papers that suggest a novel visualisation without an evaluation study. Sometimes these papers are a preliminary step in finding a solution for common problems and intend to evaluate the visualsiation in later work. Until that later work is done, it is often difficult to accept one particular representation. While justification could come in the form of discussing established concepts in visualisation, such as the hierarchy of perceptual tasks, even these may need an evaluation study to back up their claims.
+
+The reasoning for this is obvious. There are a large number heuristics and biases that are not obvious to us when designing visualisation. Additionally, these heuristics and baises can change depending on the larger scope of the graphic and the population we are communicating with. Additionally, since there is often a miriad of ways to visualise any particular mathematical object, to adopt specific visualisation that is not already common practice needs reasonable justification, lest we run into a range of unforseen heuristic pitfalls.
+
+There are some papers that suggest a novel plot that does not serve to fix a specific visualisation issue. These papers suggest ways to include even *more* information in a visualisation, and shift the information overload from the visualisation author to the viewer. Clever methods of combining several types of information, such as VSUPs or tours, can better help us understand how our brains process information in a graphic, but visualisations that simply seek to display as much information as possible fail to understand that visualisations are primarily as a tool to summarise information. Poor understanding of our goals in generating a visualisation will not be remedied by overloading the viewer.  
+
+The remainder of section 4 will focus on the results and methods of uncertainty visualisation evaluation experiments. There are six main types of evaluation experiments in the uncertainty visualisation literature, they are:
+-  Plot Comparisons: These papers describe an uncertainty visualisation evaluation experiment, where they compare two or more uncertainty visualisaitons on a specific set of questions. These questions can be about specific statistics (e.g. What is the probability that A>B?) or about a secondary goal such as trust or decision making (e.g. How much do you trust this estimate?).
+- Perceptual Tasks: These experiments identify perceptual tasks that are/could be associated with uncertainty, and test its association with uncertainty, check it's number of distinguishable levels, and/or check how quickly/accurately people can draw the uncertainty information from the graphic. 
+- Heuristic Checks: These experiments are checking if a perceptual bias that has been identified through public use of a particular plot, other evaluation experiments, or gut feeling identified through public use of a plot or in a different 
+
+Heuristic checks: do people have this bias when looking at this plot?
+Meta papers: Uncertainty visualisation experiments should actually be done like this.
+Qualatative analysis: Look at this visualisaiton for this purpose, tell us what you are looking at and why.
+Can people get X: Draw/look at this uncertainty viusalisation, what is the mean of this distribution?
+
+
+Each of these types of papers may have distinct goals in their visualisation, but their problems and conflicting results share a common source. Some of these issues come from issues deeper than the visualisation field (e.g. the lacking definitions of uncertainty) while some are specific to visualisation (e.g. the difficulty in identifying the signal of a graphic). Below we will go through the five key issues in uncertainty visualisation, describe how they mainfest in the uncertainty visualisation literature, and offer some tentative solutions to these problems.
+
+We will also comment on some of the uncertainty visualisation papers that suggest a visualisation without an evaluation experiment. Some of these plots may offer a solution to the unique problems we mention in this paper and these visualisations will be discussed in "Part 6: Great Examples". We will also consider these papers to illustrate the issues that visualisations are aware of and working to fix, and discuss whether or not these directions of research are likely to bear fruit, and why.
+
+- perceptual tasks need to know what you are uncertain about
+- perceptual tasks don't consider
 
 ## Uncertainty Visualisation and the Grammar of Graphics
+The first issue in uncertainty visualisation is there does not seem to be a clear rule for what makes a particular visualisation a depiction of uncertainty.
+
 - Since there are so many papers that treat uncertainty as a signal, not a noise, issues in the uncertainty visualisation literature also help to understand some difficulties in the information visualisation literature as large.
 
 - Suggests that it is straightforward to show a value but much more complex to show uncertainty @Hullman2016 (I think this is interesting in relation to how people SEE uncertainty visualisation. Why is uncertainty hard to visualise?)
@@ -243,9 +269,9 @@ While mathematical information *should* be considered the starting point in cons
 
 
 ## Noise and Signal in Uncertainty Visualisation
-
 The first issue that arises with uncertainty research is that uncertainty is frequently treated as a signal, not noise. This discrepancy is also noted by @Kinkeldey2014 who, in their own literature review on uncertainty methods, comment that the literature seems unsure if uncertainty is simply another variable or if it should be treated differently. This is a fair question to ask. If uncertainty is simply a signal we are trying to convey, why should it be treated any different to any other signal in a visualisation? 
 
+- new papers dont seem to be aware of this problem.
 - if the experiment DOES use noise as a signal, it is often very unclear how the participants should include that in their respose and what would be a valid response from participants (e.g. the likelihood to how much question and the cone of uncertainty questions). separate to the data, uncertainty has its own goal. Is it to impact confidence in the estimate (like a bayesian thing)? to supress signal (like a barely noticiable difference line up plot thing)? to facilitate more efficient decisions (so accounting for risk thing)? 
 
 - will it impact their decision at all? there are a couple of papers where you can answer all the questions by just ignoring the uncertainty information because of the way they have set it up. e.g. difference in means when the variance is the same, experiments that check if someone can still get the signal and make sure the uncertainty information isnt in the way. 
@@ -315,7 +341,6 @@ In this sense we are not proposing that the current conceptualisation of data ac
 ![The metaphysical cake we are slicing differently](metaphysicalcake.jpg){#fig-cake}
 
 
-# 4.?? Importance (and unimportance) of Secondary and Meta information
 - Specifies uncertainty can be represented by three components attribute (what) position (where) and temporal (when) @Kinkeldey2014
 - Studies dealing with uncertainty information typically deal with attribute but rarely position and time @Kinkeldey2014
 - 10/44 studies involve multiple types of uncertainty @Kinkeldey2014
