@@ -65,7 +65,7 @@ He kept the taxonomy to three levels to maintain simplicity, however this organi
 Given that uncertainty estimation and communication seem to be largely task depenent, what questions should we be testing? This leads to several unanswered questions. Is our goal in uncertainty communication to acknowledge and convey the inherrent randomness that exists in all statistical calculations and models? Is it to supress signal that could be the result of random variance? Is it to find the best way to convey the mass function of a random variable? A survey of the literature will leave the answers to these questions unclear, however this inherrent issue has not gone unnoticed.
 This conceptual way of thinking about uncertainty has been rattling around in the different areas of data science for a while.
 For example, when we record coin flips we typically want to model the behavior with a binomial distribution, so we ignore the outcome of a coin landing on its side despite the fact it is a real world possibility.
-@Wallsten1997 argue that the best method for evaluating or combining subjective probabilities depends on the uncertainty the decision maker wants to represent and why it matters.  @Munzner2009 created a nested model for visualisation that highlighted how pitfalls in upstream levels, such as problem characterisation and data abstraction, can cause downstream effects and damage the effectivness of a visualisation. @Fischhoff2014 looks at uncertainty visualisation for decision making decides that we should have different ways of communicating uncertainty based off what the user is supposed to do with it.
+
 
 # General Thoughts For Actual Review
 ##### General
@@ -101,7 +101,6 @@ For example, when we record coin flips we typically want to model the behavior w
 # Previous literature review
 #####Taxonomy Benefits
 - Distinctions at this taxonomy level seem to be important also untangling helps to understand it
-  - @Padilla2021 found that low forecaster confidence or high model uncertainty both contribute to more conservative judgements by decision makers.
   - Failing to communicate the nature of your uncertainty can result in underestimation or overestimation of failure probabilities [@Kiureghian2009]
   - @Gustafson2019 found that the framing of our uncertainty, (i.e. if the source of uncertainty is from a lack of knowledge, approximations, unknown unknowns, or disagreement among parties) was found to not have a detrimental effect on the belief in the estimates, perceived credibility, or behavioural intentions of the decision makers.
 
