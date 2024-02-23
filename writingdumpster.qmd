@@ -7,6 +7,11 @@ format: html
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
 
 # Moved over notes
+- Error is best mapped to fuzziness, location, and colour value; arrangement, size and transparency are an OK second choice; but saturation, hue, orientation and shape are unacceptable and have no intuitive connection to variance [@Maceachren2012]. 
+- @Nathonours found that a scatter plot is better than a line plot if you want to convey the correlation between two time series but we cannot be sure if this was influenced by swapping the distribution depicted or by dropping the irrelevant feature of inexchangeability.
+- No only do the graphical elements we map our features to matter, but the direction matters too. Graphical elements that are more fuzzy (fuzziness), further from centre (location), lighter (colour value), poorly arranged (arrangement), smaller (size), more transparent (transparency) are perceived to be more uncertain [@Maceachren2012]. 
+- This idea also extends to interval estimation, where questions about probability are best answered with gradients and questions about start and end times are easiest to answer with ambiguation [@Gschwandtnei2016].
+- Heuristics can work against us just as much as they can work for us. The sine illusion can cause the confidence interval of a smoothed sine curve to seem wider at the peaks than the troughs, causing us to underestimate uncertainty associated with changing values [@Vanderplas2015]
 - mentions uncertainty can be variance, precision, accuracy, reliability, or related concepts @Hullman2016
 -  @Spiegelhalter2017 defines risk as risk known probabilities and uncertainty as estimated probabilities, therefore uncertainty is what we have when you cannot accurately quantify risk.
 - Authors provide little justification for their chosen response models (e.g. absolute accuracy vs relative measures) @Hullman2016 
@@ -14,6 +19,49 @@ I have an information hoarding problem, this helps me throw out sections of the 
 - The big data paradox shrinks confidence intervals but magnifies bias [@Bradley2021] because the confidence intervals shrink due to the sample size but the imprecise target group creates bias.
 - coloured maps for earthquake risk are easily interpretable @Spiegelhalter2017
 - Hurricane risk is not only the path, but also the storm surge and wind speed. @Spiegelhalter2017
+
+# Experiment paper checklist
+General
+- Specific Field of Research
+- Question asked
+- Risk or Uncertainty: 
+- Noise vs signal (risk vs uncertainty)
+- Major task goal
+    - e.g. identify a bias or misunderstanding, compare two visualisation methods
+- Minor task goal
+    - Communication(value retrieval)
+    - Analytical(complex consideration)
+    - Exploration(free for all)
+
+Uncertainty Considerations
+	- Source
+	- Level (statistical-ignorance)
+	- Nature (Epistemic/Aleatory)
+
+Visual Uncertainty taxonomy
+- Explicit/implicit
+    - (directly mapping or showing multiple outcomes)
+- Intrinsic/Extrinsic 
+    - (using existing symbols e.g. colour value, or new objects e.g. grids)
+- Visually integral/separable 
+    - (can or cannot be separated from the data) 
+- Coincidence/adjacent 
+    - (if data and uncertainty are in integrated or separate views
+- Static/dynamic 
+    - (animation/interaction) 
+
+Other plot considerations
+	- Dimension of data
+	- Dimension of uncertainty
+	- Feature mappings
+
+Extra (not necessarily recorded)
+	- Metrics used (and recorded)
+	- Possible Heuristics
+	- What is the ground truth?
+	- Participant literacy
+
+ 
 
 # Main section outtakes
 While mathematical information *should* be considered the starting point in considering if two visualisations are equivalent, it is not the only consideration. A large amount of work in perceptual tasks, attention, and psychology surrounding charts shows that all the information depicted is not paid attention to in equal measure. Elements such as colour can have sizable impacts on the way a graphic is percieved. Mathematics identifies the information that is *shown* while psychology identifies the difference in information *recieved*. A failure to understand this distinction leads to graphics that are different not only in the way information is depicted but in the information itself. This problem is pervasive in uncertainty visualisation literature.
