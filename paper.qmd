@@ -9,8 +9,8 @@ format: pdf
 editor_options: 
   chunk_output_type: console
 ---
-
-# Introduction
+# Background
+## Introduction
 
 **Aside: I have not touched this section since the confirmation so it would be best to ignore it**
 
@@ -46,7 +46,7 @@ tibble(x = c(anscombe$x1, anscombe$x2,
 
 - industrial accidents have a "tollerable" risk chart based on risk and number of fatalities @Spiegelhalter2017
 
-# 2. Similar work
+## Similar work
 There are a wealth of uncertainty communication and visualisation literature reviews that already exist. Interestingly they all seem to have identified similar pitfalls or fallen into one themselves.
 
 @Kinkeldey2014 summarised the literature specifically for geopsatial uncertainty visualisations and attempted to describe similarities in their characteristics. They found most experiments the methods for uncertainty visualisation evaluation to be adhoc, with no commonly agreed upon methodology or formalisation. They found that experiments took on an engineering approach, where plots were evaluated with the goal to improve a particular representation, rather than to investigate why particular representations do or do not work and create general principals. Authors would then ignore the engineering perspective they had taken on, and try to generalise beyond the specific constraints of their experiment. While they did discuss the results of some perceptual task experiments they found that even those results were somewhat conflicting and difficult to combine in any meaningful way. They also stress the importance of selecting the correct audience, as numerical and visual literacy can differ vaslty between subpopulations so the results from one populations may not reflect the results from another. The paper contains an entire paragraph where experiments that compared box-plot representations are rattled off, each experiment finding results that conflicted with its predecessor. Ultimately they suggested the visualisation typologies move away from data types, uncertainty categories, and representation types and towards "task-centered typologies" to better enable generalisations of the findings.
@@ -271,7 +271,11 @@ We feel the need to make this point clear because a *large* amount of uncertaint
 
 The reality is that a lot of uncertainty visualisation authors do not seem to have an intuitive understanding of uncertainties connection to inference, when inference is being performed, and how to design experiments that capture this relationship.
 
-This misunderstanding is not due to laziness or the fault of the authors, but rather is likely caused by the absence of a strict definition of uncertainty. The imprecise and confusing set of existing definitions are creating a field in which the authors themselves do not know what they are testing. Uncertainty examples include imputed data, model selection, inherent randomness, biased sampling, etc, not because these things *are* uncertainty, but because they *create* uncertainty *when we perform inference*. These things are not "uncertainty" in of themselves, but rather contribute to the distance between the final estimate and the statistic we want to perform inference on. The field of uncertainty communication is in desperate need of a unifying mathematical definition that firmly identifies exactly how each of these things contribute to uncertainty. This may be a considerable task, but as of right now, the list of things that are "uncertainty" continues to grow, and the best methods of uncerstanding and quantifying them are ad-hoc at best. @Thomson2005 suggests a mathematical formula for *examples* of uncertainty, @Meng2014 mathematically defined the variance introduced to a model by the array of model choices, information theory tries to quantify uncertainty using the idea of entropy. None of these existing methods are thorough enough for an analyst to understand what causes uncertainty, and quantify it for communication. This limitation becomes apparent when you look at the limited scope of what the uncertainty visualisation literatrue has *actually* focused on visualising. Almost every uncertainty visualisation paper contains a broad and encapsulating definition of uncertainty in the introduction, followed by a visualisation of a normally distributed probablity density function.
+This misunderstanding is not due to laziness or the fault of the authors, but rather is likely caused by the absence of a strict definition of uncertainty. The imprecise and confusing set of existing definitions are creating a field in which the authors themselves do not know what they are testing. Uncertainty examples include imputed data, model selection, inherent randomness, biased sampling, etc, not because these things *are* uncertainty, but because they *create* uncertainty *when we perform inference*. These things are not "uncertainty" in of themselves, but rather contribute to the distance between the final estimate and the statistic we want to perform inference on. The field of uncertainty communication is in desperate need of a unifying mathematical definition that firmly identifies exactly how each of these things contribute to uncertainty. This may be a considerable task, but as of right now, the list of things that are "uncertainty" continues to grow, and the best methods of uncerstanding and quantifying them are ad-hoc at best. @Thomson2005 suggests a mathematical formula for *examples* of uncertainty, @Meng2014 mathematically defined the variance introduced to a model by the array of model choices, information theory tries to quantify uncertainty using the idea of entropy. None of these existing methods are thorough enough for an analyst to understand what causes uncertainty, and quantify it for communication. Realistically, this problem is well known, and put simply by Freeman Dyson in his fameous Birds and Frogs speech:
+
+> Rigorous theorems are the best way to give a subject intellectual depth and precision. Until you can prove rigorous theorems, you do not fully understand the meaning of your concepts. - Freeman Dyson (Birds and Frogs speech)
+
+This limitation becomes apparent when you look at the limited scope of what the uncertainty visualisation literatrue has *actually* focused on visualising. Almost every uncertainty visualisation paper contains a broad and encapsulating definition of uncertainty in the introduction, followed by a visualisation of a normally distributed probablity density function.
 
 **Aside: Include table that shows broad uncertainty definition and then PDF visualisation**
 
