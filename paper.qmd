@@ -333,9 +333,27 @@ Therefore, these explanations for the difference fall short of explaining *why* 
 
 Despite these results, it is clear that authors intuitively *feel* that uncertainty is different even though this difference has not been apparent in existing uncertainty visualisation experiments. @Kinkeldey2014 also noticed that it is not clear whether or not uncertainty is just another variable, as many value extraction papers treats it as such in their experimental design and uncertainty may need to be in a variable class of its own. @Hullman2016 commented that it is straightforward to show a value but it is much more complex to show uncertainty, but did not explain *why* uncertainty information faces more difficulty. So, if we cannot see any difference to uncertainty information when it coems to value abstraction, *when* is uncertainty information different?
 
-
 ## Noise and Signal in Uncertainty Visualisation
-Uncertainty is noise, not signal. While this comment may seem obvious, what may not be obvious is that the value abstraction experiments are treating uncertainty as *signal*. That is why the experimental results are identical to the existing information visualisation literature.
+Uncertainty is noise. This may be an obvious statement, but what is not obvious is that the existing literature sees noise as a signal. When we directly ask "What is the varinance of this variable" the variance *becomes* the signal. Noise and signal are not an inherrent property of variance, or meta-data or the aspects of an analysis that are usually secondary considerations, it is a property of the data that *promotes* a message we are trying to infer and the data that *supresses* it. The replication problem in uncertainty visualisation, where experiments are simply repeating established visualisation work, comes from the misunderstandings established in previous sections. Uncertainty is poorly defined, therefore authors do not understand it is not an inherrent property of the data and is actually related to a particular inference question, this incorrect view that uncertainty is always variance or probabilities leads to the class of "uncertainty visualisations" that depict different mathematical objects or visual features with little in the sense of consistent rules, this complicated class has caused visualisation authors to miss that they are simply repeating the established evaluation results from normal information visualisations. This situation is a bit of a mess. It also highlights a unique and facinating problem faced by uncertainty visualisation. If asking direct questions about uncertainty causes us to treat it as a signal, how do we evaluate uncertainty as *noise*?
+
+Uncertainty evaluation studies are not all value extraction. There are cases where authors *know* the uncertainty information is relevant, but are not quite sure how to capture it. These studies most commonly evaluate a visualiation on its ability to convey information for a decision or how well it induces trust. 
+
+*decision and trust paragraph*
+
+There are other studies that try to include uncertainty information without directly asking for it. This is an interesting approach, but these papers are often still looking for a "signal" which is specified in the form of a "ground truth" that is used to evaluate the plot. Unfortunately this usually comes in the form of slightly cryptic questions that create a large amount of noise on the interpretation side [@Hullman2016].
+- @Hofmann2012 showed two distributions in 20 different visualisations (a lineup protocol) using a jittered sample, a density plot, a histogram, and a box plot. Participants were asked to report in which of the plots was "the blue group furthest to the right" and to provide reasoning from a multiple choice list and grade their certainty. The experiment set up is shown in @fig-right. The participants answers were then compared to a ground truth where the correct plot had a right shifted mean. By comparing the results to a ground truth statistic and marking participants as "wrong" or "right", the error from the participants that had an alternative interpretation to the concept of "furthest right" was conflated with the error from a poor design.
+
+![This shows the user interface for the experiment performed by @Hofmann2012. The question of "furthest to the right" is open to interpretation. ](furthestright.png){#fig-right}
+
+
+Additionally, the use of a ground truth highlights how participants were supposed to *use* the uncertainty information. In this informa
+
+
+
+
+- The way we ask questions and the types of questions we ask are selected with little justification. This paper makes suggestions to reduce the noise in the data from these papers. @Hullman2016
+
+
 
 The view of uncertainty as a dimensionality problem is not quite right. It is important to keep in mind that just because information is in a graphic, that does not mean it will be "seen". The phenomena of inattentional blindness shows that there is no perception without attention and it is powerful enough that participants can fail to be aware of random objects appearing on a screen or a gorilla walking through a basketball game [@simons1999gorillas; @mack2003inattentional]. Therefore if information is mapped to graphical elements that are so low on hierarchy they can be ignored, they might as well not be there at all. The people who don't plot uncertainty because they think its unimportant and the people who relegate uncertainty to the lowest ranking aesthetic on the list are both saying the same thing, "I think the uncertainty is unimportant". Including uncertainty is worth very little if no attention is left to see it. This does not mean we cannot put a *large* amount of information in a graphic. Glyph maps can be used to depict the multi-dimensional information in spatial-temporal data by mapping line plots to map locations, but we still need to decide what information is important. The map can either present trends in the global or local variance depending on whether or not the line plot is scaled globally or locally [@Wickham2012], however smaller details are almost impossible to convey. No matter how much information we try and put in a plot, there will always be only a handful of key takeaways.
 
@@ -415,12 +433,7 @@ Notes from previous sections that were moved here
 
 - Need to compare to an approripate ground truth, but this is a philisophical exercse @Hullman2016
 
-## Bad Question stuff?
-In the discussion of the HOPs, error bar, and violin plot study @Hullman2015 note: 
 
-> "In light of the common usage of error bars for presenting multiple independent distributions, it is noteworthy how poorly subjects using these representations performed on tasks asking them to assess how reliably a draw from one variable was larger than the other...Many subjects reported values less than 50%, which are not plausible given that the mean of B was larger than the mean of A."
-
-- The way we ask questions and the types of questions we ask are selected with little justification. This paper makes suggestions to reduce the noise in the data from these papers. @Hullman2016
 
 # Great Examples
 - best things you have seen and why they are the best

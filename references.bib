@@ -54,6 +54,88 @@
     url = {https://CRAN.R-project.org/package=datasauRus},
 }
 
+@article{Zhao2023,
+abstract = {Machine learning models have gained traction as decision support tools for tasks that require processing copious amounts of data. However, to achieve the primary benefits of automating this part of decision-making, people must be able to trust the machine learning model&#x0027;s outputs. In order to enhance people&#x0027;s trust and promote appropriate reliance on the model, visualization techniques such as interactive model steering, performance analysis, model comparison, and uncertainty visualization have been proposed. In this study, we tested the effects of two uncertainty visualization techniques in a college admissions forecasting task, under two task difficulty levels, using Amazon&#x0027;s Mechanical Turk platform. Results show that (1) people&#x0027;s reliance on the model depends on the task difficulty and level of machine uncertainty and (2) ordinal forms of expressing model uncertainty are more likely to calibrate model usage behavior. These outcomes emphasize that reliance on decision support tools can depend on the cognitive accessibility of the visualization technique and perceptions of model performance and task difficulty.},
+annote = {Type:Trust Check
+
+Rating: 4/5
+
+Summary: Use uncertainty visualisation to communicate uncertainty arond machine learning models. Review of experiments evaluating uncertainty visualisations, mentions geo stuff. 
+
+Notes:
+- She said in the video the participants were supposed to trust the AI when it was high certainty but not trust it was low certainty, but IDK what other information they are supposed to use...
+
+Personal Notes
+Good god. This study is bad in so many ways. I genuinely don't know why they throught this would be worthwhile. At no point do the authors mention that it is fundamentally irrational of the participants to decide to use or ignore the model prediction for uncertainty reasons, I am not sure the authors themselves know this. They say that people being more likely to to adopt the model when using a particular uncertainty visualisation is a good thing but again, THIS ENTIRE EXERCISE WAS IRRATIONAL.
+Specific field of research: Computer science/machine learning
+Task Goal
+Major: Understand if uncertainty visualisations encourage the adoption of a model
+Minor: I genuinely have no idea
+Questions asked
+Do you want to use the model prediction? 
+I'm assuming they were supposed to consider the uncertainty here
+What is your own prediction
+I'm assuming this part was supposed to use the table which was an objectively terrible way to present the data
+Explain why
+Rate your confidence
+Risk or uncertainty: Uncertainty
+Noise vs Signal: This is actually impossible to answer. The uncertainty information is technically irrelevant to EVERY level of this study. The only question where it would be relevant is when participants who used the model have to express their confidence in it, although this could be conflated with everything else.
+Ontological consideration
+They actually removed all the real world information for the participants too so this is just bad. This paper just shows a fundamental lack of understanding of why people don't adopt models and how uncertainty works
+Result Depictions
+Include histograms and bar charts when they include data information or estimates. Some of the plots are a little bizarre and hard to read though. It is not always clear what they are comparing or why they are comparing it.
+Data + dimensions
+4 variables of data, results are shown a in a single predictive dimension
+Data: 1D (percentile prediction) 
+Uncertainty 1D (distribution)
+VIs taxonomy 
+Violin plot easy
+Question mark plot: Explicit, Extrinsic, Separable, Adjacent, static
+Discretised visualisation
+Uncertainty taxonomy
+Source: forecast uncertainty? Idk how they estimated it
+Level: Both visualisations were statistical but for different levels (one was a gradient and one was just 4 discete levels)
+Nature: I think this is the interesting part. Inherent in the participant's decision to CHANGE the prediction is a belief that the uncertainty presented by the model is Epistemic (the result of inefficiencies or bias). The reality is the uncertainty was Aleatoric since none of the participants could improve on the model. The LEVEL of uncertainty was not important here, but rather the NATURE of the uncertainty was what needed to be communicated.
+
+
+Experiment Summary
+The second, confirmatory study, serves to corroborate results from the first study to test whether the results are consistent across participant groups and tasks
+Basically participants are shown a bunch of variables (GRE score, letter of rec, etc) and asked to predict if that student was accepted into university. They are also presented with a model prediction. For the first two questions there is no model prediction and they make their own prediction using (1) a table of values with no context and (2) histograms depicting the range of outcomes in the dataset and where this person falls in that range. The next three questions show a table of values with no context and a model estimate with the uncertainty in the estimate depicted by (3) a violin plot (4) nothing (5) a questionmark glyph. They can either choose to use the model prediction OR use their own prediction. They then have to explain why they used their own or the model and also provide a level of confidence.
+They are not trying to predict how likely it is that this person got in, but rather the PERCENTILE of the likelihood score (i.e. if it is 50% is means 50% of the applicant pool had a better chance of getting in than them).
+Tested 5 levels of representation and 2 levels of model uncertainty
+model adoption meant be a proxy for model reliance
+Second confirmatory study is to test if results are consistent across groups and tasks
+Results
+statistical significance for the interaction effect between Visual Representation and Level of Model Uncertainty (measure of accuracy)
+Uncertainty visualisation did not help prediction performance (no shit)
+For visualisations encouraged model adoption in low uncertainty tasks (but in high uncertainty tasks the results were inconclusive)
+They said that the question mark representation low uncertainty tasks there is a higher chance that a person will adopt model predictions while for high uncertainty tasks, rejection of model outputs is more likely
+But like{\ldots} do we want people picking their own model? Do the people have information the model doesn't have? Uncertainty wouldn't improve predictions because it doesn't give you a better sense of the mean than the point PREDICTION would. Like if I know the uncertainty is PERFECTLY SYMMETRICAL there is no reason to change my prediction.
+I would also argue that uncertainty from bias is what would cause the prediction to change, not uncertainty in general.
+It is not clear if the table and histogram cases are compared to all participants including those who USED the model prediction (this feels so stupid) or to just those that elected not to use the model and made their own prediction.
+Found that neither uncertainty visualization (the violin plot or the question-mark representation) is superior to the other
+Again, no shit. The question was a simple “yes or no” acceptance of the model. It was actually irrational for the users to reject the model at ANY point in the 
+People reject models because of BIAS and a LACK OF KNOWLEGE and a belief that the model KNOWS LESS THAN THEM. Inventing a situation where the user has the exact same amount of information as the model (actually less because the model has been TRAINED on the data) and putting symmetrical bars on the visualisation is not an accurate reflection of how these things are used.
+The authors write as though it's GOOD that the uncertainty model made people adopt the model more but that is FUNDAMENTALLY IRRATIONAL BEHAVIOUR.
+I think participants would feel uncomfortable doing the rational thing, which is clicking through and just accepting the model prediction every time.
+I don't know why they are talking about human accuracy when they literally couldn't have outperformed the model since they didn't get training. It would have been interesting if the humans got to TRAIN on the data for longer.
+This study is not good. There is no way to know if the descriptive statistics helped with the predictions, the humans were compared to a model that was trained on more data than them, uncertainty prediction such as violin plots and question marks SHOULD NOT encourage people to change the prediction
+The users cited the uncertainty as the reason they adopted the model or didn't adopt the model but that is IRRATIONAL BEHAVIOUR. The ONLY REASON to use your own prediction is BIAS. By providing contextless uncertainty they have confused the audience.},
+author = {Zhao, Jieqiong and Wang, Yixuan and Mancenido, Michelle V. and Chiou, Erin K. and Maciejewski, Ross},
+doi = {10.1109/TVCG.2023.3251950},
+file = {:Users/hmas0003/Downloads/Evaluating_the_Impact_of_Uncertainty_Visualization_on_Model_Reliance (1).pdf:pdf},
+issn = {19410506},
+journal = {IEEE Transactions on Visualization and Computer Graphics},
+keywords = {Computational modeling,Data models,Data visualization,Prediction algorithms,Predictive models,Task analysis,Uncertainty,human-machine collaborations,model reliance,trust},
+mendeley-groups = {Annual Reviews of Statistics and It's Applications/4 Experiments on Plots/4 Trust Papers},
+number = {X},
+pages = {1--15},
+publisher = {IEEE},
+title = {{Evaluating the Impact of Uncertainty Visualization on Model Reliance}},
+volume = {PP},
+year = {2023}
+}
+
 @book{Otsuka2023,
   address = {New York},
   author = {Otsuka, Jun},
@@ -692,3 +774,63 @@ year = {2000}
       archivePrefix={arXiv},
       primaryClass={stat.AP}
 }
+
+@article{Newman2012,
+  author = {Newman, George E. and Scholl, Brian J.},
+  doi = {10.3758/s13423-012-0247-5},
+  issn = {10699384},
+  journal = {Psychonomic Bulletin and Review},
+  keywords = {Decision making,Graph perception,Object-based attention,Statistical reasoning},
+  number = {4},
+  pages = {601--607},
+  pmid = {22648655},
+  title = {{Bar graphs depicting averages are perceptually misinterpreted: The within-the-bar bias}},
+  volume = {19},
+  year = {2012}
+}
+
+@article{Padilla2017,
+  author = {Padilla, Lace M. and Ruginski, Ian T. and Creem-Regehr, Sarah H.},
+  doi = {10.1186/s41235-017-0076-1},
+  issn = {23657464},
+  journal = {Cognitive Research: Principles and Implications},
+  keywords = {Ensemble data,Geospatial data,Hurricane forecast,Summary display,Visual salience,Visualization cognition},
+  month = {dec},
+  number = {1},
+  publisher = {Springer},
+  title = {{Effects of ensemble and summary displays on interpretations of geospatial uncertainty data}},
+  volume = {2},
+  year = {2017}
+}
+
+@article{Correll2014,
+  author = {Correll, Michael and Gleicher, Michael},
+  doi = {10.1109/TVCG.2014.2346298},
+  issn = {10772626},
+  journal = {IEEE Transactions on Visualization and Computer Graphics},
+  keywords = {Visual statistics,crowd-sourcing,empirical evaluation,information visualization},
+  number = {12},
+  pages = {2142--2151},
+  pmid = {26356928},
+  publisher = {IEEE},
+  title = {{Error bars considered harmful: Exploring alternate encodings for mean and error}},
+  volume = {20},
+  year = {2014}
+}
+
+@article{Cheong2016,
+  author = {Cheong, Lisa and Bleisch, Susanne and Kealy, Allison and Tolhurst, Kevin and Wilkening, Tom and Duckham, Matt},
+  doi = {10.1080/13658816.2015.1131829},
+  issn = {13623087},
+  journal = {International Journal of Geographical Information Science},
+  keywords = {Uncertainty,decision-making,evaluation,visualization,wildfire hazard},
+  number = {7},
+  pages = {1377--1404},
+  publisher = {Taylor & Francis},
+  title = {{Evaluating the impact of visualization of wildfire hazard upon decision-making under uncertainty}},
+  url = {http://dx.doi.org/10.1080/13658816.2015.1131829},
+  volume = {30},
+  year = {2016}
+}
+
+
