@@ -7,6 +7,19 @@ format: html
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
 
 # Moved over notes
+- make sure quantified vs discussed uncertainty is mentioned
+- industrial accidents have a "tollerable" risk chart based on risk and number of fatalities @Spiegelhalter2017
+- @Suh2023 found that the main issue with deployment of AI was communication between data science and subject matter experts, since subject matter experts didn't want technical presentations that didn't explain exactly when and how a model would fail.
+- People believe in the law of small numbers but dont believe in the lar of large numbers @Hullman2016
+- experiencing an event makes your percieved probability higher than if you see a description of it @Hullman2016
+- Frequency thing means that more effective communication to participants in a study means more effective science and we have a roll on effect @Hullman2016
+- Probability judgements are less relative than other psychophysical judgements, 0%, 50% and 100% all have well understood meanings. Subjective probability distributions are spontaneous, and subjects are constructing a distribution upon being asked rather than articulating a fully formed mental representation of their beliefs. Therefore it is subject to heuristics. consider anchoring a scale with farmiliar probabilities . not sure if being asked for the entire distribution helps, e.g. the graphical one reduces noise but asking people for an interval estimation leads to overprecision and overconfidence @Hullman2016
+- believed that offering enough decisions with varying rewards you can observe the true subjective probability, however whether or not probability is the right representation of subjective uncertainty is a topic of debate @Hullman2016
+- she also discusses graphical interface (users have to draw the probability distribution) and framing probabilities as natural frequencies are better choices because they reduce noise and stuff.@Hullman2016
+- Consider incorperating utility functions. Include "probability-coherence" checks @Hullman2016
+- evidence that people do not follow the axioms of probability when conveying subjective probabilities. How do you deal with this as an analyst (e.g. if the probabilities do not sum to 1 @Hullman2016
+- we consider a summary table as a visualisation, illuminate graphics with words and numbers, design graphics to allow a part-to-whole comparison on an appropriate scale, use images and metaphors to gain/retain attention but dont arouse undue emotion, assume low numeracy of a general public audience and adopt a less-is-more approach by reducing the need for inference and making clear and explicit comparison, be cautious about interactivity and animations (may introduce unnecessary complexity), avoid chart junk (like 3d bar charts) @Spiegelhalter2017
+- @Maceachren2012 found to be the worst aesthetics to map to uncertainty to as they don't have an intuitive interpretation.
 - @Bella2005 found that most participants were ignorant to the fact that error bars are used for both confidence intervals and standard error bars, two wildly different indicators of precision. (**also the paper sherry sent me**)
 - Several studies probide evidence that the usability of uncertainty representations can be highly user and task dependent @Kinkeldey2014
 - The tasks for participants were most commonly value retrival (some where uncertainty and data value are retrived separately, others where they are some separately). also also be asked to extract a relative value @Kinkeldey2014
@@ -162,7 +175,8 @@ For example, when we record coin flips we typically want to model the behavior w
   - try to map back to david speigleholder paper i.e. uncertainty means lots of different things
 
 # Previous literature review
-
+##### Introduction addition
+From entertainment choices to news articles to insurance plans, the modern citizen is so over run with information in every aspect of their life it can be overwhelming. So overwhelming in fact, that it is not uncommon for people to become so overwhelmed by the information they refuse to engage with it at all. In this overflow of information, tools that can effectively summarise information down into simple and clear ideas become more valuable. While websites that summarise insurance plans or hotel options down into a clear table make a living off it, few tools are as powerful or effective as a visualisation. Information visualisations remain one of the most powerful tools for fast and reliable science communication. Effectively leveraging visualisations to make them more effective is therefore key in facilitating simple and clear communication of science and other ideas. 
 
 #####Taxonomy Benefits
 - Distinctions at this taxonomy level seem to be important also untangling helps to understand it
