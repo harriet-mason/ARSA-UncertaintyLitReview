@@ -23,7 +23,7 @@ I have an information hoarding problem, this helps me throw out sections of the 
 - @Nathonours found that a scatter plot is better than a line plot if you want to convey the correlation between two time series but we cannot be sure if this was influenced by swapping the distribution depicted or by dropping the irrelevant feature of inexchangeability.
 - No only do the graphical elements we map our features to matter, but the direction matters too. Graphical elements that are more fuzzy (fuzziness), further from centre (location), lighter (colour value), poorly arranged (arrangement), smaller (size), more transparent (transparency) are perceived to be more uncertain [@Maceachren2012]. 
 - This idea also extends to interval estimation, where questions about probability are best answered with gradients and questions about start and end times are easiest to answer with ambiguation [@Gschwandtnei2016].
-- Heuristics can work against us just as much as they can work for us. The sine illusion can cause the confidence interval of a smoothed sine curve to seem wider at the peaks than the troughs, causing us to underestimate uncertainty associated with changing values [@Vanderplas2015]
+
 - mentions uncertainty can be variance, precision, accuracy, reliability, or related concepts @Hullman2016
 -  @Spiegelhalter2017 defines risk as risk known probabilities and uncertainty as estimated probabilities, therefore uncertainty is what we have when you cannot accurately quantify risk.
 - Authors provide little justification for their chosen response models (e.g. absolute accuracy vs relative measures) @Hullman2016 
@@ -162,9 +162,6 @@ For example, when we record coin flips we typically want to model the behavior w
   - try to map back to david speigleholder paper i.e. uncertainty means lots of different things
 
 # Previous literature review
-
-##### Bivariate map
-Depicts a bivariate map which uses a bivariate colour palette that is created by blending two single hue colour palettes. One colour represents the variable of interest while the other represents the sampling error of that variable. There are two immediate problems with this method. First of all, uncertainty is being expressed with hue and saturation which @Maceachren2012 found to be the worst aesthetics to map to uncertainty to as they don't have an intuitive interpretation. Value has a natural connection to uncertainty (lighter values equate to higher uncertainty and darker values equate to more certainty) so it is a much more appropriate choice. While the `Vizumap` data does depict areas of light and darkness, they are largely irrelevant to the uncertainty measure causing our heuristics to lead us to the incorrect conclusions. The Value-Suppressing Uncertainty Palettes (VSUP) shown in @fig-vsup maps estimates to the hue and error to the value thereby creating a more intuitive plot [@Correll2018]. Additionally, at high levels of uncertainty VSUP only has one output colour, which prevents viewers from decrypting any particular value and also avoids enforcing a binary encoding of significance [@Correll2018]. Unfortunately VSUP are not easy to combine with packages like `Vizumap` which leaves it still somewhat difficult to express this encoding in practice, however the combination of a bivariate map with VSUP has shown to improve decisions in the face of uncertainty [@Correll2018]. 
 
 
 #####Taxonomy Benefits
