@@ -7,6 +7,12 @@ format: html
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
 
 # Moved over notes
+- @Daradkeh2015 found that people tended to to make decisions on a small number of salient pieces of information rather than on systematic evaluations of the costs and benefits of choices.
+- @Daradkeh2015 found that people tended to to make decisions on a small number of salient pieces of information rather than on systematic evaluations of the costs and benefits of choices.
+@Daradkeh2015 found that people tended to ignore or give little weight probability information and instead focused on the severity of undersierable outcomes.
+@Daradkeh2015 found that people tended to ignore or give little weight probability information and instead focused on the severity of undersierable outcomes.
+- @wu2023rational attempted to remedy this issue caused by designing a "rational agent benchmark" such that participants in an experiment are compared to a rational agent. This suggestion is an insufficient band-aid solution that is built upon the same invalid assumptions as the rest of the literature, and simply digs the field deeper into these problems, rather than solve them. 
+- @wu2023rational almost seems to recognise the problem of decision making experiments with payment schemes or correct/incorrect answers, but instead of understanding this boils these tasks down to value extraction, they suggest participants should be compared to a "rational agent". This rational agent acts as a benchmark, in the same way a ground truth statistic does for value extraction experiments, except the authors don't seem to realise that is what they have done. This paper highlights many decision making tasks are simply a value extraction experiment without realising it, this paper included.
 - make sure quantified vs discussed uncertainty is mentioned
 - industrial accidents have a "tollerable" risk chart based on risk and number of fatalities @Spiegelhalter2017
 - @Suh2023 found that the main issue with deployment of AI was communication between data science and subject matter experts, since subject matter experts didn't want technical presentations that didn't explain exactly when and how a model would fail.
