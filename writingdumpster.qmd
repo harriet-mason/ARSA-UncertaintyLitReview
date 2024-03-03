@@ -92,7 +92,11 @@ Extra (not necessarily recorded)
 	- What is the ground truth?
 	- Participant literacy
 
- 
+# Citation Gaps
+Cite Gap 1: When did uncertainty visualisaiton become its own subfield of visualisation?
+
+Cite Gap 2: When was the first "uncertainty visualisation" used (likely a box plot of histogram)
+
 
 # Main section outtakes
 - tasks e.g. "What is the average of X" (how well lined up you are moving down the data pipeline) and resolution (uncertainty is very often moving back a resolution level in statisitcs - also can be an assumption - bootstrap is a replacement for an assumption, not a resolution change, but bootstrapping is centered on the data)  e.g. "What is the noise around the estimate of the value of X"
@@ -181,8 +185,6 @@ For example, when we record coin flips we typically want to model the behavior w
   - try to map back to david speigleholder paper i.e. uncertainty means lots of different things
 
 # Previous literature review
-##### Introduction addition
-From entertainment choices to news articles to insurance plans, the modern citizen is so over run with information in every aspect of their life it can be overwhelming. So overwhelming in fact, that it is not uncommon for people to become so overwhelmed by the information they refuse to engage with it at all. In this overflow of information, tools that can effectively summarise information down into simple and clear ideas become more valuable. While websites that summarise insurance plans or hotel options down into a clear table make a living off it, few tools are as powerful or effective as a visualisation. Information visualisations remain one of the most powerful tools for fast and reliable science communication. Effectively leveraging visualisations to make them more effective is therefore key in facilitating simple and clear communication of science and other ideas. 
 
 #####Taxonomy Benefits
 - Distinctions at this taxonomy level seem to be important also untangling helps to understand it

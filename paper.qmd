@@ -14,11 +14,9 @@ abstract: In reviewing the literature of uncertainty visualisation
 # Background
 
 ## Introduction
+From entertainment choices to news articles to insurance plans, the modern citizen is so over run with information in every aspect of their life it can be overwhelming. In this overflow of information, tools that can effectively summarise information down into simple and clear ideas become more valuable. Information visualisations remain one of the most powerful tools for fast and reliable science communication. 
 
-> Edit note: this section is untouched since the confirmation. Might need a rewrite. should comment that visualisation helps us understand *how* our data is different.
-
-Think back to the last time you made some sort of data visualisation. What was the purpose of that visualisation? Was it to better understand your data? Was it to help you make a decision? Was it to to communicate that decision to someone else? Now think about the last time you expressed some form of uncertainty. Was it a set of numerical confidence intervals? Maybe they were expressed as a set of values in a table. Did you consider visualising your uncertainty instead? There are many stages in our analysis that benefit from the power of data visualisation, however this does not mean it is always done with success. Visualization is an important step in exploratory data analysis and it is often utilised to **learn** what is important about a data set. The importance of data driven discovery is highlighted by data sets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg]. Each of the pairwise plots in these data sets have the same summary statistics but strikingly different information when visualised. Anscombe quartet is shown in @fig-anscombe, because describing the data is never the same as seeing it. Instead of having to repeatedly check endless hypothesis to find interesting numerical features, visualisations **tell** us what is important about our data. This powerful aspect of data visualisation is poorly or seldom used in later stages when we are communicating our findings, specifically with respect to uncertainty.
-
+There are many stages in our analysis that benefit from the power of data visualisation, however this does not mean it is always done with success. Visualization is an important step in exploratory data analysis and it is often utilised to **learn** what is important about a data set. The importance of data driven discovery is highlighted by data sets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg]. Each of the pairwise plots in these data sets have the same summary statistics but strikingly different information when visualised. Anscombe quartet is shown in @fig-anscombe, because describing the data is never the same as seeing it. Instead of having to repeatedly check endless hypothesis to find interesting numerical features, visualisations **tell** us what is important about our data and **how** it might diverge from what we expect. 
 
 ```{r}
 #| echo: false
@@ -43,10 +41,14 @@ tibble(x = c(anscombe$x1, anscombe$x2,
   scale_fill_brewer(type = "qual", palette = 4)
 ```
 
-## Similar work
-> Edit note: I think with the addition of more summary papers I should just summarise common themes of issues the papers ran into instead of detailling the work paper by paper.
+Uncertainty visualisation is a somewhat new subfield of visualisation, with early papers that specifically reference an "uncertainty visualisation" popping up in the late 90s and early 2000s (*Cite Gap 1*). Despite the youth of the field, commonly used uncertainty visualisations such as a box plot or histogram have been around for almost as long as statistical graphics themselves (*Cite Gap 2*). Early mentions of "uncertainty visualisation" appear in computer science papers discussing uncertainty visualisation as a subfield of geospatial information visualisation, specifically for the many uncertainties that come with satelite images (*Cite Gap 1*). In the modern day, uncertainty visualisation has exploded into its own field that applies to a wide range of contexts and is no longer bound by geospatial information (*Cite Gap 1*).
 
-There are a wealth of uncertainty communication and visualisation literature reviews that already exist. Interestingly they all seem to have identified similar pitfalls or fallen into one themselves.
+## Similar work
+::: aside
+I have a large backlog of uncertainty literature review summaries in my Mendely that need to be added here. That is very high on my todo list once the readable draft is done.
+:::
+
+Any field that experiences an explosion of new research will also invite a series of literature reviews that seek to combine and summarise that information. Given that uncertainty visualisation has been around for a few decades now, there is already a wealth of uncertainty visualisation literature reivews. Interestingly these papers seem to have identified a series of common pitfalls in uncertainty visualisation and its evaluation. 
 
 @Kinkeldey2014 summarised the literature specifically for geopsatial uncertainty visualisations and attempted to describe similarities in their characteristics. They found most experiments the methods for uncertainty visualisation evaluation to be adhoc, with no commonly agreed upon methodology or formalisation. They found that experiments took on an engineering approach, where plots were evaluated with the goal to improve a particular representation, rather than to investigate why particular representations do or do not work and create general principals. Authors would then ignore the engineering perspective they had taken on, and try to generalise beyond the specific constraints of their experiment. While they did discuss the results of some perceptual task experiments they found that even those results were somewhat conflicting and difficult to combine in any meaningful way. They also stress the importance of selecting the correct audience, as numerical and visual literacy can differ vaslty between subpopulations so the results from one populations may not reflect the results from another. The paper contains an entire paragraph where experiments that compared box-plot representations are rattled off, each experiment finding results that conflicted with its predecessor. Ultimately they suggested the visualisation typologies move away from data types, uncertainty categories, and representation types and towards "task-centered typologies" to better enable generalisations of the findings.
 
@@ -62,6 +64,7 @@ In contrast to these literature reviews, we do not have a specific domain or too
 
 There are several frameworks that the uncertainty visualsiation problem is approached from. One approaches it from the concept of risk, and tries to answer how to best express uncertainty in a visualisation such that the viewer can acurately extract and interpret the risks involved. Another approach is to consider uncertainty visualsiation as a specific sub-field of high-dimensional data visualsiation, and therefore uncertainty is just another variable that needs to be expressed.
 
+> Edit note: just summarise common themes of issues the papers ran into instead of detailling the work paper by paper.
 
 ## Types of Uncertainty Visualisation Papers
 
