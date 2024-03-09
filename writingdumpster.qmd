@@ -11,8 +11,24 @@ Cite Gap 1: When did uncertainty visualisaiton become its own subfield of visual
 
 Cite Gap 2: When was the first "uncertainty visualisation" used (likely a box plot of histogram)
 
+Cite Gap 3: Some consider it to be synonymous with specific terms defined in mathematics, such as probability, variance, error, or precision. Others consider it to be an encompassing umbrella term of which for these mathematically defined objects are only examples, and include concepts that are somewhat related, such as missing values
+
+Cite Gap 3.5: This wide array of uncertainty definitions becomes a snake eating its own tail, as many authors opt to redefine uncertainty themselves[], ignore defining uncertainty entirely [], or pick a definition from a seemingly randomly previously published papers [], all of which make variance in uncertainty definitions even worse
+
+Cite Gap 4:The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase but go on to *quantify* uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation.
+
+Cite Gap 5: This definition swap happens so subtly that it seems to go unnoticed by authors writing the papers, and the fact that "uncertainty visualisation" methods dont even notice they are exclusively focus on depictions of easily quantifiable uncertainty, such as error [], mass [], or variance []
+
+Cite Gap 6: This has left the expressions of uncertainty that are hard to quantify or visually differentiate untouched, despite many papers calling for their invention
+
+Cite Gap 7: Taxonomies split uncertainty based on an endless stream of arbitrary lines in the sand, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017], if the uncertainty is in the the attribute, spatial elements, or temporal element of the data [], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [], if the uncertainty is random or systematic [], statistical or bounded [], accuracy or precision [], if the uncertainty is about the past or the future [], the stage of the data analysis pipeline it comes from [], the severity of the uncertainty [], how quantifiable the uncertainty is [@Spiegelhalter2017], and many, many, many more examples.
+
+Cite Gap 8: It is commonly noted that each uncertainty must be discussed in isolation, but combining the uncertainty from every stage is near impossible [@Spiegelhalter2017]
 
 # Moved over notes
+- @Munzner2009, in her nested model for visualisation, comments on how even something as low level as poor problem abstraction can cause down stream effects and become impossible to ignore. 
+- @Otsuka2023 highlights that the choices made in the ontological process of boiling real world events down into statistical objects can influence later stages of analysis due to what was considred signal and what was considered noise. 
+- @Meng2021 stresses the importance of treating data as an input from another process with noise and variance, rather than as a neutral input.
 - @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
 - @Griethe2006 mentions that there are detailled classifications of uncertainty but the literature and subsequent techniques are not ballanced, and instead concentrate on scalar values. In facing this lack of ballance she creates a new classification system for uncertainty visualisation. 
 - @Griethe2006 commented that uncertainty appears at every step in the analyis pipeline, and commented on some the mathematical definitions that seek to quantify uncertianty, but did not explain how these mathematical definitions can be combined across levels. Unfortunately this quantification is needed since she mentioned that in order to visualise uncertainty, it needs to be measurable.
