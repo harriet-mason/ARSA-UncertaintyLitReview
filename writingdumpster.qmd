@@ -6,7 +6,26 @@ format: html
 # Why this exists
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
 
+# Citation Gaps
+Cite Gap 1: When did uncertainty visualisaiton become its own subfield of visualisation?
+
+Cite Gap 2: When was the first "uncertainty visualisation" used (likely a box plot of histogram)
+
+
 # Moved over notes
+- @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
+- @Griethe2006 mentions that there are detailled classifications of uncertainty but the literature and subsequent techniques are not ballanced, and instead concentrate on scalar values. In facing this lack of ballance she creates a new classification system for uncertainty visualisation. 
+- @Griethe2006 commented that uncertainty appears at every step in the analyis pipeline, and commented on some the mathematical definitions that seek to quantify uncertianty, but did not explain how these mathematical definitions can be combined across levels. Unfortunately this quantification is needed since she mentioned that in order to visualise uncertainty, it needs to be measurable.
+- @Griethe2006 defined uncertainty as "the degree to which the lack of knowledge about the amount of error is responsible for hesitancy in accepting results and observations without caution". 
+- @Griethe2006 found that there there are two ways to visualise uncertianty, implicitly and explicitly. When a visualisaion is implicit, the uncertainty is considered an uninteresting feature of the data, and instead of mapping some quantification of uncertainty to a visual feature, data is filtered out if it does not meet a specified "certainty" threshold. These statements clearly points towards a signal/noise dichotomy with normal visualisation and uncertainty visualisation.
+- @Spiegelhalter2017 even if most audience members can read a plot, they may not read it in the same way. People with high numeracy skills count pictographs, but people with low numeracy assess area, and seemingly unrelated elements may not equally influence all these methods of reading, for example scattering in a pictograph makes counting particularly more difficult. *also add that perceptual task audience thing*
+- @Spiegelhalter2017 it is better to understand your audience and iterate towards a final design, rather than only consider one option.
+- @Spiegelhalter2017 common sentiments such as avoiding chart junk, considering a table in place of a visualsiaiton, use of narrative labels, managing emotion, less is more approach, etc, are the main concepts expressed. - @Spiegelhalter2017 suggests that the graphic should allow "part-to-whole" comparison on an appropriate scale, which seems to be an extension of the framing concept discussed when speaking about uncertainty communication more broadly.
+- @Hullman2016 commented on the lack of justification of particular questions used in experiments and the lack of generalisability in using plot ranking as a response technique.
+- @Hullman2016 discussed the lack of clarity in exactly what "uncertainty" authors are trying to ask about. Whether the participants are supposed to answer according to some ground truth or their subjective probability is unclear, as is whether the *uncertainty* depicted represents the uncertainty of a sampling or population distribution. 
+- @Hullman2016 discussed the role of heuristics in the analysis of results and suggested authors look for signs of them in responses and ask subjects to describe their strategy in their response. 
+- @Hullman2016 What was particularly interesting was people's tendancy to ignore uncertainty in a plot all together, and use a pattern in the signal (such as distance between means) to answer questions that require uncertainty information. 
+- @Kinkeldey2014 stress the importance of selecting the correct audience, as numerical and visual literacy can differ vaslty between subpopulations so the results from one populations may not reflect the results from another. 
 - @Daradkeh2015 found that people tended to to make decisions on a small number of salient pieces of information rather than on systematic evaluations of the costs and benefits of choices.
 - @Daradkeh2015 found that people tended to to make decisions on a small number of salient pieces of information rather than on systematic evaluations of the costs and benefits of choices.
 @Daradkeh2015 found that people tended to ignore or give little weight probability information and instead focused on the severity of undersierable outcomes.
@@ -91,11 +110,6 @@ Extra (not necessarily recorded)
 	- Possible Heuristics
 	- What is the ground truth?
 	- Participant literacy
-
-# Citation Gaps
-Cite Gap 1: When did uncertainty visualisaiton become its own subfield of visualisation?
-
-Cite Gap 2: When was the first "uncertainty visualisation" used (likely a box plot of histogram)
 
 
 # Main section outtakes
