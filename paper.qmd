@@ -44,9 +44,6 @@ tibble(x = c(anscombe$x1, anscombe$x2,
 Uncertainty visualisation is a somewhat new subfield of visualisation, with early papers that specifically reference an "uncertainty visualisation" popping up in the late 90s and early 2000s (*Cite Gap 1*). Despite the youth of the field, commonly used uncertainty visualisations such as a box plot or histogram have been around for almost as long as statistical graphics themselves (*Cite Gap 2*). Early mentions of "uncertainty visualisation" appear in computer science papers discussing uncertainty visualisation as a subfield of geospatial information visualisation, specifically for the many uncertainties that come with satelite images (*Cite Gap 1*). In the modern day, uncertainty visualisation has exploded into its own field that applies to a wide range of contexts and is no longer bound by geospatial information (*Cite Gap 1*).
 
 ## Similar work
-::: aside
-I have a large backlog of uncertainty literature review summaries in my Mendely that need to be added here. There are a lot of them.
-:::
 
 Any field that experiences an explosion of new research will also invite a series of literature reviews that seek to combine and summaries that information. Given that uncertainty visualisation has been around for a few decades now, there is already a wealth of uncertainty visualisation literature reviews. 
 
