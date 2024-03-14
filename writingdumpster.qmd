@@ -11,21 +11,28 @@ Cite Gap 1: When did uncertainty visualisaiton become its own subfield of visual
 
 Cite Gap 2: When was the first "uncertainty visualisation" used (likely a box plot of histogram)
 
-Cite Gap 3: Some consider it to be synonymous with specific terms defined in mathematics, such as probability, variance, error, or precision. Others consider it to be an encompassing umbrella term of which for these mathematically defined objects are only examples, and include concepts that are somewhat related, such as missing values
+Cite Gap 3: Some consider it to be synonymous with specific terms defined in mathematics, such as probability [*HERE*], variance[*HERE*], error[*HERE*], or precision[*HERE*]. Others consider it to be an encompassing umbrella term of which for these mathematically defined objects are only examples[*HERE*], and include concepts that are somewhat related, such as missing values[*HERE*]
 
-Cite Gap 3.5: This wide array of uncertainty definitions becomes a snake eating its own tail, as many authors opt to redefine uncertainty themselves[], ignore defining uncertainty entirely [], or pick a definition from a seemingly randomly previously published papers [], all of which make variance in uncertainty definitions even worse
+Cite Gap 3.5: This wide array of uncertainty definitions becomes a snake eating its own tail, as many authors opt to redefine uncertainty themselves[*HERE*], ignore defining uncertainty entirely [*HERE*], or pick a definition from a seemingly randomly previously published papers [*HERE*], all of which make variance in uncertainty definitions even worse
 
 Cite Gap 4:The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase but go on to *quantify* uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation.
 
-Cite Gap 5: This definition swap happens so subtly that it seems to go unnoticed by authors writing the papers, and the fact that "uncertainty visualisation" methods dont even notice they are exclusively focus on depictions of easily quantifiable uncertainty, such as error [], mass [], or variance []
+Cite Gap 5: This definition swap happens so subtly that it seems to go unnoticed by authors writing the papers, and the fact that "uncertainty visualisation" methods dont even notice they are exclusively focus on depictions of easily quantifiable uncertainty, such as error [*HERE*], mass [*HERE*], or variance [*HERE*]
 
-Cite Gap 6: This has left the expressions of uncertainty that are hard to quantify or visually differentiate untouched, despite many papers calling for their invention
+Cite Gap 6: This has left the expressions of uncertainty that are hard to quantify or visually differentiate untouched, despite many papers calling for their invention [*HERE*]
 
-Cite Gap 7: Taxonomies split uncertainty based on an endless stream of arbitrary lines in the sand, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017], if the uncertainty is in the the attribute, spatial elements, or temporal element of the data [], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [], if the uncertainty is random or systematic [], statistical or bounded [], accuracy or precision [], if the uncertainty is about the past or the future [], the stage of the data analysis pipeline it comes from [], the severity of the uncertainty [], how quantifiable the uncertainty is [@Spiegelhalter2017], and many, many, many more examples.
+Cite Gap 7: Taxonomies split uncertainty based on an endless stream of arbitrary lines in the sand, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017 *HERE*], if the uncertainty is in the the attribute, spatial elements, or temporal element of the data [*HERE*], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [*HERE*], if the uncertainty is random or systematic [*HERE*], statistical or bounded [], accuracy or precision [*HERE*], if the uncertainty is about the past or the future [*HERE*], the stage of the data analysis pipeline it comes from [*HERE*], the severity of the uncertainty [*HERE*], how quantifiable the uncertainty is [@Spiegelhalter2017], and many, many, many more examples.
 
-Cite Gap 8: It is commonly noted that each uncertainty must be discussed in isolation, but combining the uncertainty from every stage is near impossible [@Spiegelhalter2017]
+Cite Gap 8: It is commonly noted that each uncertainty must be discussed in isolation, but combining the uncertainty from every stage is near impossible [@Spiegelhalter2017 *MORE HERE*]
 
 Cite Gap 9: Many papers will boast a title that claims to be about uncertainty visualisaiton, but simply depicts different visual representations of a PDF, however it takes reading the methodology to find this out
+
+Cite Gap 9: For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, however at least one or both of these charts are used in most "uncertainty visualisation" experiments [@Ibrekk1987 *MORE HERE*]
+
+Cite Extra: INCORRECT INTERPRETATION OF STUDIES. People will use the best available information to them. If you ask for a maximum, and give them a confidence interval... they will give you the maximum number that they are aware is still plausible. Instead of being shocked the participants were wrong, it is important to ask "what was required for them to be RIGHT".
+  - HAVE SOME PERSPECTIVE. If you are paying people below minimum wage to do your experiment, they don't care. If a problem requires extensive mental labour to solve, they will liekly not do it.
+  - This result being reported as "people interpret a confidence interval as a maximum and minimum despite being told it was a confidence interval" is simply not true. It is a false equivalence. 
+  - all these studies show is if you give people the wrong information... they will be wrong. Shocking.
 
 # Moved over notes
 - Some markers of probability that have common uses, probabilities such as 0 (impossible), 0.5 (a fair coin flip), 1 (certain) are easy for people to have an internal sense of *hullman paper*. 
