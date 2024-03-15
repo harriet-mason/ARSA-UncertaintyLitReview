@@ -29,12 +29,16 @@ Cite Gap 9: Many papers will boast a title that claims to be about uncertainty v
 
 Cite Gap 9: For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, however at least one or both of these charts are used in most "uncertainty visualisation" experiments [@Ibrekk1987 *MORE HERE*]
 
-Cite Extra: INCORRECT INTERPRETATION OF STUDIES. People will use the best available information to them. If you ask for a maximum, and give them a confidence interval... they will give you the maximum number that they are aware is still plausible. Instead of being shocked the participants were wrong, it is important to ask "what was required for them to be RIGHT".
-  - HAVE SOME PERSPECTIVE. If you are paying people below minimum wage to do your experiment, they don't care. If a problem requires extensive mental labour to solve, they will liekly not do it.
-  - This result being reported as "people interpret a confidence interval as a maximum and minimum despite being told it was a confidence interval" is simply not true. It is a false equivalence. 
-  - all these studies show is if you give people the wrong information... they will be wrong. Shocking.
+Cite Gap 10: Uncertainty Visualisation Taxonomies
+
+# Extra Section Cite Gaps
+Cite Gap - New Section: Logical fallacy interpretation of mathematically unanswerable questions. If I tell you my cousins age, and then ask you to guess my age, it would not be unreasonable to guess the age I provided for my cousin. Citing this work to state "people incorrectly believe my cousins age is my age" would
+- Deterministic questions about a random event cannot be answered. 
+- @uncertchap2022 took the results of other paper to mean "when participants viewed mean temperature forecasts that included 95% confidence intervals depicted as bars with end caps, they incorrectly believed that the error bars represented high and low temperatures" (this one will depend on that study)
+
 
 # Moved over notes
+@Thomson2005 titled their paper "A typology for visualizing uncertainty" however it is a taxonomy for the specific types of uncertainty that we may want to visualise and a way to calculate that uncertainty. While this paper is more about mathematics than visualisation, it is clearly written as a precursor to visualisation.
 - Some markers of probability that have common uses, probabilities such as 0 (impossible), 0.5 (a fair coin flip), 1 (certain) are easy for people to have an internal sense of *hullman paper*. 
 - It is incredibly hard to communicate small risks, because people cannot differentiate between 1/100 an 1/1000, and communicating low probability but high impact risks are particularly challenging [@Spiegelhalter2017]. This issue can be somewhat alleviated by communicating the likelihood of an event in relation to another event on a similar scale (such as being struck by lightning) [@Spiegelhalter2017]. 
 - The framing of how we communicate risks matters due to the affect heuristic, so there will be a difference in peoples behaviours if, for example, you tell people they have a 90% chance of survival vs a 10% chance of death, and when expressing a frequency, a larger numerator communicates a larger risk [@Spiegelhalter2017]. 
