@@ -33,6 +33,12 @@ Cite Gap 10: Uncertainty Visualisation Taxonomies
 
 Cite Gap 11: Papers will often discuss uncertainty in relation to one of these motivating reasons, the evaluation experiments motivated by (1) often perform different visualisations of PDFs, while the papers motivated by (2) will focus on trying to impute uncertainty as error within one of the existing channels, such as colour
 
+Cite Gap 12: Visualisation authors are almost unanimous in commenting that the "information" in two plots must be the same in order for the visual techniques to be compared
+
+Cite Gap 13: Examples of what is "information" in a visualisation
+
+Cite Gap 14: Examples of mathematically obvious results
+
 # Extra Section Cite Gaps
 Cite Gap - New Section: Logical fallacy interpretation of mathematically unanswerable questions. If I tell you my cousins age, and then ask you to guess my age, it would not be unreasonable to guess the age I provided for my cousin. Citing this work to state "people incorrectly believe my cousins age is my age" would
 - Deterministic questions about a random event cannot be answered. 
@@ -40,6 +46,7 @@ Cite Gap - New Section: Logical fallacy interpretation of mathematically unanswe
 
 
 # Moved over notes
+
 @Thomson2005 titled their paper "A typology for visualizing uncertainty" however it is a taxonomy for the specific types of uncertainty that we may want to visualise and a way to calculate that uncertainty. While this paper is more about mathematics than visualisation, it is clearly written as a precursor to visualisation.
 - Some markers of probability that have common uses, probabilities such as 0 (impossible), 0.5 (a fair coin flip), 1 (certain) are easy for people to have an internal sense of *hullman paper*. 
 - It is incredibly hard to communicate small risks, because people cannot differentiate between 1/100 an 1/1000, and communicating low probability but high impact risks are particularly challenging [@Spiegelhalter2017]. This issue can be somewhat alleviated by communicating the likelihood of an event in relation to another event on a similar scale (such as being struck by lightning) [@Spiegelhalter2017]. 
