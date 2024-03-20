@@ -232,64 +232,53 @@ This is likely the cause of the contradiction between uncertainty visualisation 
 
 Uncertainty, acting as it is intended, is fundamentally transparency to the viewer about a statistical analysis. There are many secondary benefits that come with this improved transparency, such as better decisions, more trust in the results and more confidence in the authors. These secondary benefits are, however, *not* uncertainty. The following sections will discuss the issues and limitations in measuring uncertainty through these secondary metrics and provide suggestions as to how future studies should consider measuring uncertainty.
 
-
 ## Issues with the current methods of measuring uncertainty
-### Types of Uncertainty Visualisation Papers
-Thankfully, we do not need to survey the literature to identify the motivations and evaluation metrics used in every uncertainty visualisation experiment, @Hullman2019 has done it for us.
+The overarching goal of most uncertainty visualisation evaluation papers belong to one of: performance (how effectively a participant can extract information from a plot), interpretation and semantics (the ease with which a particular visualisation is associated with uncertainty), and quality of user experience (if the participants liked the plot or not)[@Hullman2019]. @Hullman2019 found that the majority of papers evaluate visualisations on performance (approximately 65% of the papers they surveyed) or interpretation and semantics (approximately 17%) and both of these evaluation goals will run into problems because of their conceptialisation of uncertainty.
+
+### Performance
 
 L1: Behavioral Targets
 - Performance (241; 64.8%): how effectively a user can extract information, make inferences, or make decisions with a visualization.
 - Interpretation & Semantics (64; 17.2%): the ease with which a user associates uncertainty with an encoding.
 - Quality of User Experience (67; 1.8%): the user’s valuation of the visualization, such as their preference or satisfaction.
 
-L2: Expected Effects
-Accuracy (134; 36%): Difference from a ground truth response (e.g., [37, 40]).
+L2: 
+Value extraction
+- Accuracy (134; 36%): Difference from a ground truth response (e.g., [37, 40]).
 - Confidence/Accuracy Alignment (5; 1.3%): Correlation between confidence and accuracy (e.g., [11]).
-- Impact on Decision-Making (3; 0.8%): Effects on decisions where no ground truth is implied (e.g., [15]).
+
+Decision and risk avoidance
 - Decision Quality (14; 3.8%): Difference from a rational deci- sion standard (e.g., [23, 68]).
-- Memorability (3; 0.8%): How well a fact is remembered (e.g., [39]).
-- Risk Avoidance (23; 6.2%): The degree to which a user’s re- sponse attempts to avoid risk (e.g., [35]).
-- Intuitiveness/Reading ease (31; 8.3%): How “naturally” a vi- sualization supports correct interpretations (e.g., [7]).
-- Awareness of Judgment Process (8; 2.1%): The user’s ability to recognize aspects of their judgment (e.g., [15]).
-- Learnability (0): The user’s ability to improve their perfor- mance over time
+- Risk Avoidance (23; 6.2%): The degree to which a user’s response attempts to avoid risk (e.g., [35]).
+
+Trust
 - Confidence (24; 6.5%): The degree of belief in the validity or truth of a judgment, data set, visualization, etc. (e.g., [16]).
-- Satisfaction (38; 10.2%): The user’s aesthetic valuation of a vi- sualization (e.g., [22, 61]).
-- Interaction (4; 1.1%): How much interaction a visualization receives in time, number of clicks, etc.
-Efficiency (37; 9.9%): How well a visualization supports quick judgments (e.g., [59]).
+
+Qualitative
+- Impact on Decision-Making (3; 0.8%): Effects on decisions where no ground truth is implied (e.g., [15]).
+- Awareness of Judgment Process (8; 2.1%): The user’s ability to recognize aspects of their judgment (e.g., [15]).
 - Understand internal model (48; 12.9%): Seeking to understand how a judgment is made (e.g. [13, 87]).
+- Efficiency (37; 9.9%): How well a visualization supports quick judgments (e.g., [59]).
+
+Semantics
+- Intuitiveness/Reading ease (31; 8.3%): How “naturally” a visualization supports correct interpretations (e.g., [7]).
+
+?? Dont care
+- Memorability (3; 0.8%): How well a fact is remembered (e.g., [39]).
+- Learnability (0): The user’s ability to improve their performance over time
+- Satisfaction (38; 10.2%): The user’s aesthetic valuation of a visualization (e.g., [22, 61]).
+- Interaction (4; 1.1%): How much interaction a visualization receives in time, number of clicks, etc.
+
+
+
 
 L3: Evaluation goal
 - Compare impacts of multiple uncertainty visualizations (255; 68.5%): Results of one or more tasks are used to rank two or more uncertainty visualizations (e.g., [11, 40, 53]).
-- Determine the impact of presenting uncertainty (98; 26.3%): At least one visualization that does not contain uncertainty infor- mation is evaluated (e.g., [68]).
+- Determine the impact of presenting uncertainty (98; 26.3%): At least one visualization that does not contain uncertainty information is evaluated (e.g., [68]).
 - Validate effectiveness of an uncertainty vis (5; 1.3%): A user study is designed to confirm that a visualization improves some response(s). (e.g. [80]).
 - Understand why/how a visualization works (54; 14.5%): Re- sponses to a visualization(s) are analyzed to identify or confirm some judgment mechanism (e.g., [87]).
 - Understand interactions with user characteristics (53; 14.2%): The effect of properties of the user (expertise, location, etc.) on responses is analyzed (e.g., [1]).
 
-L4: Measures
-(A) Directly elicated measures
-- Decision measures (31; 8.3%) 
-  – Decision (31; 8.3%): A hypothetical choice action (e.g., saying when they would leave for the bus [23]).
-  - Allocation (0%): An amount of currency wagered to en- dorse a choice (e.g., [74]).
-- Attribute-based measures (141; 37.9%) 
-  – Value of [nominal | ordinal | continuous] variable (67; 18%): Specifying a value along a provided scale (e.g., ask- ing the user to estimate the forecasted temperature from a display [46]).
-  – Count (15; 4%): Specifying a count (e.g., of features of a certain type).
-  – Probability (29; 7.8%): A probability specified as a probability or frequency (e.g., [40]) or as a Likert-style question asking for the relative probability of an event (e.g., [1]).
-  – Variance (4; 1.1%): A value or set of values describing how much an outcome can vary (i.e., a range, standard de- viation, standard error, etc. as in [31]).
-  – Rank by [data attribute | uncertainty attribute] (22; 5.9%): The top k features sorted by a numerical attribute.
-- Self-report measures (161; 43.3%) 
-  – Spontaneous Impression (16; 4.3%): An unconstrained description of one’s reaction to a visualization (e.g., [8]).
-  – Subjective Confidence (28; 7.5%): A valuation of one’s confidence in information or a judgment.
-  – Perceived Risk/Reliability (15; 4%): How risky, or con- versely how reliable, one believes an outcome is.
-  – Perceived Ability/Effort (29; 7.8%): How hard a visual- ization is to read or use.
-  – Self-reported Satisfaction (41; 10.8%): An aesthetic val- uation of a visualization.
-  – Self-reported Intention (10; 2.7%): A reported intention to use or recommend information or an artifact (e.g., [17]).
-  – Willingness to Pay (6; 1.6%): A reported intention in- volving allocating money to an information or artifact(s).
-  – Self-reported Action (17; 4.6%): Whether one used, re- membered, etc. information or an artifact.
-  - Galvanized Skin Response (GSR) (1; 0.3%): Change in the electrical resistance of the skin.
-  – Interaction logs (35; 8.9%): A log of a user’s behavior as they use a visualization.
-  – Eye movement (2; 0.5%): An eye tracker log of voluntary or involuntary eye movement.
-
-(B) Derived measures
 
 Uncertainty visualisation papers can be organised according to the *goal* of the experiment. Evaluation experiments are the standard rule for visualisations because the human brain is not as reliable as mathematical calculation. Therefore, user studies often aim to assess the limitations, biases, and heuristics of our mental calculator so that we can better understand the problems we may encounter when we plot our data. This is not to say any paper that suggests a visualisation without an evaluation experiment is completely lacking in justification, and there are many papers that suggest a novel visualisation without an evaluation study. Sometimes these papers are a preliminary step in finding a solution for common problems and intend to evaluate the visualsiation in later work. Until that later work is done, it is often difficult to accept one particular representation. While justification could come in the form of discussing established concepts in visualisation, such as the hierarchy of perceptual tasks, even these may need an evaluation study to back up their claims.
 
@@ -324,11 +313,11 @@ What is meant by "uncertainty" may seem obvious to some, but when you attempt to
 
 The previous sections of this paper established several issues in uncertainty communication at large. In this section, we will discuss the current literature on uncertainty visualisation, how the uncertainty communication issues more broadly manifest in the specific case of visualisation, and what general lessons we can take from the existing work.
 
-### Decision making and risk aversion
+#### Decision making and risk aversion
 Decision making questions that typically involve uncertainty discuss the concept of "risk-aversion" as though it is a mistake. The irony of an uncertainty visualisation pper expressing the importance of uncertainty visualisation, but setting up a ground truth or optimum strategy in which participants *should* ignore the uncertainty information is not lose on us. This perspective does not make sense because it implies participants should make decisions entirely based on the average. A possible soltion for this is to provide a utility framework for a particular experiment [@Hullman2016], however it is unclear how easily participants could adopt a utility framework that is different to their own. @Cheong2016 introduced a very simple optimum strategy into their experiment on bushfire uncertainty visualisations, where participants should choose to evacuate a house as soon as its likelihood of catching fire is 50% or higher. Interestingly, despite this very obvious and simple tactic to maximize payout from the experiment, it seems like many participants did not adopt it, instead acting much more warily as though they were considering whether or not they would *actually* evacuate in the event of a fire. These papers also very rarely consider what the optimum decision would be in a given scenario, and a difficulty with anticipating the best strategy is conflated with the failings of the uncertainty visualisation. Ultimately, we agree with @Hullman2016 who suggested that what determines an approripate ground truth is largely a philosophical exercise.
 
 
-### Trust and confidence
+#### Trust and confidence
 Authors also occasionally use trust as a proxy for uncertainty. Similar to measuring uncertainty through decision quality, this method also has its own series of issues. If the purpose of displaying uncertainty information is to appropriately hedge a signal with noise, then it should be assumed that trust is only related to uncertainty communication through increased transparency and honesty. It does seem to be the case that uncertainty communication increases trust because it is a proxy for transparency *(add citations)*. Unfortunately a large proportion of the literature discusses trust as something that is directly related to uncertainty visualisation rather than as an observable by product. In viewing uncertainty communication as directly related to trust, not related through the proxy of transparency, several unobserved variables are conflated. The amount of uncertainty that is present in the information, whether or not the information is trustworthy or makes sense, prior beliefs of the participants, and the trustworthiness of the source are a few examples of variables that are conflated when authors directly consider trust to be of direct interest. Considering trust, and not transparency, as the metric of importance in uncertainty communication leads to a questionable subtext that argues against transparency. @Hullman2020a found that author simultaneously argued that failing to visualise uncertainty was akin to fraud, but also many avoided uncertainty visualisation because they didn't want their work to come across as "untrustworthy".Being concerned about audiences perception of trust, without first establishing if what we are communicating is *trustworthy*, leads to the implication that details that result in information not being considered trustworthy should be avoided. Authors that imply that a decrease in trust or an increase in ambiguity or risk aversion are metrics of importance in of themselves do not understand the purpose of uncertainty communication as methods to increase transparency. Science communication should be primarily concerned with accuracy, setting trust and risk-aversion as the variables of interest implicitly encourages statisticians to set trust and risk-aversion as the primary goals of communication. The issue of trust being divorced from trustworthiness has been commented on by other authors [@ONeill2018], however the issue still persists in the uncertainty visualisation literature [@Zhao2023]. 
 
 Additionally, some studies use a ground truth in these trust experiments, which makes for a very confusing read on exactly how participants are supposed to use the information. 
@@ -336,10 +325,16 @@ Additionally, some studies use a ground truth in these trust experiments, which 
 
 A similar measure to trust is using "confidence" in an extracted value or a decision. Interestingly, "confidence" is also used to try and capture the clarity of a message in a normal visualisation. Confidence cannot simultaneously be a measure of clarity of visualisation *and* a way to capture the uncertainty expressed in a visualisation.
 
-### Other attemps to capture uncertainty
+#### Deterministic questions
+- You cannot make a deterministic statements about a random variable (citation: the entire field of probability). Many of these issues just boil down to a really pervasive misunderstanding of statistics. I do not expect the general population to understand this fact about random variables, however *I would expect* researchers investigating *methods of statisticl communication* would at least understand enough to ask appropriate questions that *are answerable*. 
+- while we are here, you cant answer a probability question with a deterministic. I cannot say yes or no to a probability question without providing a threshold. 
+- Basically, you need a probability threshold to answer these questions, something it does not seem like the authors are collecting, and I am unsure if the authors are aware of this themselves because they never mention it. 
+
+#### Other (questionable) attemps to capture uncertainty
 There are other studies that try to include uncertainty information without directly asking for it but do not go down the route of asking for a decision or levels of trust. These papers often try to ask a question that should utilise both the uncertainty and signal in the response. This is an interesting approach, but these papers are often still looking for a "signal" which is specified in the form of a "ground truth" that is used to evaluate the plot. Unfortunately this usually comes in the form of slightly cryptic questions that create a large amount of noise on the interpretation side [@Hullman2016].  
 
 Cite gap __: Weird questions to capture uncertainty
+- @Correll2018 “place your 5 ships on the safest locations on the board.” (minimise danger)
 - @Ibrekk1987 asked participants for the "best" estimate while displaying a population density function. The participants proided the mode instead of the mean, although there was no indication the mean was what was being asked about. 
 - @Hofmann2012 showed two distributions in 20 different visualisations (a lineup protocol) using a jittered sample, a density plot, a histogram, and a box plot. Participants were asked to report in which of the plots was "the blue group furthest to the right" and to provide reasoning from a multiple choice list and grade their certainty. The experiment set up is shown in @fig-right. The participants answers were then compared to a ground truth where the correct plot had a right shifted mean. By comparing the results to a ground truth statistic and marking participants as "wrong" or "right", the error from the participants that had an alternative interpretation to the concept of "furthest right" was conflated with the error from a the visualisation choice.  
 - @Padilla2017 made several confusing assumption when determining the ground truth of their experiments that were assessing storm visualisations. Experiment 2 assumed that the participants should provide responses that indicated they perceived the intensity of the storm to be independent of the uncertainty distribution of its location. This assumption seems counterintuitive as best, however experiment 3 asked participants to "decide which oil rig will receive more damage based on the depicted forecast of the hurricane path" for which they *were* supposed to incorperate uncertainty information and not assume they were independent. The authors seemed to be unaware of these confounding mistakes in their assumptions of how the participants were supposed to utilise the uncertainty information.  
@@ -363,10 +358,28 @@ Cite gap __: Weird questions to capture uncertainty
 There is so little understanding of information in uncertainty graphics that participants are frequently provided with information that is insufficient to answer the question at all, an issue that is regularly missed by the experimenters. In order to test whether or not people incorrectly interpreted the cone of uncertainty that is used to communicate cone tasks, experimenters regularly do not give participants enough information to answer the questions [@Padilla2017; @Boone2018]. The cone of uncertainty provides a 95% confidence interval for the *eye* of a hurricane, which allows us to know *where the eye of the storm will likely go*, this does not, give us enough information to answer if the storm will *hit* a particular point, because this requires information about the size and intensity of the storm, *and* an assumption about whether or not the size and intensity will change over time. Since these experiments are often trying to *test* for common misreadings of the plot, such as only thinking the area inside the cone will be damaged or believing the cone represents size and the storm is getting bigger. The authors often fail to recognize that the exact information that has been witheld for testing is necessary for answering their questions, and considering that information is necessary to mark participants as correct or incorrect, it is hard to understand exactly how they evaluated the experiment participants. @Ibrekk1987 expected participants to calculate the mean using a pie chart that had numerical bins combined (e.g. segment one was 0-2 inches of snow, and segment two was 2-4 inches of snow) so it could not be done by calculation. The authors also expected participants to use a CDF to calculate the mean, which needs to be converted *back* into a PDF to do so mathematically, so it was unclear how participants were supposed to do this calculation visually unless they were to just make a blind guess. The authors interpreted this as the participants misinterpreting how the CDF works, not seeming to realise they gave them an impossible task.
 In light of this, the main take away from these papers seems to be "if you do not give people the necessary information to answer a question, they will be unable to answer it", which does not seem interesting enough to justify several papers.
 
-
-
-
 ![This shows the user interface for the experiment performed by @Hofmann2012. The question of "furthest to the right" is open to interpretation. ](furthestright.png){#fig-right} 
+
+### Interpretation and semantics
+Interpretation and semantics experiments are seeking to identify a dimension (or visual task) that uncertainty naturally maps to. These experiments inherently view uncertainty as a variable that is separate to the variable on which we have mapped our signal. For example, lets say we have a map were maximum daily temperature is presented using points where the colour (red for hot and blue for cold) of the point is associated with the temperature, and the bluriness of that point is associated with the variance *of* that temperature. It is highly likely that our brains will not flatten that into a single variable depicting noise and signal, but rather *separately* extract the temperature (colour) and uncertainty (blur) information as two independent variables. If the variables are extracted separately, there is no guarentee that the uncertainty will act as an approriate signal supressor. This problem has been noticed by others in the field, that typically use this method (specifically in the spatial uncertainty context) and a desire for representations that integrate uncertainty and signal is one of the reasons for the invention of the value-supressing uncertainty pallet [@Correll2018].  
+
+Value-supressing uncertainty pallets (VSUP) were developed as a method that would allow the signal and the noise to be interpreted together such that insights gained by the viewers of a plot are appropriately *supressed* by the uncertainty. Hence the name of the pallet. @fig-maps depicted this map colouring approach and several other extensions on the typical choropleth map that differ in where in the visualisation process they combine the noise and signal information into a single concept of "valid signal". The first and most basic map is a simple choropleth map where each value (the colouring of each local government area) has no associated "uncertainty". The next map (which embodies the approach taken by the semantics experiments) is the bivariate map which maps the signal to colour value and the uncertainty to colour hue. If visualisation was performing signal supression then that would mean the two dimensional space defined by colour value and colour hue can be mentally "flattened" into a single dimension of "valid value" that can captures the signal the our brain would need to be able to flatted this two dimensional space into a single space of "signal validity".  The idea of two perceptual tasks flattening into one variable in the mind of the viewer may be wishful thinking, but it is not impossible given we are not certain on how the perceptual tasks are mapped within the human brain. @Sterzik2023 found that when a value was mapped to the textures of stippling, hatching, and triangles, and found that the difference between two points on this one dimensional texture was actually a 2D space (likely "texture business" and "light/darkness"). That being said, if we look at the visual signals presented by the bivariate map, where the contrasting light and dark areas actually has no important meaning, it is unlikely this occurs for colour value and hue (or at least it doesnt occur in a way that is useful for uncertainty visualisation). Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves, by using a VSUP which collapses the colour space such that high uncertainty values cannot be extracted. It is unclear how useful VSUPs are at actually combining signal and noise and therefore supressing plot level insights, as they have only been tested on simple value extraction tasks that require evaluating a single point [@Correll2018; @Ndlovu2023] rather than looking for spatial relationships (which is arguably what maps are for). Following along with this trend, the next way we might consider visualising uncertainty is to combine uncertainty and signal at the earlier stage so the "supressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method addopted by the Baysian surprise metric map [@Ndlovu2023] and the excedance probability map [Lucchesi2017]. .
+ 
+::: {#fig-maps}
+
+![](mappals/img1.png)
+
+![](mappals/img2.png)
+
+![](mappals/img4.png)
+![](mappals/img3.png)
+
+![](mappals/img5.png)
+
+*This plot is the highest priortiy to for replacing with my own R coded maps, becuase the effects of these different mapings is really not visible using these methods* Five different ways to include error information in a map. A typical chloropleth map is considered the map that ignores uncertainty and simply visualises the signal. The bivariate map visualises the uncertainty, but does so using two different visual channels, which gives the perception of two different signals (or one signal in the assumptions the colors contrast with each other). An adjustment to the bivariate map is the VSUP which is similar to the bivariate plot except it merges high uncertainty values in the palette to reduce our ability to discern values that have a high enough error to not be a valid signal. The Bayesian surprise metric is similar to the lineup protocol, where the colour value is the difference between the observers posterior and prior beliefs. The exceedance probability map is a direct visualisation of the probability of a specific hypothesis.
+:::
+
+These maps make the importance of combining uncertainty and signal in a single visual channel clear. A chloropleth map will show signal that is not valid inference because of high uncertainty. At the other end of the spectrum, the bivariate map will show signal that is not always interesting because it forces us to interpret uncertainty and signal separately. As we move through these methods, it seems that the validity of any overarching insight becomes more visible at the cost of our ability to extract particular values of signal or noise. Therefore, given that the primary goal of visualisation *is* insights [@North2006], visualisation authors should err on the side of representing supressed signal as a single variable, rather than visualising uncertainty separately using two different channels. 
 
 ## Suggestions to measure uncertainty
 ### Heuristic checks
@@ -405,28 +418,7 @@ There are also some interesting qualitative studies that take an investigative s
 
 
 
-There are a number of visualisation methods that do take the approach of uncertainty as signal suppression. These visualisation examples try to establish uncertainty as something that should be interpreted *with* the signal and take several approaches to do so. @fig-maps depicts the array of approaches that have been used to visualise uncertainty in a map. 
 
-The first approach to embedding noise in the signal is to adjust the signal visualisation so that it includes the noise. This method has been particularly popular with map visualisations. To visualise uncertainty such that it does its job of signal supression the uncertainty and the signal need to be interpreted in conjunction with each other. There are several suggested ways to go about this, most of which assume the "no uncertianty" version of the visualisation is a simple choropleth map. There are two methods to include uncertainty in a map. The first is to include uncertainty as error and map our signal and noise to a two dimensional *colour* space, which is the method adopted by the bivariate map and the value supressing uncertainty pallet [@Correll2018]. These methods rely on the assumption that colour hue and value exist mentally as a two dimensional colour space and that distance in this colour space is linear (or at least appears linear using our scale). However, for uncertainty to be interpreted in the visualisation *with* the signal, our brain would need to be able to flatted this two dimensional space into a single space of "signal validity", and there is simply not evidence that we can do this. This visualisation method brings up an interesting concept though. If there are two aesthetics we can use that are flattened into a single channel in our mind, then plotting measurement and error to each of those aesthetics is a viable method to visualise uncertainty. The idea of two perceptual tasks flattening into one variable in the mind of the viewer may be wishful thinking, but it is not impossible given we are not certain on how the perceptual tasks are mapped within the human brain. @Sterzik2023 found that when a value was mapped to the textures of stippling, hatching, and triangles, and found that the difference between two points on this one dimensional texture was actually a 2D space (likely "business" and light/darkness). This idea of two aesthetics flattening into one cohesive variable in the perceptual space is particularly interesting for uncertainty visualisation. 
-
-An alternative method to visualising uncertainty in a map is to combine uncertainty and signal at the earlier stage so the "supressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method addopted by the Baysian surprise metric map [@Ndlovu2023] and the excedance probability map [Lucchesi2017]. These methods do not require us to compress colour hue and value into a single variable to interpret signal and noise as a single variable, it is done explicitly for us before the visualisaiton. These methods require more specificity in *how* the uncertainty contains important information.
-
-
-::: {#fig-maps}
-
-![](mappals/img1.png)
-
-![](mappals/img2.png)
-
-![](mappals/img4.png)
-![](mappals/img3.png)
-
-![](mappals/img5.png)
-
-*I am going to replace this with my own R coded maps so they are all on the same data and signal/noise.* Four different ways to include error information in a map. A typical chloropleth map is considered the map that ignores uncertainty and simply visualises the signal. The bivariate map visualises the uncertainty, but does so using two different visual channels, which gives the perception of two different signals (or one signal in the assumptions the colors contrast with each other). An adjustment to the bivariate map is the VSUP which is similar to the bivariate plot except it merges high uncertainty values in the palette to reduce our ability to discern values that have a high enough error to not be a valid signal. The Bayesian surprise metric is similar to the lineup protocol, where the colour value is the difference between the observers posterior and prior beliefs. The exceedance probability map is a direct visualisation of the probability of a specific hypothesis.
-:::
-
-These maps make the importance of combining uncertainty and signal in a single visual channel clear. A chloropleth map will show signal that is not valid inference because of high uncertainty. At the other end of the spectrum, the bivariate map will show signal that is not always interesting because it forces us to interpret uncertainty and signal differently. The value supressing uncertainty pallet was clearly designed with hypothesis testing in mind, because it combines highly uncertain values. The main difference between the VSUP and the bivariate colour map is actually the subtle combination of signal and noise through discernability. In this sense, the uncertainty visualisation maps that combine uncertainty and signal before it is conveyed visually simplify the visualisation and make it easier to interpret value supressed signal. This is what is done by the exceedence probability map and the Bayesian surprise metric map. They are more explicit in how the uncertainty should supress the signal since they make the specific hypothesis explicit. 
 
 Another method that has been used is to visualise samples from the distribution we are trying to draw inference on instead of estimates along with a variance or error. This has been used in maps with the pixel map [Lucchesi2017], but is more commonly used in animation with the HOPs plots [@Hullman2015] or similar concepts [@Blenkinsop2000] . The difficulty with resampling methods is that they are typically conflated with animation even though this does not necessarily need to be true, as can be seen in the @fig-pixelmap and the New York Times class mobility figure, shown in @fig-nyt, an animated version of which can be found [here](https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html).  Therefore, so long as the sample size of the number of outcomes is kept to a level where individual samples are still visible, there is no evidence that an outcome plot *needs* to be animated. Visualisations that opt to express a signal as a sample rather than an estimate have the potential to supress signal since it is not explicitly visualised, however this has yet to be shown in evaluation experiments. This is not to say that visualisations of mass would not be able to perform signal supression, but a sample can easily be expressed using aesthetics such as colour on a map and mass visualisation often struggling with issues such as over or under smoothing. These sampling methods can show the messiness of the data that sits behind a model.
 
