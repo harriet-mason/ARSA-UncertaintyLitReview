@@ -233,71 +233,35 @@ This is likely the cause of the contradiction between uncertainty visualisation 
 Uncertainty, acting as it is intended, is fundamentally transparency to the viewer about a statistical analysis. There are many secondary benefits that come with this improved transparency, such as better decisions, more trust in the results and more confidence in the authors. These secondary benefits are, however, *not* uncertainty. The following sections will discuss the issues and limitations in measuring uncertainty through these secondary metrics and provide suggestions as to how future studies should consider measuring uncertainty.
 
 ## Issues with the current methods of measuring uncertainty
-The overarching goal of most uncertainty visualisation evaluation papers belong to one of: performance (how effectively a participant can extract information from a plot), interpretation and semantics (the ease with which a particular visualisation is associated with uncertainty), and quality of user experience (if the participants liked the plot or not)[@Hullman2019]. @Hullman2019 found that the majority of papers evaluate visualisations on performance (approximately 65% of the papers they surveyed) or interpretation and semantics (approximately 17%) and both of these evaluation goals will run into problems because of their conceptialisation of uncertainty.
+Uncertainty visualisation papers can be organised according to the *goal* of the experiment. Evaluation experiments are the standard rule for visualisations because the human brain is not as reliable as mathematical calculation. Therefore, user studies often aim to assess the limitations, biases, and heuristics of our mental calculator so that we can better understand the problems we may encounter when we plot our data. This is not to say any paper that suggests a visualisation without an evaluation experiment is completely lacking in justification, and there are many papers that suggest a novel visualisation without an evaluation study. Sometimes these papers are a preliminary step in finding a solution for common problems and intend to evaluate the visualsiation in later work. The reasoning for this is obvious. There are often heuristics and biases that are not obvious to us when designing visualisation. Additionally, these heuristics and baises can change depending on the larger scope of the graphic and the population we are communicating with [@Spiegelhalter2017; @Kinkeldey2014]. 
+
+The overarching goal of most uncertainty visualisation evaluation papers belong to one of: performance (how effectively a participant can extract information from a plot), interpretation and semantics (the ease with which a particular visualisation is associated with uncertainty), and quality of user experience (if the participants liked the plot or not)[@Hullman2019]. @Hullman2019 found that the majority of papers evaluate visualisations on performance (approximately 65% of the papers they surveyed) or interpretation and semantics (approximately 17%) and both of these evaluation goals will run into problems because of their conceptualisation of uncertainty.
 
 ### Performance
+There are many metrics experimenters use to evaluate the performance of a visualisation. Each metric, such as can use accuracy, decision quality, confidence, trust and others each have their own issues which prevent them from accurately capturing the effects of uncertainty in a visualisation. 
 
-L1: Behavioral Targets
-- Performance (241; 64.8%): how effectively a user can extract information, make inferences, or make decisions with a visualization.
-- Interpretation & Semantics (64; 17.2%): the ease with which a user associates uncertainty with an encoding.
-- Quality of User Experience (67; 1.8%): the user’s valuation of the visualization, such as their preference or satisfaction.
+By far the most common metric used is accuracy, which is used by approximately 36% of evaluation studies [@Hullman2019]. In previous sections, we pointed out issues that arise when accuracy (of extracting probability or variance) is used as the primary metric in evaluating uncertainty visualisations, the work simply replicates known concepts in information visualisation. Subjective metrics, such as how much participants liked the aesthetic representation of a visualisation, or metrics with an unclear motivation or use, such as how memorable the information in a plot is or how much a user interacted with a plot, are ignored in this section. Below we will explain in detail why experiments that try to measure uncertainty using methods such as decision making, trust, or other types of questions, also fail to capture the effects of visualising uncertainty in a plot.
 
-L2: 
-Value extraction
-- Accuracy (134; 36%): Difference from a ground truth response (e.g., [37, 40]).
-- Confidence/Accuracy Alignment (5; 1.3%): Correlation between confidence and accuracy (e.g., [11]).
+#### Decision making and risk aversion
+Decision making tasks are often described by authors as a more realistic version how plots are used in practice. While we do not disagree with this statement, exactly *why* these tasks are different to value extraction tasks is never explained. While the task may be more similar to how plots are actually used, that does not necessarily mean it is a better *experimental* environement for evaluating plots. Let us consider this in more detail. A normal value extraction task involves:
+1) correctly interpret the question
+2) extract the specified value
+3) report the value
+On the other hand, a decision making task involves:
+1) Correctly interpret the question
+  2) Make a choice that involves
+  - If no ground truth is in the experiment
+      a) using *personal* risk utility function to identify a threshold
+      b) extracting that threshold value from the plot
+      c) making a judgement based on that value
+  - If a group truth is specified (through right/wrong answers or a payment sceme)
+      a) Use the payment sceme to work out the choice threshold that will maximise payout
+      b) Over-ride the personal risk utility function adopt the experimenters risk utility function to identify a threshold
+      c) extracting that threshold value from the plot
+      d) making a judgement based on that value
+The key aspect that separates a decision making task from a value extraction task, for uncertainty visualisations, is the 
 
-Decision and risk avoidance
-- Decision Quality (14; 3.8%): Difference from a rational deci- sion standard (e.g., [23, 68]).
-- Risk Avoidance (23; 6.2%): The degree to which a user’s response attempts to avoid risk (e.g., [35]).
-
-Trust
-- Confidence (24; 6.5%): The degree of belief in the validity or truth of a judgment, data set, visualization, etc. (e.g., [16]).
-
-Qualitative
-- Impact on Decision-Making (3; 0.8%): Effects on decisions where no ground truth is implied (e.g., [15]).
-- Awareness of Judgment Process (8; 2.1%): The user’s ability to recognize aspects of their judgment (e.g., [15]).
-- Understand internal model (48; 12.9%): Seeking to understand how a judgment is made (e.g. [13, 87]).
-- Efficiency (37; 9.9%): How well a visualization supports quick judgments (e.g., [59]).
-
-Semantics
-- Intuitiveness/Reading ease (31; 8.3%): How “naturally” a visualization supports correct interpretations (e.g., [7]).
-
-?? Dont care
-- Memorability (3; 0.8%): How well a fact is remembered (e.g., [39]).
-- Learnability (0): The user’s ability to improve their performance over time
-- Satisfaction (38; 10.2%): The user’s aesthetic valuation of a visualization (e.g., [22, 61]).
-- Interaction (4; 1.1%): How much interaction a visualization receives in time, number of clicks, etc.
-
-
-
-
-L3: Evaluation goal
-- Compare impacts of multiple uncertainty visualizations (255; 68.5%): Results of one or more tasks are used to rank two or more uncertainty visualizations (e.g., [11, 40, 53]).
-- Determine the impact of presenting uncertainty (98; 26.3%): At least one visualization that does not contain uncertainty information is evaluated (e.g., [68]).
-- Validate effectiveness of an uncertainty vis (5; 1.3%): A user study is designed to confirm that a visualization improves some response(s). (e.g. [80]).
-- Understand why/how a visualization works (54; 14.5%): Re- sponses to a visualization(s) are analyzed to identify or confirm some judgment mechanism (e.g., [87]).
-- Understand interactions with user characteristics (53; 14.2%): The effect of properties of the user (expertise, location, etc.) on responses is analyzed (e.g., [1]).
-
-
-Uncertainty visualisation papers can be organised according to the *goal* of the experiment. Evaluation experiments are the standard rule for visualisations because the human brain is not as reliable as mathematical calculation. Therefore, user studies often aim to assess the limitations, biases, and heuristics of our mental calculator so that we can better understand the problems we may encounter when we plot our data. This is not to say any paper that suggests a visualisation without an evaluation experiment is completely lacking in justification, and there are many papers that suggest a novel visualisation without an evaluation study. Sometimes these papers are a preliminary step in finding a solution for common problems and intend to evaluate the visualsiation in later work. Until that later work is done, it is often difficult to accept one particular representation. While justification could come in the form of discussing established concepts in visualisation, such as the hierarchy of perceptual tasks, even these may need an evaluation study to back up their claims.
-
-The reasoning for this is obvious. There are a large number heuristics and biases that are not obvious to us when designing visualisation. Additionally, these heuristics and baises can change depending on the larger scope of the graphic and the population we are communicating with. Additionally, since there is often a miriad of ways to visualise any particular mathematical object, to adopt specific visualisation that is not already common practice needs reasonable justification, lest we run into a range of unforseen heuristic pitfalls.
-
-The remainder of section 4 will focus on the results and methods of uncertainty visualisation evaluation experiments. There are six main types of evaluation experiments in the uncertainty visualisation literature, they are:  
-- Association perceptual tasks: These experiments identify perceptual tasks that are/could be associated with uncertainty, and test its association with uncertainty, check it's number of distinguishable levels, and/or check how quickly/accurately people can draw the uncertainty information from the graphic.  
-- Value perceptual tasks: Participants are shown some depiction of uncertainty and are asked to extract a value, make a comparison, or do something simple to show that the graphic is readable.  
-- Heuristic Checks: These experiments are checking if a perceptual bias that has been identified through public use of a particular plot, other evaluation experiments, or gut feeling identified through public use of a plot or in a different.  
--  Plot Comparisons: These papers describe an uncertainty visualisation evaluation experiment, where they compare two or more uncertainty visualisaitons on a specific set of questions. These questions can be about specific statistics (e.g. What is the probability that A>B?) or about a secondary goal such as trust or decision making (e.g. How much do you trust this estimate?).  
-- Qualitative analysis: These experiments show participants an uncertainty visualisation for an open ended or specific task, and asks them to describe how the visualisation was used to come to a conclusion, or they are asked to describe what they see in the visualisation. 
-- Method papers: These papers discuss issues with the evaluation methods of uncertainty visualisaiton and suggest changes or improvements, typically with results indicating the benefit of the change.  
-  
-These experiments are not mutually exclusive within a paper, and a single study will often contain several experiments, usually from several of these categories. These distinctions are important because each have their own issues in how they relate to uncertainty more broadly. Below we will go through the five key issues in uncertainty visualisation, describe how they mainfest in the uncertainty visualisation literature, and offer some tentative solutions to these problems.
-
-We will also comment on some of the uncertainty visualisation papers that suggest a visualisation without an evaluation experiment. Some of these plots may offer a solution to the unique problems we mention in this paper and these visualisations will be discussed in "Part 6: Great Examples". We will also consider these papers to illustrate the issues that visualisations are aware of and working to fix, and discuss whether or not these directions of research are likely to bear fruit, and why.
-
-
-> Edit note: Currently these notes are just from spiegelhater because this is the only paper I have moved notes over from. Other sources will be used here lol. Working out what exactly they are communicating is a bit of a pain though.
+Decision making questions that typically involve uncertainty discuss the concept of "risk-aversion" as though it is a mistake. The irony of an uncertainty visualisation pper expressing the importance of uncertainty visualisation, but setting up a ground truth or optimum strategy in which participants *should* ignore the uncertainty information is not lose on us. This perspective does not make sense because it implies participants should make decisions entirely based on the average. A possible soltion for this is to provide a utility framework for a particular experiment [@Hullman2016], however it is unclear how easily participants could adopt a utility framework that is different to their own. @Cheong2016 introduced a very simple optimum strategy into their experiment on bushfire uncertainty visualisations, where participants should choose to evacuate a house as soon as its likelihood of catching fire is 50% or higher. Interestingly, despite this very obvious and simple tactic to maximize payout from the experiment, it seems like many participants did not adopt it, instead acting much more warily as though they were considering whether or not they would *actually* evacuate in the event of a fire. These papers also very rarely consider what the optimum decision would be in a given scenario, and a difficulty with anticipating the best strategy is conflated with the failings of the uncertainty visualisation. Ultimately, we agree with @Hullman2016 who suggested that what determines an approripate ground truth is largely a philosophical exercise.
 
 Risk and uncertainty are not only different in how they are communicated, but also why they are communicated. Risk communication focuses on communicating probability around events. These events are typically a binary event that is known to be random, so a version of communication that does not mention risks (e.g. telling someone they will or will not get cancer instead of communicating their risks about it) inherently carries with it a lack of transparency. Additionally risk communication is often communicated to avoid or information about an unfavorable outcome, so framing can be important if we want to influence decisions in a certainty way. These motivations do not extend to the communication of uncertainty information more broadly. 
 
@@ -313,8 +277,7 @@ What is meant by "uncertainty" may seem obvious to some, but when you attempt to
 
 The previous sections of this paper established several issues in uncertainty communication at large. In this section, we will discuss the current literature on uncertainty visualisation, how the uncertainty communication issues more broadly manifest in the specific case of visualisation, and what general lessons we can take from the existing work.
 
-#### Decision making and risk aversion
-Decision making questions that typically involve uncertainty discuss the concept of "risk-aversion" as though it is a mistake. The irony of an uncertainty visualisation pper expressing the importance of uncertainty visualisation, but setting up a ground truth or optimum strategy in which participants *should* ignore the uncertainty information is not lose on us. This perspective does not make sense because it implies participants should make decisions entirely based on the average. A possible soltion for this is to provide a utility framework for a particular experiment [@Hullman2016], however it is unclear how easily participants could adopt a utility framework that is different to their own. @Cheong2016 introduced a very simple optimum strategy into their experiment on bushfire uncertainty visualisations, where participants should choose to evacuate a house as soon as its likelihood of catching fire is 50% or higher. Interestingly, despite this very obvious and simple tactic to maximize payout from the experiment, it seems like many participants did not adopt it, instead acting much more warily as though they were considering whether or not they would *actually* evacuate in the event of a fire. These papers also very rarely consider what the optimum decision would be in a given scenario, and a difficulty with anticipating the best strategy is conflated with the failings of the uncertainty visualisation. Ultimately, we agree with @Hullman2016 who suggested that what determines an approripate ground truth is largely a philosophical exercise.
+
 
 
 #### Trust and confidence
