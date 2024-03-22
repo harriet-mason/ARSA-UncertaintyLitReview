@@ -41,6 +41,11 @@ Cite Gap 14: Examples of mathematically obvious results
 
 Cite Gap 15: Examples of replicated perceptual task experiments
 
+Cite Gap 16: Examples of value extraction decision making tasks
+
+Cite Gap 17: Examples of studies where the correct choice was to *ignore* the uncertainty information
+
+Cite Gap 18: Examples of studies where authors measure trust
 
 ## Extra Section Cite Gaps
 Cite Gap - New Section: Logical fallacy interpretation of mathematically unanswerable questions. If I tell you my cousins age, and then ask you to guess my age, it would not be unreasonable to guess the age I provided for my cousin. Citing this work to state "people incorrectly believe my cousins age is my age" would
@@ -49,9 +54,13 @@ Cite Gap - New Section: Logical fallacy interpretation of mathematically unanswe
 
 
 # Moved over notes
+
+- @Ibrekk1987 expected participants to calculate the mean using a pie chart that had numerical bins combined (e.g. segment one was 0-2 inches of snow, and segment two was 2-4 inches of snow) so it could not be done by calculation. The authors also expected participants to use a CDF to calculate the mean, which needs to be converted *back* into a PDF to do so mathematically, so it was unclear how participants were supposed to do this calculation visually unless they were to just make a blind guess. The authors interpreted this as the participants misinterpreting how the CDF works, not seeming to realise they gave them an impossible task.
+- @Blenkinsop2000 tailored their questions according to the visualisation shown, which implies an understanding that different visualisations contain different information. Despite this the authors still compared the visualisations according to which were "useful for uncertainty visualisation". 
 - @Blenkinsop2000 asked different questions for each uncertainty visualisation, indicating they had some awareness that the question has a significant impact on whether or not the visualisation should be used.
 - @Gschwandtnei2016 When answering “What is the statistical probability (in %) that the interval has already ended at the marked point in time (red line)?” many answers gave the estimated probability to which the marked point in time falls into the interval. This is correct when asking for the probability to which the interval has already started at the marked position. However, in case of the probability to which the interval has already ended at the marked position, this answer is the inverted probability of what we were looking for. They believe this is their own mistake so they so they don’t present these results.
-
+- @Ibrekk1987 used several displays of a probability density functions, since “formally equivalent representations are often not psychologically equivalent”.
+- @Ibrekk1987 highlights that in the face of a vague question, participants will use the plot to decide what the authors mean. 
 @Sanyal2009 users performed significantly well using Glyph-size when the task was to search for locations of least uncertainty. However, both Glyph-color and Surface-color performed better than Glyph- size when the task was to search for locations of high uncertainty. We did not expect to find a significant difference between the two search tasks since both the tasks were designed to find extremes in the data
 @Kim2019 believed an understanding of participants prior beliefs could assist in interpreting uncertainty visualisation results that tend to be incredibly noisy.
 @Thomson2005 titled their paper "A typology for visualizing uncertainty" however it is a taxonomy for the specific types of uncertainty that we may want to visualise and a way to calculate that uncertainty. While this paper is more about mathematics than visualisation, it is clearly written as a precursor to visualisation.
@@ -162,6 +171,8 @@ Extra (not necessarily recorded)
 
 
 # Main section outtakes
+@Hofmann2012 showed two distributions in 20 different visualisations (a lineup protocol) using a jittered sample, a density plot, a histogram, and a box plot and asked participants. Participants were asked to report in which of the plots was "the blue group furthest to the right" and to provide reasoning from a multiple choice list and grade their certainty. The experiment set up is shown in @fig-right. The participants answers were then compared to a ground truth where the correct plot had a right shifted mean. By comparing the results to a ground truth statistic and marking participants as "wrong" or "right", the error from the participants that had an alternative interpretation to the concept of "furthest right" was conflated with the error from a the visualisation choice.
+
 While this is a focus on uncertainty visualisation, these issues in uncertainty communication need to be acknowledged because they bleed into the uncertainty visualisation literature. Uncertainty visualisation are compared on their ability to communicate explicit risk, elicit trust, and prevent risk or ambiguity avoidance, continuing these issues in uncertainty communication at large. 
 
 Ambiguity-aversion, uncertainties risk-avoidance counterpart, has a similar problem. Ambiguity-aversion is the tendency of people to prefer to take on certain risks rather than unknown risks. It is essentially risk-aversion applied to risk. For this reason discussions of ambiguity-aversion have the same issues as the conversations about risk-aversion, where they do not consider ambiguity-aversion to be an estimate of the utility of decreased certainty. Assuming that participants should act as rational agents implies they should do as rational agents do and *ignore* the uncertainty information.
