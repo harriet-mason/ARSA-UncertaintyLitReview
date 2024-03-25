@@ -7,33 +7,31 @@ format: html
 I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
 
 # Citation Gaps
-Cite Gap 1: When did uncertainty visualisaiton become its own subfield of visualisation?
 
-Cite Gap 2: When was the first "uncertainty visualisation" used (likely a box plot of histogram)
+Cite Gap 3: Organise Uncertainty definitions
+- Some consider it to be synonymous with specific terms defined in mathematics, such as probability [*HERE*], variance[*HERE*], error[*HERE*], or precision[*HERE*]. Others consider it to be an encompassing umbrella term of which for these mathematically defined objects are only examples[*HERE*], and include concepts that are somewhat related, such as missing values[*HERE*]
+- This wide array of uncertainty definitions becomes a snake eating its own tail, as many authors opt to redefine uncertainty themselves[*HERE*], ignore defining uncertainty entirely [*HERE*], or pick a definition from a seemingly randomly previously published papers [*HERE*], all of which make variance in uncertainty definitions even worse
 
-Cite Gap 3: Some consider it to be synonymous with specific terms defined in mathematics, such as probability [*HERE*], variance[*HERE*], error[*HERE*], or precision[*HERE*]. Others consider it to be an encompassing umbrella term of which for these mathematically defined objects are only examples[*HERE*], and include concepts that are somewhat related, such as missing values[*HERE*]
-
-Cite Gap 3.5: This wide array of uncertainty definitions becomes a snake eating its own tail, as many authors opt to redefine uncertainty themselves[*HERE*], ignore defining uncertainty entirely [*HERE*], or pick a definition from a seemingly randomly previously published papers [*HERE*], all of which make variance in uncertainty definitions even worse
-
-Cite Gap 4:The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase but go on to *quantify* uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation.
-
-Cite Gap 5: This definition swap happens so subtly that it seems to go unnoticed by authors writing the papers, and the fact that "uncertainty visualisation" methods dont even notice they are exclusively focus on depictions of easily quantifiable uncertainty, such as error [*HERE*], mass [*HERE*], or variance [*HERE*]
+Cite Gap 4: Organise uncertainty quantification
+- The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase but go on to *quantify* uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation.
+- This definition swap happens so subtly that it seems to go unnoticed by authors writing the papers, and the fact that "uncertainty visualisation" methods dont even notice they are exclusively focus on depictions of easily quantifiable uncertainty, such as error [*HERE*], mass [*HERE*], or variance [*HERE*]
+- Many papers will boast a title that claims to be about uncertainty visualisaiton, but simply depicts different visual representations of a PDF, however it takes reading the methodology to find this out
 
 Cite Gap 6: This has left the expressions of uncertainty that are hard to quantify or visually differentiate untouched, despite many papers calling for their invention [*HERE*]
 
-Cite Gap 7: Taxonomies split uncertainty based on an endless stream of arbitrary lines in the sand, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017 *HERE*], if the uncertainty is in the the attribute, spatial elements, or temporal element of the data [*HERE*], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [*HERE*], if the uncertainty is random or systematic [*HERE*], statistical or bounded [], accuracy or precision [*HERE*], if the uncertainty is about the past or the future [*HERE*], the stage of the data analysis pipeline it comes from [*HERE*], the severity of the uncertainty [*HERE*], how quantifiable the uncertainty is [@Spiegelhalter2017], and many, many, many more examples.
+Cite Gap 7: Uncertainty Taxonomies
+- Taxonomies split uncertainty based on an endless stream of arbitrary lines in the sand, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017 *HERE*], if the uncertainty is in the the attribute, spatial elements, or temporal element of the data [*HERE*], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [*HERE*], if the uncertainty is random or systematic [*HERE*], statistical or bounded [], accuracy or precision [*HERE*], if the uncertainty is about the past or the future [*HERE*], the stage of the data analysis pipeline it comes from [*HERE*], the severity of the uncertainty [*HERE*], how quantifiable the uncertainty is [@Spiegelhalter2017], and many, many, many more examples.
 
-Cite Gap 8: It is commonly noted that each uncertainty must be discussed in isolation, but combining the uncertainty from every stage is near impossible [@Spiegelhalter2017 *MORE HERE*]
+Cite Gap 8: Bar/pie uncertainty graphics
+- For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, however at least one or both of these charts are used in most "uncertainty visualisation" experiments [@Ibrekk1987 *MORE HERE*]
 
-Cite Gap 9: Many papers will boast a title that claims to be about uncertainty visualisaiton, but simply depicts different visual representations of a PDF, however it takes reading the methodology to find this out
+Cite Gap 9: Other uncertainty vis taxonomies
 
-Cite Gap 9: For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, however at least one or both of these charts are used in most "uncertainty visualisation" experiments [@Ibrekk1987 *MORE HERE*]
+Cite Gap 10: Reason uncertainty visualisation is different
+- Papers will often discuss uncertainty in relation to one of these motivating reasons, the evaluation experiments motivated by (1) often perform different visualisations of PDFs, while the papers motivated by (2) will focus on trying to impute uncertainty as error within one of the existing channels, such as colour
 
-Cite Gap 10: Uncertainty Visualisation Taxonomies
-
-Cite Gap 11: Papers will often discuss uncertainty in relation to one of these motivating reasons, the evaluation experiments motivated by (1) often perform different visualisations of PDFs, while the papers motivated by (2) will focus on trying to impute uncertainty as error within one of the existing channels, such as colour
-
-Cite Gap 12: Visualisation authors are almost unanimous in commenting that the "information" in two plots must be the same in order for the visual techniques to be compared
+Cite Gap 12: Equal information
+- Visualisation authors are almost unanimous in commenting that the "information" in two plots must be the same in order for the visual techniques to be compared
 
 Cite Gap 13: Examples of what is "information" in a visualisation
 
