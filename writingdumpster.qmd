@@ -3,46 +3,70 @@ title: "Writing Trash Bin"
 author: "Harriet Mason"
 format: html
 ---
-# Why this exists
-I have an information hoarding problem, this helps me throw out sections of the literature review that are not necessarily relevant without actually throwing it out. Knowing that I can come back to this at any point and pull information back, makes me more comfortable with removing it from the report.
+# Introduction
+### Motivation for uncert vis
+- @Suh2023 found that the main issue with deployment of AI was communication between data science and subject matter experts, since subject matter experts didn't want technical presentations that didn't explain exactly when and how a model would fail.
+- (maybe include some of the noise vs signal stuff)
 
-# Citation Gaps
-
-### Cite Gap 3: Uncertainty definition + signal supression
-> Some consider it to be synonymous with specific terms defined in mathematics, such as probability [*HERE*], variance[*HERE*], error[*HERE*], or precision[*HERE*]. Others consider it to be an encompassing umbrella term of which for these mathematically defined objects are only examples[*HERE*], and include concepts that are somewhat related, such as missing values[*HERE*]
-> This wide array of uncertainty definitions becomes a snake eating its own tail, as many authors opt to redefine uncertainty themselves[*HERE*], ignore defining uncertainty entirely [*HERE*], or pick a definition from a seemingly randomly previously published papers [*HERE*], all of which make variance in uncertainty definitions even worse
-
+# Definition Notes
+## General
+- @uncertchap2022 People do not over react when an ensemble member barely misses their town and People overreact more when 1/9 enselbles appear to be hitting their town than when 1/33 ensembles.
+- @uncertchap2022 Correll and Gleicher [9] found that violin plots (mapping probability to area or width at a given y position) and gradient plots (mapping probability to opacity) lead to more intuitive assessments of value likelihood and “ability to surprise,” which are more closely aligned with statistical defini- tions of uncertainty." wtf is the statistical definition of uncertainty
 - @Thomson2005 titled their paper "A typology for visualizing uncertainty" however it is a taxonomy for the specific types of uncertainty that we may want to visualise and a way to calculate that uncertainty. While this paper is more about mathematics than visualisation, it is clearly written as a precursor to visualisation.
 - @Griethe2006 commented that uncertainty appears at every step in the analyis pipeline, and commented on some the mathematical definitions that seek to quantify uncertianty, but did not explain how these mathematical definitions can be combined across levels. Unfortunately this quantification is needed since she mentioned that in order to visualise uncertainty, it needs to be measurable.
-- @Griethe2006 defined uncertainty as "the degree to which the lack of knowledge about the amount of error is responsible for hesitancy in accepting results and observations without caution". 
+- mentions uncertainty can be variance, precision, accuracy, reliability, or related concepts @Hullman2016
+- @uncertchap2022 "can enter the analysis pipeline during the mea- surement, modeling, and forecasting phases"
 
-### Cite Gap 4: Organise uncertainty quantification
+## Probability/variance/error etc (Cite Gap 3)
+> Some consider it to be synonymous with specific terms defined in mathematics, such as probability [*HERE*], variance[*HERE*], error[*HERE*], or precision[*HERE*]. Others consider it to be an encompassing umbrella term of which for these mathematically defined objects are only examples[*HERE*], and include concepts that are somewhat related, such as missing values[*HERE*]
+
+## Redefined uncertainty (cite gap 3)
+> This wide array of uncertainty definitions becomes a snake eating its own tail, as many authors opt to redefine uncertainty themselves[*HERE*], ignore defining uncertainty entirely [*HERE*], or pick a definition from a seemingly randomly previously published papers [*HERE*], all of which make variance in uncertainty definitions even worse
+
+#### Uncertainty Taxonomies (Cite Gap 7)
+> Taxonomies split uncertainty based on an endless stream of arbitrary lines in the sand, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017 *HERE*], if the uncertainty is in the the attribute, spatial elements, or temporal element of the data [*HERE*], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [*HERE*], if the uncertainty is random or systematic [*HERE*], statistical or bounded [], accuracy or precision [*HERE*], if the uncertainty is about the past or the future [*HERE*], the stage of the data analysis pipeline it comes from [*HERE*], the severity of the uncertainty [*HERE*], how quantifiable the uncertainty is [@Spiegelhalter2017], and many, many, many more examples.
+
+- @uncertchap2022 mention aleatric, epistemic, ontological divide and also differentiates risk with uncertainty
+- Mentioned alleatory vs epistemic uncertainty, in the visualisation literature alleatory uncertainty is more commonly the focus. also mentions dependence and joint pdfs as a consideration @Hullman2016
+
+# Visual Uncertainty Definition
+
+### Context relevance
+- most studies used coincident approaches, static visualisations, are applied to a specific domain and dont have generalised results @Kinkeldey2014
+
+### How was uncertainty quantified (Cite Gap 4)
 > The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase but go on to *quantify* uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation.
 > This definition swap happens so subtly that it seems to go unnoticed by authors writing the papers, and the fact that "uncertainty visualisation" methods dont even notice they are exclusively focus on depictions of easily quantifiable uncertainty, such as error [*HERE*], mass [*HERE*], or variance [*HERE*]
 > Many papers will boast a title that claims to be about uncertainty visualisaiton, but simply depicts different visual representations of a PDF, however it takes reading the methodology to find this out
 
-### Cite Gap 6: All PDF no Missing values
+- @uncertchap2022 do specify that they are going to refer to quantified uncertainty that can be visualised ("most commonly as a probability distribution")
+- @Griethe2006 mentions that there are detailled classifications of uncertainty but the literature and subsequent techniques are not ballanced, and instead concentrate on scalar values. In facing this lack of ballance she creates a new classification system for uncertainty visualisation. 
+
+### We need cool uncertainty visuailsations (Cite Gap 6)
 > This has left the expressions of uncertainty that are hard to quantify or visually differentiate untouched, despite many papers calling for their invention [*HERE*]
 
-- @Griethe2006 mentions that there are detailled classifications of uncertainty but the literature and subsequent techniques are not ballanced, and instead concentrate on scalar values. In facing this lack of ballance she creates a new classification system for uncertainty visualisation. 
-- Mentioned alleatory vs epistemic uncertainty, in the visualisation literature alleatory uncertainty is more commonly the focus. also mentions dependence and joint pdfs as a consideration @Hullman2016
+- Whether to use classed or unclassed uncertainty is rarely discussed @Kinkeldey2014. e.g. land map with remotely sensed images has ambiguity in the boundaries, which can result from multiple sources (land cover class, measurement error, images from different dates). If you combine them all it might not make sense for someone who only needs one.
+- Most studies involve intrinsic approaches such as colour, transparency, and those that used extrinsic techniques typically used glyphs, error bars, grid based techniques, or contouring @Kinkeldey2014
+- rarely used extension is aggregation of uncertainty over an area (retrieve overall estimation from a spatial distribution of uncertainty). Other tasks include comparisons, rankings. also have a task called "search" where participants have to identify entities that fulfill certainty characteristics (high or low values) @Kinkeldey2014
 
-### Cite Gap 7: Uncertainty Taxonomies
-> Taxonomies split uncertainty based on an endless stream of arbitrary lines in the sand, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017 *HERE*], if the uncertainty is in the the attribute, spatial elements, or temporal element of the data [*HERE*], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [*HERE*], if the uncertainty is random or systematic [*HERE*], statistical or bounded [], accuracy or precision [*HERE*], if the uncertainty is about the past or the future [*HERE*], the stage of the data analysis pipeline it comes from [*HERE*], the severity of the uncertainty [*HERE*], how quantifiable the uncertainty is [@Spiegelhalter2017], and many, many, many more examples.
-
-### Cite Gap 8: Bar/pie uncertainty graphics
+### Bar/pie uncertainty graphics (Cite Gap 8)
 > For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, however at least one or both of these charts are used in most "uncertainty visualisation" experiments [@Ibrekk1987 *MORE HERE*]
 
-### Cite Gap 9: Vis uncertainty Taxonomies
-- Most studies involve intrinsic approaches such as colour, transparency, and those that used extrinsic techniques typically used glyphs, error bars, grid based techniques, or contouring @Kinkeldey2014
+### Vis uncertainty Taxonomies (Cite Gap 9)
+- @uncertchap2022 two broad categories of uncertainty visualisation techniques, 1) graphical annotation (mean, error bar, hops) 2) map probability of cI to a visual encoding channel 3) hybrid approaches (e.g. contour boxplot, probability density and interval plot)
 
-### Cite Gap 10: High dimensional vs psychological
+### High dimensional vs psychological motivation (Cite Gap 10)
 > Papers will often discuss uncertainty in relation to one of these motivating reasons, the evaluation experiments motivated by (1) often perform different visualisations of PDFs, while the papers motivated by (2) will focus on trying to impute uncertainty as error within one of the existing channels, such as colour
 
 - @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
 
+# Noise vs Signal
+- @uncertchap2022 "Effectively communicating uncertainty is necessary for establishing scientific transparency"
+- @Griethe2006 defined uncertainty as "the degree to which the lack of knowledge about the amount of error is responsible for hesitancy in accepting results and observations without caution". 
 
-### Cite Gap 12 & 13 & 14: Information & Mathematical stuff
+
+# Experiment stuff
+### Information & Mathematical stuff (Cite Gap 12 & 13 & 14)
 - we should aim to show enough information to solve a task while avoiding irrelevant distracting information [@kosslyn2006graph]. 
 - @Ibrekk1987 used several displays of a probability density functions, since “formally equivalent representations are often not psychologically equivalent”.
 - @Hullman2016 commented on the lack of justification of particular questions used in experiments and the lack of generalisability in using plot ranking as a response technique.
@@ -50,14 +74,30 @@ I have an information hoarding problem, this helps me throw out sections of the 
 - @Bella2005 found that most participants were ignorant to the fact that error bars are used for both confidence intervals and standard error bars, two wildly different indicators of precision. (Note: Uncertainty intervals can only be validly compared to a constant value, you compare Data to a theoretical distribution, OR uncertainty to a theoretical threshold (not data). The participants should convert the distributions to A - B and then see if the 95% of THAT distribution overlaps with 0)
 - @Blenkinsop2000 tailored their questions according to the visualisation shown, which implies an understanding that different visualisations contain different information. Despite this the authors still compared the visualisations according to which were "useful for uncertainty visualisation". 
 - When asking questions, researchers should focus on events that can be repeated (because of a misunderstanding of confidence intervals) @Hullman2016 (moved here because it is clear she is touching on the whole "what are we uncertain about" thing)
+- @Nathonours found that a scatter plot is better than a line plot if you want to convey the correlation between two time series but we cannot be sure if this was influenced by swapping the distribution depicted or by dropping the irrelevant feature of inexchangeability.
 
-### Cite Gap 15: Value Extraction (Examples of replicated perceptual task experiments)
+### Logical fallacy interpretation
+- If I tell you my cousins age, and then ask you to guess my age, it would not be unreasonable to guess the age I provided for my cousin. Citing this work to state "people incorrectly believe my cousins age is my age" would
+- Deterministic questions about a random event cannot be answered. 
+- @uncertchap2022 took the results of other paper to mean "when participants viewed mean temperature forecasts that included 95% confidence intervals depicted as bars with end caps, they incorrectly believed that the error bars represented high and low temperatures" (this one will depend on that study)
+- @Boone2018 the method of eliciting prior beleifs was, however questionable. Said people did or did not think something was likely but the question was weird.
+- @uncertchap2022 Sources 3, 54, 55, 56 also used to suggest "people interpret uncertainty information as deterministic information". Exists with visualisation and not with text. Suggests this is because of a "visual-spatial bias". suggest HOPs to aleviate this and I refuse to entertain the notion. 
+
+### Participants getting confused by overcomplicated tasks
+- @Gschwandtnei2016 When answering “What is the statistical probability (in %) that the interval has already ended at the marked point in time (red line)?” many answers gave the estimated probability to which the marked point in time falls into the interval. This is correct when asking for the probability to which the interval has already started at the marked position. However, in case of the probability to which the interval has already ended at the marked position, this answer is the inverted probability of what we were looking for. They believe this is their own mistake so they so they don’t present these results.
+- @Ibrekk1987 highlights that in the face of a vague question, participants will use the plot to decide what the authors mean.
+- @uncertchap2022 visual boundaries = cognative categories. Use the cone of uncertainty work as a justification of this. I don't even think THOSE papers found evidence of this. Comment that "Viewers understandably assume the value of a boundary is meaningful, particularly when the information about how the visualization was generated is insufficient" and "Viewers have no choice but to assume that the scientists who made the forecast are indicating an important distinction with the boundary". Shows they know providing irrelevant information is stupid, specify that the issue is that there is rarely a justification for the boundary. YES.
+
+### Value Extraction (Cite Gap 15)
+- @uncertchap2022 Attribute substitution: people will substitute a hard mental calculation for an easy one (attribute substitution heuristic). Name "deterministic constructual error" when people try to substitute uncertainty information for deterministic information (e.g. error bars for high and low temperature even when the visualisation was explained - from icing study. This makes sense because temperature is GIVEN as high and lows so it is a natural interpretation). I think this result is in line with the idea that people give the best estimate based on what the visualisation suggests. i.e. people might have assumed you meant "what is the lowest possible temperature". There is a level of "asking a deterministic question for a probabilistic question". 
+- @uncertchap2022 Quantile dot plot created so people dont have to visually calculate the area under the curve (so authors are aware of the mental challenge of some of these things) Decrease variance with respect to density plots (it makes sense because you can directly count and quantify raher than guesstimate) (both come from the same source, when-ish is my bus)
+- Authors provide little justification for their chosen response models (e.g. absolute accuracy vs relative measures) @Hullman2016 
 - @Correll2018 “place your 5 ships on the safest locations on the board.” (minimise danger) It is a convoluted value extraction task, where participants basicaly have to look at the palette and see that if it is in the lower uncertainty, and lower error it is better, but higher uncertainty is better
 - @Ibrekk1987 expected participants to calculate the mean using a pie chart that had numerical bins combined (e.g. segment one was 0-2 inches of snow, and segment two was 2-4 inches of snow) so it could not be done by calculation. The authors also expected participants to use a CDF to calculate the mean, which needs to be converted *back* into a PDF to do so mathematically, so it was unclear how participants were supposed to do this calculation visually unless they were to just make a blind guess. The authors interpreted this as the participants misinterpreting how the CDF works, not seeming to realise they gave them an impossible task.
 - @Sanyal2009 users performed significantly well using Glyph-size when the task was to search for locations of least uncertainty. However, both Glyph-color and Surface-color performed better than Glyph- size when the task was to search for locations of high uncertainty. We did not expect to find a significant difference between the two search tasks since both the tasks were designed to find extremes in the data
 - The tasks for participants were most commonly value retrival (some where uncertainty and data value are retrived separately, others where they are some separately). also also be asked to extract a relative value @Kinkeldey2014
 
-### Cite Gap 16: Decision making stuff 
+### Decision making stuff (Cite Gap 16)
 - @Boone2018 organised responses from participants by the approach they used
 - @Hullman2016 suggested authors look for signs of heuristics in responses and ask subjects to describe their strategy in their response. 
 - @Hullman2016 What was particularly interesting was people's tendancy to ignore uncertainty in a plot all together, and use a pattern in the signal (such as distance between means) to answer questions that require uncertainty information. 
@@ -68,22 +108,17 @@ I have an information hoarding problem, this helps me throw out sections of the 
 - she also discusses graphical interface (users have to draw the probability distribution) and framing probabilities as natural frequencies are better choices because they reduce noise in responses [@Hullman2016]
 - Consider incorporating utility functions. Include "probability-coherence" checks [@Hullman2016]
 - evidence that people do not follow the axioms of probability when conveying subjective probabilities. How do you deal with this as an analyst (e.g. if the probabilities do not sum to 1 @Hullman2016
+- people will discount information they perceive as discountable if they are able. Including mean estimates on depictions of mass can cause people to discount the uncertainty information and use the difference between means as a proxy for the probability distribution [@Kale2021].
+- Some questions (e.g. what are the chances that the no.6 bus will arrive first) you can elicit the viewers subjective probability distribution @Hullman2016
 
-### Cite Gap 17: Please Ignore uncertainty
+### Please Ignore uncertainty (Cite Gap 17)
 - @Blenkinsop2000 did try to include uncertainty as noise, asking participants to search for a specific outcome (the land classified as grass) in a random . However the participants failing to identify the signal (something that would be expected of an uncertainty plot) was seen as a sign the task was too complicated. While the task in this experiment *was* certainty far too complicated (and poorly communicated) this discussion indicates the authors did not consider the signal suppression to be the goal of the visualisation, and rather an annoying distraction. 
 
-### Cite Gap 18: Trust stuff
+### Trust stuff (Cite Gap 18)
+- @uncertchap2022  mentions "other studies have found that people trust icon arrays more than other common visualization techniques" without commenting on whether or not that trust is good?
 
-# Additions
-
-### Addition topic 1: Logical fallacy interpretation of mathematically unanswerable questions. 
-- If I tell you my cousins age, and then ask you to guess my age, it would not be unreasonable to guess the age I provided for my cousin. Citing this work to state "people incorrectly believe my cousins age is my age" would
-- Deterministic questions about a random event cannot be answered. 
-- @uncertchap2022 took the results of other paper to mean "when participants viewed mean temperature forecasts that included 95% confidence intervals depicted as bars with end caps, they incorrectly believed that the error bars represented high and low temperatures" (this one will depend on that study)
-- @Boone2018 the method of eliciting prior beleifs was, however questionable. Said people did or did not think something was likely but the question was weird.
-
-### Addition topic 2: Uncertainty vis communication considerations
-#### Unvertainty
+# Communication considerations
+## Uncertainty
 - @Spiegelhalter2017 it is better to understand your audience and iterate towards a final design, rather than only consider one option.
 - Some markers of probability that have common uses, probabilities such as 0 (impossible), 0.5 (a fair coin flip), 1 (certain) are easy for people to have an internal sense of [@Hullman2016]
 - It is incredibly hard to communicate small risks, because people cannot differentiate between 1/100 an 1/1000, and communicating low probability but high impact risks are particularly challenging [@Spiegelhalter2017]. This issue can be somewhat alleviated by communicating the likelihood of an event in relation to another event on a similar scale (such as being struck by lightning) [@Spiegelhalter2017]. 
@@ -94,7 +129,11 @@ I have an information hoarding problem, this helps me throw out sections of the 
 - experiencing an event makes your percieved probability higher than if you see a description of it @Hullman2016
 - Frequency thing means that more effective communication to participants in a study means more effective science and we have a roll on effect @Hullman2016
 - Probability judgements are less relative than other psychophysical judgements, 0%, 50% and 100% all have well understood meanings. Subjective probability distributions are spontaneous, and subjects are constructing a distribution upon being asked rather than articulating a fully formed mental representation of their beliefs. Therefore it is subject to heuristics. consider anchoring a scale with farmiliar probabilities . not sure if being asked for the entire distribution helps, e.g. the graphical one reduces noise but asking people for an interval estimation leads to overprecision and overconfidence @Hullman2016
-#### Visualisation
+- The big data paradox shrinks confidence intervals but magnifies bias [@Bradley2021] because the confidence intervals shrink due to the sample size but the imprecise target group creates bias.
+
+## Visualisation
+- @uncertchap2022 Icon array and quantile dot plots both support area and frequency based judgements.
+- @uncertchap2022 frequency framing: (e.g. 1 out of 10 rather than 10%) better (plot: icon array, quantile dot plot). 
 - @Spiegelhalter2017 even if most audience members can read a plot, they may not read it in the same way. People with high numeracy skills count pictographs, but people with low numeracy assess area, and seemingly unrelated elements may not equally influence all these methods of reading, for example scattering in a pictograph makes counting particularly more difficult. *also add that perceptual task audience thing*
 - @Spiegelhalter2017 common sentiments such as avoiding chart junk, considering a table in place of a visualsiaiton, use of narrative labels, managing emotion, less is more approach, etc, are the main concepts expressed. 
 - @Spiegelhalter2017 suggests that the graphic should allow "part-to-whole" comparison on an appropriate scale, which seems to be an extension of the framing concept discussed when speaking about uncertainty communication more broadly.
@@ -102,36 +141,10 @@ I have an information hoarding problem, this helps me throw out sections of the 
 - @Kinkeldey2014 stress the importance of selecting the correct audience, as numerical and visual literacy can differ vaslty between subpopulations so the results from one populations may not reflect the results from another. 
 - we consider a summary table as a visualisation, illuminate graphics with words and numbers, design graphics to allow a part-to-whole comparison on an appropriate scale, use images and metaphors to gain/retain attention but don't arouse undue emotion, assume low numeracy of a general public audience and adopt a less-is-more approach by reducing the need for inference and making clear and explicit comparison, be cautious about interactivity and animations (may introduce unnecessary complexity), avoid chart junk (like 3d bar charts) @Spiegelhalter2017
 - @Maceachren2012 found __????_ to be the worst aesthetics to map to uncertainty to as they don't have an intuitive interpretation.
-
-### Addition topic 3: Power of uncert vis (why it failled)
-- @Suh2023 found that the main issue with deployment of AI was communication between data science and subject matter experts, since subject matter experts didn't want technical presentations that didn't explain exactly when and how a model would fail.
-
-
-
-### Addition topic 5: Participants getting confused by overcomplicated tasks
-- @Gschwandtnei2016 When answering “What is the statistical probability (in %) that the interval has already ended at the marked point in time (red line)?” many answers gave the estimated probability to which the marked point in time falls into the interval. This is correct when asking for the probability to which the interval has already started at the marked position. However, in case of the probability to which the interval has already ended at the marked position, this answer is the inverted probability of what we were looking for. They believe this is their own mistake so they so they don’t present these results.
-- @Ibrekk1987 highlights that in the face of a vague question, participants will use the plot to decide what the authors mean.
-
-### Addition topic 5: Context stuff
-- most studies used coincident approaches, static visualisations, are applied to a specific domain and dont have generalised results @Kinkeldey2014
-
-# Moved over notes
-- people will discount information they perceive as discountable if they are able. Including mean estimates on depictions of mass can cause people to discount the uncertainty information and use the difference between means as a proxy for the probability distribution [@Kale2021].
-- rarely used extension is aggregation of uncertainty over an area (retrieve overall estimation from a spatial distribution of uncertainty). Other tasks include comparisons, rankings. also have a task called "search" where participants have to identify entities that fulfill certainty characteristics (high or low values) @Kinkeldey2014
-- Whether to use classed or unclassed uncertainty is rarely discussed @Kinkeldey2014. e.g. land map with remotely sensed images has ambiguity in the boundaries, which can result from multiple sources (land cover class, measurement error, images from different dates). If you combine them all it might not make sense for someone who only needs one.
-- The way we ask questions and the types of questions we ask are selected with little justification. This paper makes suggestions to reduce the noise in the data from these papers. @Hullman2016
 - Error is best mapped to fuzziness, location, and colour value; arrangement, size and transparency are an OK second choice; but saturation, hue, orientation and shape are unacceptable and have no intuitive connection to variance [@Maceachren2012]. 
-- @Nathonours found that a scatter plot is better than a line plot if you want to convey the correlation between two time series but we cannot be sure if this was influenced by swapping the distribution depicted or by dropping the irrelevant feature of inexchangeability.
 - No only do the graphical elements we map our features to matter, but the direction matters too. Graphical elements that are more fuzzy (fuzziness), further from centre (location), lighter (colour value), poorly arranged (arrangement), smaller (size), more transparent (transparency) are perceived to be more uncertain [@Maceachren2012]. 
 - This idea also extends to interval estimation, where questions about probability are best answered with gradients and questions about start and end times are easiest to answer with ambiguation [@Gschwandtnei2016].
-
-- mentions uncertainty can be variance, precision, accuracy, reliability, or related concepts @Hullman2016
--  @Spiegelhalter2017 defines risk as risk known probabilities and uncertainty as estimated probabilities, therefore uncertainty is what we have when you cannot accurately quantify risk.
-- Authors provide little justification for their chosen response models (e.g. absolute accuracy vs relative measures) @Hullman2016 
-- Some questions (e.g. what are the chances that the no.6 bus will arrive first) you can elicit the viewers subjective probability distribution @Hullman2016
-- The big data paradox shrinks confidence intervals but magnifies bias [@Bradley2021] because the confidence intervals shrink due to the sample size but the imprecise target group creates bias.
 - coloured maps for earthquake risk are easily interpretable @Spiegelhalter2017
-- Hurricane risk is not only the path, but also the storm surge and wind speed. @Spiegelhalter2017
 
 
 
