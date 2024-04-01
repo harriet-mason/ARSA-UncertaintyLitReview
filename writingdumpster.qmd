@@ -185,3 +185,7 @@ format: html
 - put uncertainty in the context of other meta-data of variables
 	
 # Removed Sections
+## Defining Uncertainty
+The absence of an encompassing definition of uncertainty is mentioned by every uncertainty visualisation directly [@Spiegelhalter2017; @Griethe2006] or indirectly by describing a myriad of ways it can be considered in the literature [@Kinkeldey2014; @Hullman2016], although it is never commented on as a source of the noise in the field.
+
+In order to visualise uncertainty, it needs to be quantifiable [@Griethe2006; Leland2005], in order to quantify uncertainty, it needs to be mathematically defined. The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase, (e.g. @utypo defined it as any deviation from complete determinism) but go on to quantify uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation. This definition swap happens so subtly that it seems to go unnoticed by authors
