@@ -177,6 +177,7 @@ format: html
 - This idea also extends to interval estimation, where questions about probability are best answered with gradients and questions about start and end times are easiest to answer with ambiguation [@Gschwandtnei2016].
 - coloured maps for earthquake risk are easily interpretable @Spiegelhalter2017
 
+# New Notes
 
 # General thoughts/questions
 - Does the flip (hypothesis test vs uncertainty visualisation) have mathematical implications in how the plots should be assessed? This implies a visible signal in an uncertainty plot should indicate some divergence from the null.
