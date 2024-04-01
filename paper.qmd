@@ -48,7 +48,7 @@ tibble(x = c(anscombe$x1, anscombe$x2,
   scale_fill_brewer(type = "qual", palette = 4)
 ```
 
-Uncertainty visualisation is a relatively new field in research. Early papers that specifically reference "uncertainty visualisation" appear in the late 80s [@Ibrekk1987], with geospatial information visualisation literature in the early 90s declaring this to be essential aspect of information display (@MacEachren1992; @Carr1992). Despite the new terminology visualisation of uncertainty has been present since the earliest times. For example, box plots or histograms can be considered to be displaying uncertainty in the sense of variability in observations sampled from a population distribution. <!--In the modern day, uncertainty visualisation has exploded into its own field that applies to a wide range of contexts.-->
+Uncertainty visualisation is a relatively new field in research. Early papers that specifically reference "uncertainty visualisation" appear in the late 80s [@Ibrekk1987], with geospatial information visualisation literature in the early 90s declaring this to be essential aspect of information display [@MacEachren1992; @Carr1992]. Despite the new terminology visualisation of uncertainty has been present since the earliest times. For example, box plots or histograms can be considered to be displaying uncertainty in the sense of variability in observations sampled from a population distribution. <!--In the modern day, uncertainty visualisation has exploded into its own field that applies to a wide range of contexts.-->
 
 <!-- ## Similar work-->
 
