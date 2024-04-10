@@ -283,6 +283,9 @@ format: html
 ## @Leland2005
 
 # General thoughts/questions
+- Integrable vs separable
+  - kinsley did not mean it in the way that the integrable seperable paper means it. They basically meant colour on the same axis
+  - should read [this paper](https://dl.acm.org/doi/fullHtml/10.1145/3290605.3300899#:~:text=Two%20visual%20channels%20are%20considered,from%20the%20other%20%5B48%5D.) and others along the same lines.
 - grammar of graphics describes what your visualisation *is* given the data you have. The reason the grammar of graphics is not equipt to handle uncertainty is the same reason the tidyverse is not equipt to handle it. It is generated and carries through between these independent steps.
   - unclear how uncertainty from the source would make it in.
   - Grammar of graphics describes what *is*. Uncertainty is what *might be*.

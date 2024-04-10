@@ -109,6 +109,54 @@ There are a small handful of taxonomies that highlight some interesting features
 5. static or dynamic (animated, interactive etc)
 Of the groups they identified, they actually only used (4), (2), and (5), left out (1) because most visualisations are explicit, and (3) corresponds to (1) in most cases [@Kinkeldey2014]. This taxonomy suggests interesting considerations for a visualisation of a distribution (even though it was not intended to be a visualisation of a distribution). A similar version of this taxonomy was presented by @uncertchap2022 who commented that visualisation can be organised into two categories, "graphical annotations of distributional properties" and "visual encodings of uncertainty" which functionally align with the intrinsic/extrinsic distinction. The first four categories boil down to the question "should uncertainty and signal be conveyed together as one variable or separately as two". This consideration will become more relevant later in this review. 
 
+
+```{r}
+#| echo: false
+#| eval: false
+#| warning: false
+#| message: false
+#| label: fig-vistax
+#| fig-cap: "Planned visualisation: Add an R coded visualisation that shows the 5 considerations for showing uncertainty in a plot according to @Kinkeldey2014. One that has the consideration, and one that doesn't (try and keep as much the same between visuals as possible)"
+# Library
+library(tidyverse)
+
+# Generate Data
+data_short <- tibble(x = rnorm(100, sd = 1),
+            y = rnorm(100, sd = 2))
+data_long <- data_short |>
+  pivot_longer(everything())
+
+# implicit 
+ggplot(data_short, aes(x=x, y="X")) + geom_jitter() 
+# explicit
+ggplot(data_short, aes(x=x)) + geom_density()
+
+# intrinsic
+# avg data
+avg_data <- data_long |> 
+  group_by(name) |>
+  summarise(mean = mean(value),
+            sd = sd(value))
+# plot
+ggplot(avg_data, aes(x=mean, y=name, colour=sd)) +
+  geom_point()
+
+# extrinsic
+ggplot(data_long, aes(x=value, y=name)) +
+  geom_violin() + 
+  geom_point(avg_data, aes(x=mean))
+
+
+# coincidence
+
+# adjacent
+
+# static
+
+# dynamic
+
+```
+
 ![Planned visualisation: Add an R coded visualisation that shows the 5 considerations for showing uncertainty in a plot according to @Kinkeldey2014. One that has the consideration, and one that doesn't (try and keep as much the same between visuals as possible)](notice.jpeg){#fig-location width=50%}
 
 Most of these taxonomies are created by observing existing uncertainty visualisations, which means they suffer from many of the same conceptual issues that the field has with uncertainty in general. Additionally, there does not seem to be anything these taxonomies offer that would not be better established by separate taxonomies for uncertainty and visualisation. The difference between "uncertainty visualisations" and "data visualisations" is not technically in the visual element, it is mathematical. @Kinkeldey2014 almost acknowledges this in their own paper that discusses an uncertainty visualisation taxonomy when they claim "future typologies should take different categories of tasks into account (1) communication tasks (2) analytical tasks (3) exploratory task", a common typology for information visualisation in general. The process of understanding and estimating uncertainty requires knowledge of the data, the statistical methods used to make an estimate, and the assumptions of a model. Visualising the statistics that represent uncertainty should be no different than depicting the statistics that represent any other element of a graphic, this is something we will show in the following sections of this paper.
