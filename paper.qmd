@@ -126,12 +126,12 @@ data_short <- tibble(x = rnorm(100, sd = 1),
 data_long <- data_short |>
   pivot_longer(everything())
 
-# implicit 
+# implicit + visually integral
 ggplot(data_short, aes(x=x, y="X")) + geom_jitter() 
 # explicit
 ggplot(data_short, aes(x=x)) + geom_density()
 
-# intrinsic
+# intrinsic + separable
 # avg data
 avg_data <- data_long |> 
   group_by(name) |>
@@ -148,8 +148,14 @@ ggplot(data_long, aes(x=value, y=name)) +
 
 
 # coincidence
+## Basically all above plots
+
 
 # adjacent
+avg_data |>
+  pivot_longer()
+ggplot(avg_data, aes(x=mean, y=name, colour=sd)) +
+  geom_point()
 
 # static
 
