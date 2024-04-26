@@ -233,7 +233,7 @@ There is also a swath of studies that are aware a question that boils down to a 
 
 Some authors opt for asking slightly vague questions that imply a use of uncertainty, but compare it to a ground truth that is very specific. @Ibrekk1987 asked participants for the "best estimate" which was evaluated in accuracy by comparing it to the mean, however the "best estimate" depends on the loss function we are using, and a loss function of minimised error was not implied by the question. @Hofmann2012 showed two distributions in 20 different visualisations (a line-up protocol) using a jittered sample, a density plot, a histogram, and a box plot and asked participants. Participants were asked to report in which of the plots was "the blue group furthest to the right" The experiment set up is shown in @fig-right. The participants answers were then compared to a ground truth where the correct plot had a blue distribution with a right shifted mean. By comparing the results to a ground truth statistic and marking participants as "wrong" or "right", the error from the participants that had an alternative interpretation to the concept of "furthest right" was conflated with the error from a the visualisation choice. These papers make it unclear if the participants got the answers wrong because they misunderstood the question or because of something related to the plot. Therefore, this method leads to inconclusive results about the plot design, and is not advised.
 
-![This shows the user interface for the experiment performed by @Hofmann2012. The question of "furthest to the right" is open to interpretation.  ](furthestright.png){#fig-right width=50%} 
+![This shows the user interface for the experiment performed by @Hofmann2012. The question of "furthest to the right" is open to interpretation.](furthestright.png){#fig-right width=50%} 
 
 Another method used by authors is to ask a deterministic question about a random event. @Padilla2017 provided participants with a visualisation of the cone of uncertainty and asked then to "decide which oil rig will receive more damage based on the depicted forecast of the hurricane path". The cone of uncertainty provides a 60% confidence interval for the location of the eye of a hurricane, which allows us to know the area where the eye of the storm will go, it does not given any information about the intensity of a storm, the size of a storm, or even if a location will be hit. This inclusion of determinism seems to cause the authors to stumble themselves, as they are not consistent with their assumptions. In their first experiment @Padilla2017 indicated the correct answer was to assume that the storm was equally intense no matter how far from the centre of the distribution an oil rig was, however answering their third experiment correctly hinged on assuming the intensity of the storm at a particular point (which in this experiment they phrased as damage) *does* change in intensity as you move away from the centre of the distribution. Given these conflicting assumptions, it is unclear how the participants were supposed to adjust the probabilistic path information to answer a deterministic question about which oil rig would receive the most damage. Other authors have commented on the complexity of communicating hurricane risk because the path, storm surge and wind speed are all important and cannot be ignored [@Spiegelhalter2017]. The flip side of this is asking participants for a deterministic answer to a probabilistic question. @Correll2014 asked participants "how likely is candidate B to win the election?" when the two distributions indicated voter preference. Participants were not able to answer the question about likelihood in term of probability, but were instead given seven options from 1=Outcome will be most in favour of A to 7=Outcome will be most in favour of B. The ground truth statistic for this question was a scalar multiple of Cohen’s d, indicating participants were supposed to incorporate uncertainty information using a very specific formula that was likely unknown to them but assumed to be used implicitly.  
 
@@ -247,8 +247,101 @@ Interpretation and semantics experiments are seeking to identify a dimension (or
 Value-suppressing uncertainty pallets (VSUP) were developed as a method that would allow the signal and the noise to be interpreted together such that insights gained by the viewers of a plot are appropriately *suppressed* by the uncertainty. Hence the name of the pallet. @fig-maps depicted this map colouring approach and several other extensions on the typical choropleth map that differ in where in the visualisation process they combine the noise and signal information into a single concept of "valid signal". The first and most basic map is a simple choropleth map where each value (the colouring of each local government area) has no associated "uncertainty". The next map (which embodies the approach taken by the semantics experiments) is the bivariate map which maps the signal to colour value and the uncertainty to colour hue. If visualisation was performing signal suppression then that would mean the two dimensional space defined by colour value and colour hue can be mentally "flattened" into a single dimension of "valid value" that can captures the signal the our brain would need to be able to flatted this two dimensional space into a single space of "signal validity".  The idea of two perceptual tasks flattening into one variable in the mind of the viewer may be wishful thinking, but it is not impossible given we are not certain on how the perceptual tasks are mapped within the human brain. @Sterzik2023 found that when a value was mapped to the textures of stippling, hatching, and triangles, and found that the difference between two points on this one dimensional texture was actually a 2D space (likely "texture business" and "light/darkness"). That being said, if we look at the visual signals presented by the bivariate map, where the contrasting light and dark areas actually has no important meaning, it is unlikely this occurs for colour value and hue (or at least it doesn't occur in a way that is useful for uncertainty visualisation). Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves, by using a VSUP which collapses the colour space such that high uncertainty values cannot be extracted. It is unclear how useful VSUPs are at actually combining signal and noise and therefore suppressing plot level insights, as they have only been tested on simple value extraction tasks that require evaluating a single point [@Correll2018; @Ndlovu2023] rather than looking for spatial relationships (which is arguably what maps are for). Following along with this trend, the next way we might consider visualising uncertainty is to combine uncertainty and signal at the earlier stage so the "suppressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method adopted by the Bayesian surprise metric map [@Ndlovu2023] and the exceedance probability map [Lucchesi2017]. .
  
 ```{r}
+#| eval: false
+#| echo: false
 
 
+# seed for sampling
+set.seed(1997)
+
+# load libraries
+library(strayr)
+library(tidyverse)
+library(biscale)
+
+# Get map data
+sa4 <- read_absmap("sa42021")
+state <- read_absmap("state2021")
+
+# Add Spatial trend
+state <- state |>
+  dplyr::mutate(temp = 30 - 0.001*(cent_long-110)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
+         notrend = rnorm(1), # no trend
+         highvar = runif(10, min=4, max=5), # high variance
+         lowvar = runif(10, min=0, max=1), # low variance
+         ) 
+
+sa4 <- sa4 |>
+  dplyr::mutate(temp = 30 - 0.001*(cent_long-123.7799)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
+         notrend = rnorm(1), # no trend
+         highvar = runif(1, min=4, max=5), # high variance
+         lowvar = runif(1, min=0, max=1), # low variance
+         ) 
+
+
+# Choropleth Map
+state %>%
+  ggplot() +
+  geom_sf(aes(fill = temp, geometry = geometry)) + 
+  scale_fill_distiller(type = "seq", palette = "YlOrRd", direction = 1)
+
+# Bivariate Map
+# Method 1
+d<-expand.grid(x=1:100,y=1:100)
+ggplot(d, aes(x,y,fill=atan(y/x),alpha=x+y))+
+  geom_tile()+
+  scale_fill_distiller(type = "seq", palette = "YlOrRd", direction = 1) +
+  theme(legend.position="none",
+        panel.background=element_blank())+
+  labs(title="A bivariate color scheme (Viridis)")
+
+state <- state %>%
+  dplyr::mutate(x=100*(temp-min(temp))/max(temp),
+         y=100*highvar/max(highvar))
+
+
+ggplot() +
+  geom_map(data =cmap, map = cmap,
+           aes(x = long, y = lat, map_id = id),
+           color = "#2b2b2b", size = 0.05, fill = NA) +
+  geom_map(data = filter(counties@data,year==2015), map = cmap,
+           aes(fill =atan(y/x),alpha=x+y, map_id = fips),
+           color = "gray50") +
+  #add black state borders (just to see if things are working)
+  geom_map(data = smap, map = smap,
+           aes(x = long, y = lat, map_id = id),
+           color = "black", size = .5, fill = NA) +
+  theme_map(base_size = 12) +
+  theme(plot.title=element_text(size = 16, face="bold",margin=margin(b=10))) +
+  theme(plot.subtitle=element_text(size = 14, margin=margin(b=-20))) +
+  theme(plot.caption=element_text(size = 9, margin=margin(t=-15),hjust=0)) +
+ # scale_fill_gradient(low="red",high="blue")
+  scale_fill_viridis()+guides(alpha=F,fill=F)+
+  labs(caption="@lenkiefer Source: U.S. Census Bureau",
+       title="Housing units and Population growth 2010-2015",
+       subtitle="Bivariate choropleth")
+
+
+# Method 2
+
+custom_pal <- c(
+  "1-1" = "#d3d3d3", # low x, low y
+  "2-1" = "#9e3547", 
+  "3-1" = , 
+  "4-1" = , # high x, low y
+  "1-2" = "#4279b0", # low x, high y
+  "2-2" = "#311e3b" # high x, high y
+)
+
+library(RColorBrewer)
+rev(brewer.pal(9, name = "YlOrRd"))
+names <- paste(rep(1:9, 9), "-" , rep(1:9, each=9), sep="")
+
+
+
+
+# Pixel Map
+# Sample Map
 ```
 
 
