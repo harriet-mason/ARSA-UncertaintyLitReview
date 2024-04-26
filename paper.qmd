@@ -94,60 +94,7 @@ There are a small handful of taxonomies that highlight some interesting features
 Of the groups they identified, they actually only used (4), (2), and (5), left out (1) because most visualisations are explicit, and (3) corresponds to (1) in most cases [@Kinkeldey2014]. This taxonomy suggests interesting considerations for a visualisation of a distribution (even though it was not intended to be a visualisation of a distribution). A similar version of this taxonomy was presented by @uncertchap2022 who commented that visualisation can be organised into two categories, "graphical annotations of distributional properties" and "visual encodings of uncertainty" which functionally align with the intrinsic/extrinsic distinction. The first four categories boil down to the question "should uncertainty and signal be conveyed together as one variable or separately as two". This consideration will become more relevant later in this review. 
 
 
-```{r}
-#| echo: false
-#| eval: false
-#| warning: false
-#| message: false
-#| label: fig-vistax
-#| fig-cap: "Planned visualisation: Add an R coded visualisation that shows the 5 considerations for showing uncertainty in a plot according to @Kinkeldey2014. One that has the consideration, and one that doesn't (try and keep as much the same between visuals as possible)"
-# Library
-library(tidyverse)
-
-# Generate Data
-data_short <- tibble(x = rnorm(100, sd = 1),
-            y = rnorm(100, sd = 2))
-data_long <- data_short |>
-  pivot_longer(everything())
-
-# implicit + visually integral
-ggplot(data_short, aes(x=x, y="X")) + geom_jitter() 
-# explicit
-ggplot(data_short, aes(x=x)) + geom_density()
-
-# intrinsic + separable
-# avg data
-avg_data <- data_long |> 
-  group_by(name) |>
-  summarise(mean = mean(value),
-            sd = sd(value))
-# plot
-ggplot(avg_data, aes(x=mean, y=name, colour=sd)) +
-  geom_point()
-
-# extrinsic
-ggplot(data_long, aes(x=value, y=name)) +
-  geom_violin() + 
-  geom_point(avg_data, aes(x=mean))
-
-
-# coincidence
-## Basically all above plots
-
-
-# adjacent
-avg_data |>
-  pivot_longer()
-ggplot(avg_data, aes(x=mean, y=name, colour=sd)) +
-  geom_point()
-
-# static
-
-# dynamic
-
-```
-
-![Planned visualisation: Add an R coded visualisation that shows the 5 considerations for showing uncertainty in a plot according to @Kinkeldey2014. One that has the consideration, and one that doesn't (try and keep as much the same between visuals as possible)](notice.jpeg){#fig-location width=50%}
+![Visualisation of @Kinkeldey2014 uncertainty visualisation taxonomy. It can be seen that most of the categories can be considered a change to the typical error bar chart. Many of the distinctions conflate changes of the input data and statistics calculated and with visual changes, highlighting how defining uncertainty and visualisation together conflates several elements of a graphic.](uncertvistax.jpeg){#fig-location width=70%}
 
 Most of these taxonomies are created by observing existing uncertainty visualisations, which means they suffer from many of the same conceptual issues that the field has with uncertainty in general. Additionally, there does not seem to be anything these taxonomies offer that would not be better established by separate taxonomies for uncertainty and visualisation. The difference between "uncertainty visualisations" and "data visualisations" is not technically in the visual element, it is mathematical. @Kinkeldey2014 almost acknowledges this in their own paper that discusses an uncertainty visualisation taxonomy when they claim "future typologies should take different categories of tasks into account (1) communication tasks (2) analytical tasks (3) exploratory task", a common typology for information visualisation in general. The process of understanding and estimating uncertainty requires knowledge of the data, the statistical methods used to make an estimate, and the assumptions of a model. Visualising the statistics that represent uncertainty should be no different than depicting the statistics that represent any other element of a graphic, this is something we will show in the following sections of this paper.
 
@@ -238,7 +185,7 @@ By far the most common metric used is accuracy, which is used by approximately 3
 
 #### Decision making and risk aversion
 
-![Visualisation showing the difference ](extractvsdecision.jpeg){#fig-extract} 
+![Visualisation of the process of transforming raw data to a visualisation insight. Summarising the data using common statistics removes information from our data. Once the data is in a format that represents the varibales of interest, organising that information in a visualisation makes it easier to extract insights from these statistics and convert them to insights. If information is removed at the statistics stage, it cannot be added back in at the visualisation stage, as it is meerly an efficient technique to organise and present information to enable a large range of insights. ](visprocess.jpeg){#fig-location width=70%}
 
 Decision making tasks are often described by authors as a more realistic version how plots are used in practice. While we do not disagree with this statement, exactly *why* these tasks are different to value extraction tasks is never explained. While the task may be more similar to how plots are actually used, that does not necessarily mean it is a better *experimental* environment for evaluating plots. Let us consider this in more detail. A normal value extraction task involves:
 
@@ -299,6 +246,12 @@ Interpretation and semantics experiments are seeking to identify a dimension (or
 
 Value-suppressing uncertainty pallets (VSUP) were developed as a method that would allow the signal and the noise to be interpreted together such that insights gained by the viewers of a plot are appropriately *suppressed* by the uncertainty. Hence the name of the pallet. @fig-maps depicted this map colouring approach and several other extensions on the typical choropleth map that differ in where in the visualisation process they combine the noise and signal information into a single concept of "valid signal". The first and most basic map is a simple choropleth map where each value (the colouring of each local government area) has no associated "uncertainty". The next map (which embodies the approach taken by the semantics experiments) is the bivariate map which maps the signal to colour value and the uncertainty to colour hue. If visualisation was performing signal suppression then that would mean the two dimensional space defined by colour value and colour hue can be mentally "flattened" into a single dimension of "valid value" that can captures the signal the our brain would need to be able to flatted this two dimensional space into a single space of "signal validity".  The idea of two perceptual tasks flattening into one variable in the mind of the viewer may be wishful thinking, but it is not impossible given we are not certain on how the perceptual tasks are mapped within the human brain. @Sterzik2023 found that when a value was mapped to the textures of stippling, hatching, and triangles, and found that the difference between two points on this one dimensional texture was actually a 2D space (likely "texture business" and "light/darkness"). That being said, if we look at the visual signals presented by the bivariate map, where the contrasting light and dark areas actually has no important meaning, it is unlikely this occurs for colour value and hue (or at least it doesn't occur in a way that is useful for uncertainty visualisation). Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves, by using a VSUP which collapses the colour space such that high uncertainty values cannot be extracted. It is unclear how useful VSUPs are at actually combining signal and noise and therefore suppressing plot level insights, as they have only been tested on simple value extraction tasks that require evaluating a single point [@Correll2018; @Ndlovu2023] rather than looking for spatial relationships (which is arguably what maps are for). Following along with this trend, the next way we might consider visualising uncertainty is to combine uncertainty and signal at the earlier stage so the "suppressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method adopted by the Bayesian surprise metric map [@Ndlovu2023] and the exceedance probability map [Lucchesi2017]. .
  
+```{r}
+
+
+```
+
+
 ::: {#fig-maps layout-ncol=2}
 
 ![Choropleth map](mappals/img1.png)
