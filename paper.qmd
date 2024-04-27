@@ -258,88 +258,95 @@ set.seed(1997)
 library(strayr)
 library(tidyverse)
 library(biscale)
+library(RColorBrewer)
 
 # Get map data
-sa4 <- read_absmap("sa42021")
-state <- read_absmap("state2021")
-
-# Add Spatial trend
-state <- state |>
-  dplyr::mutate(temp = 30 - 0.001*(cent_long-110)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
+#sa4 <- read_absmap("sa42021")
+state <- read_absmap("state2021") |>
+  na.omit() |>
+  dplyr::mutate(temp = 31 - 0.001*(cent_long-110)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
          notrend = rnorm(1), # no trend
-         highvar = runif(10, min=4, max=5), # high variance
-         lowvar = runif(10, min=0, max=1), # low variance
-         ) 
+         highvar = runif(9, min=2, max=4), # high variance
+         lowvar = runif(9, min=0, max=2), # low variance
+         ) |>
+  pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
+  # add bivariate classes to data
+  mutate(bitemp = cut(temp, breaks=20:28, labels=seq(8)),
+         bivar = cut(variance, breaks=0:4, labels=seq(4)),
+         biclass = paste(bitemp, bivar, sep="-")
+  )
 
-sa4 <- sa4 |>
-  dplyr::mutate(temp = 30 - 0.001*(cent_long-123.7799)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
-         notrend = rnorm(1), # no trend
-         highvar = runif(1, min=4, max=5), # high variance
-         lowvar = runif(1, min=0, max=1), # low variance
-         ) 
+#sa4 <- sa4 |>
+#  dplyr::mutate(temp = 30 - 0.001*(cent_long-123.7799)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
+#         notrend = rnorm(1), # no trend
+#         highvar = runif(1, min=4, max=5), # high variance
+#         lowvar = runif(1, min=0, max=1), # low variance
+#         ) 
 
 
 # Choropleth Map
 state %>%
   ggplot() +
   geom_sf(aes(fill = temp, geometry = geometry)) + 
-  scale_fill_distiller(type = "seq", palette = "YlOrRd", direction = 1)
+  scale_fill_distiller(type = "seq", palette = "YlOrRd", direction = 1)+
+  facet_wrap(vars(variance_class))
 
 # Bivariate Map
-# Method 1
-d<-expand.grid(x=1:100,y=1:100)
-ggplot(d, aes(x,y,fill=atan(y/x),alpha=x+y))+
-  geom_tile()+
-  scale_fill_distiller(type = "seq", palette = "YlOrRd", direction = 1) +
-  theme(legend.position="none",
-        panel.background=element_blank())+
-  labs(title="A bivariate color scheme (Viridis)")
+# Make bivariate palette
+# Function to devalue by a certain amount
+colsupress <- function(basecols, hue=1, sat=1, val=1) {
+    X <- diag(c(hue, sat, val)) %*% rgb2hsv(col2rgb(basecols))
+    hsv(pmin(X[1,], 1), pmin(X[2,], 1), pmin(X[3,], 1))
+}
 
-state <- state %>%
-  dplyr::mutate(x=100*(temp-min(temp))/max(temp),
-         y=100*highvar/max(highvar))
+# set Base colours
+basecols <- brewer.pal(8, name = "YlOrRd")
+# recurvisely decrease value
+v_val = 0.5
+bivariatepal <- c(basecols,
+                  colsupress(basecols, sat=v_val),
+                  colsupress(colsupress(basecols, sat=v_val), sat=v_val),
+                  colsupress(colsupress(colsupress(basecols, sat=v_val), sat=v_val), sat=v_val))
+# establish levels of palette
+names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
+# preview palette
+show_col(bivariatepal, ncol=8)
 
+# Bivariate maps
+state |>
+  ggplot() +
+  geom_sf(aes(fill = biclass, geometry = geometry)) + 
+  scale_fill_manual(values = bivariatepal) +
+  facet_wrap(vars(variance_class))
+  
 
-ggplot() +
-  geom_map(data =cmap, map = cmap,
-           aes(x = long, y = lat, map_id = id),
-           color = "#2b2b2b", size = 0.05, fill = NA) +
-  geom_map(data = filter(counties@data,year==2015), map = cmap,
-           aes(fill =atan(y/x),alpha=x+y, map_id = fips),
-           color = "gray50") +
-  #add black state borders (just to see if things are working)
-  geom_map(data = smap, map = smap,
-           aes(x = long, y = lat, map_id = id),
-           color = "black", size = .5, fill = NA) +
-  theme_map(base_size = 12) +
-  theme(plot.title=element_text(size = 16, face="bold",margin=margin(b=10))) +
-  theme(plot.subtitle=element_text(size = 14, margin=margin(b=-20))) +
-  theme(plot.caption=element_text(size = 9, margin=margin(t=-15),hjust=0)) +
- # scale_fill_gradient(low="red",high="blue")
-  scale_fill_viridis()+guides(alpha=F,fill=F)+
-  labs(caption="@lenkiefer Source: U.S. Census Bureau",
-       title="Housing units and Population growth 2010-2015",
-       subtitle="Bivariate choropleth")
-
-
-# Method 2
-
-custom_pal <- c(
-  "1-1" = "#d3d3d3", # low x, low y
-  "2-1" = "#9e3547", 
-  "3-1" = , 
-  "4-1" = , # high x, low y
-  "1-2" = "#4279b0", # low x, high y
-  "2-2" = "#311e3b" # high x, high y
-)
-
-library(RColorBrewer)
-rev(brewer.pal(9, name = "YlOrRd"))
-names <- paste(rep(1:9, 9), "-" , rep(1:9, each=9), sep="")
-
-
-
-
+# VSUP
+# Function to combine hue values
+evenhueblend <- function(basecols, p_length, nblend) {
+    X <- rgb2hsv(col2rgb(unique(basecols)))
+    v1 <- X[,seq(1,dim(X)[2], 2)]
+    v2 <- X[,seq(2,dim(X)[2], 2)]
+    v3 <- (v1 + v2)
+    if("matrix" %in% class(v3)){
+      v3["h",] <- ifelse(v3["h",]>=1, v3["h",]-1 ,v3["h",])/2 # hue is on a circle so 0 wraps around to 1, need to do differently
+      v3 <- v3/2
+      nsup <- nblend
+      hsv(rep(v3[1,], each=nsup), rep(v3[2,], each=nsup), rep(v3[3,], each=nsup))
+      } else {
+        rep(hsv(h=v3[1], s=v3[2], v=v3[3]), p_length)
+        }
+}
+VSUPfunc <- function(basecols, p_length, nblend){
+  evenhueblend(colsupress(basecols, sat=0.5), p_length, nblend)
+}
+# VSUP
+p = length(basecols)
+VSUP <- c(basecols,
+          VSUPfunc(basecols, p, 2),
+          VSUPfunc(VSUPfunc(basecols, p, 2), p, 4),
+          VSUPfunc(VSUPfunc(VSUPfunc(basecols, p, 2), p, 4), p, 8))
+names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
+show_col(VSUP, ncol=8)
 # Pixel Map
 # Sample Map
 ```
