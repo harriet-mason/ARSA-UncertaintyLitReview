@@ -244,12 +244,24 @@ These examples are a bit complete mishmash of methods, however they point to a l
 ### Interpretation and semantics
 Interpretation and semantics experiments are seeking to identify a dimension (or visual task) that uncertainty naturally maps to. These experiments inherently view uncertainty as a variable that is separate to the variable on which we have mapped our signal. For example, lets say we have a map were maximum daily temperature is presented using points where the colour (red for hot and blue for cold) of the point is associated with the temperature, and the blurriness of that point is associated with the variance *of* that temperature. It is highly likely that our brains will not flatten that into a single variable depicting noise and signal, but rather *separately* extract the temperature (colour) and uncertainty (blur) information as two independent variables. If the variables are extracted separately, there is no guarantee that the uncertainty will act as an appropriate signal suppressor. This problem has been noticed by others in the field, that typically use this method (specifically in the spatial uncertainty context) and a desire for representations that integrate uncertainty and signal is one of the reasons for the invention of the value-suppressing uncertainty pallet [@Correll2018].  
 
-Value-suppressing uncertainty pallets (VSUP) were developed as a method that would allow the signal and the noise to be interpreted together such that insights gained by the viewers of a plot are appropriately *suppressed* by the uncertainty. Hence the name of the pallet. @fig-maps depicted this map colouring approach and several other extensions on the typical choropleth map that differ in where in the visualisation process they combine the noise and signal information into a single concept of "valid signal". The first and most basic map is a simple choropleth map where each value (the colouring of each local government area) has no associated "uncertainty". The next map (which embodies the approach taken by the semantics experiments) is the bivariate map which maps the signal to colour value and the uncertainty to colour hue. If visualisation was performing signal suppression then that would mean the two dimensional space defined by colour value and colour hue can be mentally "flattened" into a single dimension of "valid value" that can captures the signal the our brain would need to be able to flatted this two dimensional space into a single space of "signal validity".  The idea of two perceptual tasks flattening into one variable in the mind of the viewer may be wishful thinking, but it is not impossible given we are not certain on how the perceptual tasks are mapped within the human brain. @Sterzik2023 found that when a value was mapped to the textures of stippling, hatching, and triangles, and found that the difference between two points on this one dimensional texture was actually a 2D space (likely "texture business" and "light/darkness"). That being said, if we look at the visual signals presented by the bivariate map, where the contrasting light and dark areas actually has no important meaning, it is unlikely this occurs for colour value and hue (or at least it doesn't occur in a way that is useful for uncertainty visualisation). Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves, by using a VSUP which collapses the colour space such that high uncertainty values cannot be extracted. It is unclear how useful VSUPs are at actually combining signal and noise and therefore suppressing plot level insights, as they have only been tested on simple value extraction tasks that require evaluating a single point [@Correll2018; @Ndlovu2023] rather than looking for spatial relationships (which is arguably what maps are for). Following along with this trend, the next way we might consider visualising uncertainty is to combine uncertainty and signal at the earlier stage so the "suppressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method adopted by the Bayesian surprise metric map [@Ndlovu2023] and the exceedance probability map [Lucchesi2017]. .
+Value-suppressing uncertainty pallets (VSUP) were developed as a method that would allow the signal and the noise to be interpreted together such that insights gained by the viewers of a plot are appropriately *suppressed* by the uncertainty. Hence the name of the pallet. @fig-maps depicted this map colouring approach and several other extensions on the typical choropleth map that differ in where in the visualisation process they combine the noise and signal information into a single concept of "valid signal". The first and most basic map is a simple choropleth map where each value (the colouring of each local government area) has no associated "uncertainty". The next map (which embodies the approach taken by the semantics experiments) is the bivariate map which maps the signal to colour value and the uncertainty to colour hue. If visualisation was performing signal suppression then that would mean the two dimensional space defined by colour value and colour hue can be mentally "flattened" into a single dimension of "valid value" that can captures the signal the our brain would need to be able to flatted this two dimensional space into a single space of "signal validity".  The idea of two perceptual tasks flattening into one variable in the mind of the viewer may be wishful thinking, but it is not impossible given we are not certain on how the perceptual tasks are mapped within the human brain. @Sterzik2023 found that when a value was mapped to the textures of stippling, hatching, and triangles, and found that the difference between two points on this one dimensional texture was actually a 2D space (likely "texture business" and "light/darkness"). That being said, if we look at the visual signals presented by the bivariate map, where the contrasting light and dark areas actually has no important meaning, it is unlikely this occurs for colour value and hue (or at least it doesn't occur in a way that is useful for uncertainty visualisation). Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves, by using a VSUP which collapses the colour space such that high uncertainty values cannot be extracted. It is unclear how useful VSUPs are at actually combining signal and noise and therefore suppressing plot level insights, as they have only been tested on simple value extraction tasks that require evaluating a single point [@Correll2018; @Ndlovu2023] rather than looking for spatial relationships (which is arguably what maps are for). Following along with this trend, the next way we might consider visualising uncertainty is to combine uncertainty and signal at the earlier stage so the "suppressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method adopted by the Bayesian surprise metric map [@Ndlovu2023] and the exceedance probability map [Lucchesi2017]. 
  
 ```{r}
-#| eval: false
 #| echo: false
-
+#| message: false
+#| warning: false
+#| label: fig-maps
+#| fig-cap: "A visualisation of a typical choropleth map, as well as three other maps that are used to display uncertainty on the choropleth map. There is a high variance and low variance example for each type of map to show how well the technique supresses signal. Each map was created using the same data with the same base palette. At first glance, the high uncertainty bivariate and VSUP maps just look like maps with a low saturation colour palette, rather than map with high uncertainty. This visualisation makes it clear that supression methods that plot uncertainty to a second axis, such as hue, make uncertainty appear as a second variable, rather than a signal supression on our estimate. "
+#| fig-subcap: 
+#|   - "Choropleth Map: Low Variance"
+#|   - "Choropleth Map: High Variance"
+#|   - "Bivariate Map: Low Variance"
+#|   - "Bivariate Map: High Variance"
+#|   - "VSUP Map: Low Variance"
+#|   - "VSUP Map: High Variance"
+#|   - "Pixel Map: Low Variance"
+#|   - "Pixel Map: High Variance"
+#| layout-ncol: 2
 
 # seed for sampling
 set.seed(1997)
@@ -259,6 +271,8 @@ library(strayr)
 library(tidyverse)
 library(biscale)
 library(RColorBrewer)
+library(scales)
+library(sf)
 
 # Get map data
 #sa4 <- read_absmap("sa42021")
@@ -285,12 +299,17 @@ state <- read_absmap("state2021") |>
 
 
 # Choropleth Map
-state %>%
+p1a <- state |>
+  filter(variance_class=="lowvar") %>%
   ggplot() +
   geom_sf(aes(fill = temp, geometry = geometry)) + 
-  scale_fill_distiller(type = "seq", palette = "YlOrRd", direction = 1)+
-  facet_wrap(vars(variance_class))
+  scale_fill_distiller(type = "seq", 
+                       palette = "YlOrRd", 
+                       direction = 1)+
+  theme_minimal() + 
+  theme(legend.position = "none")
 
+p1b <- p1a %+% filter(state, variance_class=="highvar")
 # Bivariate Map
 # Make bivariate palette
 # Function to devalue by a certain amount
@@ -310,62 +329,173 @@ bivariatepal <- c(basecols,
 # establish levels of palette
 names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 # preview palette
-show_col(bivariatepal, ncol=8)
+#show_col(bivariatepal, ncol=8)
 
 # Bivariate maps
-state |>
+p2a <- state |>
+  filter(variance_class=="lowvar") %>%
   ggplot() +
   geom_sf(aes(fill = biclass, geometry = geometry)) + 
   scale_fill_manual(values = bivariatepal) +
-  facet_wrap(vars(variance_class))
+  theme_minimal() + 
+  theme(legend.position = "none")
   
+p2b <- p2a %+% filter(state, variance_class=="highvar")
 
 # VSUP
-# Function to combine hue values
-evenhueblend <- function(basecols, p_length, nblend) {
+# Function to combine colours for VSUP
+colourblend <- function(basecols, p_length, nblend) {
     X <- rgb2hsv(col2rgb(unique(basecols)))
     v1 <- X[,seq(1,dim(X)[2], 2)]
     v2 <- X[,seq(2,dim(X)[2], 2)]
-    v3 <- (v1 + v2)
-    if("matrix" %in% class(v3)){
-      v3["h",] <- ifelse(v3["h",]>=1, v3["h",]-1 ,v3["h",])/2 # hue is on a circle so 0 wraps around to 1, need to do differently
+    if("matrix" %in% class(v1)){
+      # hue issue wrap around pt 1
+      v3 <- (v1+v2)
+      v3["h",] <- ifelse(abs(v1["h",]-v2["h",])>0.5, v3["h",]+1, v3["h",])
       v3 <- v3/2
-      nsup <- nblend
-      hsv(rep(v3[1,], each=nsup), rep(v3[2,], each=nsup), rep(v3[3,], each=nsup))
+      # hue issue wrap around pt 2
+      v3["h",] <- ifelse(v3["h",]>=1 , v3["h",]-1 ,v3["h",])
+      hsv(rep(v3[1,], each=nblend), rep(v3[2,], each=nblend), rep(v3[3,], each=nblend))
       } else {
+        v3 <- (v1+v2)
+        v3["h"] <- ifelse(abs(v1["h"]-v2["h"])>0.5, v3["h"]+1, v3["h"])
+        v3 <- v3/2
+        v3["h"] <- ifelse(v3["h"]>=1 , v3["h"]-1 ,v3["h"])
         rep(hsv(h=v3[1], s=v3[2], v=v3[3]), p_length)
         }
 }
+
 VSUPfunc <- function(basecols, p_length, nblend){
-  evenhueblend(colsupress(basecols, sat=0.5), p_length, nblend)
+  colourblend(colsupress(basecols, sat=0.5), p_length, nblend)
 }
+
 # VSUP
 p = length(basecols)
 VSUP <- c(basecols,
           VSUPfunc(basecols, p, 2),
           VSUPfunc(VSUPfunc(basecols, p, 2), p, 4),
           VSUPfunc(VSUPfunc(VSUPfunc(basecols, p, 2), p, 4), p, 8))
+
 names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
-show_col(VSUP, ncol=8)
+#show_col(VSUP, ncol=8)
+
+# VSUP maps
+p3a <- state |>
+  filter(variance_class=="lowvar") %>%
+  ggplot() +
+  geom_sf(aes(fill = biclass, geometry = geometry)) + 
+  scale_fill_manual(values = VSUP) +
+  theme_minimal() + 
+  theme(legend.position = "none")
+
+p3b <- p3a %+% filter(state, variance_class=="highvar")
+
+# Maps I haven't been able to get working yet
+
 # Pixel Map
-# Sample Map
+library(Vizumap)
+# Low variance map
+state_a <- state %>%
+  filter(variance_class == "lowvar") %>%
+  mutate(my_id = seq(9),
+         error = variance) 
+
+pixel_1a <- state_a %>%
+  as.data.frame() %>%
+  select(my_id, temp, error) %>%
+  read.uv(estimate="temp", error="error")
+
+pixel_2a <- state_a %>% as("Spatial")
+
+pix_a <- pixelate(pixel_2a, pixelSize = 3, id = "my_id")
+
+
+pmap_a <- build_pmap(data = pixel_1a, distribution = "normal", pixelGeo = pix_a, id = "my_id", border = pixel_2a)
+
+mypixelmap <- function(obj){
+
+  if(class(obj)[1] != "pixelmap")
+    stop("Object is not of class 'pixelmap'.")
+
+  p <- ggplot()  +
+    geom_polygon(
+      data = obj$output_data,
+      aes_string(
+        x = 'long',
+        y = 'lat',
+        fill = 'values',
+        colour = 'values',
+        group = 'group'
+      )
+    )  +
+    scale_fill_distiller(
+      type = "seq", 
+      palette = "YlOrRd", 
+      direction = 1,
+      name = obj$key_label,
+      limits = obj$limits) +
+    
+    scale_colour_distiller(
+      type = "seq", 
+      palette = "YlOrRd", 
+      direction = 1,
+      limits = obj$limits
+    ) +
+    guides(colour = "none")  +
+    geom_path(
+      data = obj$bord,
+      aes_string(x = 'long', y = 'lat', group = 'group'),
+      colour = "black"
+    )  +
+    coord_fixed(xlim = c(obj$bbox[1], obj$bbox[3]),
+                    ylim = c(obj$bbox[2], obj$bbox[4])) +
+    theme(
+      axis.line = element_blank(),
+      axis.text.x = element_blank(),
+      axis.text.y = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      panel.background = element_blank()
+    )
+
+  p
+
+}
+
+p4a <- mypixelmap(pmap_a) + theme(legend.position="none")
+
+# High variance
+state_b <- state %>%
+  filter(variance_class == "highvar") %>%
+  mutate(my_id = seq(9),
+         error = variance) 
+
+pixel_1b <- state_b %>%
+  as.data.frame() %>%
+  select(my_id, temp, error) %>%
+  read.uv(estimate="temp", error="error")
+
+pixel_2b <- state_b %>% 
+  as("Spatial")
+
+pix_b <- pixelate(pixel_2b, pixelSize = 3, id = "my_id")
+
+  
+pmap_b <- build_pmap(data = pixel_1b, distribution = "normal", pixelGeo = pix_b, id = "my_id", border = pixel_2b)
+
+p4b <- mypixelmap(pmap_b) + theme(legend.position="none")
+
+p1a
+p1b
+p2a
+p2b
+p3a
+p3b
+p4a
+p4b
 ```
 
-
-::: {#fig-maps layout-ncol=2}
-
-![Choropleth map](mappals/img1.png)
-
-![Bivariate map](mappals/img2.png)
-
-![VSUP map](mappals/img4.png)
-
-![Bayesian surprise map](mappals/img3.png)
-
-![Exceedance probability map](mappals/img5.png)
-
-Five different ways to include error information in a map. A typical choropleth map is considered the map that ignores uncertainty and simply visualises the signal. The bivariate map visualises the uncertainty, but does so using two different visual channels, which gives the perception of two different signals (or one signal in the assumptions the colours contrast with each other). An adjustment to the bivariate map is the VSUP which is similar to the bivariate plot except it merges high uncertainty values in the palette to reduce our ability to discern values that have a high enough error to not be a valid signal. The Bayesian surprise metric is similar to the line-up protocol, where the colour value is the difference between the observers posterior and prior beliefs. The exceedance probability map is a direct visualisation of the probability of a specific hypothesis. Notice: This plot is the highest priority to for replacing with my own R coded maps, because the effects of these different mappings is really not visible using these methods. 
-:::
 
 These maps make the importance of combining uncertainty and signal in a single visual channel clear. A choropleth map will show signal that is not valid inference because of high uncertainty. At the other end of the spectrum, the bivariate map will show signal that is not always interesting because it forces us to interpret uncertainty and signal separately. As we move through these methods, it seems that the validity of any overarching insight becomes more visible at the cost of our ability to extract particular values of signal or noise. Therefore, given that the primary goal of visualisation *is* insights [@North2006], visualisation authors should err on the side of representing suppressed signal as a single variable, rather than visualising uncertainty separately using two different channels. 
 
