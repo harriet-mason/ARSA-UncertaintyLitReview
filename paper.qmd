@@ -329,7 +329,7 @@ bivariatepal <- c(basecols,
 # establish levels of palette
 names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 # preview palette
-#show_col(bivariatepal, ncol=8)
+show_col(bivariatepal, ncol=8)
 
 # Bivariate maps
 p2a <- state |>
@@ -377,7 +377,7 @@ VSUP <- c(basecols,
           VSUPfunc(VSUPfunc(VSUPfunc(basecols, p, 2), p, 4), p, 8))
 
 names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
-#show_col(VSUP, ncol=8)
+show_col(VSUP, ncol=8)
 
 # VSUP maps
 p3a <- state |>
@@ -412,58 +412,16 @@ pix_a <- pixelate(pixel_2a, pixelSize = 3, id = "my_id")
 
 pmap_a <- build_pmap(data = pixel_1a, distribution = "normal", pixelGeo = pix_a, id = "my_id", border = pixel_2a)
 
-mypixelmap <- function(obj){
-
-  if(class(obj)[1] != "pixelmap")
-    stop("Object is not of class 'pixelmap'.")
-
-  p <- ggplot()  +
-    geom_polygon(
-      data = obj$output_data,
-      aes_string(
-        x = 'long',
-        y = 'lat',
-        fill = 'values',
-        colour = 'values',
-        group = 'group'
-      )
-    )  +
+p4b <- view(pmap_a) +
     scale_fill_distiller(
       type = "seq", 
       palette = "YlOrRd", 
-      direction = 1,
-      name = obj$key_label,
-      limits = obj$limits) +
-    
-    scale_colour_distiller(
+      direction = 1) +
+  scale_colour_distiller(
       type = "seq", 
       palette = "YlOrRd", 
-      direction = 1,
-      limits = obj$limits
-    ) +
-    guides(colour = "none")  +
-    geom_path(
-      data = obj$bord,
-      aes_string(x = 'long', y = 'lat', group = 'group'),
-      colour = "black"
-    )  +
-    coord_fixed(xlim = c(obj$bbox[1], obj$bbox[3]),
-                    ylim = c(obj$bbox[2], obj$bbox[4])) +
-    theme(
-      axis.line = element_blank(),
-      axis.text.x = element_blank(),
-      axis.text.y = element_blank(),
-      axis.ticks = element_blank(),
-      axis.title.x = element_blank(),
-      axis.title.y = element_blank(),
-      panel.background = element_blank()
-    )
-
-  p
-
-}
-
-p4a <- mypixelmap(pmap_a) + theme(legend.position="none")
+      direction = 1) +
+  theme(legend.position="none")
 
 # High variance
 state_b <- state %>%
@@ -484,7 +442,16 @@ pix_b <- pixelate(pixel_2b, pixelSize = 3, id = "my_id")
   
 pmap_b <- build_pmap(data = pixel_1b, distribution = "normal", pixelGeo = pix_b, id = "my_id", border = pixel_2b)
 
-p4b <- mypixelmap(pmap_b) + theme(legend.position="none")
+p4b <- view(pmap_b) +
+    scale_fill_distiller(
+      type = "seq", 
+      palette = "YlOrRd", 
+      direction = 1) +
+  scale_colour_distiller(
+      type = "seq", 
+      palette = "YlOrRd", 
+      direction = 1) +
+  theme(legend.position="none")
 
 p1a
 p1b
