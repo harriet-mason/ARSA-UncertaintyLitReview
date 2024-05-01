@@ -15,14 +15,65 @@ editor_options:
 - May not need to reference the same paper again and again
 -->
 
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
+# load Libraries
+library(strayr)
+library(tidyverse)
+library(biscale)
+library(RColorBrewer)
+library(scales)
+library(sf)
+
+```
 # Background
 
-From entertainment choices to news articles to insurance plans, the modern citizen is so over run with information in every aspect of their life it can be overwhelming. In this overflow of information, tools that can effectively summarise information down into simple and clear ideas become more valuable. Information visualisations remain one of the most powerful tools for fast and reliable science communication. 
+From entertainment choices to news articles to insurance plans, the modern citizen is so over run with information in every aspect of their life it can be overwhelming. In this overflow of information, tools that can effectively summarize information down into simple and clear ideas become more valuable. Information visualisations remain one of the most powerful tools for fast and reliable science communication. 
 
-There are many stages in our analysis that might benefit from the power of data visualisation, however this does not mean it is appropriately utilized or done with with effectiveness. (@Vanderplas2020 has helpful advice here.) Visualization is an important step in exploratory data analysis and it is often utilised to **learn** what is important about a data set. The importance of data-driven discovery has been highlighted through the data sets Anscombe's quartet [@anscombe] and the Datasaurus Dozen [@datasaurpkg]. Each of the pairwise plots in these data sets have the same summary statistics but strikingly different information, as revealed when visualised. Visualisations can **tell** us what is important about our data and **how** it might diverge from pre-conceived notions or what we expect. 
+There are many stages in our analysis that might benefit from the power of data visualisation, however this does not mean it is appropriately utilized or done with with effectiveness. Unlike an infographic, a statistical graphic is one of intent, and all enhancements made on a statistical graphic should be in pursuit of that goal (@Vanderplas2020). Visualization is an important step in exploratory data analysis and communication. At the exploration stage, it is utilized to **learn** what is important about a data set while the communication stage is utilized to **tell** others about what we have learned. Each of these visualisation goals utilize an important attribute of visualisation. In both these cases, visualisations are powerful tools that can help us understand **how** our data or results might diverge from pre-conceived notions or what we expect. 
 
 Uncertainty visualisation is a relatively new field in research. Early papers that specifically reference "uncertainty visualisation" appear in the late 80s [@Ibrekk1987], with geospatial information visualisation literature in the early 90s declaring this to be essential aspect of information display [@MacEachren1992; @Carr1992]. Despite the new terminology visualisation of uncertainty has been present since the earliest times. For example, box plots or histograms can be considered to be displaying uncertainty in the sense of variability in observations sampled from a population distribution.
 
+```{r}
+#| echo: false
+#| message: false
+# Generate data
+ib_data <- tibble(x=rnorm(1000, 8, 4))
+
+# Picture 1
+p1 <- ib_data %>%
+  summarise(avg = mean(x),
+          conf_95a = quantile(x, probs=c(0.025)),
+          conf_95b = quantile(x, probs=c(0.975))) %>%
+  ggplot(aes(y="NA")) +
+  geom_point(aes(x=avg)) +
+  geom_errorbar(aes(xmin = conf_95a, xmax = conf_95b), width = 0.1) +
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks=seq(0,19),
+                     labels= ggplot2:::interleave(as.character(c(seq(0,18, 2), 19)), rep("", 11))[c(0:19, 21)],
+                     limits=c(0,19)) +
+  theme_classic() +
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=1/10)
+
+  
+# Picture 2
+# Picture 3
+# Picture 4
+# Picture 5
+# Picture 6
+# Picture 7
+# Picture 8
+# Picture 9
+
+```
 However, uncertainty visualisation takes many forms today, It can be considered to expand the application of data visualisation towards making better decisions, and research is concerned about how the construction of plots and information contained might affect the resulting decisions. With the abundance of publications it is timely to consider a review of the state-of-the-art. In fact, there have already been several reviews published. 
 
 Interestingly, these reviews often do not offer overarching rules for tried and tested uncertainty visualisation, but rather comment on the *difficulties* faced when trying to summarise the papers from this field. @Kinkeldey2014 found most experiments on the methods for uncertainty visualisation evaluation to be ad hoc, with no commonly agreed upon methodology or formalisation and no greater goal of describing general principals. @Hullman2016 commented on the difficulty in taking overarching themes from uncertainty visualisation, as several conflated issues make it unclear if subjects did poorly in an experiment because they misunderstood a visualisation, because the question was misinterpreted, or because they used a specific heuristic. @Spiegelhalter2017 commented that different plots are good for different things, and disagreed with the goal of identifying a universal "best" plot for all people and circumstances. @Griethe2006 was unable to find common themes, but instead listed the findings and opinions of a collection of papers.
@@ -265,14 +316,6 @@ Value-suppressing uncertainty pallets (VSUP) were developed as a method that wou
 
 # seed for sampling
 set.seed(1997)
-
-# load libraries
-library(strayr)
-library(tidyverse)
-library(biscale)
-library(RColorBrewer)
-library(scales)
-library(sf)
 
 # Get map data
 #sa4 <- read_absmap("sa42021")
