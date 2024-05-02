@@ -41,9 +41,26 @@ Uncertainty visualisation is a relatively new field in research. Early papers th
 ```{r}
 #| echo: false
 #| message: false
+#| label: fig-maps
+#| fig-cap: "A replication of the the uncertainty visualisations shown by @Ibrekk1987 in one of the earliest uncertainty visualisation experiments. This early experiment is a good example of many of the issues that are still common in uncertainty visualisation today. For example, the '95% confidence interval' is more accurately a '95% prediction interval'. Additionally graphics that depict different mathematical objects that are also different on their visual components are compared because of a percieved relation to uncertainty. So visualisations of the mean, PDF and CDF, are all discussed as though they all contain the relevant statistical information. The axis also have different scales, and visualisation methods that are now unpopular for displaying proportions, such as a pie chart, are used."
+#| fig-subcap: 
+#|   - "Mean with a 95% prediction interval"
+#|   - "Picture 2"
+#|   - "Picture 3"
+#|   - "Picture 4"
+#|   - "Picture 5"
+#|   - "Picture 6"
+#|   - "Picture 7"
+#|   - "Picture 8"
+#|   - "Picture 9"
+#| layout-ncol: 3
 # Generate data
-ib_data <- tibble(x=rnorm(1000, 8, 4))
-
+set.seed(6)
+ib_data <- tibble(x=c(rpois(500, 8)) 
+ib_data %>%
+  ggplot(aes(x=x)) +
+  geom_histogram(fill="black", col="white") +
+  theme_classic()
 # Picture 1
 p1 <- ib_data %>%
   summarise(avg = mean(x),
@@ -65,14 +82,58 @@ p1 <- ib_data %>%
 
   
 # Picture 2
+p2 <- ib_data |>
+  mutate(x = ifelse(x>18, 18, x),
+         binx = cut(x, breaks=seq(0,18,2))) |>
+  group_by(binx) |>
+  summarise(n = n()) |>
+  mutate(Probability = n / sum(n)) |>
+  ggplot(aes(x=binx, y=Probability)) +
+  geom_col(fill="black", colour="white") +
+  scale_x_discrete(name = "INCHES OF SNOW",
+                   labels= paste0(seq(0,16,2), sep = "-", seq(2,18,2))) +
+  scale_y_continuous(breaks = seq(0.00, 0.25, 0.05)) +
+  theme_classic() + 
+  theme(aspect.ratio=0.33)
+
 # Picture 3
+library(ggpattern)
+p3 <- ib_data |>
+  mutate(x = ifelse(x>18, 18, x),
+         binx = cut(x, 
+                     breaks=seq(0,18,2), 
+                     labels= paste0(seq(0,16,2), sep = "-", seq(2,18,2)))) |>
+  group_by(binx) |>
+  summarise(n = n()) |>
+  mutate(Probability = n / sum(n),
+         texture_groups = ) |>
+  ggplot(aes(x="", y=Probability)) +
+  geom_bar_pattern(aes(pattern=binx, pattern_angle = binx, pattern_spacing = binx),
+                   pattern = 'stripe',
+                   fill    = 'white',
+                   colour  = 'black',
+                   stat="identity", width=1) +
+  scale_pattern_discrete(choices = c("none", "stripe", "circle")) +
+  coord_polar("y", start=0) +
+  labs(fill = "INCHES OF SNOW") + 
+  theme_void()
+
 # Picture 4
 # Picture 5
 # Picture 6
 # Picture 7
 # Picture 8
 # Picture 9
-
+# Display Plots
+p1
+p2
+p3
+p4
+p5
+p6
+p7
+p8
+p9
 ```
 However, uncertainty visualisation takes many forms today, It can be considered to expand the application of data visualisation towards making better decisions, and research is concerned about how the construction of plots and information contained might affect the resulting decisions. With the abundance of publications it is timely to consider a review of the state-of-the-art. In fact, there have already been several reviews published. 
 
