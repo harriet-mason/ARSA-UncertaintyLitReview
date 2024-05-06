@@ -42,10 +42,11 @@ Uncertainty visualisation is a relatively new field in research. Early papers th
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig-maps
+#| warning: false
+#| label: fig-ibrekk
 #| fig-cap: "A replication of the the uncertainty visualisations shown by @Ibrekk1987 in one of the earliest uncertainty visualisation experiments. This early experiment is a good example of many of the issues that are still common in uncertainty visualisation today. For example, the '95% confidence interval' is more accurately a '95% prediction interval'. Additionally graphics that depict different mathematical objects that are also different on their visual components are compared because of a percieved relation to uncertainty. So visualisations of the mean, PDF and CDF, are all discussed as though they all contain the relevant statistical information. The axis also have different scales, and visualisation methods that are now unpopular for displaying proportions, such as a pie chart, are used."
 #| fig-subcap: 
-#|   - "Mean with a 95% prediction interval"
+#|   - "Picture 1"
 #|   - "Picture 2"
 #|   - "Picture 3"
 #|   - "Picture 4"
@@ -60,8 +61,6 @@ Uncertainty visualisation is a relatively new field in research. Early papers th
 set.seed(1)
 x=rnorm(1000, 8, 4)
 ib_data <- tibble(x=ifelse(x<0, -x, x))
-ib_data %>%
-  ggplot(aes(x=x)) + geom_histogram()
 
 # Picture 1
 p1 <- ib_data %>%
@@ -219,8 +218,19 @@ p8 <- ib_data %>%
 
 
 # Picture 9
-ggplot(df, aes(x)) +
-  stat_ecdf(geom = "step")
+p9 <- ib_data |>
+  ggplot(aes(x)) +
+  stat_ecdf(geom = "step") +
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks=seq(0,20),
+                     labels= ggplot2:::interleave(as.character(c(seq(0,20, 2))), rep("", 11))[1:21],
+                     limits=c(0,20)) +
+  scale_y_continuous(name = "Cumulative probability",
+                     breaks=seq(0,1,0.1),
+                     labels= seq(0,1,0.1),
+                     limits=c(0,1)) +
+  theme_classic() +
+  theme(aspect.ratio=4/10)
 
 # Display Plots
 p1
@@ -614,7 +624,7 @@ pix_a <- pixelate(pixel_2a, pixelSize = 3, id = "my_id")
 
 pmap_a <- build_pmap(data = pixel_1a, distribution = "normal", pixelGeo = pix_a, id = "my_id", border = pixel_2a)
 
-p4b <- view(pmap_a) +
+p4a <- view(pmap_a) +
     scale_fill_distiller(
       type = "seq", 
       palette = "YlOrRd", 
