@@ -22,13 +22,13 @@ editor_options:
 
 
 # load Libraries
-library(strayr)
 library(tidyverse)
 library(biscale)
 library(RColorBrewer)
 library(scales)
 library(sf)
 library(ggrepel)
+library(urbnmapr)
 
 ```
 # Background
@@ -475,53 +475,65 @@ Value-suppressing uncertainty pallets (VSUP) were developed as a method that wou
 #| fig-subcap: 
 #|   - "Choropleth Map: Low Variance"
 #|   - "Choropleth Map: High Variance"
+#|   - "Choropleth Palette"
 #|   - "Bivariate Map: Low Variance"
 #|   - "Bivariate Map: High Variance"
+#|   - "Bivariate Palette"
 #|   - "VSUP Map: Low Variance"
 #|   - "VSUP Map: High Variance"
+#|   - "VSU Palette"
 #|   - "Pixel Map: Low Variance"
 #|   - "Pixel Map: High Variance"
-#| layout-ncol: 2
+#|   - "Pixel Palette"
+#| layout-ncol: 3
 
 # seed for sampling
 set.seed(1997)
 
+
 # Get map data
-#sa4 <- read_absmap("sa42021")
-state <- read_absmap("state2021") |>
-  na.omit() |>
-  dplyr::mutate(temp = 31 - 0.001*(cent_long-110)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
-         notrend = rnorm(1), # no trend
-         highvar = runif(9, min=2, max=4), # high variance
-         lowvar = runif(9, min=0, max=2), # low variance
+my_map_data <- get_urbn_map("counties", sf = TRUE) |>
+  dplyr::filter(state_name=="Iowa")
+centroids <- as_tibble(rgeos::gCentroid(as(my_map_data$geometry, "Spatial"), byid = TRUE))
+my_map_data$cent_long <- centroids$x
+my_map_data$cent_lat <- centroids$y
+n <- dim(my_map_data)[1]
+
+# Make standard Palette
+# set Base colours
+basecols <- brewer.pal(8, name = "YlOrRd")
+#breaks <- seq(0,41, length.out = 9)
+breaks <- 21:29 #c(0,15,24,25,26,27,30,35,41)
+names(basecols) <- seq(8)
+limits <- c(10,41)
+
+my_map_data <- my_map_data |>
+  dplyr::mutate(temp = 28 - ((scale(cent_long))^(2) + (scale(cent_lat))^(2))[,1], # trend
+         notrend = rnorm(n), # no trend
+         highvar = runif(n, min=2, max=4), # high variance
+         lowvar = runif(n, min=0, max=2), # low variance
          ) |>
   pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
   # add bivariate classes to data
-  mutate(bitemp = cut(temp, breaks=20:28, labels=seq(8)),
+  mutate(bitemp = cut(temp, breaks=breaks, labels=seq(8)),
          bivar = cut(variance, breaks=0:4, labels=seq(4)),
          biclass = paste(bitemp, bivar, sep="-")
   )
 
-#sa4 <- sa4 |>
-#  dplyr::mutate(temp = 30 - 0.001*(cent_long-123.7799)^(2) - 0.003*(cent_lat-12.52294)^(2), # trend
-#         notrend = rnorm(1), # no trend
-#         highvar = runif(1, min=4, max=5), # high variance
-#         lowvar = runif(1, min=0, max=1), # low variance
-#         ) 
-
-
 # Choropleth Map
-p1a <- state |>
+p1a <- my_map_data |>
   filter(variance_class=="lowvar") %>%
   ggplot() +
-  geom_sf(aes(fill = temp, geometry = geometry)) + 
-  scale_fill_distiller(type = "seq", 
-                       palette = "YlOrRd", 
-                       direction = 1)+
-  theme_minimal() + 
+  geom_sf(aes(fill = bitemp, 
+              geometry = geometry)) + 
+  scale_fill_manual(values = basecols) +
+  #scale_fill_gradientn(colours = basecols, 
+  #                     values=breaks/limits[2],
+  #                     limits=limits) +
+  theme_void() + 
   theme(legend.position = "none")
 
-p1b <- p1a %+% filter(state, variance_class=="highvar")
+p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
 # Bivariate Map
 # Make bivariate palette
 # Function to devalue by a certain amount
@@ -530,8 +542,6 @@ colsupress <- function(basecols, hue=1, sat=1, val=1) {
     hsv(pmin(X[1,], 1), pmin(X[2,], 1), pmin(X[3,], 1))
 }
 
-# set Base colours
-basecols <- brewer.pal(8, name = "YlOrRd")
 # recurvisely decrease value
 v_val = 0.5
 bivariatepal <- c(basecols,
@@ -540,19 +550,18 @@ bivariatepal <- c(basecols,
                   colsupress(colsupress(colsupress(basecols, sat=v_val), sat=v_val), sat=v_val))
 # establish levels of palette
 names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
-# preview palette
-show_col(bivariatepal, ncol=8)
+
 
 # Bivariate maps
-p2a <- state |>
+p2a <- my_map_data |>
   filter(variance_class=="lowvar") %>%
   ggplot() +
   geom_sf(aes(fill = biclass, geometry = geometry)) + 
   scale_fill_manual(values = bivariatepal) +
-  theme_minimal() + 
+  theme_void() + 
   theme(legend.position = "none")
   
-p2b <- p2a %+% filter(state, variance_class=="highvar")
+p2b <- p2a %+% filter(my_map_data, variance_class=="highvar")
 
 # VSUP
 # Function to combine colours for VSUP
@@ -589,90 +598,106 @@ VSUP <- c(basecols,
           VSUPfunc(VSUPfunc(VSUPfunc(basecols, p, 2), p, 4), p, 8))
 
 names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
-show_col(VSUP, ncol=8)
 
 # VSUP maps
-p3a <- state |>
+p3a <- my_map_data |>
   filter(variance_class=="lowvar") %>%
   ggplot() +
   geom_sf(aes(fill = biclass, geometry = geometry)) + 
   scale_fill_manual(values = VSUP) +
-  theme_minimal() + 
+  theme_void() + 
   theme(legend.position = "none")
 
-p3b <- p3a %+% filter(state, variance_class=="highvar")
+p3b <- p3a %+% filter(my_map_data, variance_class=="highvar")
 
-# Maps I haven't been able to get working yet
 
 # Pixel Map
 library(Vizumap)
 # Low variance map
-state_a <- state %>%
+my_map_data_a <- my_map_data %>%
   filter(variance_class == "lowvar") %>%
-  mutate(my_id = seq(9),
+  mutate(my_id = seq(n),
          error = variance) 
 
-pixel_1a <- state_a %>%
-  as.data.frame() %>%
-  select(my_id, temp, error) %>%
-  read.uv(estimate="temp", error="error")
+# quantile
+q_a <- my_map_data_a |> 
+  as.tibble() |>
+  mutate(bitemp=as.numeric(bitemp)) |>
+  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
+                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
+                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
+                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
+                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))|>
+  apply(2, function(x) ifelse(x>8, 8, x)) |>
+  apply(2, function(x) ifelse(x<0, 0, x))
 
-pixel_2a <- state_a %>% as("Spatial")
+
+pixel_1a <- my_map_data_a %>%
+  as.data.frame() %>%
+  select(my_id, bitemp, error) %>%
+  read.uv(estimate="bitemp", error="error")
+
+pixel_2a <- my_map_data_a %>% as("Spatial")
 
 pix_a <- pixelate(pixel_2a, pixelSize = 3, id = "my_id")
 
 
-pmap_a <- build_pmap(data = pixel_1a, distribution = "normal", pixelGeo = pix_a, id = "my_id", border = pixel_2a)
+pmap_a <- build_pmap(data = pixel_1a, distribution = "discrete", pixelGeo = pix_a, id = "my_id", border = pixel_2a, q=q_a)
 
 p4a <- view(pmap_a) +
-    scale_fill_distiller(
-      type = "seq", 
-      palette = "YlOrRd", 
-      direction = 1) +
-  scale_colour_distiller(
-      type = "seq", 
-      palette = "YlOrRd", 
-      direction = 1) +
+  scale_fill_gradientn(colours = basecols) +
+  scale_colour_gradientn(colours = basecols) +
   theme(legend.position="none")
 
 # High variance
-state_b <- state %>%
+my_map_data_b <- my_map_data %>%
   filter(variance_class == "highvar") %>%
-  mutate(my_id = seq(9),
+  mutate(my_id = seq(n),
          error = variance) 
 
-pixel_1b <- state_b %>%
-  as.data.frame() %>%
-  select(my_id, temp, error) %>%
-  read.uv(estimate="temp", error="error")
+q_b <- my_map_data_b |> 
+  as.tibble() |>
+  mutate(bitemp=as.numeric(bitemp)) |>
+  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
+                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
+                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
+                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
+                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))|>
+  apply(2, function(x) ifelse(x>8, 8, x)) |> #this will mess with the variance
+  apply(2, function(x) ifelse(x<0, 0, x))
 
-pixel_2b <- state_b %>% 
+pixel_1b <- my_map_data_b %>%
+  as.data.frame() %>%
+  select(my_id, bitemp, error) %>%
+  read.uv(estimate="bitemp", error="error")
+
+pixel_2b <- my_map_data_b %>% 
   as("Spatial")
 
 pix_b <- pixelate(pixel_2b, pixelSize = 3, id = "my_id")
 
   
-pmap_b <- build_pmap(data = pixel_1b, distribution = "normal", pixelGeo = pix_b, id = "my_id", border = pixel_2b)
+pmap_b <- build_pmap(data = pixel_1b, distribution = "discrete", pixelGeo = pix_b, id = "my_id", border = pixel_2b, q=q_b)
 
 p4b <- view(pmap_b) +
-    scale_fill_distiller(
-      type = "seq", 
-      palette = "YlOrRd", 
-      direction = 1) +
-  scale_colour_distiller(
-      type = "seq", 
-      palette = "YlOrRd", 
-      direction = 1) +
+  scale_fill_gradientn(colours = basecols) +
+  scale_colour_gradientn(colours = basecols) +
   theme(legend.position="none")
 
+  
+# Display plots and palettes
 p1a
 p1b
+show_col(basecols, ncol=8, labels=FALSE)
 p2a
 p2b
+show_col(bivariatepal, ncol=8, labels=FALSE)
 p3a
 p3b
+show_col(VSUP, ncol=8, labels=FALSE)
 p4a
 p4b
+show_col(basecols, ncol=8, labels=FALSE)
 ```
 
 
