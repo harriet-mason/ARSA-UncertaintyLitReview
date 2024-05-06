@@ -28,6 +28,7 @@ library(biscale)
 library(RColorBrewer)
 library(scales)
 library(sf)
+library(ggrepel)
 
 ```
 # Background
@@ -54,13 +55,14 @@ Uncertainty visualisation is a relatively new field in research. Early papers th
 #|   - "Picture 8"
 #|   - "Picture 9"
 #| layout-ncol: 3
+
 # Generate data
-set.seed(6)
-ib_data <- tibble(x=c(rpois(500, 8)) 
+set.seed(1)
+x=rnorm(1000, 8, 4)
+ib_data <- tibble(x=ifelse(x<0, -x, x))
 ib_data %>%
-  ggplot(aes(x=x)) +
-  geom_histogram(fill="black", col="white") +
-  theme_classic()
+  ggplot(aes(x=x)) + geom_histogram()
+
 # Picture 1
 p1 <- ib_data %>%
   summarise(avg = mean(x),
@@ -97,7 +99,7 @@ p2 <- ib_data |>
   theme(aspect.ratio=0.33)
 
 # Picture 3
-library(ggpattern)
+# library(ggpattern)
 p3 <- ib_data |>
   mutate(x = ifelse(x>18, 18, x),
          binx = cut(x, 
@@ -106,24 +108,120 @@ p3 <- ib_data |>
   group_by(binx) |>
   summarise(n = n()) |>
   mutate(Probability = n / sum(n),
-         texture_groups = ) |>
-  ggplot(aes(x="", y=Probability)) +
-  geom_bar_pattern(aes(pattern=binx, pattern_angle = binx, pattern_spacing = binx),
-                   pattern = 'stripe',
-                   fill    = 'white',
-                   colour  = 'black',
-                   stat="identity", width=1) +
-  scale_pattern_discrete(choices = c("none", "stripe", "circle")) +
+         csum = rev(cumsum(rev(Probability))), 
+         pos = Probability/2 + lead(csum, 1),
+         pos = if_else(is.na(pos), Probability/2, pos)) |>
+  ggplot(aes(x="", y=Probability, fill=binx)) +
+  geom_bar(stat="identity", width=1) +
+  geom_text_repel(aes(y = pos, label = paste0(round(Probability*100), sep="", "%")),
+                   size = 3, nudge_x = 0.6, show.legend = FALSE, segment.color = 'transparent') +
+  #geom_label(aes(label = paste0(round(Probability*100), sep="", "%")),
+  #          position = position_stack(vjust = 0.5)) + 
+  scale_fill_grey() +
   coord_polar("y", start=0) +
   labs(fill = "INCHES OF SNOW") + 
-  theme_void()
+  theme_void() + 
+  theme(aspect.ratio=1)
 
 # Picture 4
+p4 <- ib_data |>
+  ggplot(aes(x=x)) +
+  geom_density() + 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2))) +
+  scale_y_continuous(name = "Probability density",
+                     breaks = seq(0.00, 0.20, 0.02)) +
+  theme_classic() + 
+  theme(aspect.ratio=0.33)
+
+
+
 # Picture 5
+p5 <- ib_data |>
+  ggplot(aes(y="", x=x)) +
+  geom_violin() + 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2)),
+                     limits=c(0,20)) +
+  theme_classic() + 
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=0.4)
+
 # Picture 6
+set.seed(1)
+x=rnorm(5000, 8, 4)
+ib_data2 <- tibble(x=ifelse(x<0, -x, x)) |>
+  mutate(x=ifelse(x>=18, 18-rexp(5000,rate=0), x))
+p6 <- ib_data2 |>
+  ggplot(aes(y="", x=x)) +
+  geom_jitter(size=0.05) + 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2)),
+                     limits=c(0,20)) +
+  theme_classic() + 
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=0.1)
+
+
 # Picture 7
+p7 <- ib_data2 |>
+  arrange(x) |>
+  mutate(group = rep(1:50, each=100))|>
+  group_by(group) |>
+  summarise(x = max(x, na.rm=TRUE)) |>
+  add_row(group=c(0,51), x = c(0,20)) |>
+  ggplot(aes(x=x)) +
+  geom_linerange(ymin = 0.1, ymax = 1) + 
+  geom_linerange(y=1, xmin = -0.03, xmax = 20.03)+ 
+  geom_linerange(y=0.1, xmin = -0.03, xmax = 20.03)+ 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2)),
+                     limits=c(0,20)) +
+  scale_y_continuous(limits=c(0,1)) + 
+  theme_classic() + 
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=0.1)
+
 # Picture 8
+p8 <- ib_data %>%
+  reframe(x = quantile(x, probs=c(0.25, 0.50, 0.75)))|>
+  add_row(x = c(0,20)) |>
+  arrange(x) |>
+  mutate(quantile = c("min", "q1", "med", "q3", "max")) |>
+  pivot_wider(names_from = quantile, values_from = x) |>
+  ggplot(aes(y="")) +
+  #geom_point(aes(x=med)) +
+  geom_errorbar(aes(y="", xmin = min, xmax = max), width = 0.2) +
+  geom_crossbar(aes(y="", x=med, xmin = q1, xmax = q3), width = 0.5) +
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks=seq(0,20),
+                     labels= ggplot2:::interleave(as.character(c(seq(0,20, 2))), rep("", 11))[1:21],
+                     limits=c(0,20)) +
+  theme_classic() +
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=1/10)
+
+
 # Picture 9
+ggplot(df, aes(x)) +
+  stat_ecdf(geom = "step")
+
 # Display Plots
 p1
 p2
