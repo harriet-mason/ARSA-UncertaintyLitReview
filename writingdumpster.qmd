@@ -296,6 +296,16 @@ format: html
 - put uncertainty in the context of other meta-data of variables
 	
 # Removed Sections
+The exploration step of an analysis, which includes descriptive statistics, exploratory data visualisation, and unsupervised machine learning techniques, is performed without a prior hypothesis, however misunderstandings of this fact appears frequently in the literature.
+
+@wu2023rational recognised and tried to eliminate information asymmetry by looking at a visualisation and identifying what information can be extracted and then using a "rational agent benchmark" to determine how a rational person would use that information for a decision making task. While this solution is interesting, it may have different results depending on who is applying it.
+
+@Tierney2023 generates a visualisation for missing values, however because it fits nicely into the grammar of graphics framework, it is inherrently a descriptive statistic.
+
+Signal can be considered the information that *promotes* a message we are trying to infer and while noise is the information that *suppresses* that message, if that message is invalid.
+
+This is why quantifiable uncertainties, such as confidence intervals, dominate the literature while visualisations for more complicated sources of uncertainty, such as the effects of assumptions, imputed missing variables, and model choices, remain elusive.
+
 @Munzner2009 created a nested model for visualisation that highlighted how the first mistake that can be made in a visualisation is in the problem characterisation, and failing to do it well can cause downstream effects and damage the effectiveness of a visualisation.
 
 The absence of an encompassing definition of uncertainty is mentioned by every uncertainty visualisation directly [@Spiegelhalter2017; @Griethe2006] or indirectly by describing a myriad of ways it can be considered in the literature [@Kinkeldey2014; @Hullman2016], although it is never commented on as a source of the noise in the field.
