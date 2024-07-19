@@ -6,6 +6,7 @@ date: last-modified
 toc: true
 number-sections: true
 format: pdf
+fig-valign: bottom
 editor_options: 
   chunk_output_type: console
 ---
@@ -31,11 +32,14 @@ library(sf)
 library(ggrepel)
 library(urbnmapr)
 ```
+
+{{< pagebreak >}}
+
 # Background
 
 From entertainment choices to news articles to insurance plans, the modern citizen is so over run with information in every aspect of their life it can be overwhelming. In this overflow of information, tools that can effectively summarize information down into simple and clear ideas become more valuable. Information visualisations remain one of the most powerful tools for fast and reliable science communication. 
 
-Unlike an infographic, a statistical graphic is one of intent, and all enhancements made on a statistical graphic should be in pursuit of that goal (@Vanderplas2020).
+Visualization is an important step in exploratory data analysis and it is often utilised to **learn** what is important about a data set. Datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg] highlight this power in visualisation. Additionally, visualisations allow for efficient and memorable communication. Even something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014]. 
 
 Uncertainty visualisation is a relatively new field in research. Early papers that specifically reference "uncertainty visualisation" appear in the late 80s [@Ibrekk1987], with geospatial information visualisation literature in the early 90s declaring this to be essential aspect of information display [@MacEachren1992; @Carr1992]. These early experiments typically involved showing participants a distribution, such as those depicted in @fig-ibrekk, and asking the viewers to extract a probability or average. Despite the new terminology visualisation of uncertainty has been present since the earliest times. For example, box plots or histograms can be considered to be displaying uncertainty in the sense of variability in observations sampled from a population distribution. Today, there is an abundance of publications on the topic which makes it is timely to construct a review of the field. In fact, there have already been several reviews published. 
 
@@ -55,6 +59,7 @@ Uncertainty visualisation is a relatively new field in research. Early papers th
 #|   - "Picture 7"
 #|   - "Picture 8"
 #|   - "Picture 9"
+#| layout-valign: bottom
 #| layout-ncol: 3
 
 # Generate data
@@ -245,7 +250,7 @@ p9
 ```
 
 
-Reviews on uncertainty visualisation rarely offer tried and tested rules for effective uncertainty visualisation, but rather comment on the *difficulties* faced when trying to summarize the field. @Kinkeldey2014 found most experiments on the methods for uncertainty visualisation evaluation to be ad hoc, with no commonly agreed upon methodology or formalisation and no greater goal of describing general principals. Additionally, they noticed that the literature leaves@Hullman2016 commented on the difficulty in taking overarching themes from uncertainty visualisation, as several conflated issues make it unclear if subjects did poorly in an experiment because they misunderstood a visualisation, because the question was misinterpreted, or because they used a specific heuristic. @Spiegelhalter2017 commented that different plots are good for different things, and disagreed with the goal of identifying a universal "best" plot for all people and circumstances. @Griethe2006 was unable to find common themes, but instead listed the findings and opinions of a collection of papers. @uncertchap2022 summarized several cognitive effects that have repeatedly arised in uncertainty literature, however these effects were each discussed in isolation as a list of considerations an author might make. While these reviews are thorough in scope, none discuss how the existing literature contribute to the commonly state goal of uncertainty visualisation, scientific transparency. The problem faced by the literature is easily summarized with a famous quote by Henri Poincaré.
+Reviews on uncertainty visualisation rarely offer tried and tested rules for effective uncertainty visualisation, but rather comment on the *difficulties* faced when trying to summarize the field. @Kinkeldey2014 found most experiments on the methods for uncertainty visualisation evaluation to be ad hoc, with no commonly agreed upon methodology or formalisation and no greater goal of describing general principals. @Hullman2016 commented on the difficulty in taking overarching themes from uncertainty visualisation, as several conflated issues make it unclear if subjects did poorly in an experiment because they misunderstood a visualisation, because the question was misinterpreted, or because they used a specific heuristic. @Spiegelhalter2017 commented that different plots are good for different things, and disagreed with the goal of identifying a universal "best" plot for all people and circumstances. @Griethe2006 was unable to find common themes, but instead listed the findings and opinions of a collection of papers. @uncertchap2022 summarized several cognitive effects that have repeatedly arised in uncertainty literature, however these effects were each discussed in isolation as a list of considerations an author might make. While these reviews are thorough in scope, none discuss how the existing literature contribute to the commonly state goal of uncertainty visualisation, scientific transparency. The problem faced by the literature is easily summarized with a famous quote by Henri Poincaré.
 
 > "Science is built up of facts, as a house is built of stones; but an accumulation of facts is no more a science than a heap of stones is a house." - Henri Poincaré (1905)
 
@@ -254,6 +259,8 @@ That is to say, despite the wealth of reviews, the field of uncertainty visualis
 This review is broken into several parts that each reflect a different approach to uncertainty visualisation. First we look at graphics that ignore uncertainty entirely and discuss why uncertainty should be included at all. Second, we look at methods that consider uncertainty to be just another variable and discuss the characteristics of uncertainty that make it a unique visualisation problem. Third, we look at methods that explicitly combine our estimate and its uncertainty and discuss if the visualisations created by these transformations are still "uncertainty visualisations". Fourth, we will discuss methods that implicitly include uncertainty by depicting a sample or original data in place of an estimate. Finally, we discuss how uncertainty visualisations can be effectively evaluated. When discussing each of these methods, we consider the *purpose* of uncertainty visualisation and comment on how effective each visualisation is at fulfilling that purpose.
 
 Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to provide simple examples for each approach that can be easily compared to the "no uncertainty" choropleth map to better understand the costs and benefits of each approach. Despite the example of each method focusing on variations of the choropleth map, it is important to understand that the approaches we are discussing are universal and are not unique to maps.
+
+{{< pagebreak >}}
 
 # Ignoring uncertainty
 Before we look at different cases where uncertainty is included, it is beneficial for us to look at cases where it is not. After all, why include uncertainty at all? 
@@ -266,6 +273,12 @@ Before we look at different cases where uncertainty is included, it is beneficia
 #| warning: false
 #| label: fig-choropleth
 #| fig-cap: "Two choropleth maps that depicts the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. This trend is only technically there in the low variance condition, i.e. if we performed a hypothesis test we would conclude the trend exists. The high variance condition displays a spatial trend that could simply be the result of noise, which means the plot is displaying a false conclusion."
+#| fig-subcap: 
+#|   - "High Variance Data"
+#|   - "Low Variance Data"
+#|   - ""
+#| layout-ncol: 3
+#| layout-valign: "bottom"
 
 # seed for sampling
 set.seed(1997)
@@ -315,10 +328,32 @@ p1a <- my_map_data |>
 
 p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
 
+show_pal1 <- function (colours, borders = NULL, cex_label = 1, 
+    ncol = NULL) {
+  # Set dimensions of palette
+  n <- length(colours)
+  ncol <- ncol %||% ceiling(sqrt(length(colours)))
+  nrow <- ceiling(n/ncol)
+  # make matrix with null values (if not full)
+  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
+  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
+  # set graphical parameters (?)
+  old <- par(pty = "s", mar = c(0, 0, 0, 0))
+  on.exit(par(old))
+  size <- max(dim(colours))
+  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "", 
+      axes = FALSE)
+  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
+       col = colours, border = borders)
+  text(c(0,col(colours)), -c(1,row(colours))-0.15, 21:29, 
+              cex = 1, col = "black")
+  text(4, -1.55, "Temperature",cex = 1.5, col = "black")
+}
 
 p1a
 p1b
-show_col(basecols, ncol=8, labels=FALSE)
+show_pal1(basecols, ncol=8, borders=NA)
+
 ```
 
 The two choropleth maps appearing to be identical in @fig-choropleth highlights the need for uncertainty visualisations. Uncertainty visualisation is is required for transparency and this sentiment has been repeated.  Some authors suggest uncertainty is important to include as it communicates the legitimacy (or illegitimacy) of the conclusion drawn from visual inference [@Correll2014; @Kale2018; @Griethe2006]. Some authors have said that uncertainty should be included to degree of confidence or trust in the data [@Boukhelifa2012; @Zhao2023]. Some authors directly connect uncertainty visualisation to hypothesis testing as it ensures the "validity" of a statement [@Hullman2020a; @Griethe2006], but allows for a proportional level of trust that is more detailed than the binary results of a hypothesis test [@Correll2014; @Correll2018]. Some authors even go so far as to claim that failing to include uncertainty is akin to fraud or lying [@Hullman2020a; @Manski2020].
@@ -330,6 +365,8 @@ This consensus leads us to understand that uncertainty visualisation is motivate
   3) Perform tasks 1) and 2) in a way that is proportional to the level of confidence in those conclusions.
   
 As @fig-choropleth showed, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. Therefore, we call this approach "signal-supression" as it primarily differentiates itself from from a typical visualisation approach through criteria (2), that is, an uncertainty visualisation should prevent us from drawing unjustified conclusions. We will investigate several approaches for uncertainty visualisation in the following sections and in doing so, discuss how successful each approach is in fulfilling the signal-suppression criteria.
+
+{{< pagebreak >}}
 
 # Visualising Uncertainty as a Variable
 Upon hearing that uncertainty needs to be included for transparency, the solutions may seem obvious. You may think "well, I will just add a dimension to my plot that includes uncertainty". This is not a silly choice, but lets look at what happens when we do this.
