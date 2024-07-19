@@ -59,8 +59,8 @@ Uncertainty visualisation is a relatively new field in research. Early papers th
 #|   - "Picture 7"
 #|   - "Picture 8"
 #|   - "Picture 9"
-#| layout-valign: bottom
 #| layout-ncol: 3
+#| fig-cap-location: "margin"
 
 # Generate data
 set.seed(1)
@@ -255,7 +255,6 @@ Reviews on uncertainty visualisation rarely offer tried and tested rules for eff
 > "Science is built up of facts, as a house is built of stones; but an accumulation of facts is no more a science than a heap of stones is a house." - Henri Poincaré (1905)
 
 That is to say, despite the wealth of reviews, the field of uncertainty visualisation remains a heap of stones. This review attempts to address this issue by offering a novel perspective on the uncertainty visualisation problem, and hopefully laying the foundations on which we can build a house. 
-
 This review is broken into several parts that each reflect a different approach to uncertainty visualisation. First we look at graphics that ignore uncertainty entirely and discuss why uncertainty should be included at all. Second, we look at methods that consider uncertainty to be just another variable and discuss the characteristics of uncertainty that make it a unique visualisation problem. Third, we look at methods that explicitly combine our estimate and its uncertainty and discuss if the visualisations created by these transformations are still "uncertainty visualisations". Fourth, we will discuss methods that implicitly include uncertainty by depicting a sample or original data in place of an estimate. Finally, we discuss how uncertainty visualisations can be effectively evaluated. When discussing each of these methods, we consider the *purpose* of uncertainty visualisation and comment on how effective each visualisation is at fulfilling that purpose.
 
 Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to provide simple examples for each approach that can be easily compared to the "no uncertainty" choropleth map to better understand the costs and benefits of each approach. Despite the example of each method focusing on variations of the choropleth map, it is important to understand that the approaches we are discussing are universal and are not unique to maps.
@@ -263,7 +262,7 @@ Due to the fields origins and focus in geospatial information visualisation, the
 {{< pagebreak >}}
 
 # Ignoring uncertainty
-Before we look at different cases where uncertainty is included, it is beneficial for us to look at cases where it is not. After all, why include uncertainty at all? 
+A good place to start might be at deceptively straight forward question, why should we include uncertainty at all? 
 
 @fig-choropleth depicts a choropleth map of the counties of Iowa. Each of these counties are colored according to an estimate of average daily temperature that was simulated so that the values followed a clear spatial trend (hot in the middle of the map, and cold on the outside). The variance of these estimates were simulated such that a hypothesis test would indicate the existence of a spatial trend in the low variance map, while the trend in the high variance map should be indistinguishable from noise. Is this distinction in validity of the spatial trend clear in in the map? Is the validity of the trend communicated through the visualisation?
 
@@ -272,11 +271,11 @@ Before we look at different cases where uncertainty is included, it is beneficia
 #| message: false
 #| warning: false
 #| label: fig-choropleth
-#| fig-cap: "Two choropleth maps that depicts the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. This trend is only technically there in the low variance condition, i.e. if we performed a hypothesis test we would conclude the trend exists. The high variance condition displays a spatial trend that could simply be the result of noise, which means the plot is displaying a false conclusion."
+#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. This trend is only technically there in the low variance condition, i.e. if we performed a hypothesis test we would conclude the trend exists. The high variance condition displays a spatial trend that could simply be the result of noise, which means the plot is displaying a false conclusion."
 #| fig-subcap: 
 #|   - "High Variance Data"
 #|   - "Low Variance Data"
-#|   - ""
+#|   - "Choropleth Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
 
@@ -356,6 +355,7 @@ show_pal1(basecols, ncol=8, borders=NA)
 
 ```
 
+## Signal-supression
 The two choropleth maps appearing to be identical in @fig-choropleth highlights the need for uncertainty visualisations. Uncertainty visualisation is is required for transparency and this sentiment has been repeated.  Some authors suggest uncertainty is important to include as it communicates the legitimacy (or illegitimacy) of the conclusion drawn from visual inference [@Correll2014; @Kale2018; @Griethe2006]. Some authors have said that uncertainty should be included to degree of confidence or trust in the data [@Boukhelifa2012; @Zhao2023]. Some authors directly connect uncertainty visualisation to hypothesis testing as it ensures the "validity" of a statement [@Hullman2020a; @Griethe2006], but allows for a proportional level of trust that is more detailed than the binary results of a hypothesis test [@Correll2014; @Correll2018]. Some authors even go so far as to claim that failing to include uncertainty is akin to fraud or lying [@Hullman2020a; @Manski2020].
 
 This consensus leads us to understand that uncertainty visualisation is motivated by the need for a sort of "visual hypothesis test". A successful uncertainty visualisation would act as a "statistical hedge" for any inference me make using the graphic. This implies three key criteria for a good uncertainty visualisation:
@@ -364,7 +364,37 @@ This consensus leads us to understand that uncertainty visualisation is motivate
   2) Prevent unjustified conclusions that are indistinguishable from noise
   3) Perform tasks 1) and 2) in a way that is proportional to the level of confidence in those conclusions.
   
-As @fig-choropleth showed, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. Therefore, we call this approach "signal-supression" as it primarily differentiates itself from from a typical visualisation approach through criteria (2), that is, an uncertainty visualisation should prevent us from drawing unjustified conclusions. We will investigate several approaches for uncertainty visualisation in the following sections and in doing so, discuss how successful each approach is in fulfilling the signal-suppression criteria.
+We can refer to the we draw from a graphic to be its "signal" and the variance that makes this signal harder to identify as the "noise". As @fig-choropleth showed, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. Therefore, we coin this approach to uncertainty visualisation as "signal-supression" since it primarily differentiates itself from from the "noiseless" visualisation approach through criteria (2). That is, the main difference between an uncertainty visualisation and a "normal" visualisation, is that an uncertainty visualisation should prevent us from drawing unjustified conclusions. 
+
+## Decision making does not need uncertainty visualisation
+Of course, uncertainty visualisation is not only motivated by signal-suppression. Some authors claim the purpose of uncertainty is not transparency, but rather important information for effective decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. While uncertainty can provide useful information in decision making, that information is actually signal that is required due to incomplete information. This is easiest to understand with an example.
+
+Imagine you are trying to decide if you want to bring an umbrella with you to work. An umbrella is annoying to bring and you only want to bring it if there is a 10% chance of rain (or higher). Unfortunately, your weather prediction app only provides you with the predicted daily rainfall. Therefore, your decision will be improved with the inclusion of uncertainty, *not* because uncertainty is important for your decision, but because it gives you the tools required to calculate the *actual* statistic you are basing your decision on.
+
+While my decision will be improved with the inclusion of uncertainty information, that is not because of a special quality of uncertainty, but rather because the uncertainty information can be used to calculate the true statistic of interest, the probability that it will rain at all. If I use uncertainty to improve decision making, it is not *true* uncertainty, rather it is supplementary material that is required because the original information was not sufficient. In this sense uncertainty is no different from any other variable. If someone is asked to calculate a persons BMI and they are only given their height, of *course* their calculation will be improved if you provide their weight too.
+
+We can actually prove this result is true mathematically. Let $A$ be a rational agent that needs to make a decision and let $U(p)$ be the utility function of agent $A$ that depends on the random variable, $p$ where $p$ is a probability. Additionally $p$ can be calculated using a density function $p=f(\mu, \sigma)$
+
+The ma
+
+
+The best "uncertainty visualisation" in decision making experiments is reliably the visualisation that makes the calculation of 
+
+For these reasons decision making as a motivation for uncertainty visualisation will not be the focus of this review, as the uncertainty in this case is not "noise" and does not require any special visualisation.
+
+### Exceedance Probability Map
+For these reasons, if the statistic required to make the decision is visualised, there is no reason to include uncertainty on *that* graphic.
+
+
+
+the uncertainty provided for this purpose is *not* the same as the uncertainty provided for transparency.
+
+
+
+
+
+
+We will investigate several approaches for uncertainty visualisation in the following sections and in doing so, discuss how successful each approach is in fulfilling the signal-suppression criteria.
 
 {{< pagebreak >}}
 
@@ -373,8 +403,9 @@ Upon hearing that uncertainty needs to be included for transparency, the solutio
 
 
 ## Bivariate Map
-## Signal Supression
+## Uncertainty is not just another variable
 
+Some authors do not describe uncertainty as a means of transparency, but rather as a variable of importance in of itself [@Blenkinsop2000]. 
 
 The true reason that uncertainty visualisation is differerent to normal information visualisation, is that normal information visualisation is designed to *find* signals in our data, while uncertainty visualisation should be designed to *supress* it. 
 
@@ -386,18 +417,10 @@ Why some authors pick one motivation over another is rarely explained and both l
 
 > Do we treat uncertainty as ‘just another variable’ to be visually represented or does it need to be treated differently? For example, when we picture a map showing air pressure distribution in combination with temperature, these two variables are certainly dependent on each other (in physical terms). The same is true with air pressure and its uncertainty, but we see a stronger dependency: Uncertainty can be seen as metadata of air- pressure which we argue makes a difference. Thus, we support Edwards and Nelson (2001, p. 35) who stated that ‘[p]erhaps data certainty information is unique and will require a new type of framework for designing symboliza- tion’. Most studies that assess the usability of uncertainty visualisations do not contribute to this aspect since they test the retrieval of data and uncertainty separately, but from the perspective that there is nothing special about uncertainty. Traditionally, studies in this field focus on the ability to read both the map content and its uncertainty at the same time. This may be the mandatory criterion for a successful use of uncertainty, but the question that remains is whether this is sufficient to ensure that a user does not only have two separate values in mind but an integrated uncertain data value.
 
-## Can we have uncertainty without signal supression?
-Some authors do not describe uncertainty as a means of transparency, but rather as a variable of importance in of itself [@Blenkinsop2000]. 
-
-
-It is not entirely true that uncertainty is only important for transparency, however it is not clear that the "uncertainty" provided in other cases is uncertainty at all. Some authors claim the purpose of uncertainty is not transparency, but rather important information for effective decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. While this can be true, the uncertainty provided for this purpose is *not* the same as the uncertainty provided for transparency. It arguably may not be uncertainty at all. This is easiest to understand with an example.
-
-Let's say my weather prediction app only provides me with the predicted daily rainfall when I am trying to decide if I should bring an umbrella. While my decision will be improved with the inclusion of uncertainty information, that is not because of a special quality of uncertainty, but rather because the uncertainty information can be used to calculate the true statistic of interest, the probability that it will rain at all. If I use uncertainty to improve decision making, it is not *true* uncertainty, rather it is supplementary material that is required to correct for an insufficient statistic. I was provided with was not the statistic required to make the decison. 
 
 
 # Explicitly Combining Uncertainty and Signal
 ## Using Statistics
-### Exceedance Probability Map
 ### What is an uncertainty visualisation?
 ## Using Aesthetics
 ### Value Supressing Uncertainty Palettes
