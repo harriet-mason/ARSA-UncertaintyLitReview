@@ -296,6 +296,32 @@ format: html
 - put uncertainty in the context of other meta-data of variables
 	
 # Removed Sections
+Visualisation authors are almost unanimous in commenting that the "information" in two plots must be the same in order for the visual techniques to be compared [@Cleveland1984; @Kinkeldey2014]. @Kinkeldey2014 adopts an existing definition also that suggests two graphics are informationally equivalent if all the information in one plot is inferable from the other and vice-versa, but adds that two plots are computationally equivalent if that information can be extracted from both plots with similar easy and speed. 
+
+ @Hofman2020 commented that "theoretically" the sampling distribution of the mean and the prediction interval of a new observation are equal "so long as one knows the sample size", but does not seem to provide participants with that sample size, or recognise the assumptions and background knowledge that would be required to compare the two.
+
+If two graphics are visually different but identical in the information they contain, they must differ in how that information is depicted. 
+Once we have a mathematical expression of uncertainty, the visualisation of that uncertainty is theoretically identical to the visualisation process of any other variable. For simple tasks such as value extraction, there is a hierarchy to perceptual tasks where extracting visual information in some forms is easier than others. The hierarchy was originally established 40 years ago by @Cleveland1984, below is an updated version summarised by @Vanderplas2020:  
+  
+1) Position along a common scale. 
+2) Position along a non-aligned scale. 
+3) Length, direction, angle, slope
+4) Area
+5) Volume, density, curvature
+6) Shading, colour saturation, colour hue
+7) Discriminable shape
+8) Indiscriminable shape
+
+This hierarchy is a good general rule, however it can change from person to person [@Davis2022] Additionally, there are other graphical rules to consider such as gestalt principles, broader methods of extraction, and attention principles [@Vanderplas2020]. These established visualisation concepts allow us to anticipate the ease with which certain pieces of information will be extracted from a plot. We can use these concepts to understand the computational complexity of a graphic. A bizarre feature of the uncertainty visualisation literature is that it does not work to build upon these existing principles or identify the ways in which uncertainty visualisations may diverge from these rules. These building block concepts of visualisation are seldom mentioned. 
+
+It is difficult to find examples of uncertainty visualisation experiments where the plots do contain the same information, however when they do, the results align with existing information visualisation research. Technically, a PDF and a mean with confidence intervals both have enough information to extract the mean of the distribution, however they both have a very different computational cost. To extract the mean using a PDF, a participant would need to identify the point along the x axis that splits the area under the curve in half. If a participant is provided with a mean with a confidence interval, extracting the average is a simple task of reading the position on an aligned scale. 
+
+Similar results to this occur over and over again in the uncertainty visualisation literature.   (*Cite Gap 15: Examples of replicated perceptual task experiments*). 
+
+These results show that uncertainty is not technically different to any other variable. When trying to anticipate the results of these studies, we can use the same principles of information equivalence and difficulty of relevant mental tasks to understand which plots will outperform others. This does not mean that visualising uncertainty as a signal is incorrect or bad, it just means that uncertainty as a signal is no different from any other information visualisation.
+
+- decision making experiments are usually displaying the wrong signals
+
 The exploration step of an analysis, which includes descriptive statistics, exploratory data visualisation, and unsupervised machine learning techniques, is performed without a prior hypothesis, however misunderstandings of this fact appears frequently in the literature.
 
 @wu2023rational recognised and tried to eliminate information asymmetry by looking at a visualisation and identifying what information can be extracted and then using a "rational agent benchmark" to determine how a rational person would use that information for a decision making task. While this solution is interesting, it may have different results depending on who is applying it.
