@@ -16,6 +16,7 @@ editor_options:
 - convert to American spelling
 - May not need to reference the same paper again and again
 - I can do a more formal proof of the decision making thing using decision science. I left it out but it can be added if that section needs to be more thorough.
+- fix the colour value map
 -->
 
 ```{r}
@@ -508,40 +509,110 @@ Uncertainty visualisation is a uniquely difficult problem in visualisation. @Hul
 
 The first group believes uncertainty visualisation are unique due to the psychological heuristics involved in interpreting uncertainty [@Spiegelhalter2017; @Hullman2019]. While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017] there is no evidence that this psychological effect translates to a problem in visualisation. Were this the case, visualisations of death, poverty, and any other variable that elicits poor feelings would require its own field of visualisation. 
 
-The second group sees uncertainty as a high dimensional visualisation problem as the difficulty is in working out how to add uncertainty into already existing graphics [@moritz2017trust; @Griethe2006]. If we view uncertainty visualisation as a high dimension problem we include uncertainty as we would any other variable, and allow for the signal to be interpreted independent of the variance. This prevents uncertainty and signal being read together as a "single integrated uncertain value" [@Kinkeldey2014] and allows for uncertainty to be ignored [@uncertchap2022]. Additioanlly, this integration needs to be communicated through the "gist" of the graphic, as that is primary purpose of a visualisation [@Spiegelhalter2017]. 
-The @fig-bivariate plot's "gist" is "this data has a spatial trend and the estimates have a large variance". It is clear the uncertainty and signal are being communicated separately.
+The second group sees uncertainty as a high dimensional visualisation problem as the difficulty is in working out how to add uncertainty into already existing graphics [@moritz2017trust; @Griethe2006]. If we view uncertainty visualisation as a high dimension problem we include uncertainty as we would any other variable, and allow for the signal to be interpreted independent of the variance. This prevents uncertainty and signal being read together as a "single integrated uncertain value" [@Kinkeldey2014] and allows for uncertainty to be ignored [@uncertchap2022]. Additionally, even when reading a map that has a more complicated colour palette than a choropleth map (such as a bivariate map) participants still read the map according to the same principles of the choropleth map [@Ndlovu2023]. This means that even when uncertainty is technically included in the graphic, the take away can still be invalid if the map is read incorrectly. The signal-suppression needs to be communicated through the "gist" of the graphic, as that is primary purpose of a visualisation [@Spiegelhalter2017].  The @fig-bivariate plot's "gist" is "this data has a spatial trend and the estimates have a large variance". It is clear the uncertainty and signal are being communicated separately rather that as a single uncertain value.
 
-Uncertainty visualisation is difficult because we need the uncertainty axis to interfere with the signal axis. When we typically visualise two independent variables we *do not* want them to interfere with each other, however the opposite is true for uncertainty visualisation. For uncertainty to perform signal suppression, it must interfere with the visual channel that signal was mapped to. It needs to interfere enough that viewers do not see signals that are simply the product of noise.
+This highlights the key problem of viewing uncertainty visualisation as a simple high dimensional problem. While we are trying to include a new variable, uncertainty cannot be treated the same as any other variable. Typically we want visual channels to be separable, that is, the data represented in one visual channel does not interfere with the others, and most research in this area is for this goal [@Smart2019]. Uncertainty visualisation, however, should endeavor for integrability, that is, the channels interfere with one another to allow the uncertainty to suppress the signal. While most aesthetics *are* read separately, colour hue and brightness seem to be integrable [@Vanderplas2020] so even though they can be individually manipulated, they are processed by the brain as a single visual channel. Additionally color value has a more intuitive connection to uncertainty than hue [@Maceachren2012], but it should be mapped such that lighter colours are more uncertain than darker colours. If we could utilise integrability effectively, them the two dimensional space defined by colour value and colour hue could be mentally "flattened" into a single dimension of "statistically valid signal".
+
+@fig-bivariate2 shows a bivariate colour map where uncertainty is mapped to colour value, and temperature is mapped to colour hue. It is clear the spatial trend is still visible in the high uncertainty case. This does not necessarily mean integrability will never be a useful tool for signal suppression, but without a strong understanding of how these visual channels collapse down into a single channel, it may not be a reliable option. Additionally, adding so many variations to colour in a map might make the graphics harder to read and suppress statistically significant signals, while also hurting the plots accessibility [@Vanderplas2015]. A more viable option might be to warp the space uncertainty and signal are mapped to ourselves.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-bivariate2
+#| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to colour value. Even though colour value is intergrable with colour hue, and colour value is naturally accociated with uncertainty, the spatial trend is still visible in the map."
+#| fig-subcap: 
+#|   - "High Variance Data"
+#|   - "Low Variance Data"
+#|   - "Bivariate Palette"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+
+# Bivariate Map
+# Make bivariate palette
+# Function to devalue by a certain amount
+colsupress2 <- function(basecols, hue=1, sat=1, val=1) {
+    X <- diag(c(hue, sat, val)) %*% rgb2hsv(col2rgb(basecols))
+    hsv(pmin(X[1,], 1), pmin(X[2,], 1), pmin(X[3,], 1))
+}
+
+# recurvisely decrease value
+v_val = 1.1
+bivariatepal2 <- c(basecols,
+                   colsupress2(basecols, val=v_val), 
+                   colsupress2(colsupress2(basecols, val=v_val), val=v_val),
+                   colsupress2(colsupress2(colsupress2(basecols, val=v_val), val=v_val), val=v_val)
+                   )
+
+# establish levels of palette
+names(bivariatepal2) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 
 
-Lets say we have a map were maximum daily temperature is presented using points where the colour (red for hot and blue for cold) of the point is associated with the temperature, and the blurriness of that point is associated with the variance *of* that temperature. It is highly likely that our brains will not flatten that into a single variable depicting noise and signal, but rather *separately* extract the temperature (colour) and uncertainty (blur) information as two independent variables. If the variables are extracted separately, there is no guarantee that the uncertainty will act as an appropriate signal suppressor. 
+
+# Bivariate maps 2
+p2a1 <- my_map_data |>
+  filter(variance_class=="lowvar") %>%
+  ggplot() +
+  geom_sf(aes(fill = biclass, geometry = geometry)) + 
+  scale_fill_manual(values = bivariatepal2) +
+  theme_void() + 
+  theme(legend.position = "none")
+  
+p2b2 <- p2a1 %+% filter(my_map_data, variance_class=="highvar")
 
 
+p2a1
+p2b2
+show_pal2(colours = bivariatepal2, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
 
- *** up to here ***
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: false
+#| label: fig-transparency
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+
+# ALTERNATIVE TRANSPARENCY INSTEAD OF COLOUR VALUE
+
+trans_map <- my_map_data |>
+  mutate(scaled_var = (variance - min(variance))/(max(variance)-min(variance)))
+
+# Transparency map
+pta <- trans_map |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(fill = bitemp, 
+              geometry = geometry,
+              alpha=scaled_var)) + 
+  scale_fill_manual(values = basecols) +
+  theme_void() + 
+  theme(legend.position = "none")
+
+ptb <- pta %+% filter(trans_map, variance_class=="highvar")
+```
 
 
-The next map (which embodies the approach taken by the semantics experiments) is the bivariate map which maps the signal to colour value and the uncertainty to colour hue. If visualisation was performing signal suppression then that would mean the two dimensional space defined by colour value and colour hue can be mentally "flattened" into a single dimension of "valid value" that can captures the signal the our brain would need to be able to flatted this two dimensional space into a single space of "signal validity".  
-
-The idea of two perceptual tasks flattening into one variable in the mind of the viewer may be wishful thinking, but it is not impossible given we are not certain on how the perceptual tasks are mapped within the human brain. @Sterzik2023 found that when a value was mapped to the textures of stippling, hatching, and triangles, and found that the difference between two points on this one dimensional texture was actually a 2D space (likely "texture business" and "light/darkness"). That being said, if we look at the visual signals presented by the bivariate map, where the contrasting light and dark areas actually has no important meaning, it is unlikely this occurs for colour value and hue (or at least it doesn't occur in a way that is useful for uncertainty visualisation). 
-
-- seperability experiments (susan, animation, scatter size)
-- suprise map (I think they had something about comparing light and dark)
-- Something else on accessibility or colour space (check susan's work)
-
-Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves, by using a VSUP which collapses the colour space such that high uncertainty values cannot be extracted. It is unclear how useful VSUPs are at actually combining signal and noise and therefore suppressing plot level insights, as they have only been tested on simple value extraction tasks that require evaluating a single point [@Correll2018; @Ndlovu2023] rather than looking for spatial relationships (which is arguably what maps are for). Following along with this trend, the next way we might consider visualising uncertainty is to combine uncertainty and signal at the earlier stage so the "suppressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method adopted by the Bayesian surprise metric map [@Ndlovu2023] and the exceedance probability map [Lucchesi2017]. 
-
-These maps make the importance of combining uncertainty and signal in a single visual channel clear. A choropleth map will show signal that is not valid inference because of high uncertainty. At the other end of the spectrum, the bivariate map will show signal that is not always interesting because it forces us to interpret uncertainty and signal separately. As we move through these methods, it seems that the validity of any overarching insight becomes more visible at the cost of our ability to extract particular values of signal or noise. Therefore, given that the primary goal of visualisation *is* insights [@North2006], visualisation authors should err on the side of representing suppressed signal as a single variable, rather than visualising uncertainty separately using two different channels. 
 
 {{< pagebreak >}}
 
+
+
 # Visualising uncertainty and signal in a new space
+Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves.
+
+by using a VSUP which collapses the colour space such that high uncertainty values cannot be extracted. It is unclear how useful VSUPs are at actually combining signal and noise and therefore suppressing plot level insights, as they have only been tested on simple value extraction tasks that require evaluating a single point [@Correll2018; @Ndlovu2023] rather than looking for spatial relationships (which is arguably what maps are for). Following along with this trend, the next way we might consider visualising uncertainty is to combine uncertainty and signal at the earlier stage so the "suppressed signal" is represented by a single variable. This statistic can then be expressed in a one dimensional colour space, which is a method adopted by the Bayesian surprise metric map [@Ndlovu2023] and the exceedance probability map [Lucchesi2017]. 
+
 This problem has been noticed by others in the field, that typically use this method (specifically in the spatial uncertainty context) and a desire for representations that integrate uncertainty and signal is one of the reasons for the invention of the value-suppressing uncertainty pallet [@Correll2018].
 
 Value-suppressing uncertainty pallets (VSUP) were developed as a method that would allow the signal and the noise to be interpreted together such that insights gained by the viewers of a plot are appropriately *suppressed* by the uncertainty. Hence the name of the pallet. depicted this map colouring approach and several other extensions on the typical choropleth map that differ in where in the visualisation process they combine the noise and signal information into a single concept of "valid signal".
 
 ### Value Supressing Uncertainty Palettes
 ### There is no such thing as a test for everything
+As we move through these methods, it seems that the validity of any overarching insight becomes more visible at the cost of our ability to extract particular values of signal or noise. Therefore, given that the primary goal of visualisation *is* insights [@North2006], visualisation authors should err on the side of representing suppressed signal as a single variable, rather than visualising uncertainty separately using two different channels. 
 
 {{< pagebreak >}}
 
@@ -832,38 +903,4 @@ This paper has identified gaps in the uncertainty visualisation literature that 
 
 If an uncertainty visualisation researcher would prefer to perform experiments rather than formalise methods, there are options there too. It would be interesting to know if any perceptual tasks that can be mapped to two different visual tasks condense into a single dimension when looking for overarching signal in a plot. Alternatively, the task dependency many authors in uncertainty visualisation mention would be a useful direction to consider. It is clear that the the number of potential tasks that can be performed on a visualisation increases with with the number of observations. A single observation is limited to value extraction, two observations can be compared, multiple observations allow for shapes or global statistics to be extracted. The interaction between sample size and task is of particular interest to the uncertainty visualisation community, as uncertainty can be expressed through multiple observations using a sample, or through a single value using an error. Of course, this is limited by the fact that there also isn't a definition for what is a "task" and given the mess created by the lack of formalisation in uncertainty visualisation, it may be wise to formalise that concept before performing these experiments. @Amar2005 suggested a taxonomy for information visualisation based on the types of tasks we use visualisations for and suggest 10 "analytical primitives" that we can then map to visualisations, which could be a good starting point. Regardless, these are directions of research would be fruitful to the uncertainty visualisation community even if it appears on the surface to be research that is only beneficial to the "normal" visualisation community. (*XXX Not sure what this paragraph is recommending?*)
 
-## Transparneyc map
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| eval: false
-#| label: fig-transparency
-#| fig-cap: ""
-#| fig-subcap: 
-#|   - "High Variance Data"
-#|   - "Low Variance Data"
-#|   - "Choropleth Palette"
-#| layout-ncol: 3
-#| layout-valign: "bottom"
 
-
-trans_map <- my_map_data |>
-  mutate(scaled_var = (variance - min(variance))/(max(variance)-min(variance)))
-
-# Transparency map
-pta <- trans_map |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf(aes(fill = bitemp, 
-              geometry = geometry,
-              alpha=scaled_var)) + 
-  scale_fill_manual(values = basecols) +
-  theme_void() + 
-  theme(legend.position = "none")
-
-ptb <- pta %+% filter(trans_map, variance_class=="highvar")
-
-
-
-```
