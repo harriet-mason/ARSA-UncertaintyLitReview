@@ -610,77 +610,19 @@ This problem has been noticed by others in the field, that typically use this me
 Value-suppressing uncertainty pallets (VSUP) were developed as a method that would allow the signal and the noise to be interpreted together such that insights gained by the viewers of a plot are appropriately *suppressed* by the uncertainty. Hence the name of the pallet. depicted this map colouring approach and several other extensions on the typical choropleth map that differ in where in the visualisation process they combine the noise and signal information into a single concept of "valid signal".
 
 ### Value Supressing Uncertainty Palettes
-### There is no such thing as a test for everything
-As we move through these methods, it seems that the validity of any overarching insight becomes more visible at the cost of our ability to extract particular values of signal or noise. Therefore, given that the primary goal of visualisation *is* insights [@North2006], visualisation authors should err on the side of representing suppressed signal as a single variable, rather than visualising uncertainty separately using two different channels. 
 
-{{< pagebreak >}}
-
-# Implicitly Combining Uncertainty and Signal
-## Pixel maps
-## Show me the data
-
-{{< pagebreak >}}
-
-# Evaluating uncertainty visualisations
-# Current methods
-# Testing signal supression
-## Current methods
-### Secondary effects
-
-- trust, confidence, etc
-
-### Direct questions
-
-> Most studies that assess the usability of uncertainty visualisations do not contribute to this aspect since they test the retrieval of data and uncertainty separately, but from the perspective that there is nothing special about uncertainty. Traditionally, studies in this field focus on the ability to read both the map content and its uncertainty at the same time. This may be the mandatory criterion for a successful use of uncertainty, but the question that remains is whether this is sufficient to ensure that a user does not only have two separate values in mind but an integrated uncertain data value. [@Kinkeldey2014]
-
-@Hullman2019 found that the majority of papers evaluate visualisations on performance (approximately 65% of the papers they surveyed).
-
-By far the most common metric used is accuracy, which is used by approximately 36% of evaluation studies [@Hullman2019]. 
-
-The final method used by authors is to just explicitly ask about uncertainty and signal information separately. @Sanyal2009 mapped uncertainty to dots and signal to a 3D surface and asked participants to identify areas of high and low signal and high and low uncertainty. Participants were not asked to combine that information in any way, and the signal and the noise were treated as separate variables. @Correll2014 asked participants to separately extract the mean and variance from four uncertainty visualisations. These methods explicitly view the uncertainty and signal as two separate variables that should be extracted from a plot, and not two variables that should be interpreted together. Even viewing these questions as a routine check to make sure the signal information isn't impacted by the uncertainty is counter intuitive, because the whole point *of* the uncertainty is to impact the signal information.
-
-
-- definition of uncertainty
-
-
-There are many secondary benefits that come with this improved transparency, such as better decisions, more trust in the results and more confidence in the authors. These secondary benefits are, however, *not* the immediate goal of uncertainty. The following sections will discuss the issues and limitations in measuring uncertainty through these secondary metrics and provide suggestions as to how future studies should consider measuring uncertainty.
-
-Trust is a by product of displaying uncertainty rather than the goal of it, and viewing the relationship in the converse direction can lead to misguided research. Considering trust, and not transparency, as the metric of importance in uncertainty communication can lead to a questionable subtext that argues against transparency, something that has been noticed by several other authors [@Spiegelhalter2017; ONeill2018]. @Hullman2020a found that author simultaneously argued that failing to visualise uncertainty was akin to fraud, but also many avoided uncertainty visualisation because they didn't want their work to come across as "untrustworthy". These authors are optimising *trust* rather than *transparency*, which means they opt to leave out uncertainty information when it does exactly what it is supposed to, decrease certainty in conclusions.
-
-Science communication should be primarily concerned with accuracy. Setting trust and risk-aversion as the variables of interest implicitly encourages statisticians to set trust and risk-aversion as the primary goals of communication. The issue of trust being divorced from trustworthiness has been commented on by other authors [@ONeill2018], however the issue still persists in the uncertainty visualisation literature. @Zhao2023 displayed a several variations of a visualisation of a model prediction and its uncertainty and took participants using the model prediction as a sign of trust. They reported that visualising uncertainty information caused participants to trust the model in the low variance case, but the results in the high variance case were inconclusive. The discussion made it clear the authors thought the uncertainty information should make the visualisation more trustworthy, but conflating trust and the use of a prediction implied uncertainty information should somehow influence participants to use their own prediction, even though a prediction being uncertainty does not necessarily mean it is incorrect. Despite this, the authors seemed to assume that the uncertainty information *should* have an influence on that, showing they had not deeply considered *how* uncertainty information should influence the choices of the participants. (*Cite Gap 18: examples of studies where authors measure trust*)
-
-
-A similar measure to trust is using "confidence" in an extracted value or a decision. Interestingly, "confidence" is also used to try and capture the clarity of a message in a normal visualisation. Confidence cannot simultaneously be a measure of clarity of visualisation *and* a way to capture the uncertainty expressed in a visualisation.
-
-{{< pagebreak >}}
-
-# Bibliography
-
-```{r, include=FALSE, eval=FALSE}
-library(spelling)
-qmd <- "paper.qmd"
-ignore <- readLines("WORDLIST")
-check_spelling <- spell_check_files(
-  qmd,
-  ignore = ignore,
-  lang = "en_GB"
-)
-if (nrow(check_spelling) > 0) {
-  print(check_spelling)
-  stop("Check spelling in Qmd files!")
-}
-```
-
-# ------------------- BELOW HERE IS UNSORTED ------------------------
-
-# MAPS
- 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: false
-
+#| label: fig-vsup
+#| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to it's average daily temperature and the variance in temperature, although the space they have been mapped to is slightly warped."
+#| fig-subcap: 
+#|   - "High Variance Data"
+#|   - "Low Variance Data"
+#|   - "VSUP Palette"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
 
 # VSUP
 # Function to combine colours for VSUP
@@ -729,6 +671,31 @@ p3a <- my_map_data |>
 
 p3b <- p3a %+% filter(my_map_data, variance_class=="highvar")
 
+p3a
+p3b
+show_col(VSUP, ncol=8, labels=FALSE)
+
+```
+
+### There is no such thing as a test for everything
+As we move through these methods, it seems that the validity of any overarching insight becomes more visible at the cost of our ability to extract particular values of signal or noise. Therefore, given that the primary goal of visualisation *is* insights [@North2006], visualisation authors should err on the side of representing suppressed signal as a single variable, rather than visualising uncertainty separately using two different channels. 
+
+{{< pagebreak >}}
+
+# Implicitly Combining Uncertainty and Signal
+## Pixel maps
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-pixel
+#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several smaller regions and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value."
+#| fig-subcap: 
+#|   - "High Variance Data"
+#|   - "Low Variance Data"
+#|   - "Pixel Map Palette"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
 
 # Pixel Map
 library(Vizumap)
@@ -805,13 +772,66 @@ p4b <- view(pmap_b) +
 
   
 # Display plots and palettes
-p3a
-p3b
-show_col(VSUP, ncol=8, labels=FALSE)
 p4a
 p4b
 show_col(basecols, ncol=8, labels=FALSE)
+
 ```
+## Show me the data
+
+{{< pagebreak >}}
+
+# Evaluating uncertainty visualisations
+# Current methods
+# Testing signal supression
+## Current methods
+### Secondary effects
+
+- trust, confidence, etc
+
+### Direct questions
+
+> Most studies that assess the usability of uncertainty visualisations do not contribute to this aspect since they test the retrieval of data and uncertainty separately, but from the perspective that there is nothing special about uncertainty. Traditionally, studies in this field focus on the ability to read both the map content and its uncertainty at the same time. This may be the mandatory criterion for a successful use of uncertainty, but the question that remains is whether this is sufficient to ensure that a user does not only have two separate values in mind but an integrated uncertain data value. [@Kinkeldey2014]
+
+@Hullman2019 found that the majority of papers evaluate visualisations on performance (approximately 65% of the papers they surveyed).
+
+By far the most common metric used is accuracy, which is used by approximately 36% of evaluation studies [@Hullman2019]. 
+
+The final method used by authors is to just explicitly ask about uncertainty and signal information separately. @Sanyal2009 mapped uncertainty to dots and signal to a 3D surface and asked participants to identify areas of high and low signal and high and low uncertainty. Participants were not asked to combine that information in any way, and the signal and the noise were treated as separate variables. @Correll2014 asked participants to separately extract the mean and variance from four uncertainty visualisations. These methods explicitly view the uncertainty and signal as two separate variables that should be extracted from a plot, and not two variables that should be interpreted together. Even viewing these questions as a routine check to make sure the signal information isn't impacted by the uncertainty is counter intuitive, because the whole point *of* the uncertainty is to impact the signal information.
+
+
+- definition of uncertainty
+
+
+There are many secondary benefits that come with this improved transparency, such as better decisions, more trust in the results and more confidence in the authors. These secondary benefits are, however, *not* the immediate goal of uncertainty. The following sections will discuss the issues and limitations in measuring uncertainty through these secondary metrics and provide suggestions as to how future studies should consider measuring uncertainty.
+
+Trust is a by product of displaying uncertainty rather than the goal of it, and viewing the relationship in the converse direction can lead to misguided research. Considering trust, and not transparency, as the metric of importance in uncertainty communication can lead to a questionable subtext that argues against transparency, something that has been noticed by several other authors [@Spiegelhalter2017; ONeill2018]. @Hullman2020a found that author simultaneously argued that failing to visualise uncertainty was akin to fraud, but also many avoided uncertainty visualisation because they didn't want their work to come across as "untrustworthy". These authors are optimising *trust* rather than *transparency*, which means they opt to leave out uncertainty information when it does exactly what it is supposed to, decrease certainty in conclusions.
+
+Science communication should be primarily concerned with accuracy. Setting trust and risk-aversion as the variables of interest implicitly encourages statisticians to set trust and risk-aversion as the primary goals of communication. The issue of trust being divorced from trustworthiness has been commented on by other authors [@ONeill2018], however the issue still persists in the uncertainty visualisation literature. @Zhao2023 displayed a several variations of a visualisation of a model prediction and its uncertainty and took participants using the model prediction as a sign of trust. They reported that visualising uncertainty information caused participants to trust the model in the low variance case, but the results in the high variance case were inconclusive. The discussion made it clear the authors thought the uncertainty information should make the visualisation more trustworthy, but conflating trust and the use of a prediction implied uncertainty information should somehow influence participants to use their own prediction, even though a prediction being uncertainty does not necessarily mean it is incorrect. Despite this, the authors seemed to assume that the uncertainty information *should* have an influence on that, showing they had not deeply considered *how* uncertainty information should influence the choices of the participants. (*Cite Gap 18: examples of studies where authors measure trust*)
+
+
+A similar measure to trust is using "confidence" in an extracted value or a decision. Interestingly, "confidence" is also used to try and capture the clarity of a message in a normal visualisation. Confidence cannot simultaneously be a measure of clarity of visualisation *and* a way to capture the uncertainty expressed in a visualisation.
+
+{{< pagebreak >}}
+
+# Bibliography
+
+```{r, include=FALSE, eval=FALSE}
+library(spelling)
+qmd <- "paper.qmd"
+ignore <- readLines("WORDLIST")
+check_spelling <- spell_check_files(
+  qmd,
+  ignore = ignore,
+  lang = "en_GB"
+)
+if (nrow(check_spelling) > 0) {
+  print(check_spelling)
+  stop("Check spelling in Qmd files!")
+}
+```
+
+# ------------------- BELOW HERE IS UNSORTED ------------------------
 
 # What is an uncertainty visualisation?
 @Kinkeldey2014 categorised uncertainty according to five criteria depicted in fig-tax which considers if a visualisation is implicit or explicit, intrinsic or extrinsic, visually integrable or seperable, coincident or adjacent, and static or dynamic. A similar version of this taxonomy was presented by @uncertchap2022 who commented that visualisation can be organised into two categories, "graphical annotations of distributional properties" and "visual encodings of uncertainty" which seems to functionally align with the intrinsic/extrinsic distinction by @Kinkeldey2014. @Griethe2006 organised uncertainty visualisations into two cases (1) a hypothesis test was preformed to confirm the validity of the visualisation and (2) the visualisation has uncertainty depicted. @Potter2012 organised several existing uncertainty visualisations into groups based on the dimensionality of the data (1D, 2D, 3D, and No Dimension) and the dimensionality of the uncertainty (Scalar, Vector, Tensor).  However, because the term "PDF", function that is used to describe a random variable, is used to describe both the data and the uncertainty for all dimensions. @Grewal2021 created a taxonomy that mapped uncertainty visualisations to some point in a 2D space defined by the "domain expertise" and "continuum of discreteness" (that scaled from "point estimate" to "continuous distribution"). 
