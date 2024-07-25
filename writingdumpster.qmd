@@ -375,4 +375,51 @@ A final method to perform signal suppression is simply to visualise the data if 
 
 ![Census dot map](censusdotmap.png){#fig-census}
 
+# Statistic notes
+X
+E[X] 
+n 
+Var(X) 
+Max(Var(X))
+Min(Var(X))
 
+
+# Experiment notes
+
+@Sanyal2009 colored glyphs outperformed error bars in a search task study, which boils down to asking users to find the most extreme color, largest size, or longest length. They found people were better at finding the value with the most extreme color than the longest length.
+
+@Kale2018 found users were better at identifying if there was a general trend in a series of line plots when shown hops rather than error bars or ensembles.
+
+
+“growth” or “no growth” judgement about one bar chart and provided + a rating of their confidence on a scale of 50
+
+How likely is the red outcome?
+
+How likely is the outcome where can- didate A gets 55% of the vote?
+
+How likely is candi- date B to win the election?
+
+# Vis inference stuff
+objects or shapes that are close to one another appear to form groups.
+  proximity is used to place items to compare close together, and less important comparisons further apart
+
+we group things that have similar appearances and exclude objects with different appearances.
+
+elements con- tained within a common region belong together
+  confidence bands and bounding ellipses also activate this gestalt principle by grouping points within the boundaries together
+
+tendency to group objects that are moving together in the same direction and at the same speed together
+
+working memory is limited to approximately seven (plus or minus two) items, or chunks.
+
+If comparisons and quantitative evaluations made during the process of under- standing a plot. This research can be distilled into a hierarchy of comparisons 
+1. Position (common scale) 
+2. Position (nonaligned scale)
+3. Length, direction, angle, slope 
+4. Area 
+5. Volume, density, curvature 
+6. Shading, color saturation, color hue 
+7. Discriminable shape 
+8. Indiscriminable shape
+This ranking ofcognitive tasks provides some consistent guidance for chart design: If the same
+data can be represented in a way that allows the user to make a comparison more accurately (based on the hierarchy), then that design is preferable.

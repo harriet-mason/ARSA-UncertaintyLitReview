@@ -370,33 +370,12 @@ As @fig-choropleth showed, visualisations that are unconcerned with uncertainty 
 
 {{< pagebreak >}}
 
-# Visualising uncertainty as signal
-Uncertainty visualisation is not only motivated by signal-suppression, and we would be remiss to ignore these alternative motivations. In this section we discuss alternative motivations for uncertainty visualization, and explain why they are not the focus of this review.
+## Visualising uncertainty as signal
+Uncertainty visualisation is not only motivated by signal-suppression, and we would be remiss to ignore these alternative motivations. Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. Other authors do not describe uncertainty as important for decision making, but rather explicitly state it as variable of importance in of itself [@Blenkinsop2000]. While uncertainty can provide useful information in decision making, it is important to recognize the "uncertainty" in these cases is not acting as "uncertainty" at all. It is acting as signal. 
 
-## Uncertainty as a variable of interest
-Other authors do not describe uncertainty as important for decision making, but rather explicitly state it as variable of importance in of itself [@Blenkinsop2000]. While uncertainty can provide useful information in decision making, it is important to recognize the "uncertainty" in these cases is not acting as "uncertainty" at all. It is acting as signal. This is easiest to understand with an example.
+This is obvious for the cases where we are explicitly interested in the variance or error, as we are literally trying to draw conclusions about an "uncertainty" statistic. The same is true for "decision making" experiments, but it is less overt. This is easiest to understand with an example. Imagine you are trying to decide if you want to bring an umbrella with you to work. An umbrella is annoying to bring with you, so you only want to pack it if the chance of rain is greater than 10%. Unfortunately, your weather prediction app only provides you with the predicted daily rainfall. Therefore, your decision will be improved with the inclusion of uncertainty, *not* because uncertainty is important for your decision, but because it gives you the tools required to calculate the *actual* statistic you are basing your decision on. In this sense, uncertainty is no more "special" to decision making than weight is in a BMI calculation.
 
-
-Extracting information using a graphic requires a perceptual task, so it will always be less accurate than explicitly reading the value provided in text form [@Cleveland1984]. 
-
-This is why text representations or graphics that allow users to simply count a value to extract the required statistic outperform those that require any perceptual tasks.
-
-
-
-## Uncertainty for decision making
-Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. This group are *also* viewing uncertainty as a signal, although it is less obvious in this case. 
-
-Imagine you are trying to decide if you want to bring an umbrella with you to work. An umbrella is annoying to bring with you, so you only want to pack it if the chance of rain is greater than 10%. Unfortunately, your weather prediction app only provides you with the predicted daily rainfall. Therefore, your decision will be improved with the inclusion of uncertainty, *not* because uncertainty is important for your decision, but because it gives you the tools required to calculate the *actual* statistic you are basing your decision on. In this sense, uncertainty is no more "special" to decision making than weight is in a BMI calculation. 
-
-This obfuscation problem translates to unanswerable questions in uncertainty evaluation experiments.
-
-If we create a problem by obfuscating information, then the representation that makes the obfuscated information easiest to extract outperforms those that don't. 
-
-
-
-
-
-Additionally, if uncertainty visualisation for decision making is a "wrong information" problem, then we would expect uncertainty visualisations made for this purpose to simply adjust the statistic they display of rather than a change the visual elements of the graphic. This is precicely what we observe. @fig-exceed depicts an exceedance probability map that has was designed as an alternative to the choropleth map to improve decision making under uncertainty [@Kuhnert2018; @Lucchesi2021]. A keen viewer may notice that the "exceedance probability map" is actually just a choropleth map. While the input into the graphic has changed, graphics, just like statistics, are not defined by their input data. 
+Uncertainty visualisation's made for these purposes should simply display the uncertainty statistic we are interested in, such as the variance, or probability of an event. This is precisely what we observe. @fig-exceed depicts an exceedance probability map that has was designed as an alternative to the choropleth map to improve decision making under uncertainty [@Kuhnert2018; @Lucchesi2021]. A keen viewer may notice that the "exceedance probability map" is actually just a choropleth map, only the statistic being displayed has changed. We do not believe this graphic be considered an uncertainty visualisation.
 
 ```{r}
 #| echo: false
@@ -435,21 +414,13 @@ p2b
 show_pal(basecols, ncol=8, borders=NA, myxlab = "Probability Temp>27", breaks = c(0, prob_breaks[2:8], 1))
 ```
 
-## What is an uncertainty visualisation?
+There seem to be two different definitions of "uncertainty visualisation" floating around in the lierature. The first considers *any* visualisation of error, variance, or probability to be an uncertainty visualisation. The second believes an "uncertainty visualisation" is the output of a function that takes a normal visualisation as an input, and transforms it to include the uncertainty information. The former group believe the purpose of uncertainty visualisation to provide signal about a distribution, while the later believe it should act as noise to obfuscate a signal. The lack of explicit distinction between these two motivations leaves the literature muddled and reviewers struggle to understand if uncertainty should be treated as a variable, as metadata, or as something else entirely [@Kinkeldey2014]. This disagreement creates constant contradictions in what the literature considers to be an "uncertainty visualisation". For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, and @Wickham2011 suggests their product plot framework, which includes histograms and bar charts, should be extended to include uncertainty however at least one or both of these charts are used in a significant number of uncertainty visualisation experiments [@Ibrekk1987; @Olston2002; @Zhao2023; @Hofmann2012]. If you view uncertainty as a function applied to an existing graphic, then you would believe a pie chart and bar chart are not uncertainty visualisations, as they are yet to have the "uncertainty visualisation function" applied to them. If you view uncertainty as any graphic that depicts an "uncertainty statistic" then there are no limitations on which graphics can or cannot be uncertainty visualisations. 
 
-This seems to be an accepted fact for all visualisations *except* for uncertainty visualisation, and this creates disagreement in what is even considered to be an uncertainty visualisation. For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, and @Wickham2011 suggests their product plot framework, which includes histograms and bar charts, should be extended to include uncertainty however at least one or both of these charts are used in a significant number of uncertainty visualisation experiments [@Ibrekk1987; @Olston2002; @Zhao2023; @Hofmann2012]. 
+When we use "uncertainty visualisaion" to refer to graphics that simply communicate a variance or probability, we are classifying  visualisations by the data they display, not their visual features. Graphics, just like statistics, are not defined by their input data. A scatter plot that compares mean and a scatter plot that compares variances are both scatter plots. Given that there is no special class of visualisation for *other* statistics (such the median or maximum) there is no reason to assume visualisations that simply depict a variance, error, or probability to be special. Some authors implicitly suggest that that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019]. While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017] there is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behavior, there is no reason to assume this is what makes uncertainty visualisation so special. 
 
-We belive this disagreement comes from two different conceptualizations of what an uncertainty  visualisation *is*. This issue causing confusion in the literature was also commented on by @Kinkeldey2014, who explained it was unclear if uncertainty should be treated as a variable, as metadata, or as something else entirely [@Kinkeldey2014]. There are those that describe *any* visualisation of error as an "uncertainty visualisation" and those that believe "uncertainty visualisation" is a function that can be *applied* to any graphic that depicts an estimate. The former group view the purpose of uncertainty visualisation to provide signal about a distribution, while the later believe it should act as noise to obfuscate a signal.
+This leads us to the conclusion that the visualisations made for the purpose of displaying information about uncertainty statistics are not uncertainty visualisations. These graphics are just normal information visualisations, and authors can follow existing principles of graphical design. We will focus on the perspective that uncertainty visualisation serves to obfuscate signal, and an uncertainty visualisation is a variation on an existing graphic that gives it the ability to suppress false signals. 
 
-
-
-The easily explained results in evaluation experiments, and the exceedance probabiltiy map show the problem of viewing uncertainty as a signal instead of noise. If we view the purpose of viewing uncertainty visualisation to simply extract a probability or variance (reguardless of whether or not it is for value extraction or decision making) then the best performing visualsiation will be one that makes that statistic easy to extract. Even better is to avoid displaying a visualisation all together and simply provide the probability or variance with text. 
-
-Of course, we do not beleive there is anything wrong with explicitly visualizing variance, error, bias, or any other statistic used to depict uncertainty as a signal. Just like any other statistic, these metrics provide important and useful information for analysis and decisions. However, there is no interesting visualisation challenge associated with these graphics, and they do not require any special visualisation, they are acting an estimate and they should be treated as such. 
-
-For these reasons decision making and visualisations that explicitly depict uncertainty measures will not be the focus of this review. We will instead focus on the perspective that uncertainty visualisation serves to obfuscate signal, and should be considered a function that can be *applied* to any graphic to suppress false signals. The following sections will investigate several approaches to uncertainty visualisation and discuss how successful each approach is in fulfilling the signal-suppression criteria.
-
-
+Of course, we do not believe there is anything wrong with explicitly visualizing variance, error, bias, or any other statistic used to depict uncertainty as a signal. Just like any other statistic, these metrics provide important and useful information for analysis and decisions. However, there is no interesting visualisation challenge associated with these graphics, and they do not require any special visualisation. The uncertainty in these graphics are acting as a signal variable, and they should be treated as such. 
 
 
 {{< pagebreak >}}
@@ -530,9 +501,7 @@ show_pal2(colours = bivariatepal, ncol=8, borders=NA, myxlab = "Temperature", my
 ```
 
 ## What makes uncertainty visualisation difficult?
-Uncertainty visualisation is a uniquely difficult problem. @Hullman2016 commented that it is straightforward to show a value but it is much more complex to show uncertainty. There does not seem to be a consensus on *why* this is the case, but there are two main groups of thought that emerge when trying to justify the difficulty in uncertainty visualisation.
-
-The first group believes uncertainty visualisation are unique due to the psychological heuristics involved in interpreting uncertainty [@Spiegelhalter2017; @Hullman2019]. While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017] there is no evidence that this psychological effect translates to a problem in visualisation. Were this the case, visualisations of death, poverty, and any other variable that elicits poor feelings would require their own field of visualisation. 
+Uncertainty visualisation is a uniquely difficult problem. @Hullman2016 commented that it is straightforward to show a value but it is much more complex to show uncertainty. There does not seem to be a consensus on *why* this is the case.
 
 The second group sees uncertainty as a high dimensional visualisation problem as the difficulty is in working out how to add uncertainty into already existing graphics [@moritz2017trust; @Griethe2006]. If we view uncertainty visualisation as a high dimension problem we include uncertainty as we would any other variable and use high-dimension visualisation techniques to incorporate it. This is the approach taken in @fig-bivariate. 
 
@@ -830,11 +799,17 @@ show_col(basecols, ncol=8, labels=FALSE)
 
 # Evaluating uncertainty visualisations
 
-## Uncertainty disappears if you stare directly at it
+##  Current methods
+@Kinkeldey2014 expressed that uncertainty visualization experiments are idiosyncratic, so it is difficult to generalise the results.
 
-# Current methods
+Extracting information using a graphic requires a perceptual task, so it will always be less accurate than explicitly reading the value provided in text form [@Cleveland1984]. 
 
-# Testing signal supression
+## The Hermann grid illusion of visualisation experiments
+A Herman grid is an optical illusion where a black and white grid appears to have grey dots, but they disappear when you look directly at them. This optical illusion is a fitting description of the issues in evaluating uncertainty visualisations.
+
+
+
+##  Testing signal supression
 If asking direct questions about uncertainty causes us to treat it as a signal, how do we evaluate uncertainty as *noise*?
  When we ask the viewer of a plot to look at data and extract a value, we are asking them to perform inference on that value. There will be noise associated with that answer and that is uncertainty. If we ask direct question about some uncertainty metric, we have turned the uncertainty into signal because that is what the participants are drawing inference on. 
  
