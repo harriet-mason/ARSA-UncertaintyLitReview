@@ -370,7 +370,7 @@ As @fig-choropleth showed, visualisations that are unconcerned with uncertainty 
 
 {{< pagebreak >}}
 
-## Visualising uncertainty as signal
+## Uncertainty as a signal
 Uncertainty visualisation is not only motivated by signal-suppression, and we would be remiss to ignore these alternative motivations. Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. Other authors do not describe uncertainty as important for decision making, but rather explicitly state it as variable of importance in of itself [@Blenkinsop2000]. While uncertainty can provide useful information in decision making, it is important to recognize the "uncertainty" in these cases is not acting as "uncertainty" at all. It is acting as signal. 
 
 This is obvious for the cases where we are explicitly interested in the variance or error, as we are literally trying to draw conclusions about an "uncertainty" statistic. The same is true for "decision making" experiments, but it is less overt. This is easiest to understand with an example. Imagine you are trying to decide if you want to bring an umbrella with you to work. An umbrella is annoying to bring with you, so you only want to pack it if the chance of rain is greater than 10%. Unfortunately, your weather prediction app only provides you with the predicted daily rainfall. Therefore, your decision will be improved with the inclusion of uncertainty, *not* because uncertainty is important for your decision, but because it gives you the tools required to calculate the *actual* statistic you are basing your decision on. In this sense, uncertainty is no more "special" to decision making than weight is in a BMI calculation.
@@ -414,9 +414,9 @@ p2b
 show_pal(basecols, ncol=8, borders=NA, myxlab = "Probability Temp>27", breaks = c(0, prob_breaks[2:8], 1))
 ```
 
-There seem to be two different definitions of "uncertainty visualisation" floating around in the lierature. The first considers *any* visualisation of error, variance, or probability to be an uncertainty visualisation. The second believes an "uncertainty visualisation" is the output of a function that takes a normal visualisation as an input, and transforms it to include the uncertainty information. The former group believe the purpose of uncertainty visualisation to provide signal about a distribution, while the later believe it should act as noise to obfuscate a signal. The lack of explicit distinction between these two motivations leaves the literature muddled and reviewers struggle to understand if uncertainty should be treated as a variable, as metadata, or as something else entirely [@Kinkeldey2014]. This disagreement creates constant contradictions in what the literature considers to be an "uncertainty visualisation". For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, and @Wickham2011 suggests their product plot framework, which includes histograms and bar charts, should be extended to include uncertainty however at least one or both of these charts are used in a significant number of uncertainty visualisation experiments [@Ibrekk1987; @Olston2002; @Zhao2023; @Hofmann2012]. If you view uncertainty as a function applied to an existing graphic, then you would believe a pie chart and bar chart are not uncertainty visualisations, as they are yet to have the "uncertainty visualisation function" applied to them. If you view uncertainty as any graphic that depicts an "uncertainty statistic" then there are no limitations on which graphics can or cannot be uncertainty visualisations. 
+There seem to be two different definitions of "uncertainty visualisation" floating around in the literature. The first considers *any* visualisation of error, variance, or probability to be an uncertainty visualisation. The second believes an "uncertainty visualisation" is the output of a function that takes a normal visualisation as an input, and transforms it to include the uncertainty information. The former group believe the purpose of uncertainty visualisation to provide signal about a distribution, while the later believe it should act as noise to obfuscate a signal. The lack of explicit distinction between these two motivations leaves the literature muddled and reviewers struggle to understand if uncertainty should be treated as a variable, as metadata, or as something else entirely [@Kinkeldey2014]. This disagreement creates constant contradictions in what the literature considers to be an "uncertainty visualisation". For example @Leland2005 mentions that popular graphics, such as pie charts and bar charts omit uncertainty, and @Wickham2011 suggests their product plot framework, which includes histograms and bar charts, should be extended to include uncertainty however at least one or both of these charts are used in a significant number of uncertainty visualisation experiments [@Ibrekk1987; @Olston2002; @Zhao2023; @Hofmann2012]. If you view uncertainty as a function applied to an existing graphic, then you would believe a pie chart and bar chart are not uncertainty visualisations, as they are yet to have the "uncertainty visualisation function" applied to them. If you view uncertainty as any graphic that depicts an "uncertainty statistic" then there are no limitations on which graphics can or cannot be uncertainty visualisations. 
 
-When we use "uncertainty visualisaion" to refer to graphics that simply communicate a variance or probability, we are classifying  visualisations by the data they display, not their visual features. Graphics, just like statistics, are not defined by their input data. A scatter plot that compares mean and a scatter plot that compares variances are both scatter plots. Given that there is no special class of visualisation for *other* statistics (such the median or maximum) there is no reason to assume visualisations that simply depict a variance, error, or probability to be special. Some authors implicitly suggest that that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019]. While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017] there is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behavior, there is no reason to assume this is what makes uncertainty visualisation so special. 
+When we use "uncertainty visualization" to refer to graphics that simply communicate a variance or probability, we are classifying  visualisations by the data they display, not their visual features. Graphics, just like statistics, are not defined by their input data. A scatter plot that compares mean and a scatter plot that compares variances are both scatter plots. Given that there is no special class of visualisation for *other* statistics (such the median or maximum) there is no reason to assume visualisations that simply depict a variance, error, or probability to be special. Some authors implicitly suggest that that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019]. While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017] there is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behavior, there is no reason to assume this is what makes uncertainty visualisation so special. 
 
 This leads us to the conclusion that the visualisations made for the purpose of displaying information about uncertainty statistics are not uncertainty visualisations. These graphics are just normal information visualisations, and authors can follow existing principles of graphical design. We will focus on the perspective that uncertainty visualisation serves to obfuscate signal, and an uncertainty visualisation is a variation on an existing graphic that gives it the ability to suppress false signals. 
 
@@ -428,7 +428,7 @@ Of course, we do not believe there is anything wrong with explicitly visualizing
 # Visualising uncertainty as a variable
 Upon hearing that uncertainty needs to be included for transparency, the solutions may seem obvious. You may think "well, I will just add a dimension to my plot that includes uncertainty". This makes sense, as this is the simplest way to add uncertainty to an existing graphic is to simply map uncertainty to an unused visual channel. 
 
-@fig-bivariate a variation of the choropleth map, where we have a two dimensional colour palette. Not only is temperature mapped to hue, but variance is also mapped to saturation. While these two maps *do* look visually different (which was not the case in the choropleth map) the spatial trend is still clearly visible in both graphics. This means the uncertainty *is* being communicated, however the primary take away in the graphic is the spatial trend (that does not exist). The graphic no longer has a transparency issue as the uncertainty *is* technically included, but is this a good uncertainty visualisation? And if not, why?
+@fig-bivariate a variation of the choropleth map, where we have a two dimensional color palette. Not only is temperature mapped to hue, but variance is also mapped to saturation. While these two maps *do* look visually different (which was not the case in the choropleth map) the spatial trend is still clearly visible in both graphics. This means the uncertainty *is* being communicated, however the primary take away in the graphic is the spatial trend (that does not exist). The graphic no longer has a transparency issue as the uncertainty *is* technically included, but is this a good uncertainty visualisation? And if not, why?
 
 ```{r}
 #| echo: false
@@ -501,18 +501,17 @@ show_pal2(colours = bivariatepal, ncol=8, borders=NA, myxlab = "Temperature", my
 ```
 
 ## What makes uncertainty visualisation difficult?
-Uncertainty visualisation is a uniquely difficult problem. @Hullman2016 commented that it is straightforward to show a value but it is much more complex to show uncertainty. There does not seem to be a consensus on *why* this is the case.
+Uncertainty visualisation is a uniquely difficult problem. @Hullman2016 commented that it is straightforward to show a value but it is much more complex to show uncertainty. This difficulty is often described as a high-dimensional visualisation problem, as the difficulty in uncertainty visualisation is in working out how to add uncertainty into already existing graphics [@moritz2017trust; @Griethe2006]. The problem with this approach to uncertainty visualisation is that it treats uncertainty the same as we would any other variable, but we are not interested in visualising uncertainty as though it were any other variable.
 
-The second group sees uncertainty as a high dimensional visualisation problem as the difficulty is in working out how to add uncertainty into already existing graphics [@moritz2017trust; @Griethe2006]. If we view uncertainty visualisation as a high dimension problem we include uncertainty as we would any other variable and use high-dimension visualisation techniques to incorporate it. This is the approach taken in @fig-bivariate. 
+Typically, when making visualisations, we want the visual channels to be separable, that is, we don't want the data represented through one visual channel to interfere with the others [@Smart2019]. This is not the goal of uncertainty visualisation. The goal of uncertainty visualisations is to display signal and uncertainty together as a "single integrated uncertain value" [@Kinkeldey2014].  Separability allows for the signal and the uncertainty to be read separately which allows for the uncertainty information to simply be ignored when reading the signal, which is a pervasive issue in current uncertainty visualisation methods [@uncertchap2022]. We can see this problem in @fig-bivariate, as it sends the message "this data has a spatial trend and the estimates have a large variance" as we read the signal and the uncertainty separately.
 
-The problem with the high dimension approach is that it treats uncertainty the same as we would any other variable. Typically we want visual channels to be separable, that is, the data represented in one visual channel does not interfere with the others [@Smart2019]. Unfortunately, this means that applying normal visualisation methods to "uncertainty visualisation" will prevent uncertainty and signal being read together as a "single integrated uncertain value" [@Kinkeldey2014], which is the goal of signal-suppression. Separating the uncertainty and the signal also allows for the uncertainty to be ignored, which is a common problem faced by most uncertainty visualisations [@uncertchap2022]. We can see this problem in @fig-bivariate, as it sends the message "this data has a spatial trend and the estimates have a large variance" rather than hiding the statistically invalid signal. 
-
-If thses high-dimensional approaches were to work, the uncertainty and the estimates would need to be mapped to integrable channels. That is, the channel that uncertainty and the estimates are mapped to would need to be separately manipulable, but read as a single channel by the human brain. While most aesthetics *are* seperable, there are some variables that have been shown to be integrable, such as colour hue and brightness [@Vanderplas2020]. We can more effectively approach this method by also leveraging visual semiotics and mapping more uncertain values to lighter colors [@Maceachren2012].
+The need for interference from the uncertainty channel does not necessarily mean high-dimensional visualisation techniques would be useless for uncertainty visualisation. High-dimensional visualisation methods could work if the uncertainty and the estimates were mapped to integrable channels. That is, the visual channels would need to be separately manipulable, but read as a single channel by the human brain. While most visual aesthetics *are* separable, there are some variables that have been shown to be integrable, such as color hue and brightness [@Vanderplas2020]. When visualising uncertainty using its own visual channel, we can also consider visual semiotics and make sure to map uncertainty to intuitive visual channels, such as mapping more uncertain values to lighter colors [@Maceachren2012].
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
+#| eval: false
 #| label: fig-bivariate2
 #| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to colour value. Even though colour value is intergrable with colour hue, and colour value is naturally accociated with uncertainty, the spatial trend is still visible in the map."
 #| fig-subcap: 
@@ -565,31 +564,43 @@ show_pal2(colours = bivariatepal2, ncol=8, borders=NA, myxlab = "Temperature", m
 #| echo: false
 #| message: false
 #| warning: false
-#| eval: false
 #| label: fig-transparency
+#| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and variance. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to transparency."
+#| fig-subcap: 
+#|   - "High Variance Data"
+#|   - "Low Variance Data"
+#|   - "Transparency Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
 
 # ALTERNATIVE TRANSPARENCY INSTEAD OF COLOUR VALUE
+# get colour values from transparency transformation
+transpal <- lapply(basecols, scales::alpha, alpha=c(0.95, 0.65, 0.35, 0.05))
 
-trans_map <- my_map_data |>
-  mutate(scaled_var = (variance - min(variance))/(max(variance)-min(variance)))
+transpal <- as.vector(matrix(unlist(x), ncol = 4, byrow = TRUE))
 
-# Transparency map
-pta <- trans_map |>
-  filter(variance_class=="lowvar") |>
+names(transpal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
+
+# Transparency maps
+pta <- my_map_data |>
+  filter(variance_class=="lowvar") %>%
   ggplot() +
-  geom_sf(aes(fill = bitemp, 
-              geometry = geometry,
-              alpha=scaled_var)) + 
-  scale_fill_manual(values = basecols) +
+  geom_sf(aes(fill = biclass, geometry = geometry)) + 
+  scale_fill_manual(values = transpal) +
   theme_void() + 
   theme(legend.position = "none")
+  
+ptb <- pta %+% filter(my_map_data, variance_class=="highvar")
 
-ptb <- pta %+% filter(trans_map, variance_class=="highvar")
+pta
+ptb
+show_pal2(colours = transpal, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
+
 ```
 
-@fig-bivariate2 shows a bivariate color map where uncertainty is mapped to color value, and temperature is mapped to color hue. It is clear the spatial trend is still visible in the high uncertainty case. This does not necessarily mean integrability will never be a useful tool for signal suppression, but without a strong understanding of how these visual channels collapse down into a single channel, it may not be a reliable option. Relying on integrability could create unintended consequences of uncertainty visualization, such as displaying phantom signals or hiding justified signals. Additionally, multi-dimensional colour palettes can make the graphics harder to read and hurt the accessibility of the plots [@Vanderplas2015]. A more viable option might be to warp the space uncertainty and signal are mapped to ourselves.
+@fig-transparency is an example of a variations of @fig-bivariate where uncertainty is mapped to transparency, and temperature is mapped to color hue to leverage these visualisation concepts. This method achieves signal suppression quite well. The spatial trend is clearly visible in the low variance case and that trend it becomes much harder to identify in the high variance case. While this was an effective approach for this graphic, relying on integrability may not give us the amount of control we want over our signal-supresison. Without a strong understanding of how these visual channels collapse down into a single channel, relying on integrability could create unintended consequences such as displaying phantom signals or hiding justified signals. Additionally, multi-dimensional colour palettes can make the graphics harder to read and hurt the accessibility of the plots [@Vanderplas2015]. 
+
+There is another reason @fig-transparency is better at signal-suppression than @fig-bivariate, and it may not be due to integrability. Colour value has a second desirable quality for signal-supression, which is that the colours become harder to distinguish as the value decreases. This means high uncertainty values are harder to differentiate than low uncertainty values. This implicit feature of colour value can generalised to other aesthetics by transforming the visual feature space ourselves.
 
 {{< pagebreak >}}
 
@@ -667,7 +678,7 @@ p3b <- p3a %+% filter(my_map_data, variance_class=="highvar")
 
 p3a
 p3b
-show_col(VSUP, ncol=8, labels=FALSE)
+show_pal2(colours = VSUP, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
 
 ```
 
