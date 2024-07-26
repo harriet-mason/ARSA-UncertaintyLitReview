@@ -514,13 +514,10 @@ The need for interference from the uncertainty channel does not necessarily mean
 #| warning: false
 #| eval: false
 #| label: fig-bivariate2
-#| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to colour value. Even though colour value is intergrable with colour hue, and colour value is naturally accociated with uncertainty, the spatial trend is still visible in the map."
-#| fig-subcap: 
-#|   - "High Variance Data"
-#|   - "Low Variance Data"
-#|   - "Bivariate Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
+
+#fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to colour value. Even though colour value is intergrable with colour hue, and colour value is naturally accociated with uncertainty, the spatial trend is still visible in the map."
 
 # Bivariate Map
 # Make bivariate palette
@@ -541,13 +538,11 @@ bivariatepal2 <- c(basecols,
 # establish levels of palette
 names(bivariatepal2) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 
-
-
 # Bivariate maps 2
 p2a1 <- my_map_data |>
   filter(variance_class=="lowvar") %>%
   ggplot() +
-  geom_sf(aes(fill = biclass, geometry = geometry)) + 
+  geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
   scale_fill_manual(values = bivariatepal2) +
   theme_void() + 
   theme(legend.position = "none")
@@ -555,8 +550,8 @@ p2a1 <- my_map_data |>
 p2b2 <- p2a1 %+% filter(my_map_data, variance_class=="highvar")
 
 
-#p2a1
-#p2b2
+p2a1
+p2b2
 #show_pal2(colours = bivariatepal2, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
 
 ```
