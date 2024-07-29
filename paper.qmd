@@ -687,6 +687,7 @@ The impossible task of making this graphic is easy to see with a simple example.
 This t-test, f-test example highlights a fundamental problem with the VSUP and even the bivariate map. When we blend colors to make them visually indistinguishable, we need to decide at what level of *uncertainty* to blend these colors together. There is no intrinsic mapping of "uncertainty", so we need to make a decision as to how much "suppressing" the visualisation does. We did this implicitly in the bivarate map by deciding how much "variance" 
 
 - we could consider this a power thing?
+- patricks paper(?)
 
 Using the methods discussed thus far, where each cell is colours by a single value, it would be impossible to succeed in this method. However, this may not be true if we change our approach entirely.
 
