@@ -274,8 +274,8 @@ A good place to start might be at deceptively straight forward question, why sho
 #| label: fig-choropleth
 #| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. This trend is only technically there in the low variance condition, i.e. if we performed a hypothesis test we would conclude the trend exists. The high variance condition displays a spatial trend that could simply be the result of noise, which means the plot is displaying a false conclusion."
 #| fig-subcap: 
-#|   - "High Variance Data"
 #|   - "Low Variance Data"
+#|   - "High Variance Data"
 #|   - "Choropleth Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
@@ -384,8 +384,8 @@ Uncertainty visualisation's made for these purposes should simply display the un
 #| label: fig-exceed
 #| fig-cap: "An exceedance probability map that depict the counties of Iowa where each country coloured acording to the probability that the average temperature exceeds 27. This map is a choropleth map where the variable of interest is a probability."
 #| fig-subcap: 
-#|   - "High Variance Data"
 #|   - "Low Variance Data"
+#|   - "High Variance Data"
 #|   - "Exceedance Probability Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
@@ -438,8 +438,8 @@ Upon hearing that uncertainty needs to be included for transparency, the solutio
 #| label: fig-bivariate
 #| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a choropleth map with a two dimensional colour palette where temperature is represented by colour hue, and variance is represented by colour saturation. Even though uncertainty has been added to the graphic the spatial trend is still clearly visible in the case where the spatial trend could be attributed to noise."
 #| fig-subcap: 
-#|   - "High Variance Data"
 #|   - "Low Variance Data"
+#|   - "High Variance Data"
 #|   - "Bivariate Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
@@ -563,8 +563,8 @@ p2b2
 #| label: fig-transparency
 #| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and variance. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to transparency."
 #| fig-subcap: 
-#|   - "High Variance Data"
 #|   - "Low Variance Data"
+#|   - "High Variance Data"
 #|   - "Transparency Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
@@ -604,7 +604,7 @@ There is another reason @fig-transparency is better at signal-suppression than @
 # Visualising uncertainty and signal in a new space
 Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves, and uncertainty visualisation authors already have.
 
-### Value Supressing Uncertainty Palettes
+## Value Supressing Uncertainty Palettes
 The Value Suppressing Uncertainty Palette (VSUP) [@Correll2018], was designed with the intention of preventing high uncertainty values from being extracted from a map. Since the palette was designed with the extraction of individual values in mind and it has only been tested on simple value extraction tasks [@Correll2018] or search tasks [@Ndlovu2023], it is unclear how effective the method is at suppressing broader insights such as spatial trends. 
 
 @fig-vsup is a visualisation of the Iowa temperature data using a VSUP to color the counties. The low uncertainty case still has a visible spatial trend, while the spatial trend in the high uncertainty map has functionally disappeared. This means the VSUP has successfully performed signal suppression for our data. 
@@ -616,8 +616,8 @@ The Value Suppressing Uncertainty Palette (VSUP) [@Correll2018], was designed wi
 #| label: fig-vsup
 #| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to it's average daily temperature and the variance in temperature, although the space they have been mapped to is slightly warped. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
 #| fig-subcap: 
-#|   - "High Variance Data"
 #|   - "Low Variance Data"
+#|   - "High Variance Data"
 #|   - "VSUP Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
@@ -691,24 +691,27 @@ Regardless as to whether the map colors are implicitly or explicitly indistingui
 {{< pagebreak >}}
 
 # Implicitly Combining Uncertainty and Signal
+There is technically a stage of our analysis where the estimate and variance are not separate, when we only have a sample. Rather than trying to figure out how to combine signal and uncertainty into a single color, we can just display a sample instead and allow the viewer to extract *both* the estimate and the variance.
 
-## Pixel maps
+## Pixel map
+@fig-pixel displays a pixel map [@Lucchesi2021], which is a variation of the choropleth map where each area is divided up into several smaller areas, each colored using outcomes from the larger area's temperature sampling distribution. The spatial trend is clearly visible in the low variance case, but functionally disappears in the low variance case. While the spatial trend is just barely visible in the high uncertainty case, it is much harder to see. This means the graphic also achieves the third criteria for signal-suppression, i.e. our difficulty in seeing the distribution is proportional to the level of uncertainty in the graphic.
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
 #| label: fig-pixel
-#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several smaller regions and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value."
+#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several smaller regions and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value. In this graphic, we can clearly see the spatial trend in the low variance case, while the spatial trend is much harder to identify in the high variance case. "
 #| fig-subcap: 
-#|   - "High Variance Data"
 #|   - "Low Variance Data"
+#|   - "High Variance Data"
 #|   - "Pixel Map Palette"
 #| layout-ncol: 3
 #| layout-valign: "bottom"
 
 # Pixel Map
 library(Vizumap)
+
 # Low variance map
 my_map_data_a <- my_map_data %>%
   filter(variance_class == "lowvar") %>%
@@ -737,10 +740,14 @@ pixel_2a <- my_map_data_a %>% as("Spatial")
 
 pix_a <- pixelate(pixel_2a, pixelSize = 3, id = "my_id")
 
-
 pmap_a <- build_pmap(data = pixel_1a, distribution = "discrete", pixelGeo = pix_a, id = "my_id", border = pixel_2a, q=q_a)
 
 p4a <- view(pmap_a) +
+  geom_path(
+      data = pmap_a$bord,
+      aes_string(x = 'long', y = 'lat', group = 'group'),
+      colour = "white"
+    )  +
   scale_fill_gradientn(colours = basecols) +
   scale_colour_gradientn(colours = basecols) +
   theme(legend.position="none")
@@ -776,22 +783,40 @@ pix_b <- pixelate(pixel_2b, pixelSize = 3, id = "my_id")
 pmap_b <- build_pmap(data = pixel_1b, distribution = "discrete", pixelGeo = pix_b, id = "my_id", border = pixel_2b, q=q_b)
 
 p4b <- view(pmap_b) +
+  geom_path(
+      data = pmap_b$bord,
+      aes_string(x = 'long', y = 'lat', group = 'group'),
+      colour = "white"
+    )  +
   scale_fill_gradientn(colours = basecols) +
   scale_colour_gradientn(colours = basecols) +
   theme(legend.position="none")
+
 
   
 # Display plots and palettes
 p4a
 p4b
-show_col(basecols, ncol=8, labels=FALSE)
-
+show_pal(basecols, ncol=8, borders="white", myxlab = "Temperature", breaks = 21:29)
 ```
 
-## What is uncertainty?
+It is clear that the pixel-map is not only "suppressing" the false information, but it is doing so by providing *more* information. Not only does this method help readers understand the plot level "gist", it is also unlikely to damage the viewers ability to extract individual estimates. Extracting global statistics, such as the mean or variance, from a sample can be done with relative each, especially when those values are mapped to color [@Franconeri2021]. Therefore, the pixel map performs signal suppression, without sacrificing the viewers ability to extract general statistics, unless those statistics *should* be harder to extract due to the uncertainty in the value. So is this the best uncertainty visualisation? And if so, why?
+
+## What even is "uncertainty" anyway?
+The pixel map is not the best uncertainty visualisation, but it is trying to *replicate* the best uncertainty visualisation. The best uncertainty visualisation is probably the the raw data, to understand why, we need to understand what "uncertainty" actually is.
+
+
+Uncertainty is not just variance, and 
+
+## The distribution problem
 
 ## Show me the data
+If we want to show uncertainty for the sake of 
+
+
 @Kim2019 looked at how different uncertainty visualisation techniques influenced the percieved sample size
+
+
 
 {{< pagebreak >}}
 
