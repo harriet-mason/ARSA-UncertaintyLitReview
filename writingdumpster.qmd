@@ -296,6 +296,8 @@ format: html
 - put uncertainty in the context of other meta-data of variables
 	
 # Removed Sections
+@Griethe2006 commented that "if visualization is used as a means to explore a data volume or to communicate its contents the uncertainty has to be included".
+
 After all, if we consider a choropleth map, which ignores uncertainty entirely to be at one end of the spectrum (it is a map that only cares about showing signals reguardless of whether or not they are valid) then a completely colourless map is at the other end of the spectrum (it is a map that only cares about suppressing signals regardless of whether or not they are valid). 
 
 @Kinkeldey2014 categorised uncertainty according to five criteria depicted in fig-tax which considers if a visualisation is implicit or explicit, intrinsic or extrinsic, visually integrable or seperable, coincident or adjacent, and static or dynamic. A similar version of this taxonomy was presented by @uncertchap2022 who commented that visualisation can be organised into two categories, "graphical annotations of distributional properties" and "visual encodings of uncertainty" which seems to functionally align with the intrinsic/extrinsic distinction by @Kinkeldey2014. @Griethe2006 organised uncertainty visualisations into two cases (1) a hypothesis test was preformed to confirm the validity of the visualisation and (2) the visualisation has uncertainty depicted. @Potter2012 organised several existing uncertainty visualisations into groups based on the dimensionality of the data (1D, 2D, 3D, and No Dimension) and the dimensionality of the uncertainty (Scalar, Vector, Tensor).  However, because the term "PDF", function that is used to describe a random variable, is used to describe both the data and the uncertainty for all dimensions. @Grewal2021 created a taxonomy that mapped uncertainty visualisations to some point in a 2D space defined by the "domain expertise" and "continuum of discreteness" (that scaled from "point estimate" to "continuous distribution"). 
@@ -425,3 +427,12 @@ If comparisons and quantitative evaluations made during the process of under- st
 8. Indiscriminable shape
 This ranking ofcognitive tasks provides some consistent guidance for chart design: If the same
 data can be represented in a way that allows the user to make a comparison more accurately (based on the hierarchy), then that design is preferable.
+
+# Data description
+Consider our Iowa temperature map, let $X$ be the 12pm temperature taken within each county on for each day in May from 2000 to 2024. Unfortunately, we are given a data set that does not include $X$, instead we have the average of $X$, $\hat{X_k}$ and the variance of $X$, $\hat{VarX}$ for each county, $\forall k=1,...,n$ where $n$ is the total number of counties. Theoretically, the estimate and its variance should provide enough information for us to 
+
+# EDA
+Regardless as to whether the map colors are implicitly or explicitly indistinguishable, the point at which the colors blend together can only be validated by a single hypothesis. Therefore, using the methods discussed thus far, it would be impossible to design signal-suppression for EDA. If we are designing a graphic for communication then we can suppress the signal we were seeking to communicate, but this would rely on the distinction between EDA and communication to be somewhat clear cut. Visualization authors may design a graphic with a particular purpose, but what the visualization *is actually* used for is determined by the viewer and some authors have discussed the validity of there being any distinction between visualisation motivation's at all [@Hullman2021].
+
+# Bivariate map saturation mapping
+Since changes in the color value and hue can also cause the colors to blend together, the mapping of uncertainty to saturation would also affect the signal-suppression in these maps. To correctly map uncertainty, we would need to be able to answer how many units of saturation a 1 unit change in variance worth? There are no existing guidelines, but similar to the suppression method, the choice in colour mapping would depend on the signals we hope to suppress.
