@@ -296,6 +296,8 @@ format: html
 - put uncertainty in the context of other meta-data of variables
 	
 # Removed Sections
+The beauty of visualisation is that it *tells* us what we should be concerned about in our analysis. This aspect disappears the second we ask a direct question about our visualisation. 
+
 @Griethe2006 commented that "if visualization is used as a means to explore a data volume or to communicate its contents the uncertainty has to be included".
 
 After all, if we consider a choropleth map, which ignores uncertainty entirely to be at one end of the spectrum (it is a map that only cares about showing signals reguardless of whether or not they are valid) then a completely colourless map is at the other end of the spectrum (it is a map that only cares about suppressing signals regardless of whether or not they are valid). 
@@ -441,3 +443,59 @@ Since changes in the color value and hue can also cause the colors to blend toge
 Some authors simply confuse variance for uncertainty. For example @Potter2010 aimed to create a summary plot that "concisely presented data with uncertainty information" to create an exploratory visualisation tool that visualised uncertainty. 
 
 This approach to uncertainty is embedded in the idea that descriptive statistics do not have uncertainty, which some readers may disagree with. Specifically, because it means uncertainty is *not* a latent attribute of data, but rather an attribute of a specific hypothesis or estimate. Deniers of this fact follow a consistent logical path and it is easy to identify the common mistake. We know that variance and probability are typically considered types of "uncertainty" *and* descriptive statistics can have variance and probabilities *therefore* descriptive statistics must have uncertainty. The flaw in this logic comes from the first step, assuming that the tools with which we measure uncertainty *are* uncertainty in of themselves. This confusion is common and there are many papers that spend a great deal of time clarifying the difference. @Begg2014 highlight that uncertainty is related to not knowing a specific value, while variability refers to the range of values a quantity can take at different locations, times or instances. @Spiegelhalter2017 made sure to comment on the difference between precise random events (such as the probability associated with a coin flip), and uncertainty (such as the estimated probability associated with a coin that might be biased). The variance of a sample variance can be calculated and know, therefore it is not uncertain but rather it a precise description of dispersion. If we were to discuss drawing a new observation, or estimating the true mean of a population *then* the variance would become relevant in our discussions of uncertainty. 
+
+# Removed comments on experiments
+The final method used by authors is to just explicitly ask about uncertainty and signal information separately. @Sanyal2009 mapped uncertainty to dots and signal to a 3D surface and asked participants to identify areas of high and low signal and high and low uncertainty. Participants were not asked to combine that information in any way, and the signal and the noise were treated as separate variables. @Correll2014 asked participants to separately extract the mean and variance from four uncertainty visualisations. These methods explicitly view the uncertainty and signal as two separate variables that should be extracted from a plot, and not two variables that should be interpreted together. Even viewing these questions as a routine check to make sure the signal information isn't impacted by the uncertainty is counter intuitive, because the whole point *of* the uncertainty is to impact the signal information.
+
+# Alternative purpose section
+This purpose or task dependency appears repeatedly in the literature, although its connection to inference is seldom mentioned. Multiple authors have commented on the need to consider quantifying and expressing uncertainty at every stage of a project as the "goal" shapes every step of the analysis [@Kinkeldey2014; @Hullman2016; @Refsgaard2007]. This is because "signal" or "noise" are not inherent qualities of our data, they are simply the terms we give to the information we wants to keep, and the information we want to throw away. Whether or not information is signal or noise depends entirely on the questions we are are seeking to answer [@Meng2014]. This distinction between noise and signal occurs as early as data collection, where the entire process of deciding how to boil real world entities down into data depends on the relationships we seek to identify [@Otsuka2023]. This is true for our entire analysis, right up to deciding how to display information, as the way we display information should be based on that the user is supposed to do with it [@Fischhoff2014]. Even the process we use to combine uncertainty from different stages of an analysis depends on why the uncertainty matters [@Wallsten1997]. It is clear that as we move through the stages of our analysis noise is the status given to the information we throw away that inhibits our ability to identify signal. We want to reintroduce some noise back into our visualisation such that we can perform signal-suppression.
+
+# Example for perceptual task problem
+Consider the typical uncertainty visualisations shown in @fig-mean, which includes a density plot, a sample, and an mean with confidence intervals. These graphics each show the distribution of the standard normal random variable X using a density plot, a sample, and a mean with confidence bars. Each of these technically show a piece of information with zero uncertainty. The density plot provides a deterministic interpretation of the PDF, the sample shows exactly the values we observed, and the mean with error bars shows three explicitly calculated statistics ($X_{0.05}, \bar{x}, X_{0.95}$). If we were to use these visualisations to extract the mean, the role of signal in the chart shifts, and instead of directly reading the values, we need to do mental calculations. The density plot requires us to find the midpoint along the x axis that could spit the area under the density curve perfect in half. The sample requires us to find the point that minimizes the sum of squares errors, i.e. the total lengths from each point to the mean. The mean with error bars allows us to simply read the mean off the graphic using a basic perceptual task. If we were to use the visualisations to extract the variance instead, we could describe a similar process. 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-mean
+#| fig-cap: "This visualisation "
+#| fig-subcap: 
+#|   - "Probability density function"
+#|   - "Sample"
+#|   - "Mean with error bars"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+set.seed(1)
+xdata <- tibble(x=rnorm(100))
+
+# Density function
+x1 <- xdata |>
+  ggplot(aes(x=x)) +
+  geom_density(colour="#1e81b0", fill="#abdbe3", alpha=0.5) + 
+  scale_x_continuous(name = "x") +
+  scale_y_continuous(name = "P(X)") +
+  theme_minimal() + 
+  theme(aspect.ratio=1)
+
+
+# Sample
+
+# Mean with error bars
+x3 <- xdata %>%
+  summarise(avg = mean(x),
+          conf_95a = quantile(x, probs=c(0.025)),
+          conf_95b = quantile(x, probs=c(0.975))) %>%
+  ggplot(aes(y="NA")) +
+  geom_errorbar(aes(xmin = conf_95a, xmax = conf_95b), width = 0.1, colour="#abdbe3") +
+  geom_point(aes(x=avg), colour="#1e81b0") +
+  scale_x_continuous(name = "X",
+                     breaks = seq(-2,2, 0.5)) +
+  theme_minimal() +
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=1)
+
+```
+
