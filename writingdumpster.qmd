@@ -296,6 +296,8 @@ format: html
 - put uncertainty in the context of other meta-data of variables
 	
 # Removed Sections
+@Amar2005 suggested a taxonomy for information visualisation based on the types of tasks we use visualisations for and suggest 10 "analytical primitives" that we can then map to visualisations, which could be a good starting point. 
+
 The beauty of visualisation is that it *tells* us what we should be concerned about in our analysis. This aspect disappears the second we ask a direct question about our visualisation. 
 
 @Griethe2006 commented that "if visualization is used as a means to explore a data volume or to communicate its contents the uncertainty has to be included".
