@@ -259,36 +259,17 @@ That is to say, despite the wealth of reviews, the field of uncertainty visualis
 
 This review is broken into several parts that each reflect a different approach to uncertainty visualisation. First we look at graphics that ignore uncertainty entirely and discuss why uncertainty should be included at all. Second, we look at methods that consider uncertainty to be just another variable and discuss the characteristics of uncertainty that make it a unique visualisation problem. Third, we look at methods that explicitly combine our estimate and its uncertainty and discuss if the visualisations created by these transformations are still "uncertainty visualisations". Fourth, we will discuss methods that implicitly include uncertainty by depicting a sample or original data in place of an estimate. Finally, we discuss how uncertainty visualisations can be effectively evaluated. When discussing each of these methods, we consider the *purpose* of uncertainty visualisation and comment on how effective each visualisation is at fulfilling that purpose.
 
-Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to provide simple examples for each approach that can be easily compared to the "no uncertainty" choropleth map to better understand the costs and benefits of each approach. Despite the example of each method focusing on variations of the choropleth map, it is important to understand that the approaches we are discussing are universal and are not unique to maps.
-
-{{< pagebreak >}}
-
-# Ignoring uncertainty
-A good place to start might be at deceptively straight forward question, why should we include uncertainty at all? 
-
-## What is uncertainty
-
-
-## The choropleth map
-@fig-choropleth depicts a choropleth map of the counties of Iowa. Each of these counties are colored according to an estimate of average daily temperature that was simulated so that the values followed a clear spatial trend (hot in the middle of the map, and cold on the outside). The variance of these estimates were simulated such that a hypothesis test would indicate the existence of a spatial trend in the low variance map, while the trend in the high variance map should be indistinguishable from noise. Is this distinction in validity of the spatial trend clear in in the map? Is the validity of the trend communicated through the visualisation?
+## Example Data
+Throughout this review, we will be looking at
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-choropleth
-#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. This trend is only technically there in the low variance condition, i.e. if we performed a hypothesis test we would conclude the trend exists. The high variance condition displays a spatial trend that could simply be the result of noise, which means the plot is displaying a false conclusion."
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "Choropleth Palette"
-#| layout-ncol: 3
-#| layout-valign: "bottom"
-#| cap-location: "bottom"
+
 
 # seed for sampling
 set.seed(1997)
-
 
 # Get map data
 my_map_data <- get_urbn_map("counties", sf = TRUE) |>
@@ -318,6 +299,36 @@ my_map_data <- my_map_data |>
          bivar = cut(variance, breaks=0:4, labels=seq(4)),
          biclass = paste(bitemp, bivar, sep="-")
   )
+
+
+```
+Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to provide simple examples for each approach that can be easily compared to the "no uncertainty" choropleth map to better understand the costs and benefits of each approach. Despite the example of each method focusing on variations of the choropleth map, it is important to understand that the approaches we are discussing are universal and are not unique to maps.
+
+{{< pagebreak >}}
+
+# Ignoring uncertainty
+A good place to start might be at deceptively straight forward question, why should we include uncertainty at all? 
+
+## What is uncertainty
+
+
+## The choropleth map
+@fig-choropleth depicts a choropleth map of the counties of Iowa. Each of these counties are colored according to an estimate of average daily temperature that was simulated so that the values followed a clear spatial trend (hot in the middle of the map, and cold on the outside). The variance of these estimates were simulated such that a hypothesis test would indicate the existence of a spatial trend in the low variance map, while the trend in the high variance map should be indistinguishable from noise. Is this distinction in validity of the spatial trend clear in in the map? Is the validity of the trend communicated through the visualisation?
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-choropleth
+#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. This trend is only technically there in the low variance condition, i.e. if we performed a hypothesis test we would conclude the trend exists. The high variance condition displays a spatial trend that could simply be the result of noise, which means the plot is displaying a false conclusion."
+#| fig-subcap: 
+#|   - "Low Variance Data"
+#|   - "High Variance Data"
+#|   - "Choropleth Palette"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+#| cap-location: "bottom"
+
 
 # Choropleth Map
 p1a <- my_map_data |>
