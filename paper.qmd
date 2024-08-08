@@ -302,6 +302,10 @@ my_map_data <- my_map_data |>
 
 
 ```
+
+- add map that is just outline
+- include function used to design temperature
+
 Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to provide simple examples for each approach that can be easily compared to the "no uncertainty" choropleth map to better understand the costs and benefits of each approach. Despite the example of each method focusing on variations of the choropleth map, it is important to understand that the approaches we are discussing are universal and are not unique to maps.
 
 {{< pagebreak >}}
