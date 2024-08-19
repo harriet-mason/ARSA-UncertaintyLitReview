@@ -501,3 +501,47 @@ x3 <- xdata %>%
 
 ```
 
+# GT table code
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+# Make nice table
+example_table <- my_map_data |>
+  mutate(variance = sqrt(variance)) |>
+  select(c(count_id, county_name, temp, variance_class, variance)) |>
+  as_tibble()|>
+  pivot_wider(id_cols=c(count_id, county_name, temp,), 
+              names_from = variance_class, 
+              values_from = variance) |>
+  head()|>
+  gt() |>
+   tab_header(
+    title = "Average Daily High Temperatures of Iowa Counties",
+    subtitle = "Psudo-data with high standard error and low standard error cases") |>
+  tab_spanner(
+    label = "Standard Error",
+    columns = c(highvar, lowvar)
+  ) |>
+  cols_label( 
+    count_id = "ID", 
+    county_name  = "County",
+    temp = "Temperature (°C)",
+    highvar = "High",
+    lowvar = "Low"
+    ) |>
+  fmt_number(columns = c(temp, highvar, lowvar)) |>
+  data_color(
+    columns = temp,
+    method = "numeric",
+    palette = "Oranges",
+    domain = c(21, 29)
+  ) |>
+  data_color(
+    columns = c(highvar, lowvar),
+    method = "numeric",
+    palette = "Greens",
+    domain = c(0, 3)
+  ) |>
+  as_latex()
+```
