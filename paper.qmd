@@ -33,6 +33,7 @@ library(scales)
 library(sf)
 library(ggrepel)
 library(urbnmapr)
+library(gt)
 ```
 
 {{< pagebreak >}}
@@ -259,14 +260,21 @@ That is to say, despite the wealth of reviews, the field of uncertainty visualis
 
 This review is broken into several parts that each reflect a different approach to uncertainty visualisation. First we look at graphics that ignore uncertainty entirely and discuss why uncertainty should be included at all. Second, we look at methods that consider uncertainty to be just another variable and discuss the characteristics of uncertainty that make it a unique visualisation problem. Third, we look at methods that explicitly combine our estimate and its uncertainty and discuss if the visualisations created by these transformations are still "uncertainty visualisations". Fourth, we will discuss methods that implicitly include uncertainty by depicting a sample or original data in place of an estimate. Finally, we discuss how uncertainty visualisations can be effectively evaluated. When discussing each of these methods, we consider the *purpose* of uncertainty visualisation and comment on how effective each visualisation is at fulfilling that purpose.
 
-## Example Data
-Throughout this review, we will be looking at
+## Spatial examples
+There is an endless number of uncertainty visualisations and it would be impossible to show all of them in this review. While the theoretical approach we outline is useful to all uncertainty visualisations, regardless of their application, we feel that showing the variations on a single visualisation will help isolate the ideas we are trying to convey. Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to highlight the costs and benefits of each approach.
+
+@fig-data shows the first six rows of our example data, along with the geographical boundaries of our data set.  The temperature variable was generated using a quadratic spatial trend, that is $Temperature = 28-SLongitude^2 + SLatitude^2$ where the $SLongitide$ and $SLatitude$ are the scaled (to standard normal) longitude and latitude of the county's centroid. The high and low cases for the sampling variance are randomly sampled from a uniform distribution. The low standard errors are drawn from a $U_{[0,1]}$ distribution, while the high standard error cases are drawn from a a $U_{[1,2]}$ distribution. This is the data we will be using in our spatial uncertaity examples for the rest of the paper.
+
+
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-
+#| label: fig-data
+#| layout-nrow: 1
+#| fig-cap: "The"
+#| cap-location: "bottom"
 
 # seed for sampling
 set.seed(1997)
@@ -290,23 +298,71 @@ limits <- c(10,41)
 my_map_data <- my_map_data |>
   dplyr::mutate(temp = 28 - ((scale(cent_long))^(2) + (scale(cent_lat))^(2))[,1], # trend
          notrend = rnorm(n), # no trend
-         highvar = runif(n, min=2, max=4), # high variance
-         lowvar = runif(n, min=0, max=2), # low variance
+         highvar = runif(n, min=1, max=2), # high variance
+         lowvar = runif(n, min=0, max=1), # low variance
          ) |>
+  mutate(highvar = highvar^2,
+         lowvar = lowvar^2,
+         count_id = row_number()) |>
   pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
   # add bivariate classes to data
   mutate(bitemp = cut(temp, breaks=breaks, labels=seq(8)),
          bivar = cut(variance, breaks=0:4, labels=seq(4)),
-         biclass = paste(bitemp, bivar, sep="-")
-  )
+         biclass = paste(bitemp, bivar, sep="-"))
 
+# Make nice table
+example_table <- my_map_data |>
+  mutate(variance = sqrt(variance)) |>
+  select(c(count_id, county_name, temp, variance_class, variance)) |>
+  as_tibble()|>
+  pivot_wider(id_cols=c(count_id, county_name, temp,), 
+              names_from = variance_class, 
+              values_from = variance) |>
+  head()|>
+  gt() |>
+   tab_header(
+    title = "Average Daily High Temperatures of Iowa Counties",
+    subtitle = "Psudo-data with high standard error and low standard error cases") |>
+  tab_spanner(
+    label = "Standard Error",
+    columns = c(highvar, lowvar)
+  ) |>
+  cols_label( 
+    count_id = "ID", 
+    county_name  = "County",
+    temp = "Temperature (°C)",
+    highvar = "High",
+    lowvar = "Low"
+    ) |>
+  fmt_number(columns = c(temp, highvar, lowvar)) |>
+  data_color(
+    columns = temp,
+    method = "numeric",
+    palette = "Oranges",
+    domain = c(21, 29)
+  ) |>
+  data_color(
+    columns = c(highvar, lowvar),
+    method = "numeric",
+    palette = "Greens",
+    domain = c(0, 3)
+  ) |>
+  as_latex()
+  
+# make blank map 
+example_map <- my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(geometry = geometry), fill="white") + 
+  #geom_text(aes(x=cent_long, y=cent_lat, label=count_id), size=2) +
+  theme_void() 
+
+example_table
+
+example_map
 
 ```
 
-- add map that is just outline
-- include function used to design temperature
-
-Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to provide simple examples for each approach that can be easily compared to the "no uncertainty" choropleth map to better understand the costs and benefits of each approach. Despite the example of each method focusing on variations of the choropleth map, it is important to understand that the approaches we are discussing are universal and are not unique to maps.
 
 {{< pagebreak >}}
 
