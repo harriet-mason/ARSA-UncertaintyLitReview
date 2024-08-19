@@ -270,7 +270,11 @@ There is an endless number of uncertainty visualisations and it would be impossi
 #| message: false
 #| warning: false
 #| label: fig-data
-#| fig-cap: "The"
+#| fig-cap: "The the first 5 observations of the data used for the spatial uncertainty examples along with the boundaries of each county. The map boundaries are the Iowa county boundaries, however the 'temperature' data is not representative of the average temperature in Iowa. The temperature and standard error represent the average of the daily high temperature and the standard error of that average respectively."
+#| fig-subcap: 
+#|   - "Data Table"
+#|   - "Map Boundaries"
+#| layout-nrow: 1
 #| cap-location: "bottom"
 
 # seed for sampling
@@ -315,7 +319,7 @@ example_table <- my_map_data |>
   pivot_wider(id_cols=c(count_id, county_name, temp,), 
               names_from = variance_class, 
               values_from = variance) |>
-  head()|>
+  head(5)|>
   flextable() |>
   set_caption(caption = "Average Daily High Temperatures of Iowa Counties") |>
   add_header_row(colwidths = c(3, 2),
@@ -323,7 +327,7 @@ example_table <- my_map_data |>
   colformat_double(digits = 2) |>
   set_header_labels(count_id = "ID", 
                     county_name  = "County",
-                    temp = "Temperature (°C)",
+                    temp = "Average Temperature (°C)",
                     highvar = "High",
                     lowvar = "Low") |>
   theme_vanilla() |>
@@ -350,12 +354,11 @@ example_map <- my_map_data |>
   #geom_text(aes(x=cent_long, y=cent_lat, label=count_id), size=2) +
   theme_void() 
 
-example_table
+plot(example_table)
 
 example_map
 
 ```
-
 
 
 {{< pagebreak >}}
