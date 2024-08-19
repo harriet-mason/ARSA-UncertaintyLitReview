@@ -33,7 +33,7 @@ library(scales)
 library(sf)
 library(ggrepel)
 library(urbnmapr)
-library(gt)
+library(flextable)
 ```
 
 {{< pagebreak >}}
@@ -263,16 +263,13 @@ This review is broken into several parts that each reflect a different approach 
 ## Spatial examples
 There is an endless number of uncertainty visualisations and it would be impossible to show all of them in this review. While the theoretical approach we outline is useful to all uncertainty visualisations, regardless of their application, we feel that showing the variations on a single visualisation will help isolate the ideas we are trying to convey. Due to the fields origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. We will use these maps to highlight the costs and benefits of each approach.
 
-@fig-data shows the first six rows of our example data, along with the geographical boundaries of our data set.  The temperature variable was generated using a quadratic spatial trend, that is $Temperature = 28-SLongitude^2 + SLatitude^2$ where the $SLongitide$ and $SLatitude$ are the scaled (to standard normal) longitude and latitude of the county's centroid. The high and low cases for the sampling variance are randomly sampled from a uniform distribution. The low standard errors are drawn from a $U_{[0,1]}$ distribution, while the high standard error cases are drawn from a a $U_{[1,2]}$ distribution. This is the data we will be using in our spatial uncertaity examples for the rest of the paper.
-
-
+@fig-data shows the first six rows of our example data, along with the geographical boundaries of our data set. The temperature variable was generated using a quadratic spatial trend, that is $Temperature = 28-SLongitude^2 + SLatitude^2$ where the $SLongitide$ and $SLatitude$ are the scaled (to standard normal) longitude and latitude of the county's centroid. The high and low cases for the sampling variance are randomly sampled from a uniform distribution. The low standard errors are drawn from a $U_{[0,1]}$ distribution, while the high standard error cases are drawn from a a $U_{[1,2]}$ distribution. As we are dealing with an average, the sampling distribution would be normally distributed, so each county temperature estimate is assumed to come from a $N(Temp_i, SE_{case,i})$. This is the data we will be using in our spatial uncertainty examples for the rest of the paper.
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
 #| label: fig-data
-#| layout-nrow: 1
 #| fig-cap: "The"
 #| cap-location: "bottom"
 
@@ -310,7 +307,7 @@ my_map_data <- my_map_data |>
          bivar = cut(variance, breaks=0:4, labels=seq(4)),
          biclass = paste(bitemp, bivar, sep="-"))
 
-# Make nice table
+# Make nice example table
 example_table <- my_map_data |>
   mutate(variance = sqrt(variance)) |>
   select(c(count_id, county_name, temp, variance_class, variance)) |>
@@ -319,35 +316,31 @@ example_table <- my_map_data |>
               names_from = variance_class, 
               values_from = variance) |>
   head()|>
-  gt() |>
-   tab_header(
-    title = "Average Daily High Temperatures of Iowa Counties",
-    subtitle = "Psudo-data with high standard error and low standard error cases") |>
-  tab_spanner(
-    label = "Standard Error",
-    columns = c(highvar, lowvar)
+  flextable() |>
+  set_caption(caption = "Average Daily High Temperatures of Iowa Counties") |>
+  add_header_row(colwidths = c(3, 2),
+                 values = c("", "Standard Error")) |>
+  colformat_double(digits = 2) |>
+  set_header_labels(count_id = "ID", 
+                    county_name  = "County",
+                    temp = "Temperature (°C)",
+                    highvar = "High",
+                    lowvar = "Low") |>
+  theme_vanilla() |>
+  vline(i=c(1,2), j=3, part="header")|>
+  align(align = "left", part = "all") |>
+  bg(j = "temp",
+    bg = col_numeric(palette = brewer.pal(8, name = "Oranges"),
+                     domain = c(21, 30)),
+    part = "body"
   ) |>
-  cols_label( 
-    count_id = "ID", 
-    county_name  = "County",
-    temp = "Temperature (°C)",
-    highvar = "High",
-    lowvar = "Low"
-    ) |>
-  fmt_number(columns = c(temp, highvar, lowvar)) |>
-  data_color(
-    columns = temp,
-    method = "numeric",
-    palette = "Oranges",
-    domain = c(21, 29)
-  ) |>
-  data_color(
-    columns = c(highvar, lowvar),
-    method = "numeric",
-    palette = "Greens",
-    domain = c(0, 3)
-  ) |>
-  as_latex()
+  bg(j = c("highvar", "lowvar"),
+    bg = col_numeric(palette = brewer.pal(8, name = "Greens"),
+                     domain = c(0, 3)),
+    part = "body"
+  )
+
+
   
 # make blank map 
 example_map <- my_map_data |>
@@ -362,6 +355,7 @@ example_table
 example_map
 
 ```
+
 
 
 {{< pagebreak >}}
