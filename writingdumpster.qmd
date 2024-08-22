@@ -545,3 +545,92 @@ example_table <- my_map_data |>
   ) |>
   as_latex()
 ```
+
+# Alternative maps
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| eval: false
+#| label: fig-bivariate2
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+
+#fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to colour value. Even though colour value is intergrable with colour hue, and colour value is naturally accociated with uncertainty, the spatial trend is still visible in the map."
+
+# Bivariate Map
+# Make bivariate palette
+# Function to devalue by a certain amount
+colsupress2 <- function(basecols, hue=1, sat=1, val=1) {
+    X <- diag(c(hue, sat, val)) %*% rgb2hsv(col2rgb(basecols))
+    hsv(pmin(X[1,], 1), pmin(X[2,], 1), pmin(X[3,], 1))
+}
+
+# recurvisely decrease value
+v_val = 1.1
+bivariatepal2 <- c(basecols,
+                   colsupress2(basecols, val=v_val), 
+                   colsupress2(colsupress2(basecols, val=v_val), val=v_val),
+                   colsupress2(colsupress2(colsupress2(basecols, val=v_val), val=v_val), val=v_val)
+                   )
+
+# establish levels of palette
+names(bivariatepal2) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
+
+# Bivariate maps 2
+p2a1 <- my_map_data |>
+  filter(variance_class=="lowvar") %>%
+  ggplot() +
+  geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
+  scale_fill_manual(values = bivariatepal2) +
+  theme_void() + 
+  theme(legend.position = "none")
+  
+p2b2 <- p2a1 %+% filter(my_map_data, variance_class=="highvar")
+
+
+p2a1
+p2b2
+#show_pal2(colours = bivariatepal2, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-transparency
+#| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and variance. This map is a variation on the previous bivariate map where instead of variance being mapped to colour saturation, it is mapped to transparency."
+#| fig-subcap: 
+#|   - "Low Variance Data"
+#|   - "High Variance Data"
+#|   - "Transparency Palette"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+
+# ALTERNATIVE TRANSPARENCY INSTEAD OF COLOUR VALUE
+# get colour values from transparency transformation
+transpal <- lapply(basecols, scales::alpha, alpha=c(0.95, 0.65, 0.35, 0.05))
+
+transpal <- as.vector(matrix(unlist(transpal), ncol = 4, byrow = TRUE))
+
+names(transpal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
+
+# Transparency maps
+pta <- my_map_data |>
+  filter(variance_class=="lowvar") %>%
+  ggplot() +
+  geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
+  scale_fill_manual(values = transpal) +
+  theme_void() + 
+  theme(legend.position = "none")
+  
+ptb <- pta %+% filter(my_map_data, variance_class=="highvar")
+
+pta
+ptb
+show_pal2(colours = transpal, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
+
+```
+
