@@ -54,10 +54,9 @@ Early papers that specifically reference "uncertainty visualisation" appear in t
 @fig-ibrekk depicts an example of the uncertainty visualisations discussed in these early papers. 
 Despite the new terminology visualisation of uncertainty has been present since the earliest times. 
 For example, box plots or histograms can be considered to be displaying uncertainty in the sense of variability in observations sampled from a population distribution. 
-Today, there are an abundance of publications on the topic which makes it timely to construct a review of the field. 
+Today, there are an abundance of publications on the topic which makes it timely to construct a review of the field.
+That is, now that there is an overwhelming amount of information, it is valuable to distill it into simple facts. 
 In fact, there have already been several reviews published. 
-
-<!-- Susan: I think there's a missed opportunity here to reference the premise you started with, that when there are heaps of information, it's valuable to distill it down into simple facts -->
 
 ```{r}
 #| echo: false
@@ -586,10 +585,7 @@ Upon hearing that uncertainty needs to be included for transparency, the solutio
 You may think "well, I will just add a dimension to my plot that includes uncertainty". 
 This is a reasonable approach. 
 The simplest way to add uncertainty to an existing graphic is to simply map uncertainty to an unused visual channel. 
-However, it is unclear if this approach is 
-sufficient XXX Word choice??? XXX
-<!-- I changed will to sufficient, but I'm not sure that's what you were going for. -->
-for our purposes. 
+However, it is unclear if this approach is sufficient for our purposes. 
 
 ## The bivariate map
 @fig-bivariate depicts a variation of the choropleth map, where we have a two dimensional color palette. 
@@ -691,10 +687,9 @@ Descriptive statistics are not seen as the primary goal of modern statistics, ho
 In 19th century England, *positivism* was the popular philosophical approach to science (positivists included famous statisticians such as Francis Galton and Karl Pearson). 
 Practitioners of the approach believed statistics ended with descriptive statistics as science must be based on actual experience and observations [@Otsuka2023]. 
 In order to make statements about population statistics, future values, or new observations we need to perform inference, which requires the assumption of the "uniformity of nature", that is, we need to assume that unobserved phenomena should be similar to observed phenomena [@Otsuka2023]. 
-Positivists abhor the assumption of the "uniformity of nature" as they believed referencing the unobservable is bad science. 
-In other words, these scientists embraces descriptive statistics and shunned inferential statistics due to the inherent uncertainty that came with them. 
+Positivists believed referencing the unobservable was bad science. 
+In other words, these scientists embraced descriptive statistics due to the inherent certainty that came with them.
 Since uncertainty is non-existent in descriptive statistics, it is clear that uncertainty is a by-product of inference.
-<!-- Inferential statistics didn't yet exist when positivists were dominant - they weren't making a choice between description and inference, as the choice didn't exist. This is slightly misleading as written, even if I generally agree with the concept you're trying to communicate. -->
 
 This history lesson illustrates what uncertainty actually is. 
 At several stages in a statistical analysis, we will violate the "uniformity of nature" assumption. 
