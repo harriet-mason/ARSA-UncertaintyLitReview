@@ -680,7 +680,7 @@ Describing what uncertainty actually is, is surprisingly hard.
 Most authors simply avoid the problem and describe the characteristics of uncertainty, of which there are plenty. 
 Often, uncertainty is split using an endless stream of ever changing boundaries, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017; @Hullman2016; @utypo], if the uncertainty is in the attribute, spatial elements, or temporal element of the data [@Kinkeldey2014], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [@Benjamin2018], if the uncertainty is random or systematic [@Sanyal2009], statistical or bounded [@Gschwandtnei2016; @Olston2002], recorded as accuracy or precision [@Griethe2006; @Benjamin2018], which stage of the data analysis pipeline the uncertainty comes from [@utypo], how quantifiable the uncertainty is [@Spiegelhalter2017; @utypo], etc. 
 There are enough qualitative descriptors of uncertainty to fill a paper, but, none of this is particularly helpful in understanding how to integrate it into a visualisation. 
-Rather than trying to define uncertainty by what it *is* it may be easier to try and describe what uncertainty *is not*. 
+Rather than trying to define uncertainty by looking at the mirriad of ways in which it *does* appear in an analysis, we may find it easier to look at where it *does not*.
 
 Descriptive statistics describe our sample as it is and summarizes large data down into an easy to swallow format. 
 Descriptive statistics are not seen as the primary goal of modern statistics, however, this was not always the case. 
@@ -701,8 +701,6 @@ This interpretation of uncertainty indicates that the uncertainty is not a varia
 Uncertainty is metadata about our statistic that is required for valid inference.
 This means uncertainty should not be visualised by itself and we should seek to display signal and uncertainty together as a "single integrated uncertain value" [@Kinkeldey2014]. 
 This aspect of uncertainty visualization makes it a uniquely difficult problem. 
-
-<!-- You've promised to describe what uncertainty is not... did you achieve that goal? If not, you probably should revisit how you're introducing the philosophical bit about descriptive statistics and positivism.  -->
 
 ### Visualising the "single integrated uncertain value"
 Typically, when making visualisations, we want the visual channels to be separable. 
@@ -826,9 +824,11 @@ In this sense, EDA is the visual parallel to descriptive statistics, as it is pe
 
 Some authors recognize inference will always occur (in some shape or form) and believe uncertainty *should* be visualised but do not recognize *how* uncertainty would be visualised. 
 @Hullman2021 argued that there is no such thing as a "model-free" visualisation, therefore all visualisations require uncertainty as we are always performing inference. 
-However, even something as simple as calculating the uncertainty that is used to suppress our visualisation is not model free, as we need to identify if the sampling variance or the sample variance is more appropriate [@Hofman2020]. 
-<!-- Ok, so this is an additional challenge on top of Hullman's claim, but it's not refuting Hullman's claim. I think the easier way to do that is to say that while you can certainly think of visualizations as containing implicit inferential properties, there are many potential inferences in any single visualization; until the viewer chooses one and thinks about it (which isn't easily observable), the particular variety of uncertainty which would need to be displayed can't be calculated - it's a quantum physics type issue where until something is observed, the singularity doesn't collapse and everything exists only in probabilistic terms. The cat isn't dead or alive until the viewer starts thinking inferentially in one way or another. -->
-This means an ideal uncertainty visualisations should not only meet the signal suppression requirements, but should also endeavor to be versatile enough to meet those requirements for all the signals displayed in the graphic.
+While it is true that we can think of visualisations as containing implicit inferential properties, there are many potential inferences in any single visualization. 
+This makes it a little difficult ensure uncertainty is always included.
+For example, if we have a visualisation that shows an average, we would need to identify if the signal suppression should be performed using the sampling variance or the sample variance [@Hofman2020].
+The distribution we use depends on the inferential statistic but until the viewer chooses one and thinks about it (which isn't easily observable), the particular variety of uncertainty which would need to be displayed can't be calculated.
+This means the ideal uncertainty visualisation should not only meet the signal suppression requirements, but should also endeavor to be versatile enough to meet those requirements for all the signals displayed in the graphic.
 
 
 ### The limitations of explicitly visualising uncertainty and signal
@@ -848,9 +848,10 @@ When we blend these colors, we need to decide at what level of *uncertainty* to 
 Even though the bivariate map does not explicitly combine color values at certain variance levels, the mapping of variance to color saturation does this implicitly. 
 That is, at certain saturation values the colors in a bivariate map are imperceptibly different and appear as though they are mapped to the same value.
 At this point, it is irrelevant whether or not the colours are technically different, they are the same color in the human brain. 
-<!-- This is of course complicated by the fact that human colour perception varies at an individual level: some individuals have been documented to have 4 different cones and can thus perceive a different range of colors; others have only two or one functioning cone and have colour deficiencies. For VSUP to function for all individuals, we must calibrate each plot to an individual's ability to perceive colour.  -->
+This is of course complicated by the fact that human colour perception varies at an individual level: some individuals have been documented to have 4 different cones and can thus perceive a different range of colors; others have only two or one functioning cone and have colour deficiencies. 
+For VSUP to function for all individuals, we must calibrate each plot to an individual's ability to perceive colour.
 
-If we only use a single value to express each signal-suppressed statistic, we will always need to decide which signals we suppress and which we do not. 
+If we only use a single colour to express each signal-suppressed statistic, we will always need to decide which signals we suppress and which we do not. 
 This issue has already been raised in the literature. 
 Which hypothesis are suppressed and which are not largely depends on the method used to combining colors in the palette [@Kay2019]. 
 The VSUP in @fig-vsup used the tree based method that was used by @Correll2018, but there are alternatives that are more appropriate for different hypothesis. 
@@ -1030,7 +1031,20 @@ This does not mean that visualizing raw data will always prevent insignificant s
 @Chowdhury illustrated how groups that appear linearly separable in a linear discriminant analysis (LDA) visualisation of the data can actually be the result of a LDA performed on too many variables, something that was not clear from the visualisation until the line-up protocol was implemented. 
 However, just showing the data it is simple but effective option for uncertainty visualisation that that seems to be largely overlooked. 
 <!-- Does showing the data actually show uncertainty, or does it just show variance? I'm thinking of inferential statistics here - you can show a sample, but it doesn't necessarily show you anything about the uncertainty of the population-based inferential statistics, visually speaking. Some of the dotmap style visualizations you're thinking of are actually census visualizations - there isn't any inferential uncertainty, but there is variance. I'm not sure you're adequately separating these concepts here, even if I generally agree with the broad points you're making.  -->
-
+<!--    
+- I think the point I’m trying to make here is not that the raw data shows uncertainty by showing variation, but rather that it shows uncertainty by allowing people to see violations to the assumptions they might have made when mentally calculating an inferrential statistic
+  - e.g. if i show the raw data and the areas are unevenly spaced or there are a lot of missing observations in some areas.
+- I agree that the variability in the raw data is not related to the variability in the inferential statistic even though this section certainly implies that. I need to fix that.
+- The connection with the pixel map was supposed to be that it would theoretically give a sense of the shape of the distribution. When I said “where the variability is coming from” I was trying to refer to that shape, but that doesn’t really translate from what I’ve written and the connecton between the pixel map and showing the raw data isn’t really there. 
+  - I think the logic line I was going for was
+    Pixel map shows collection of hypothetical outcomes of sampling distribution 
+    => These outcomes let us see the shape of the distribution 
+    => When seeing the shape of the distribution, we may become aware of errors in our assumptions, (e.g. such as normality) 
+    => If we want to be aware of where our uncertainty is coming from (e.g. underlying variability or assumption violations) then the raw data is what best shows this
+- I did consider including a visualisation that shows the data I used for the pixel map as a final map visualisation to better separate these concepts, but I didn’t technically use any real data (since I just made the normality assumption which is excatly what this map should highlight)
+  - It might be better to change the statistic and give the sampling distribution in each area a different shape to make the pixel map benefit clearer.
+  - I just want to make sure this is an accurate description of the issue you were highlighting before I fix it up this section (also I think it will take me a bit to figure out how to fix it) 
+-->
 While the pixel map does not literally show the data, it does imitate showing the data and give us details on where the variability is coming from. 
 In order to uncerstand *why* pixel maps seem to be successful at signal suppression at first glace would likely require a more thorough discussion than what what we can offer here.
 
@@ -1072,7 +1086,6 @@ Trust is a by-product of displaying uncertainty so it is commonly measured in un
 Considering trust, and not transparency, as the metric of importance in uncertainty communication can lead to a questionable subtext that argues against transparency, something that has been noticed by several other authors [@Spiegelhalter2017; @ONeill2018]. 
 Science communication should be primarily concerned with accuracy. 
 <!-- Ok, but you can be completely accurate in how you render a plot and still convey information that isn't accurate (e.g. sine illusion/line width issues). Do we care about accuracy of the visual form, or accuracy of the perception? Because accuracy of the perception is potentially influenced by trust/transparency and potentially influences that metric as well. Rachel Rogers and I have studied how much weight people give testimony in a courtroom - it strikes me that trust/transparency are a separate dimension that is important and related to accuracy, in that both accuracy and trust/transparency will influence how much mental weight I ascribe to new information gained from a visualization.  -->
-
 Setting trust as the variable of interest implicitly encourages statisticians to set trust and as the primary goal of communication. 
 Evaluating visualisations on trust conflates trust and transparency and ultimately discourages signal-suppression. 
 We can see this effect pop up in the results of evaluation studies. 
