@@ -1086,13 +1086,25 @@ Trust is a by-product of displaying uncertainty so it is commonly measured in un
 Considering trust, and not transparency, as the metric of importance in uncertainty communication can lead to a questionable subtext that argues against transparency, something that has been noticed by several other authors [@Spiegelhalter2017; @ONeill2018]. 
 Science communication should be primarily concerned with accuracy. 
 <!-- Ok, but you can be completely accurate in how you render a plot and still convey information that isn't accurate (e.g. sine illusion/line width issues). Do we care about accuracy of the visual form, or accuracy of the perception? Because accuracy of the perception is potentially influenced by trust/transparency and potentially influences that metric as well. Rachel Rogers and I have studied how much weight people give testimony in a courtroom - it strikes me that trust/transparency are a separate dimension that is important and related to accuracy, in that both accuracy and trust/transparency will influence how much mental weight I ascribe to new information gained from a visualization.  -->
+<!--
+I see there are three “directions of influence” we can use to think about the relationship between trust and accuracy:
+  1) Accuracy impact trustworthiness:
+     - This is basically the main consideration of this point of this section. The point is that historical accuracy impacts “trustworthiness” which then impacts trust. Since trust is impacted by the trustworthiness of the source, so you should endeavor to be as accurate as possible to establish trustworthiness if you want your information to be trustworthy.
+  2) Trustworthiness impacts accuracy:
+    - I agree that the accuracy can be influenced by trust. We had a climate scientist discussing this exact thing at last week’s numbat seminar and had a good citation for this. I could probably go find but it used political beliefs as a proxy rather than “trust” so it might not be exactly right but it is thinking along these lines.
+  3) Trustworthiness and accuracy combined impact trust (or belief or something):
+    - The final statistic of “trust” is a combination of sourth trustworthiness and accuracy. Since trust can be impacted by accuracy or trustworthiness, pursuing trust rather than trustworthiness can encourage inaccuracy.
+I think that commenting on (2) is a good addition to this section, but it doesn’t really change my opinion on (1) and (3) (I’m not 100% sure if this comment was an “in addition” or “in dispute” comment and I want to check before I change it)
+
+I agree with your point about the accuracy in display vs perception but I don’t see its connection to the greater point about trust and I’m not 100% sure it fits in this section. Accuracy in the visual form (e.g. correcting for sine illusion) is still a pursuit of accuracy, just accuracy in the visual statistic.  Like, if we use Frequentist or Bayesian statistics, they also have different inputs, processes and outputs and they both give us different estimates. It is also common to adjust those statistics to correct for a bias in the calculation (e.g. we might weight the observations). I don’t really see the difference between these methods and editing a graphic to correct for the sine illusion. I don’t think any of these things conflict with the pursuit of scientific accuracy. I’m not against adding this as an additional comment (i.e. that accuracy in a visualisation may not be what the reader thinks it is) but I’m not certain it has any serious implications for the trust
+-->
 Setting trust as the variable of interest implicitly encourages statisticians to set trust and as the primary goal of communication. 
 Evaluating visualisations on trust conflates trust and transparency and ultimately discourages signal-suppression. 
 We can see this effect pop up in the results of evaluation studies. 
 For example, @Zhao2023 found that participants were more trusting of model estimates with low uncertainty, but this effect did not carry over to estimates with high uncertainty. 
 Despite decreased trust being a desired outcome of signal suppression, the authors discussion implied this result was not desired. 
 This perspective ends up extending to visualisation authors as well.
-@Hullman2020a found that author simultaneously argued that failing to visualise uncertainty was akin to fraud, but also many avoided uncertainty visualisation because they didn't want their work to come across as "untrustworthy". 
+@Hullman2020a found that authors simultaneously argued that failing to visualise uncertainty was akin to fraud, but also many avoided uncertainty visualisation because they didn't want their work to come across as "untrustworthy". 
 This is a classic example of the negative impacts of placing direct importance on *trust* rather than *transparency*. 
 In cases of high uncertainty, authors will opt to leave out uncertainty information because it decreases confidence in the authors conclusions. 
 This is the end result of designing uncertainty visualisations for increased trust, rather than signal-suppression.
