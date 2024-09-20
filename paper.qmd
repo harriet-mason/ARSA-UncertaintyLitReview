@@ -1035,6 +1035,9 @@ However, just showing the data it is simple but effective option for uncertainty
 - I think the point I’m trying to make here is not that the raw data shows uncertainty by showing variation, but rather that it shows uncertainty by allowing people to see violations to the assumptions they might have made when mentally calculating an inferrential statistic
   - e.g. if i show the raw data and the areas are unevenly spaced or there are a lot of missing observations in some areas.
 - I agree that the variability in the raw data is not related to the variability in the inferential statistic even though this section certainly implies that. I need to fix that.
+-->
+<!-- Ok, but variability in the raw data is also related to variability in the inferential statistic, it's just that as n -> infinity, the variability in the inferential statistic goes to 0.  -->
+<!--
 - The connection with the pixel map was supposed to be that it would theoretically give a sense of the shape of the distribution. When I said “where the variability is coming from” I was trying to refer to that shape, but that doesn’t really translate from what I’ve written and the connecton between the pixel map and showing the raw data isn’t really there. 
   - I think the logic line I was going for was
     Pixel map shows collection of hypothetical outcomes of sampling distribution 
@@ -1045,6 +1048,7 @@ However, just showing the data it is simple but effective option for uncertainty
   - It might be better to change the statistic and give the sampling distribution in each area a different shape to make the pixel map benefit clearer.
   - I just want to make sure this is an accurate description of the issue you were highlighting before I fix it up this section (also I think it will take me a bit to figure out how to fix it) 
 -->
+<!-- Yes, this looks like you're thinking along the same lines as I was -->
 While the pixel map does not literally show the data, it does imitate showing the data and give us details on where the variability is coming from. 
 In order to uncerstand *why* pixel maps seem to be successful at signal suppression at first glace would likely require a more thorough discussion than what what we can offer here.
 
@@ -1098,6 +1102,7 @@ I think that commenting on (2) is a good addition to this section, but it doesn�
 
 I agree with your point about the accuracy in display vs perception but I don’t see its connection to the greater point about trust and I’m not 100% sure it fits in this section. Accuracy in the visual form (e.g. correcting for sine illusion) is still a pursuit of accuracy, just accuracy in the visual statistic.  Like, if we use Frequentist or Bayesian statistics, they also have different inputs, processes and outputs and they both give us different estimates. It is also common to adjust those statistics to correct for a bias in the calculation (e.g. we might weight the observations). I don’t really see the difference between these methods and editing a graphic to correct for the sine illusion. I don’t think any of these things conflict with the pursuit of scientific accuracy. I’m not against adding this as an additional comment (i.e. that accuracy in a visualisation may not be what the reader thinks it is) but I’m not certain it has any serious implications for the trust
 -->
+<!-- That's totally fair :) Just quibbling - not something you have to change unless someone else calls it out! -->
 Setting trust as the variable of interest implicitly encourages statisticians to set trust and as the primary goal of communication. 
 Evaluating visualisations on trust conflates trust and transparency and ultimately discourages signal-suppression. 
 We can see this effect pop up in the results of evaluation studies. 
