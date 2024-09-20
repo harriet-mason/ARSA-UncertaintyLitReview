@@ -680,7 +680,7 @@ Describing what uncertainty actually is, is surprisingly hard.
 Most authors simply avoid the problem and describe the characteristics of uncertainty, of which there are plenty. 
 Often, uncertainty is split using an endless stream of ever changing boundaries, such as whether the uncertainty is due to true randomness or a lack of knowledge [@Spiegelhalter2017; @Hullman2016; @utypo], if the uncertainty is in the attribute, spatial elements, or temporal element of the data [@Kinkeldey2014], whether the uncertainty is scientific (e.g. error) or human (e.g. disagreement among parties) [@Benjamin2018], if the uncertainty is random or systematic [@Sanyal2009], statistical or bounded [@Gschwandtnei2016; @Olston2002], recorded as accuracy or precision [@Griethe2006; @Benjamin2018], which stage of the data analysis pipeline the uncertainty comes from [@utypo], how quantifiable the uncertainty is [@Spiegelhalter2017; @utypo], etc. 
 There are enough qualitative descriptors of uncertainty to fill a paper, but, none of this is particularly helpful in understanding how to integrate it into a visualisation. 
-Rather than trying to define uncertainty by looking at the mirriad of ways in which it *does* appear in an analysis, we may find it easier to look at where it *does not*.
+Rather than trying to define uncertainty by looking at the myriad ways in which it *does* appear in an analysis, we may find it easier to look at where it *does not*.
 
 Descriptive statistics describe our sample as it is and summarizes large data down into an easy to swallow format. 
 Descriptive statistics are not seen as the primary goal of modern statistics, however, this was not always the case. 
