@@ -1138,8 +1138,12 @@ The authors then go on to compare the readers answer to a very specific ground t
 This means the participants are being *evaluated* as though they are performing a value extraction task, but they are not being asked the *questions* that are asked in the value extraction task. 
 Ultimately this approach results in strangely cryptic questions that create a large amount of noise due to the varied interpretation of the questions [@Hullman2016]. 
 For example @Hofmann2012 showed study participants 20 plots, where each plot displayed two distributions (as a pair of jittered samples, density plots, histograms, or box plots) and asked them to identify the plot where "the blue group is furthest to the right". 
-The mean of the two groups was used to decide which group was actually "furthest to the right" and the participants were evaluated against that ground truth. 
+The mean of the two groups was used to decide which group was actually "furthest to the right" and the different graphical approaches were evaluated against that ground truth. 
 <!-- Participants weren't evaluated against that ground truth, though - the plots were what was actually being evaluated in that study, not participant accuracy. Lineup prompts are typically vague (sometimes, I agree, too vauge) because the participant has to figure out what metric to use to evaluate the data first, and then complete the evaluation task. We're as interested in the metric they're using as we are in their successful identification of the target plot. -->
+<!-- Good point about the plots being evaluated, not the participants. I changed that.
+I agree with the point about lineups being useful in identifying how participants complete evaluation tasks, and I did comment on that with respect to this particular paper later in the “Qualitative studies” section with this comment:
+   “@Hofmann2012 tried to capture this by asking participants why they considered a particular plot to be more "right shifted", even though this qualitative analysis did not make it into the final paper. “
+Do you think I should move that comment to this section to keep all comments on that paper together, leave it where it is, or do you think there should be a different edit? -->
 In another example @Ibrekk1987 asked participants for the "best estimate", but the participant's responses were evaluated against the mean of the distribution.
 Ultimately, the term "best" is up to the users interpretation, and the estimate that minimized the sum of squared errors was not implied by the question. 
 This vague question approach leads to inconclusive results, as we are left unclear if it was the phrasing of the question or the plot design that caused the participants to answer incorrectly.
