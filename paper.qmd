@@ -1188,14 +1188,20 @@ The motivation behind the lineup protocol is similar to the motivations behind s
 @Patrick2023 compared standard statistical tests to the lineup-protocol, and evaluated the visualisations using the power curves that are typical for hypothesis testing. 
 In a similar vein, @Kim2019 investigated how different uncertainty visualisation methods influenced user's prior beliefs, and evaluated the graphics by comparing their results to those from Bayesian inference. 
 This approach is similar to the lineup protocol as it also evaluates a visualisation by comparing it to an analogous statistical calculation, however it does so using a different statistical philosophy. 
+The connection with visualisation and statistical tests even extends to EDA, where @Hullman2021 commented that a visualisation can be considered a model check where the null hypothesis is "the expected" and we are looking for "the unexpected".
+This is all to say that comparing visualisations to hypothesis tests is not uncharted territory.
 
-We can use a similar evaluation method to evaluate uncertainty visualisations, however, special care would need to be taken for their versatility requirement.
-While lineup protocols often have a specific hypothesis that is used to create the null distribution, uncertainty visualisations are intended to be more flexible and can be created without identifying a specific null distribution.
-Human viewers using the lineup protocol are less sensitive to deviations from the null hypothesis than statistical tests [@Patrick2023]. 
-This means swapping to a visual format and giving viewers the ability to check several hypothesis at once can reduce the effectiveness of the hypothesis test.
-<!-- I'm not convinced this reduces the effectiveness - it increases the power of the test to detect "something is not right" even if that something is unspecified. See Vanderplas 2017 (Clusters beats trend...) for an example of where viewers found something that wasn't right that was absolutely not what we intended, but was still very visually relevant.  -->
-Therefore, it is highly likely that uncertainty visualisations would not produce identical results to standard hypothesis tests or even the lineup protocol.
-Additionally, uncertainty visualisations would need to be simultaneously checked against several hypothesis that come from a variety of null distributions.  
+We could use a similar evaluation method to evaluate uncertainty visualisations, however, it is not entirely clear what the computational equivalent of an uncertainty visualisation is.
+Even the lineup protocol, which is much closer to a standard statistical test, runs into some difficulty when trying to directly compare it to its computational equivalent.
+@Patrick2023 found that human viewers using the lineup protocol are less sensitive to deviations from the null hypothesis than standard statistical tests.
+However, this finding does not directly translate to the lineup protocol being worse than its computational equivalent.
+The lineup protocol allows viewers to detect "something is not right" even if that something is unspecified, and even if that "something" is not what see the authors intended (for an example see @vanderplas2017).
+While standard hypothesis tests may outperform the lineup protocol on power, computational tests have the benefit of knowing exactly what they are looking for, while visualisations are often explicitly made when we *don't* know what we are looking for.
+Additionally, while lineup protocols often have a specific hypothesis that is used to create the null distribution, uncertainty visualisations are intended to be more flexible and can be created without identifying a specific null distribution.
+Therefore, while we could evaluate uncertainty visualisations by comparing them to a selection of hypothesis tests, we should not expect the same level of sensitivity that we get in standard hypothesis tests as the assumed knowledge about our data is quite different.
+This approach could give us a good idea of the use cases of different uncertainty visualisation designs, but we should be mindful of it's limitations in fully describing the effectivness of these graphics. 
+
+
 
 ### Qualitative Studies
 Alternatively visualisation research could shift away from the accuracy concept all together ask questions that allow for open ended responses. This method can enlighten authors as to *how* the uncertainty information was used by the participants. 
