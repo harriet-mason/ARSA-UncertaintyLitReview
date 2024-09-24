@@ -339,12 +339,8 @@ names(longpal) <- -1:11
 
 my_map_data <- my_map_data |>
   dplyr::mutate(temp = 29 - 3*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
-         notrend = rnorm(n), # no trend
-         highvar = runif(n, min=1, max=2), # high variance
-         lowvar = runif(n, min=0, max=1), # low variance
-         ) |>
-  mutate(highvar = highvar^2,
-         lowvar = lowvar^2,
+         highvar = runif(n, min=2, max=4), # high variance
+         lowvar = runif(n, min=0, max=2), # low variance
          count_id = row_number()) |>
   pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
   # add bivariate classes to data
