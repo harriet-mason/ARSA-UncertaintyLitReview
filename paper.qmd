@@ -35,6 +35,9 @@ library(sf)
 library(ggrepel)
 library(urbnmapr)
 library(flextable)
+
+# Broom returns an error with Vizumap, run this if can't compile
+# devtools::install_version(package = "broom", version = "1.0.4")
 ```
 
 {{< pagebreak >}}
@@ -1183,7 +1186,7 @@ If a graphic was performing signal-suppression we would expect the signal to be 
 The ideal outcome is a an uncertainty visualisation where the signal is only perceivable when it would be identified by a hypothesis test. Evaluating visualisations as though they are akin to hypothesis tests is a well established concept in visualisation. 
 The lineup protocol is a good example of this approach.
 Lineups are a confirmatory visualisation tool that can be used to check if perceived patterns are real or merely the result of chance [@Buja2009; @Wickham2010]. 
-Lineups can also be used to evaluate the effectiveness of different types of plots [@hofmann2012] and design decisions [@vanderplas2017].
+Lineups can also be used to evaluate the effectiveness of different types of plots [@Hofmann2012] and design decisions [@vanderplas2017].
 The motivation behind the lineup protocol is similar to the motivations behind signal-suppression, although the lineup protocol is more explicitly tied to a specific hypothesis. 
 @Patrick2023 compared standard statistical tests to the lineup-protocol, and evaluated the visualisations using the power curves that are typical for hypothesis testing. 
 In a similar vein, @Kim2019 investigated how different uncertainty visualisation methods influenced user's prior beliefs, and evaluated the graphics by comparing their results to those from Bayesian inference. 
