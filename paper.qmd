@@ -298,7 +298,6 @@ It would be impossible to display every single uncertainty visualisation in this
 Due to the field's origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. 
 While the theoretical approach we outline is useful to all uncertainty visualisations, regardless of their application, we feel that focusing on a single example will help isolate the ideas we are trying to convey. 
 We will use these maps to show the effects we are talking about, and highlight the costs and benefits of each approach. 
-These examples will need XXX incomplete sentence!! XXX
 
 @fig-data shows the first six rows and the geographical boundaries of our data set. 
 The temperature variable was generated using a quadratic spatial trend, that is $Temperature_i = 28-Longitude_i^2 + Latitude_i^2$ where the $Longitide$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
