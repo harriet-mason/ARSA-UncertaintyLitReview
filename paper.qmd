@@ -330,13 +330,13 @@ my_map_data$cent_long <- centroids$x
 my_map_data$cent_lat <- centroids$y
 n <- dim(my_map_data)[1]
 
-# Make standard Palette
-# set Base colours
-basecols <- brewer.pal(8, name = "YlOrRd")
-#breaks <- seq(0,41, length.out = 9)
-breaks <- 21:29 #c(0,15,24,25,26,27,30,35,41)
+# Make palettes
+longpal <- rev(colorspace::sequential_hcl(13, palette = "YlOrRd"))
+basecols <- longpal[3:10]
+breaks <- 21:29 
+breakslong <- 18:32 
 names(basecols) <- seq(8)
-limits <- c(10,41)
+names(longpal) <- -1:11
 
 my_map_data <- my_map_data |>
   dplyr::mutate(temp = 28 - ((scale(cent_long))^(2) + (scale(cent_lat))^(2))[,1], # trend
@@ -443,7 +443,7 @@ p1a <- my_map_data |>
 
 p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
 
-show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks) {
+show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, xlabx, xlaby) {
   # Set dimensions of palette
   n <- length(colours)
   ncol <- ncol %||% ceiling(sqrt(length(colours)))
@@ -459,15 +459,15 @@ show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxla
       axes = FALSE)
   rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
        col = colours, border = borders)
-  text(c(0,col(colours)) + c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), -c(1,row(colours))-0.25, breaks, 
+  text(c(0,col(colours)) + textnudge, -c(1,row(colours))-0.25, breaks, 
               cex = 1, col = "black")
-  text(4, -1.75, myxlab ,cex = 1.5, col = "black")
+  text(xlabx, xlaby, myxlab ,cex = 1.5, col = "black")
 }
 
 p1a
 p1b
 
-show_pal(basecols, ncol=8, borders=NA, myxlab = "Temperature", breaks = 21:29)
+show_pal(basecols, ncol=8, borders=NA, myxlab = "Temperature", breaks = 21:29, textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75)
 
 ```
 
@@ -552,7 +552,7 @@ p2b <- p2a %+% filter(exeed_data, variance_class=="highvar")
 
 p2a
 p2b
-show_pal(basecols, ncol=8, borders=NA, myxlab = "Probability Temp>27", breaks = c(0, prob_breaks[2:8], 1))
+show_pal(basecols, ncol=8, borders=NA, myxlab = "Probability Temp>27", breaks = c(0, prob_breaks[2:8], 1), textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75)
 ```
 
 There seem to be two different definitions of "uncertainty visualisation" floating around in the literature. 
@@ -903,9 +903,7 @@ q_a <- my_map_data_a |>
                   p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
                   p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
                   p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
-                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))|>
-  apply(2, function(x) ifelse(x>8, 8, x)) |>
-  apply(2, function(x) ifelse(x<0, 0, x))
+                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
 
 
 pixel_1a <- my_map_data_a %>%
@@ -925,8 +923,8 @@ p4a <- view(pmap_a) +
       aes_string(x = 'long', y = 'lat', group = 'group'),
       colour = "white"
     )  +
-  scale_fill_gradientn(colours = basecols) +
-  scale_colour_gradientn(colours = basecols) +
+  scale_fill_gradientn(colours = longpal) +
+  scale_colour_gradientn(colours = longpal) +
   theme(legend.position="none")
 
 # High variance
@@ -942,9 +940,7 @@ q_b <- my_map_data_b |>
                   p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
                   p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
                   p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
-                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))|>
-  apply(2, function(x) ifelse(x>8, 8, x)) |> #this will mess with the variance
-  apply(2, function(x) ifelse(x<0, 0, x))
+                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
 
 pixel_1b <- my_map_data_b %>%
   as.data.frame() %>%
@@ -965,8 +961,8 @@ p4b <- view(pmap_b) +
       aes_string(x = 'long', y = 'lat', group = 'group'),
       colour = "white"
     )  +
-  scale_fill_gradientn(colours = basecols) +
-  scale_colour_gradientn(colours = basecols) +
+  scale_fill_gradientn(colours = longpal) +
+  scale_colour_gradientn(colours = longpal) +
   theme(legend.position="none")
 
 
@@ -974,7 +970,7 @@ p4b <- view(pmap_b) +
 # Display plots and palettes
 p4a
 p4b
-show_pal(basecols, ncol=8, borders="white", myxlab = "Temperature", breaks = 21:29)
+show_pal(longpal, ncol=13, borders="white", myxlab = "Temperature", breaks = 19:32, textnudge = c(0.2, 0.1, 0,0,0,0,0,0,0,0,0,0,-0.1,-0.2), xlabx= 6.5, xlaby=-2.2)
 ```
 
 It is clear that the pixel-map is not only "suppressing" the false information, but it is doing so by simulating *more* information. 
