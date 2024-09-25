@@ -42,13 +42,13 @@ library(flextable)
 
 {{< pagebreak >}}
 
-# Background
+# Introduction
 
 From entertainment choices to news articles to insurance plans, the modern citizen is so over-run with information in every aspect of their life it can be overwhelming. 
 In the face of this overflow of information, tools that effectively reduce piles of information to simple and clear ideas become more valuable. 
 
 Among these summary tools, information visualisations are one of the most powerful. 
-Visualisations allow us to **learn** what is important about our data set and datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg] highlight this power. 
+Visualisations allow us to *learn* what is important about our data set and datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg] highlight this power. 
 Additionally, visualisations allow for efficient and memorable communication. 
 Even something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014]. 
 
@@ -56,10 +56,10 @@ Uncertainty visualisation is a relatively new field in research.
 Early papers that specifically reference "uncertainty visualisation" appear in the late 80s [@Ibrekk1987], with geospatial information visualisation literature in the early 90s declaring this to be essential aspect of information display [@MacEachren1992; @Carr1992]. 
 @fig-ibrekk depicts an example of the uncertainty visualisations discussed in these early papers. 
 Despite the new terminology visualisation of uncertainty has been present since the earliest times. 
-For example, box plots or histograms can be considered to be displaying uncertainty in the sense of variability in observations sampled from a population distribution. 
+For example, box plots and histograms display variation which becomes synonymous with uncertainty when we are using them to depict the variation of an estimate. 
 Today, there are an abundance of publications on the topic which makes it timely to construct a review of the field.
 That is, now that there is an overwhelming amount of information, it is valuable to distill it into simple facts. 
-In fact, there have already been several reviews published. 
+In fact, there have already been several reviews published but a central piece of discussion is missing. 
 
 ```{r}
 #| echo: false
@@ -270,12 +270,12 @@ p9
 Reviews on uncertainty visualisation rarely offer tried and tested rules for effective uncertainty visualisation, but rather, they comment on the *difficulties* faced when trying to summarize the field. 
 @Kinkeldey2014 found most experimental methods to be ad hoc, with no commonly agreed upon methodology, formalisations, or greater goal of describing general principals. 
 @Hullman2016 noticed there is a serious noise issue in the data coming from uncertainty visualisation experiments. 
-She commented on the prevalence of confounding variables that make it unclear as to what exactly caused a subjects poor performance on a particular questions.
-Mistakes due to misunderstood a visualisations, misinterpreted questions, and incorrectly applied heuristics are all combined into a single error value.
+She commented on the prevalence of confounding variables that make it unclear as to what exactly caused a subjects poor performance on a set of particular questions.
+Mistakes due to misunderstanding a visualisations, misinterpreted questions, and incorrectly applied heuristics are all combined into a single error value.
 @Spiegelhalter2017 commented that different plots are good for different things, and disagreed with the goal of identifying a universal "best" plot for all people and circumstances.
 @Griethe2006 was unable to find common themes, but instead listed the findings and opinions of a collection of papers. 
 @uncertchap2022 summarized several cognitive effects that repeatedly arise in uncertainty visualisation experiments, however these effects were each discussed in isolation as a list of considerations an author might make rather than an overarching theory of rules for effective uncertainty visualisation. 
-While these reviews are thorough in scope, none discuss how the existing literature contribute to the commonly stated goal of uncertainty visualisation, scientific transparency. 
+While these reviews are thorough in scope, none discuss how the existing literature contribute to the borader goal of uncertainty visualisation. 
 The problem faced by the literature is easily summarized with a famous quote by Henri Poincaré.
 
 > "Science is built up of facts, as a house is built of stones; but an accumulation of facts is no more a science than a heap of stones is a house." - Henri Poincaré (1905)
@@ -294,13 +294,13 @@ When discussing each of these methods, we will repeatedly return to the *purpose
 
 ## Spatial example
 
-It would be impossible to display every single uncertainty visualisation in this review, there are far too many so for the sake of clarity, we will focus on the changes made to a single plot, the choropleth map. 
+There are far too many uncertainty visualisations to exhaustively discuss them all. Instead we focus on the changes made to a single plot, the choropleth map. 
 Due to the field's origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. 
-While the theoretical approach we outline is useful to all uncertainty visualisations, regardless of their application, we feel that focusing on a single example will help isolate the ideas we are trying to convey. 
+While the theoretical approach we outline is useful to all uncertainty visualisations regardless of their application, focusing on a single example will help isolate the ideas we are trying to convey. 
 We will use these maps to show the effects we are talking about, and highlight the costs and benefits of each approach. 
 
 @fig-data shows the first six rows and the geographical boundaries of our data set. 
-The temperature variable was generated using a quadratic spatial trend, that is $Temperature_i = 28-Longitude_i^2 + Latitude_i^2$ where the $Longitide$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
+The temperature variable was generated using a sine wave, that is $Temperature_i = 29-3\cdot{|Latitude_i - \sin{2 \cdot Longitude_i}|}$ where the $Longitide$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
 Each county's variance is independently, randomly sampled from a uniform distribution. 
 The low standard errors are drawn from a $U_{[0,1]}$ distribution, while the high standard errors are drawn from a a $U_{[1,2]}$ distribution. 
 As we are dealing with an average, the sampling distribution would be approximately normal by the central limit theorem, so each county temperature estimate is assumed to come from a $N(Temp_i, SE_{case,i})$. 
@@ -399,7 +399,7 @@ example_map
 
 
 # Ignoring uncertainty
-A good place to start might be at deceptively straight forward question, why should we include uncertainty at all? 
+A good place to start might be at a deceptively straight forward question, why should we include uncertainty at all? 
 
 ## The choropleth map
 @fig-choropleth depicts a choropleth map of the counties of Iowa. 
@@ -504,7 +504,7 @@ An umbrella is annoying to bring with you, so you only want to pack it if the ch
 Unfortunately, your weather prediction app only provides you with the predicted daily rainfall. 
 Therefore, your decision will be improved with the inclusion of uncertainty. 
 This is *not* because uncertainty in general is important for decision making, but because it gives you the tools required to calculate the *actual* statistic you are basing your decision on. 
-In this sense, uncertainty is no more "special" to decision making than weight is special to a BMI calculation.
+In this sense, uncertainty is no more "special" to decision making than weight is special to a body mass index calculation.
 
 This means the uncertainty visualisations that would perform the best in decision making would simply display the uncertainty statistic we are interested in, such as the variance, or probability of an event, using existing visualisation principles. 
 This is precisely what we observe in the literature. 
@@ -570,9 +570,9 @@ Again, given that we do not make these same visual considerations for other vari
 
 This leads us to the conclusion that the visualisations made for the purpose of displaying information about uncertainty statistics are not uncertainty visualisations. 
 These graphics are just normal information visualisations, and authors can follow existing principles of graphical design. 
-We will focus on the perspective that uncertainty visualisation serves to obfuscate signal, and an uncertainty visualisation is a variation on an existing graphic that gives it the ability to suppress false signals. 
+We focus on the perspective that uncertainty visualisation serves to obfuscate signal, and an uncertainty visualisation is a variation on an existing graphic that gives it the ability to suppress false signals. 
 
-Of course, we do not believe there is anything wrong with explicitly visualizing variance, error, bias, or any other statistic used to depict uncertainty as a signal. 
+Of course, there is nothing wrong with explicitly visualizing variance, error, bias, or any other statistic used to depict uncertainty as a signal. 
 Just like any other statistic, these metrics provide important and useful information for analysis and decisions. 
 However, there is no interesting visualisation challenge associated with these graphics, and they do not require any special visualisation. 
 The uncertainty in these graphics are acting as a signal variable, and they should be treated as such. 
@@ -714,9 +714,9 @@ Unfortunately relying on integrability may not give us the amount of control we 
 Without a strong understanding of how these visual channels collapse down into a single channel, relying on integrability could create unintended consequences such as displaying phantom signals or hiding justified signals. 
 Additionally, multi-dimensional colour palettes can make the graphics harder to read and hurt the accessibility of the plots [@Vanderplas2015]. 
 
-There is another benefit to mapping uncertainty to stauration that is not directly related to integrability. 
+There is another benefit to mapping uncertainty to saturation that is not directly related to integrability. 
 Colour value has a second desirable quality as the colours become harder to distinguish as the saturation decreases. 
-This means high uncertainty saturations are harder to differentiate than low uncertainty values. 
+This means high uncertainty values are harder to differentiate than low uncertainty values. 
 We can leverage this implicit feature of colour value by transforming the visual feature space ourselves.
 
 # Combining uncertainty and signal in a transformed space
@@ -740,7 +740,7 @@ Is a graphic that performs perfect signal-suppression even possible?
 #| message: false
 #| warning: false
 #| label: fig-vsup
-#| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to it's average daily temperature and the variance in temperature, although the space they have been mapped to is slightly warped. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
+#| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to its average daily temperature and the variance in temperature, although the space they have been mapped to is slightly warped. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
 #| fig-subcap: 
 #|   - "Low Variance Data"
 #|   - "High Variance Data"
