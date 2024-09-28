@@ -822,7 +822,7 @@ In this sense, EDA is the visual parallel to descriptive statistics, as it is pe
 Some authors recognize inference will always occur (in some shape or form) and believe uncertainty *should* be visualised but do not recognize *how* uncertainty would be visualised. 
 @Hullman2021 argued that there is no such thing as a "model-free" visualisation, therefore all visualisations require uncertainty as we are always performing inference. 
 While it is true that we can think of visualisations as containing implicit inferential properties, there are many potential inferences in any single visualization. 
-This makes it a little difficult ensure uncertainty is always included.
+This makes it a little difficult to ensure uncertainty is always included.
 For example, if we have a visualisation that shows an average, we would need to identify if the signal suppression should be performed using the sampling variance or the sample variance [@Hofman2020].
 The distribution we use depends on the inferential statistic but until the viewer chooses one and thinks about it (which isn't easily observable), the particular variety of uncertainty which would need to be displayed can't be calculated.
 This means the ideal uncertainty visualisation should not only meet the signal suppression requirements, but should also endeavor to be versatile enough to meet those requirements for all the signals displayed in the graphic.
@@ -833,10 +833,10 @@ The lack of versatility of the VSUP is easy to see with a simple example.
 
 Let's say we have a graphic that depicts a set of coefficients from a linear regression and the value of the coefficient is shown using a single color. 
 We want to know "Which of these coefficients are different from 0?" as well as "Which of these coefficients are different from each other?". 
-To answer this question we do a series of t-tests on these estimates. 
-All of the individual t-tests of fail to reject the null hypothesis that the coefficients are different from 0. 
+To answer this question we do a series of $t$-tests on these estimates. 
+All of the individual $t$-tests of fail to reject the null hypothesis that the coefficients are different from 0. 
 We then make a visualisation that suppresses this signal and ensures that all of the estimates are visually indistinguishable from 0. 
-Next, we conduct two sample t-test and find that several of the values need to be visually distinguishable from each other. 
+Next, we conduct two sample $t$-test and find that several of the values need to be visually distinguishable from each other. 
 The VSUP method must pick a single color for each estimate, and these colors must be *either* visually distinguishable or indistinguishable from each other. 
 We cannot perform signal-suppression on both these signals simultaneously.
 
@@ -845,7 +845,8 @@ When we blend these colors, we need to decide at what level of *uncertainty* to 
 Even though the bivariate map does not explicitly combine color values at certain variance levels, the mapping of variance to color saturation does this implicitly. 
 That is, at certain saturation values the colors in a bivariate map are imperceptibly different and appear as though they are mapped to the same value.
 At this point, it is irrelevant whether or not the colours are technically different, they are the same color in the human brain. 
-This is of course complicated by the fact that human colour perception varies at an individual level: some individuals have been documented to have 4 different cones and can thus perceive a different range of colors; others have only two or one functioning cone and have colour deficiencies. 
+This is of course complicated by the fact that human colour perception varies at an individual level. 
+Some women are believed to have four different cone cells which allows them to perceive a greater range of colors, while others only have one or two types of cone cells and have colour deficiencies [@simunovic2010] 
 For VSUP to function for all individuals, we must calibrate each plot to an individual's ability to perceive colour.
 
 If we only use a single colour to express each signal-suppressed statistic, we will always need to decide which signals we suppress and which we do not. 
@@ -970,7 +971,7 @@ show_pal(longpal, ncol=13, borders="white", myxlab = "Temperature", breaks = 19:
 It is clear that the pixel-map is not only "suppressing" the false information, but it is doing so by simulating *more* information. 
 The efficacy of this method means that visualisations of simulated samples pop up repeatedly in the literature, with examples including samples that are animated over time [@Hullman2015; @Blenkinsop2000], pixel-maps, and spaghetti time series plots. 
 Not only does this method help readers understand the plot level "gist", it is also unlikely to damage the viewers ability to extract individual estimates.
-Extracting global statistics, such as the mean or variance, from a sample can be done with relative each, especially when those values are mapped to color [@Franconeri2021]. 
+Extracting global statistics, such as the mean or variance, from a sample can be done with relative ease, especially when those values are mapped to color [@Franconeri2021]. 
 Additionally, @Ndlovu2023 found that participants applied the same methods they used for simple choropleth maps to complicated uncertainty maps even if that take away was invalid. 
 The pixel map can be read the same way as a choropleth map, which allows us to leverage that automatic response. 
 Therefore, the pixel map performs signal suppression, without sacrificing the viewers ability to extract general statistics, unless those statistics *should* be harder to extract due to the uncertainty in the value. 
@@ -1022,7 +1023,7 @@ Therefore, often the best uncertainty visualisation is not an "uncertainty visua
 
 This does not mean that visualizing raw data will always prevent insignificant signal from getting through. 
 @Chowdhury illustrated how groups that appear linearly separable in a linear discriminant analysis (LDA) visualisation of the data can actually be the result of a LDA performed on too many variables, something that was not clear from the visualisation until the line-up protocol was implemented. 
-However, just showing the data it is simple but effective option for uncertainty visualisation that that seems to be largely overlooked. 
+However, just showing the data is a simple but effective option for uncertainty visualisation that that seems to be largely overlooked. 
 <!-- Does showing the data actually show uncertainty, or does it just show variance? I'm thinking of inferential statistics here - you can show a sample, but it doesn't necessarily show you anything about the uncertainty of the population-based inferential statistics, visually speaking. Some of the dotmap style visualizations you're thinking of are actually census visualizations - there isn't any inferential uncertainty, but there is variance. I'm not sure you're adequately separating these concepts here, even if I generally agree with the broad points you're making.  -->
 <!--    
 - I think the point I’m trying to make here is not that the raw data shows uncertainty by showing variation, but rather that it shows uncertainty by allowing people to see violations to the assumptions they might have made when mentally calculating an inferrential statistic
@@ -1043,7 +1044,7 @@ However, just showing the data it is simple but effective option for uncertainty
 -->
 <!-- Yes, this looks like you're thinking along the same lines as I was -->
 While the pixel map does not literally show the data, it does imitate showing the data and give us details on where the variability is coming from. 
-In order to uncerstand *why* pixel maps seem to be successful at signal suppression at first glace would likely require a more thorough discussion than what what we can offer here.
+In order to understand *why* pixel maps seem to be successful at signal suppression at first glance would likely require a more thorough discussion than what what we can offer here.
 
 # Evaluating uncertainty visualisations
 If we want to make conclusions about how effective any uncertainty visualisation method is we need to look at the results of evaluation experiments. 
@@ -1058,7 +1059,7 @@ Examples of these benefits include better decisions, more trust in the results a
 Ultimately, these secondary benefits are not the primary goal of uncertainty visualisation, and evaluating uncertainty visualisations on these criteria often has unintended consequences. 
 
 ### Value extraction of uncertainty statistics
-Uncertainty visualisations are often evaluated based on how accurately [@Hullman2019] viewers can separately extract the estimate and the variance [@Kinkeldey2014]. 
+Uncertainty visualisations are often evaluated based on how accurately [@Hullman2019] viewers can separately extract the estimate and its variance [@Kinkeldey2014]. 
 This means a significant chunk of evaluation studies boil down to showing a participant a visualisation and asking questions such as "what is the variance of $X$?", or "what is the mean of $X$?". 
 This seems like a relatively straight forward approach, and it is similar to how non-uncertainty visualisations are evaluated, but is this appropriate for uncertainty visualisations? 
 The role of uncertainty is rarely evaluated in these studies as the graphics are often compared on the basis of being "uncertainty visualisations" [@Ibrekk1987; @Hullman2015; @Hofman2020], a class that has no established definition. 
@@ -1067,9 +1068,9 @@ This leads to a series of experiments where the uncertainty is evaluated as a si
 
 The problem with evaluating uncertainty as a signal are identical to the problems associated with displaying uncertainty as a signal. 
 There is no reason to assume uncertainty would behave any differently to any other variable when we evaluate them in this way. 
-For example, @Ibrekk1987 found that participants were more accurate at extracting a statistic when it could be directly read off the graphic, than when it required an area estimate (which is the case if using the PDF), or when there was no visual indicator for the statistic at all (which is the case when using the CDF of an asymmetric function). 
+For example, @Ibrekk1987 found that participants were more accurate at extracting a statistic when it could be directly read off the graphic, than when it required an area estimate (which is the case if using the probability density function), or when there was no visual indicator for the statistic at all (which is the case when using the cumulative distribution function of a skewed random variable). 
 @Hullman2015 found that a visualisation that allows viewers to count outcomes to estimate a probability outperformed one that required a complicated area calculation. 
-@Hofman2020 and @Zhang2022 found that participants were better at answering questions about a prediction intervals when shown a prediction interval instead of a sampling distribution. 
+@Hofman2020 and @Zhang2022 found that participants were better at answering questions about prediction intervals when shown a prediction interval instead of a sampling distribution. 
 @Gschwandtnei2016 found that graphics where the required statistic could be directly read off the plot outperformed those that involved guesswork due to a gradually decreasing line. 
 @Cheong2016 found that participants made better decisions when they were explicitly given the relevant probability in text rather than when they needed to read it off a map. 
 It is well established that extracting information from a graphic using a perceptual task will always be less accurate than explicitly reading the value provided in text form [@Cleveland1984].
@@ -1096,11 +1097,11 @@ I think that commenting on (2) is a good addition to this section, but it doesn�
 I agree with your point about the accuracy in display vs perception but I don’t see its connection to the greater point about trust and I’m not 100% sure it fits in this section. Accuracy in the visual form (e.g. correcting for sine illusion) is still a pursuit of accuracy, just accuracy in the visual statistic.  Like, if we use Frequentist or Bayesian statistics, they also have different inputs, processes and outputs and they both give us different estimates. It is also common to adjust those statistics to correct for a bias in the calculation (e.g. we might weight the observations). I don’t really see the difference between these methods and editing a graphic to correct for the sine illusion. I don’t think any of these things conflict with the pursuit of scientific accuracy. I’m not against adding this as an additional comment (i.e. that accuracy in a visualisation may not be what the reader thinks it is) but I’m not certain it has any serious implications for the trust
 -->
 <!-- That's totally fair :) Just quibbling - not something you have to change unless someone else calls it out! -->
-Setting trust as the variable of interest implicitly encourages statisticians to set trust and as the primary goal of communication. 
+Setting trust as the variable of interest implicitly encourages statisticians to set trust as the primary goal of communication. 
 Evaluating visualisations on trust conflates trust and transparency and ultimately discourages signal-suppression. 
 We can see this effect pop up in the results of evaluation studies. 
 For example, @Zhao2023 found that participants were more trusting of model estimates with low uncertainty, but this effect did not carry over to estimates with high uncertainty. 
-Despite decreased trust being a desired outcome of signal suppression, the authors discussion implied this result was not desired. 
+Despite decreased trust being a desired outcome of signal suppression, the author's discussion implied this result was not desired. 
 This perspective ends up extending to visualisation authors as well.
 @Hullman2020a found that authors simultaneously argued that failing to visualise uncertainty was akin to fraud, but also many avoided uncertainty visualisation because they didn't want their work to come across as "untrustworthy". 
 This is a classic example of the negative impacts of placing direct importance on *trust* rather than *transparency*. 
@@ -1116,11 +1117,11 @@ Uncertainty visualisations conflate these two measures.
 Risk-aversion is another secondary effect of uncertainty visualization that is used to evaluate uncertainty visualisations [@Hullman2019]. 
 Risk aversion is an economics term used to describe an agent who would chose a random variable with a lower expected payout because it also has a lower variance. 
 Risk aversion is considered irrational behaviour because it is a deviation from the behaviour of a rational agent. 
-Comparing participant responses to that of a ration agent has even been suggested as a benchmark for uncertainty visualization experiments [@wu2023rational].
+Comparing participant responses to that of a rational agent has even been suggested as a benchmark for uncertainty visualization experiments [@wu2023rational].
 However, just like trust, evaluating graphics on risk-aversion discourages signal-suppression. 
 Rational agents *by definition* should *ignore* uncertainty information. 
 Risk aversion is considered to be irrational because it means the economic agent *is* considering the uncertainty information.
-The only cases where a rational agent should not ignore the uncertainty information is when the uncertainty is signal, not noise. 
+The only case where a rational agent should not ignore the uncertainty information is when the uncertainty is signal, not noise. 
 Designing graphics that encourage choices that align with that of a rational agent, is to encourage graphics that do not include uncertainty at all.
 
 For these reasons we do not believe trust, confidence, or risk-aversion are useful measures to evaluate uncertainty visualisations. 
@@ -1165,7 +1166,7 @@ This is further complicated by the fact that visual statistics and their computa
 Additionally, by having a ground truth, they end up implicitly asking users to treat uncertainty as a signal which goes against the purposes of signal-suppression. 
 
 ## Testing signal supression
-If we cannot ask direct questions about uncertainty, we cant measure the secondary effects of uncertainty, and we can't ask indirect questions about the uncertainty, how are we supposed to evaluate uncertainty visualisations? 
+If we cannot ask direct questions about uncertainty, we cannot measure the secondary effects of uncertainty, and we cannot ask indirect questions about the uncertainty, how are we supposed to evaluate uncertainty visualisations? 
 How do you measure something that disappears the second you look directly at it?
 To evaluate uncertainty visualisations, we need an experimental design that evaluates uncertainty as noise, not as signal. 
 This means we need to measure *uncertainty's impact on the signal*, not the uncertainty itself.  
@@ -1192,12 +1193,12 @@ The lineup protocol allows viewers to detect "something is not right" even if th
 While standard hypothesis tests may outperform the lineup protocol on power, computational tests have the benefit of knowing exactly what they are looking for, while visualisations are often explicitly made when we *don't* know what we are looking for.
 Additionally, while lineup protocols often have a specific hypothesis that is used to create the null distribution, uncertainty visualisations are intended to be more flexible and can be created without identifying a specific null distribution.
 Therefore, while we could evaluate uncertainty visualisations by comparing them to a selection of hypothesis tests, we should not expect the same level of sensitivity that we get in standard hypothesis tests as the assumed knowledge about our data is quite different.
-This approach could give us a good idea of the use cases of different uncertainty visualisation designs, but we should be mindful of it's limitations in fully describing the effectivness of these graphics. 
+This approach could give us a good idea of the use cases of different uncertainty visualisation designs, but we should be mindful of it's limitations in fully describing the effectiveness of these graphics. 
 
 
 
 ### Qualitative Studies
-Alternatively visualisation research could shift away from the accuracy concept all together ask questions that allow for open ended responses. This method can enlighten authors as to *how* the uncertainty information was used by the participants. 
+Alternatively visualisation research could shift away from the accuracy concept all together and ask questions that allow for open ended responses. This method can enlighten authors as to *how* the uncertainty information was used by the participants. 
 @Hofmann2012 tried to capture this by asking participants why they considered a particular plot to be more "right shifted", even though this qualitative analysis did not make it into the final paper. 
 @Daradkeh2015 presented participants with ten investment alternatives and asked participants "from among available alternatives, which alternative do you prefer the most", and were asked to think aloud and consider the uncertainty in their decision making. 
 The experimenters goal was to observe and organise the methods people use when making decisions in the face of uncertainty. 
@@ -1205,7 +1206,7 @@ They highlighted the specific aspects of uncertainty that participants typically
 
 ### Heuristics
 While experiments that explicitly identify heuristics in current methods are not technically measuring signal-suppression, they are still a useful consideration to keep in mind when designing experiments for signal suppression. 
-Heuristic checks are look at unknown pitfalls that might exist in interpretation of current plots [@Hullman2016] and can change depending on the larger scope of the graphic and the population we are communicating with [@Spiegelhalter2017; @Kinkeldey2014]. 
+Heuristic checks look at unknown pitfalls that might exist in interpretation of current plots [@Hullman2016] and can change depending on the larger scope of the graphic and the population we are communicating with [@Spiegelhalter2017; @Kinkeldey2014]. 
 
 Several heuristics are of particular importance for uncertainty visualisations, and are likely to impact how well different methods performing signal suppression. 
 The sine illusion can cause the confidence interval of a smoothed sine curve to seem wider at the peaks than the troughs, causing us to underestimate uncertainty associated with changing values [@Vanderplas2015]. 
