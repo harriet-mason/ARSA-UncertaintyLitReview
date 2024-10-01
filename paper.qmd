@@ -560,7 +560,7 @@ Additionally, at least one of these charts have been used in a significant numbe
 If you view uncertainty as a function applied to an existing graphic, then you would believe a pie chart and bar chart are not uncertainty visualisations, as they are yet to have the "uncertainty visualisation function" applied to them. 
 If you view uncertainty as any graphic that depicts an "uncertainty statistic" then there are no limitations on which graphics can or cannot be uncertainty visualisations. 
 
-When we use "uncertainty visualization" to refer to graphics that simply communicate a variance or probability, we are classifying visualisations by the data they display, not their visual features. 
+When we use "uncertainty visualation" to refer to graphics that simply communicate a variance or probability, we are classifying visualisations by the data they display, not their visual features. 
 Graphics, just like statistics, are not defined by their input data. 
 A scatter plot that compares mean and a scatter plot that compares variances are both scatter plots. 
 Given that there is no special class of visualisation for *other* statistics (such the median or maximum) there is no reason to assume visualisations that simply depict a variance, error, or probability to be special. 
@@ -697,7 +697,7 @@ If we do not violate the uniformity of nature assumption at any point in our ana
 This interpretation of uncertainty indicates that the uncertainty is not a variable of importance in of itself. 
 Uncertainty is metadata about our statistic that is required for valid inference.
 This means uncertainty should not be visualised by itself and we should seek to display signal and uncertainty together as a "single integrated uncertain value" [@Kinkeldey2014]. 
-This aspect of uncertainty visualization makes it a uniquely difficult problem. 
+This aspect of uncertainty visualation makes it a uniquely difficult problem. 
 
 ### Visualising the "single integrated uncertain value"
 Typically, when making visualisations, we want the visual channels to be separable. 
@@ -821,7 +821,7 @@ In this sense, EDA is the visual parallel to descriptive statistics, as it is pe
 
 Some authors recognise inference will always occur (in some shape or form) and believe uncertainty *should* be visualised but do not recognise *how* uncertainty would be visualised. 
 @Hullman2021 argued that there is no such thing as a "model-free" visualisation, therefore all visualisations require uncertainty as we are always performing inference. 
-While it is true that we can think of visualisations as containing implicit inferential properties, there are many potential inferences in any single visualization. 
+While it is true that we can think of visualisations as containing implicit inferential properties, there are many potential inferences in any single visualisation. 
 This makes it a little difficult to ensure uncertainty is always included.
 For example, if we have a visualisation that shows an average, we would need to identify if the signal suppression should be performed using the sampling variance or the sample variance [@Hofman2020].
 The distribution we use depends on the inferential statistic but until the viewer chooses one and thinks about it (which isn't easily observable), the particular variety of uncertainty which would need to be displayed can't be calculated.
@@ -1114,10 +1114,10 @@ In non-uncertainty visualisation evaluation experiments, "confidence" is used as
 Confidence cannot simultaneously be a measure of clarity of visualisation *and* a way to capture the uncertainty expressed in a visualisation. 
 Uncertainty visualisations conflate these two measures.
 
-Risk-aversion is another secondary effect of uncertainty visualization that is used to evaluate uncertainty visualisations [@Hullman2019]. 
+Risk-aversion is another secondary effect of uncertainty visualisation that is used to evaluate uncertainty visualisations [@Hullman2019]. 
 Risk aversion is an economics term used to describe an agent who would chose a random variable with a lower expected payout because it also has a lower variance. 
 Risk aversion is considered irrational behaviour because it is a deviation from the behaviour of a rational agent. 
-Comparing participant responses to that of a rational agent has even been suggested as a benchmark for uncertainty visualization experiments [@wu2023rational].
+Comparing participant responses to that of a rational agent has even been suggested as a benchmark for uncertainty visualisation experiments [@wu2023rational].
 However, just like trust, evaluating graphics on risk-aversion discourages signal-suppression. 
 Rational agents *by definition* should *ignore* uncertainty information. 
 Risk aversion is considered to be irrational because it means the economic agent *is* considering the uncertainty information.
@@ -1159,7 +1159,7 @@ Other authors have commented on the complexity of communicating hurricane risk b
 @Padilla2017 seem to be aware of the issues in the visualisation and are using the user study to show that current government communications are not the best choice when communicating hurricane risk, as it is unreasonable to assume that "more likely to be hit" should automatically translate to "more damage". 
 While this is useful to highlight, the authors end up caught by their own trap, as answering the questions in their second study correctly required participants to assume an area being more likely to be hit *does* translate to receiving more damage.
 The assumptions required to answer these deterministic questions are often invisible, even to the authors of the paper, which means they often create more problems than they solve when they are used as a tool for graphical evaluation.
-Similar to the vague question problem, these studies seem to be aware that we should be evaluating an uncertainty visualization based on a deterministic observation (such as our example of "does this map have a spatial trend") but are unsure how to incorporate or evaluate it. 
+Similar to the vague question problem, these studies seem to be aware that we should be evaluating an uncertainty visualation based on a deterministic observation (such as our example of "does this map have a spatial trend") but are unsure how to incorporate or evaluate it. 
 
 While these approaches are certainly a step in the right direction, the experiments end up having far too much noise in their results. 
 This is further complicated by the fact that visual statistics and their computational equivalents often differ, even before we consider these measurement errors.
@@ -1172,7 +1172,7 @@ To evaluate uncertainty visualisations, we need an experimental design that eval
 This means we need to measure *uncertainty's impact on the signal*, not the uncertainty itself.  
 
 ### Comparing to hypothesis tests
-The most obvious way to evaluate uncertainty visualizations is to compare the visualisations to statistical tests. 
+The most obvious way to evaluate uncertainty visualations is to compare the visualisations to statistical tests. 
 If a graphic was performing signal-suppression we would expect the signal to be harder to see at higher levels of uncertainty. 
 The ideal outcome is a an uncertainty visualisation where the signal is only perceivable when it would be identified by a hypothesis test. Evaluating visualisations as though they are akin to hypothesis tests is a well established concept in visualisation. 
 The lineup protocol is a good example of this approach.
