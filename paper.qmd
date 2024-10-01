@@ -1160,7 +1160,8 @@ We could use a similar evaluation method to evaluate uncertainty visualisations,
 Even the lineup protocol, which is much closer to a standard statistical test, runs into some difficulty when trying to directly compare it to its computational equivalent.
 @Patrick2023 found that human viewers using the lineup protocol are less sensitive to deviations from the null hypothesis than standard statistical tests.
 However, this finding does not directly translate to the lineup protocol being worse than its computational equivalent.
-The lineup protocol allows viewers to detect "something is not right" even if that something is unspecified, and even if that "something" is not what see the authors intended (for an example see @vanderplas2017).
+The lineup protocol allows viewers to detect "something is not right" even if that something is unspecified, and even if that "something" is not what see the authors intended.
+For example, @vanderplas2017 did an experiment where participants were drawn to plots with unequal cluster sizes, even though the size of the cluster was not one of the features the authors were testing.
 While standard hypothesis tests may outperform the lineup protocol on power, computational tests have the benefit of knowing exactly what they are looking for, while visualisations are often explicitly made when we *don't* know what we are looking for.
 Additionally, while lineup protocols often have a specific hypothesis that is used to create the null distribution, uncertainty visualisations are intended to be more flexible and can be created without identifying a specific null distribution.
 Therefore, while we could evaluate uncertainty visualisations by comparing them to a selection of hypothesis tests, we should not expect the same level of sensitivity that we get in standard hypothesis tests as the assumed knowledge about our data is quite different.
