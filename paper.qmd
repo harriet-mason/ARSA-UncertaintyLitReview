@@ -66,7 +66,7 @@ In fact, there have already been several reviews published but a central piece o
 #| message: false
 #| warning: false
 #| label: fig-ibrekk
-#| fig-cap: "A replication of the the uncertainty visualisations shown by @Ibrekk1987 in one of the earliest uncertainty visualisation experiments. Several visualisation methods that are now unpopular (such as the pie chart) are used throughout this paper."
+#| fig-cap: "A replication of the uncertainty visualisations shown by @Ibrekk1987 in one of the earliest uncertainty visualisation experiments. Several visualisation methods that are now unpopular (such as the pie chart) are used throughout this paper."
 #| fig-subcap: 
 #|   - "Picture 1"
 #|   - "Picture 2"
@@ -564,7 +564,7 @@ When we use "uncertainty visualation" to refer to graphics that simply communica
 Graphics, just like statistics, are not defined by their input data. 
 A scatter plot that compares mean and a scatter plot that compares variances are both scatter plots. 
 Given that there is no special class of visualisation for *other* statistics (such the median or maximum) there is no reason to assume visualisations that simply depict a variance, error, or probability to be special. 
-Some authors implicitly suggest that that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019].
+Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019].
 While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017], there is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. 
 Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behavior, there is no reason to assume this is what makes uncertainty visualisation so special. 
 
@@ -873,7 +873,7 @@ This means the graphic also achieves the third criteria for signal-suppression, 
 #| message: false
 #| warning: false
 #| label: fig-pixel
-#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several smaller regions and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value. In this graphic, we can clearly see the spatial trend in the low variance case, while the spatial trend is much harder to identify in the high variance case. "
+#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several small areas and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value. In this graphic, we can clearly see the spatial trend in the low variance case, while the spatial trend is much harder to identify in the high variance case. "
 #| fig-subcap: 
 #|   - "Low Variance Data"
 #|   - "High Variance Data"
@@ -980,7 +980,7 @@ And if so, why?
 
 ## Show me the data
 The pixel map is not the best uncertainty visualisation, but it does share a lot in common with the best uncertainty visualisation. 
-The best uncertainty visualisation is the visualisation that best captures the limitations of of our raw data.  
+The best uncertainty visualisation is the visualisation that best captures the limitations of our raw data.  
 As we discussed in previous sections, we can consider uncertainty to be "the amalgamations of the impacts of violations to the assumption of the uniformity of nature". 
 It's not a definition that rolls off the tongue, but we can work with it.
 
@@ -1014,16 +1014,16 @@ Whether or not these elements are relevant is highly dependent on what statistic
 This relationship between uncertainty and the "purpose" of our analysis is littered throughout the literature. 
 Multiple authors have commented on the need to consider quantifying and expressing uncertainty at every stage of a project as the "goal" shapes every step of the analysis [@Kinkeldey2014; @Hullman2016; @Refsgaard2007]. 
 @Otsuka2023 suggested that the process of observing data to perform statistics is largely dependent on our goals, because the process of boiling real world entities down into probabilistic objects (or "probabilistic kind" as he puts it) depends on the relationship we seek to identify with our data. 
-@Meng2014 commented what is kept as data and what is tossed away is determined by the motivation of an analysis and what was previously noise can be shown to become signal depending on the the question we seek to answer.  
+@Meng2014 commented what is kept as data and what is tossed away is determined by the motivation of an analysis and what was previously noise can be shown to become signal depending on the question we seek to answer.  
 @Wallsten1997 argue that the best method for evaluating or combining subjective probabilities depends on the uncertainty the decision maker wants to represent and why it matters. 
 @Fischhoff2014 looks at uncertainty visualisation for decision making decides that we should have different ways of communicating uncertainty based off what the user is supposed to do with it.  
 
-This makes it very difficult to move quantified uncertainty through the the layers of our analysis, especially when designing a visualisation for EDA. If we don't know what the final statistic is, we cannot quantify the effects of our assumptions. 
+This makes it very difficult to move quantified uncertainty through the layers of our analysis, especially when designing a visualisation for EDA. If we don't know what the final statistic is, we cannot quantify the effects of our assumptions. 
 Therefore, often the best uncertainty visualisation is not an "uncertainty visualisation" at all, but simply the most accurate depiction of our raw data as it gives us a good idea of it's limitations. 
 
 This does not mean that visualising raw data will always prevent insignificant signal from getting through. 
 @Chowdhury illustrated how groups that appear linearly separable in a linear discriminant analysis (LDA) visualisation of the data can actually be the result of a LDA performed on too many variables, something that was not clear from the visualisation until the line-up protocol was implemented. 
-However, just showing the data is a simple but effective option for uncertainty visualisation that that seems to be largely overlooked. 
+However, just showing the data is a simple but effective option for uncertainty visualisation that seems to be largely overlooked. 
 <!-- Does showing the data actually show uncertainty, or does it just show variance? I'm thinking of inferential statistics here - you can show a sample, but it doesn't necessarily show you anything about the uncertainty of the population-based inferential statistics, visually speaking. Some of the dotmap style visualizations you're thinking of are actually census visualizations - there isn't any inferential uncertainty, but there is variance. I'm not sure you're adequately separating these concepts here, even if I generally agree with the broad points you're making.  -->
 <!--    
 - I think the point I’m trying to make here is not that the raw data shows uncertainty by showing variation, but rather that it shows uncertainty by allowing people to see violations to the assumptions they might have made when mentally calculating an inferrential statistic
@@ -1043,8 +1043,8 @@ However, just showing the data is a simple but effective option for uncertainty 
   - I just want to make sure this is an accurate description of the issue you were highlighting before I fix it up this section (also I think it will take me a bit to figure out how to fix it) 
 -->
 <!-- Yes, this looks like you're thinking along the same lines as I was -->
-While the pixel map does not literally show the data, it does imitate showing the data and give us details on where the variability is coming from. 
-In order to understand *why* pixel maps seem to be successful at signal suppression at first glance would likely require a more thorough discussion than what what we can offer here.
+While the pixel map does not literally show the data, it does imitate showing the data and gives us details on where the variability is coming from. 
+In order to understand *why* pixel maps seem to be successful at signal suppression at first glance would likely require a more thorough discussion than what we can offer here.
 
 # Evaluating uncertainty visualisations
 If we want to make conclusions about how effective any uncertainty visualisation method is we need to look at the results of evaluation experiments. 
@@ -1127,7 +1127,7 @@ Designing graphics that encourage choices that align with that of a rational age
 For these reasons we do not believe trust, confidence, or risk-aversion are useful measures to evaluate uncertainty visualisations. 
 While they are designed to capture the secondary effects of uncertainty, using them as primary measures of visualisation performance is in direct conflict with designing visualisations for signal-suppression.
 
-### Questions that attempts to capture signal-suppression
+### Questions that attempt to capture signal-suppression
 There is a collection of studies that seem to be aware of the issues behind using trust or value extraction to evaluate uncertainty visualisations. 
 These studies try to measure the effect of some kind of "single integrated value" but the methodology is often ad-hoc with varying levels of success. 
 
@@ -1166,7 +1166,7 @@ This is further complicated by the fact that visual statistics and their computa
 Additionally, by having a ground truth, they end up implicitly asking users to treat uncertainty as a signal which goes against the purposes of signal-suppression. 
 
 ## Testing signal supression
-If we cannot ask direct questions about uncertainty, we cannot measure the secondary effects of uncertainty, and we cannot ask indirect questions about the uncertainty, how are we supposed to evaluate uncertainty visualisations? 
+If we cannot ask direct questions about uncertainty, or measure the secondary effects of uncertainty, or ask indirect questions about the uncertainty; then how are we supposed to evaluate uncertainty visualisations? 
 How do you measure something that disappears the second you look directly at it?
 To evaluate uncertainty visualisations, we need an experimental design that evaluates uncertainty as noise, not as signal. 
 This means we need to measure *uncertainty's impact on the signal*, not the uncertainty itself.  
