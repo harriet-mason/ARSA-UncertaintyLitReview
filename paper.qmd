@@ -975,15 +975,17 @@ Extracting global statistics, such as the mean or variance, from a sample can be
 Additionally, @Ndlovu2023 found that participants applied the same methods they used for simple choropleth maps to complicated uncertainty maps even if that take away was invalid. 
 The pixel map can be read the same way as a choropleth map, which allows us to leverage that automatic response. 
 Therefore, the pixel map performs signal suppression, without sacrificing the viewers ability to extract general statistics, unless those statistics *should* be harder to extract due to the uncertainty in the value. 
-So is this the best uncertainty visualisation? 
-And if so, why?
+So, what is it about @fig-pixel that allows it to be such a successful uncertainty visualisation?
+Is this a question we can easily answer?
 
 ## Show me the data
-The pixel map is not the best uncertainty visualisation, but it does share a lot in common with the best uncertainty visualisation. 
-The best uncertainty visualisation is the visualisation that best captures the limitations of our raw data.  
+To thoroughly understand why pixel maps seem to successfully perform signal suppression, we would need a more thorough discussion than what can be offered here. 
+However, this does not prohibit us from discussing potential reasons for the graph's effectiveness. 
+There is a second type of uncertainty that the pixel map quietly communicates but we have not touched on yet, and this uncertainty is also conveyed by visualisations of our raw data. 
+That is, these graphics can show assumption violations.
+
 As we discussed in previous sections, we can consider uncertainty to be "the amalgamations of the impacts of violations to the assumption of the uniformity of nature". 
 It's not a definition that rolls off the tongue, but we can work with it.
-
 Thankfully, this definition of uncertainty aligns nicely with all the concepts that are included in the uncertainty umbrella. 
 Some works [@Hullman2018; @Maceachren2012; @Thomson2005] focus narrowly on specific terms with mathematical definitions, such as probability, confidence intervals, variance, error, or precision. 
 These works are only concerned with quantifying the final impact of uncertainty on our statistics. 
@@ -993,7 +995,7 @@ These broader and harder to quantify concepts are concerned about potential sour
 
 What this means is that we have two types of uncertainty, but one is more "processed" than the other. 
 Quantifiable uncertainties are just assumption violations expressed as an effect on our final statistic (or true variation of our data). 
-The disconnect between quantifiable and unqualitifable uncertainty creates a huge problem for authors trying to visualise it. 
+The disconnect between quantifiable and unqualitifable uncertainty creates a huge problem for authors trying to visualise it.
 A survey of visualisation authors cited "not knowing how to calculate uncertainty" as one of the primary reasons they did not include it in visualisations [@Hullman2020a]. 
 
 There are two reasons we might leave our uncertainty as an assumption violation rather quantifying the effect. 
@@ -1018,33 +1020,17 @@ Multiple authors have commented on the need to consider quantifying and expressi
 @Wallsten1997 argue that the best method for evaluating or combining subjective probabilities depends on the uncertainty the decision maker wants to represent and why it matters. 
 @Fischhoff2014 looks at uncertainty visualisation for decision making decides that we should have different ways of communicating uncertainty based off what the user is supposed to do with it.  
 
-This makes it very difficult to move quantified uncertainty through the layers of our analysis, especially when designing a visualisation for EDA. If we don't know what the final statistic is, we cannot quantify the effects of our assumptions. 
-Therefore, often the best uncertainty visualisation is not an "uncertainty visualisation" at all, but simply the most accurate depiction of our raw data as it gives us a good idea of it's limitations. 
-
+This makes it very difficult to move quantified uncertainty through the layers of our analysis, especially when designing a visualisation for EDA. 
+If we don't know what the final statistic is, we cannot quantify the effects of our assumptions. 
+Therefore, it is often the case that the best uncertainty visualisation is not an "uncertainty visualisation" at all, but simply the most accurate depiction of our raw data.
 This does not mean that visualising raw data will always prevent insignificant signal from getting through. 
 @Chowdhury illustrated how groups that appear linearly separable in a linear discriminant analysis (LDA) visualisation of the data can actually be the result of a LDA performed on too many variables, something that was not clear from the visualisation until the line-up protocol was implemented. 
 However, just showing the data is a simple but effective option for uncertainty visualisation that seems to be largely overlooked. 
-<!-- Does showing the data actually show uncertainty, or does it just show variance? I'm thinking of inferential statistics here - you can show a sample, but it doesn't necessarily show you anything about the uncertainty of the population-based inferential statistics, visually speaking. Some of the dotmap style visualizations you're thinking of are actually census visualizations - there isn't any inferential uncertainty, but there is variance. I'm not sure you're adequately separating these concepts here, even if I generally agree with the broad points you're making.  -->
-<!--    
-- I think the point I’m trying to make here is not that the raw data shows uncertainty by showing variation, but rather that it shows uncertainty by allowing people to see violations to the assumptions they might have made when mentally calculating an inferrential statistic
-  - e.g. if i show the raw data and the areas are unevenly spaced or there are a lot of missing observations in some areas.
-- I agree that the variability in the raw data is not related to the variability in the inferential statistic even though this section certainly implies that. I need to fix that.
--->
-<!-- Ok, but variability in the raw data is also related to variability in the inferential statistic, it's just that as n -> infinity, the variability in the inferential statistic goes to 0.  -->
-<!--
-- The connection with the pixel map was supposed to be that it would theoretically give a sense of the shape of the distribution. When I said “where the variability is coming from” I was trying to refer to that shape, but that doesn’t really translate from what I’ve written and the connecton between the pixel map and showing the raw data isn’t really there. 
-  - I think the logic line I was going for was
-    Pixel map shows collection of hypothetical outcomes of sampling distribution 
-    => These outcomes let us see the shape of the distribution 
-    => When seeing the shape of the distribution, we may become aware of errors in our assumptions, (e.g. such as normality) 
-    => If we want to be aware of where our uncertainty is coming from (e.g. underlying variability or assumption violations) then the raw data is what best shows this
-- I did consider including a visualisation that shows the data I used for the pixel map as a final map visualisation to better separate these concepts, but I didn’t technically use any real data (since I just made the normality assumption which is excatly what this map should highlight)
-  - It might be better to change the statistic and give the sampling distribution in each area a different shape to make the pixel map benefit clearer.
-  - I just want to make sure this is an accurate description of the issue you were highlighting before I fix it up this section (also I think it will take me a bit to figure out how to fix it) 
--->
-<!-- Yes, this looks like you're thinking along the same lines as I was -->
-While the pixel map does not literally show the data, it does imitate showing the data and gives us details on where the variability is coming from. 
-In order to understand *why* pixel maps seem to be successful at signal suppression at first glance would likely require a more thorough discussion than what we can offer here.
+
+Of course, visualising the raw data is not always possible nor suitable.
+For example, if we have a specific statistic in mind, it may be more appropriate to show the sampling distribution of that statistic rather than the variability of all observations.
+If we visualise that sampling distribution in a way that allows us to see it's shape, and therefore recognise any assumption violations (such as a non-normal distribution), we maintain some of the benefits that came with visualising the raw data. 
+This is exactly what the pixel map does, and likely contributes to it's success as a signal suppression method.
 
 # Evaluating uncertainty visualisations
 If we want to make conclusions about how effective any uncertainty visualisation method is we need to look at the results of evaluation experiments. 
