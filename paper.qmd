@@ -1125,11 +1125,6 @@ Ultimately this approach results in strangely cryptic questions that create a la
 
 For example @Hofmann2012 showed study participants 20 plots, where each plot displayed two distributions (as a pair of jittered samples, density plots, histograms, or box plots) and asked them to identify the plot where "the blue group is furthest to the right". 
 The mean of the two groups was used to decide which group was actually "furthest to the right" and the different graphical approaches were evaluated against that ground truth. 
-<!-- Participants weren't evaluated against that ground truth, though - the plots were what was actually being evaluated in that study, not participant accuracy. Lineup prompts are typically vague (sometimes, I agree, too vauge) because the participant has to figure out what metric to use to evaluate the data first, and then complete the evaluation task. We're as interested in the metric they're using as we are in their successful identification of the target plot. -->
-<!-- Good point about the plots being evaluated, not the participants. I changed that.
-I agree with the point about lineups being useful in identifying how participants complete evaluation tasks, and I did comment on that with respect to this particular paper later in the “Qualitative studies” section with this comment:
-   “@Hofmann2012 tried to capture this by asking participants why they considered a particular plot to be more "right shifted", even though this qualitative analysis did not make it into the final paper. “
-Do you think I should move that comment to this section to keep all comments on that paper together, leave it where it is, or do you think there should be a different edit? -->
 In another example @Ibrekk1987 asked participants for the "best estimate", but the participant's responses were evaluated against the mean of the distribution.
 Ultimately, the term "best" is up to the users interpretation, and the estimate that minimised the sum of squared errors was not implied by the question. 
 This vague question approach leads to inconclusive results, as we are left unclear if it was the phrasing of the question or the plot design that caused the participants to answer incorrectly.
@@ -1185,7 +1180,7 @@ This approach could give us a good idea of the use cases of different uncertaint
 
 ### Qualitative Studies
 Alternatively visualisation research could shift away from the accuracy concept all together and ask questions that allow for open ended responses. This method can enlighten authors as to *how* the uncertainty information was used by the participants. 
-@Hofmann2012 tried to capture this by asking participants why they considered a particular plot to be more "right shifted", even though this qualitative analysis did not make it into the final paper. 
+@Hofmann2012 captured this by asking participants why they considered a particular plot to be more "right shifted", even though this qualitative analysis did not make it into the final paper. 
 @Daradkeh2015 presented participants with ten investment alternatives and asked participants "from among available alternatives, which alternative do you prefer the most", and were asked to think aloud and consider the uncertainty in their decision making. 
 The experimenters goal was to observe and organise the methods people use when making decisions in the face of uncertainty. 
 They highlighted the specific aspects of uncertainty that participants typically considered, such as the range of outcomes that are above/below a certain threshold, minimum and maximum values, the risk of a loss, etc, and identified where in the decision making process participants made these considerations. 
