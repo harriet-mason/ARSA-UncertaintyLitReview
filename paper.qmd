@@ -346,7 +346,8 @@ my_map_data <- my_map_data |>
   # add bivariate classes to data
   mutate(bitemp = cut(temp, breaks=breaks, labels=seq(8)),
          bivar = cut(variance, breaks=0:4, labels=seq(4)),
-         biclass = paste(bitemp, bivar, sep="-"))
+         biclass = paste(bitemp, bivar, sep="-"))|>
+  mutate(highlight = ifelse(count_id <= 5, TRUE, FALSE))
 
 # Make nice example table
 example_table <- my_map_data |>
@@ -367,6 +368,7 @@ example_table <- my_map_data |>
                     temp = "Average Temperature (°C)",
                     highvar = "High",
                     lowvar = "Low") |>
+  add_footer_row(values = rep("..."), colwidths = 5) |>
   theme_vanilla() |>
   vline(i=c(1,2), j=3, part="header")|>
   align(align = "left", part = "all") |>
@@ -379,7 +381,7 @@ example_table <- my_map_data |>
     bg = col_numeric(palette = brewer.pal(8, name = "Greens"),
                      domain = c(0, 3)),
     part = "body"
-  )
+  ) 
 
 
   
@@ -387,9 +389,11 @@ example_table <- my_map_data |>
 example_map <- my_map_data |>
   filter(variance_class=="lowvar") |>
   ggplot() +
-  geom_sf(aes(geometry = geometry), fill="white") + 
-  geom_text(aes(x=cent_long, y=cent_lat, label=count_id), size=2) +
-  theme_void() 
+  geom_sf(aes(geometry = geometry, fill=highlight)) + 
+  scale_fill_manual(values=c("white", "#fbfba2")) +
+  geom_text(data=filter(my_map_data, highlight==TRUE), aes(x=cent_long, y=cent_lat, label=count_id), size=3) +
+  theme_void() +
+  theme(legend.position = 'none') 
 
 plot(example_table)
 
@@ -413,7 +417,7 @@ Is the strength of the trend communicated through the visualisation?
 #| message: false
 #| warning: false
 #| label: fig-choropleth
-#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. In the low variance condition, the trend accounts for most of the variation in the data, in the high variance case, the variance on the temperature estimate accounts for most of the variance. The high variance condition displays a spatial trend that could simply be spurious, which means the plot is displaying a false conclusion."
+#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the center of the map are hotter than counties on the edge of the map. In the low variance condition, the trend accounts for most of the variation in the data, in the high variance case, the variance on the temperature estimate accounts for most of the variance. This distinction is not clear in the map as they both appear identical. The high variance condition displays a spatial trend that could simply be spurious, which means the plot is displaying a false conclusion."
 #| fig-subcap: 
 #|   - "Low Variance Data"
 #|   - "High Variance Data"
@@ -438,7 +442,7 @@ p1a <- my_map_data |>
 
 p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
 
-show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, xlabx, xlaby) {
+show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, xlabx, xlaby, tsize=1.2) {
   # Set dimensions of palette
   n <- length(colours)
   ncol <- ncol %||% ceiling(sqrt(length(colours)))
@@ -456,12 +460,12 @@ show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxla
        col = colours, border = borders)
   text(c(0,col(colours)) + textnudge, -c(1,row(colours))-0.25, breaks, 
               cex = 1, col = "black")
-  text(xlabx, xlaby, myxlab ,cex = 1.5, col = "black")
+  text(xlabx, xlaby, myxlab ,cex = tsize, col = "black")
 }
 
 p1a
 p1b
-show_pal(basecols, ncol=8, borders=NA, myxlab = "Temperature", breaks = 21:29, textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75)
+show_pal(basecols, ncol=8, borders=NA, myxlab = "Temperature", breaks = 21:29, textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75, tsize=1.5)
 
 ```
 
@@ -521,9 +525,8 @@ We are not sure it is productive to categorise this visualisation as an uncertai
 #| fig-subcap: 
 #|   - "Low Variance Data"
 #|   - "High Variance Data"
-#|   - "Exceedance Probability Palette"
+#|   - "Exceedance Probability Map Palette"
 #| layout-ncol: 3
-#| layout-valign: "bottom"
 
 # quantile
 prob_breaks <- seq(-0.1,1.1, length.out=9)
@@ -546,7 +549,7 @@ p2b <- p2a %+% filter(exeed_data, variance_class=="highvar")
 
 p2a
 p2b
-show_pal(basecols, ncol=8, borders=NA, myxlab = "Probability Temp>27", breaks = c(0, prob_breaks[2:8], 1), textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75)
+show_pal(basecols, ncol=8, borders=NA, myxlab = "P(Temperature>27)", breaks = c(0, prob_breaks[2:8], 1), textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75, tsize=1.2)
 ```
 
 There seem to be two different definitions of "uncertainty visualisation" floating around in the literature. 
@@ -634,7 +637,7 @@ p2a <- my_map_data |>
   
 p2b <- p2a %+% filter(my_map_data, variance_class=="highvar")
 
-show_pal2 <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, myylab, breaks, breaks2) {
+show_pal2 <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, myylab, breaks, breaks2, tsize1=1.2, tsize2=1.2) {
   # Set dimensions of palette
   n <- length(colours)
   ncol <- ncol %||% ceiling(sqrt(length(colours)))
@@ -654,8 +657,8 @@ show_pal2 <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxl
        breaks, cex = 1, col = "black")
   text(-0.25, -c(0,row(colours)[,ncol]) + c(-0.2, -0.1, 0, 0.1, 0.2),
        breaks2, cex = 1, col = "black")
-  text(4, -5.5, myxlab ,cex = 1.5, col = "black")
-  text(x=-1.25,y=-2, myylab, srt=270, cex = 1.5, col = "black")
+  text(4, -5.5, myxlab ,cex = tsize1, col = "black")
+  text(x=-1.25,y=-2, myylab, srt=270, cex = tsize2, col = "black")
 }
 
 p2a
@@ -740,7 +743,7 @@ Is a graphic that performs perfect signal-suppression even possible?
 #| message: false
 #| warning: false
 #| label: fig-vsup
-#| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to its average daily temperature and the variance in temperature, although the space they have been mapped to is slightly warped. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
+#| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to its average daily temperature and the variance in temperature. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. Unlike the bivariance map, the colour space we are mapping our variables to has been transformed so that high variance estimates are harder to discern from each other. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
 #| fig-subcap: 
 #|   - "Low Variance Data"
 #|   - "High Variance Data"
@@ -1207,6 +1210,8 @@ When designing experiments, authors often choose aesthetics that are visually di
 *Software that allows users to easily perform signal suppression should be developed.* 
 Existing uncertainty visualisation methods view a distribution as its own object and there are no software options for the "an uncertainty visualisation is a function of a visualisation" philosophy.  
 
+Signal suppression is an untouched area of visualisation research and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
+We are interested to see how this challenge plays out.
 
 # Bibliography
 
