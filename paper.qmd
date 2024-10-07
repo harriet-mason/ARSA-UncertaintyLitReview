@@ -35,9 +35,6 @@ library(sf)
 library(ggrepel)
 library(urbnmapr)
 library(flextable)
-
-# Broom returns an error with Vizumap, run this if can't compile
-# devtools::install_version(package = "broom", version = "1.0.4")
 ```
 
 {{< pagebreak >}}
@@ -911,7 +908,7 @@ pixel_1a <- my_map_data_a %>%
 
 pixel_2a <- my_map_data_a %>% as("Spatial")
 
-pix_a <- pixelate(pixel_2a, pixelSize = 3, id = "my_id")
+pix_a <- pixelate(pixel_2a, pixelSize = 70, id = "my_id")
 
 pmap_a <- build_pmap(data = pixel_1a, distribution = "discrete", pixelGeo = pix_a, id = "my_id", border = pixel_2a, q=q_a)
 
@@ -948,7 +945,7 @@ pixel_1b <- my_map_data_b %>%
 pixel_2b <- my_map_data_b %>% 
   as("Spatial")
 
-pix_b <- pixelate(pixel_2b, pixelSize = 3, id = "my_id")
+pix_b <- pixelate(pixel_2b, pixelSize = 70, id = "my_id")
 
   
 pmap_b <- build_pmap(data = pixel_1b, distribution = "discrete", pixelGeo = pix_b, id = "my_id", border = pixel_2b, q=q_b)
