@@ -28,13 +28,16 @@ editor_options:
 
 # load Libraries
 library(tidyverse)
-library(biscale)
+library(Vizumap)
+library(ggplot2)
 library(RColorBrewer)
 library(scales)
 library(sf)
 library(ggrepel)
 library(urbnmapr)
 library(flextable)
+library(colorspace)
+library(rgeos)
 ```
 
 {{< pagebreak >}}
@@ -82,10 +85,10 @@ x=rnorm(1000, 8, 4)
 ib_data <- tibble(x=ifelse(x<0, -x, x))
 
 # Picture 1
-p1 <- ib_data %>%
+p1 <- ib_data |>
   summarise(avg = mean(x),
           conf_95a = quantile(x, probs=c(0.025)),
-          conf_95b = quantile(x, probs=c(0.975))) %>%
+          conf_95b = quantile(x, probs=c(0.975))) |>
   ggplot(aes(y="NA")) +
   geom_point(aes(x=avg)) +
   geom_errorbar(aes(xmin = conf_95a, xmax = conf_95b), width = 0.1) +
@@ -117,7 +120,6 @@ p2 <- ib_data |>
   theme(aspect.ratio=0.33)
 
 # Picture 3
-# library(ggpattern)
 p3 <- ib_data |>
   mutate(x = ifelse(x>18, 18, x),
          binx = cut(x, 
@@ -214,7 +216,7 @@ p7 <- ib_data2 |>
         aspect.ratio=0.1)
 
 # Picture 8
-p8 <- ib_data %>%
+p8 <- ib_data |>
   reframe(x = quantile(x, probs=c(0.25, 0.50, 0.75)))|>
   add_row(x = c(0,20)) |>
   arrange(x) |>
@@ -320,14 +322,14 @@ set.seed(1997)
 
 # Get map data
 my_map_data <- get_urbn_map("counties", sf = TRUE) |>
-  dplyr::filter(state_name=="Iowa")
-centroids <- as_tibble(rgeos::gCentroid(as(my_map_data$geometry, "Spatial"), byid = TRUE))
+  filter(state_name=="Iowa")
+centroids <- as_tibble(gCentroid(as(my_map_data$geometry, "Spatial"), byid = TRUE))
 my_map_data$cent_long <- centroids$x
 my_map_data$cent_lat <- centroids$y
 n <- dim(my_map_data)[1]
 
 # Make palettes
-longpal <- rev(colorspace::sequential_hcl(13, palette = "YlOrRd"))
+longpal <- rev(sequential_hcl(13, palette = "YlOrRd"))
 basecols <- longpal[3:10]
 breaks <- 21:29 
 breakslong <- 18:32 
@@ -335,7 +337,7 @@ names(basecols) <- seq(8)
 names(longpal) <- -1:11
 
 my_map_data <- my_map_data |>
-  dplyr::mutate(temp = 29 - 3*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
+  mutate(temp = 29 - 3*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
          highvar = runif(n, min=2, max=4), # high variance
          lowvar = runif(n, min=0, max=2), # low variance
          count_id = row_number()) |>
@@ -426,7 +428,7 @@ Is the strength of the trend communicated through the visualisation?
 
 # Choropleth Map
 p1a <- my_map_data |>
-  filter(variance_class=="lowvar") %>%
+  filter(variance_class=="lowvar") |>
   ggplot() +
   geom_sf(aes(fill = bitemp, 
               geometry = geometry), colour=NA) + 
@@ -534,7 +536,7 @@ exeed_data <- my_map_data |>
              
 # Exceed Prob Map
 p2a <- exeed_data |>
-  filter(variance_class=="lowvar") %>%
+  filter(variance_class=="lowvar") |>
   ggplot() +
   geom_sf(aes(fill = xprob, 
               geometry = geometry), colour=NA) + 
@@ -625,7 +627,7 @@ names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 
 # Bivariate maps
 p2a <- my_map_data |>
-  filter(variance_class=="lowvar") %>%
+  filter(variance_class=="lowvar") |>
   ggplot() +
   geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
   scale_fill_manual(values = bivariatepal) +
@@ -786,7 +788,7 @@ names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 
 # VSUP maps
 p3a <- my_map_data |>
-  filter(variance_class=="lowvar") %>%
+  filter(variance_class=="lowvar") |>
   ggplot() +
   geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
   scale_fill_manual(values = VSUP) +
@@ -882,11 +884,10 @@ This means the graphic also achieves the third criteria for signal-suppression, 
 #| layout-valign: "bottom"
 
 # Pixel Map
-library(Vizumap)
 
 # Low variance map
-my_map_data_a <- my_map_data %>%
-  filter(variance_class == "lowvar") %>%
+my_map_data_a <- my_map_data |>
+  filter(variance_class == "lowvar") |>
   mutate(my_id = seq(n),
          error = variance) 
 
@@ -901,12 +902,12 @@ q_a <- my_map_data_a |>
                   p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
 
 
-pixel_1a <- my_map_data_a %>%
-  as.data.frame() %>%
-  select(my_id, bitemp, error) %>%
+pixel_1a <- my_map_data_a |>
+  as.data.frame() |>
+  select(my_id, bitemp, error) |>
   read.uv(estimate="bitemp", error="error")
 
-pixel_2a <- my_map_data_a %>% as("Spatial")
+pixel_2a <- my_map_data_a |> as("Spatial")
 
 pix_a <- pixelate(pixel_2a, pixelSize = 70, id = "my_id")
 
@@ -923,8 +924,8 @@ p4a <- view(pmap_a) +
   theme(legend.position="none")
 
 # High variance
-my_map_data_b <- my_map_data %>%
-  filter(variance_class == "highvar") %>%
+my_map_data_b <- my_map_data |>
+  filter(variance_class == "highvar") |>
   mutate(my_id = seq(n),
          error = variance) 
 
@@ -937,12 +938,12 @@ q_b <- my_map_data_b |>
                   p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
                   p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
 
-pixel_1b <- my_map_data_b %>%
-  as.data.frame() %>%
-  select(my_id, bitemp, error) %>%
+pixel_1b <- my_map_data_b |>
+  as.data.frame() |>
+  select(my_id, bitemp, error) |>
   read.uv(estimate="bitemp", error="error")
 
-pixel_2b <- my_map_data_b %>% 
+pixel_2b <- my_map_data_b |> 
   as("Spatial")
 
 pix_b <- pixelate(pixel_2b, pixelSize = 70, id = "my_id")
