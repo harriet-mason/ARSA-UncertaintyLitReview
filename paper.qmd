@@ -45,6 +45,7 @@ library(rgeos)
 
 From entertainment choices to news articles to insurance plans, the modern citizen is so inundated with information in every aspect of their life it can be overwhelming. 
 In the face of this overflow of information, tools that effectively reduce piles of information to simple and clear ideas become more valuable. 
+Even more so if they can this information with a healthy amount of skepticism.
 
 Among these summary tools, information visualisations are one of the most powerful. 
 Visualisations allow us to *learn* what is important about our data and datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg] highlight this power. 
@@ -279,8 +280,12 @@ The problem faced by the literature is easily summarised with a famous quote by 
 > "Science is built up of facts, as a house is built of stones; but an accumulation of facts is no more a science than a heap of stones is a house." - Henri Poincaré (1905)
 
 That is to say, despite the wealth of reviews, the field of uncertainty visualisation remains a heap of stones. 
-Lovely stones, but stones nonetheless. 
-This review attempts to address this issue by offering a novel perspective on the uncertainty visualisation problem, and hopefully laying the foundations on which we can build a house. 
+There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluate competing plot designs, or start a theoretical discussion on a niche aspect of the field.
+This is important work that needs to be done, but each of these papers offers up their own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their periphery.
+This becomes even more difficult to manage when these studies are in conflict. 
+The field is in desperate need of a unifying theory that can tie this swath of research together.
+This review attempts to address this issue by offering a novel perspective on the uncertainty visualisation problem.
+That is, we are going to use the wealth of established stone to construct the foundations on which we can build a house. 
 
 This review is broken into several parts that each reflect a different approach to uncertainty visualisation. 
 First, we look at graphics that ignore uncertainty entirely and discuss why uncertainty should be included at all. 
