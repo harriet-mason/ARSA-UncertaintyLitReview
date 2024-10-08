@@ -29,7 +29,6 @@ editor_options:
 # load Libraries
 library(tidyverse)
 library(Vizumap)
-library(ggplot2)
 library(RColorBrewer)
 library(scales)
 library(sf)
@@ -1210,6 +1209,11 @@ Existing uncertainty visualisation methods view a distribution as its own object
 
 Signal suppression is an untouched area of visualisation research and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
 We are interested to see how this challenge plays out.
+
+# Acknowledgements
+This work is supported in part by a scholarship from the the Australian Energy Market Operator. 
+The R packages were used for this work were: `tidyverse` [@tidyverse], `Vizumap` [@Vizumap], `RColorBrewer` [@RColorBrewer], `scales` [@scales], `sf` [@sf], `ggrepel` [@ggrepel], `urbnmapr` [@urbnmapr], `flextable` [@flextable], `colorspace` [@colorspace], and `rgeos` [@rgeos]. 
+The GitHub repository for this paper can be found at https://github.com/harriet-mason/ARSA-UncertaintyLitReview which contains the files required to reproduce this article in full.
 
 # Bibliography
 
