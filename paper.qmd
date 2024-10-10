@@ -1,6 +1,6 @@
 ---
 title: "The Noisy Work of Uncertainty Visualisation Research: A Review"
-author: Harriet Mason
+author: Harriet Mason, Dianne Cook, Sarah Goodwin, Emi Tanaka, and Susan Vanderplus
 bibliography: references.bib
 date: last-modified
 toc: true
@@ -341,7 +341,7 @@ names(basecols) <- seq(8)
 names(longpal) <- -1:11
 
 my_map_data <- my_map_data |>
-  mutate(temp = 29 - 3*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
+  mutate(temp = 29 - 2*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
          highvar = runif(n, min=2, max=4), # high variance
          lowvar = runif(n, min=0, max=2), # low variance
          count_id = row_number()) |>
@@ -410,8 +410,8 @@ A good place to start might be at a deceptively straight forward question, why s
 
 ## The choropleth map
 @fig-choropleth depicts a choropleth map of the counties of Iowa. 
-Each of these counties are coloured according to an estimate of average daily temperature that was generated so that the values followed a clear spatial trend (hot in the middle of the map, and cold on the outside). 
-The variance of these estimates were simulated such that the trend accounts for most of the variance in the plot in the low variance case (so we should expect the trend to be visible) while the high variance case has significantly more noise, so much so that it overwhelms the spatial trend. 
+Each of these counties are coloured according to an estimate of average daily temperature that was generated so that the values followed a clear spatial trend. 
+The variance of these estimates were simulated such that the trend accounts for most of the variance in the plot in the low variance case (so we should expect the trend to be visible) while in the high variance, there is more variance within each county than between all the counties, so we should expect it to (at least in some capacity) overwhelm the spatial trend. 
 Is this aspect of the data and the spatial data it communicates clear in in the map? 
 Is the strength of the trend communicated through the visualisation?
 
