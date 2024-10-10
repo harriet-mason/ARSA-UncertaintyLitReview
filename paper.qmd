@@ -301,7 +301,7 @@ While the theoretical approach we outline is useful to all uncertainty visualisa
 We will use these maps to show the effects we are talking about, and highlight the costs and benefits of each approach. 
 
 @fig-data shows the first six rows and the geographical boundaries of our data set. 
-The temperature variable was generated using a sine wave, that is $Temperature_i = 29-3\cdot{|Latitude_i - \sin{2 \cdot Longitude_i}|}$ where the $Longitude$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
+The temperature variable was generated using a sine wave, that is $Temperature_i = 29-2\cdot{|Latitude_i - \sin{2 \cdot Longitude_i}|}$ where the $Longitude$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
 Each county's variance is independently, randomly sampled from a uniform distribution. 
 The low standard errors are drawn from a $U_{[0,1]}$ distribution, while the high standard errors are drawn from a $U_{[1,2]}$ distribution. 
 As we are dealing with an average, the sampling distribution would be approximately normal by the central limit theorem, so each county temperature estimate is assumed to come from a $N(Temp_i, SE_{case,i})$. 
