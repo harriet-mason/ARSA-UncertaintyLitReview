@@ -13,11 +13,9 @@ editor_options:
 ---
 
 <!-- TODO 
-- convert to American spelling 
+- (Di) convert to American spelling 
   (Susan) Is this necessary? I'm not sure it matters as long as you're consistent...
-- May not need to reference the same paper again and again
-  - I am not sure when I need a citation and when I dont. Sometimes I could literally cite hundreds of papers to make a point, so I'm not sure if i should cite any at all.
-- examples that aren't maps? Sure are a lot of maps.
+- (Susan) examples that aren't maps? Sure are a lot of maps.
 -->
 
 ```{r}
