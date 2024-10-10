@@ -2,6 +2,7 @@
 title: "The Noisy Work of Uncertainty Visualisation Research: A Review"
 author: Harriet Mason, Dianne Cook, Sarah Goodwin, Emi Tanaka, and Susan Vanderplus
 bibliography: references.bib
+abstract: Uncertainty visualisation is quickly becomming a hot topic in information visualisation. Exisiting reviews in the field take the definition and purpose of an uncertainty visualisation to be self evident which results in a large amout of conflicting information. This conflict largely stems from a conflation between uncertainty visualisations designed for decision making and those designed to prevent false conclusions. We coin the term "signal suppression" to describe a visualisation that is designed for preventing false conclusions, as the approach demands that the signal (i.e. the collective take away of the estimates) is suppressed by the noise (i.e. the variance on those estimates). We argue that the current standards in visualisation suggest that uncertainty visualisations designed for decision making should not be considered uncertainty visualisations at all. Therefore, future work should focus on signal suppression. Effective signal suppression requires us to communicate the signal and the noise as a single "validity of signal" variable, and doing so proves to be difficult with current methods. We illustrate current approaches to uncertainty visualisation by showing how they would change the visual apprearance of a choropleth map. These maps allow us to see why some methods succeed at signal suppression, while others fall short. Evaluating visualisations on how well they perform signal suppression also proves to be difficult, as it involves measuring the effect of noise, a variable we typically try to ignore. We suggest authors use qualitative studies or compare uncertainty visualisations to the relevant hypothesis tests. 
 date: last-modified
 toc: true
 number-sections: true
@@ -570,7 +571,7 @@ A scatter plot that compares mean and a scatter plot that compares variances are
 Given that there is no special class of visualisation for *other* statistics (such the median or maximum) there is no reason to assume visualisations that simply depict a variance, error, or probability to be special. 
 Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019].
 While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017], there is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. 
-Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behavior, there is no reason to assume this is what makes uncertainty visualisation so special. 
+Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behaviour, there is no reason to assume this is what makes uncertainty visualisation so special. 
 
 This leads us to the conclusion that the visualisations made for the purpose of displaying information about uncertainty statistics are not uncertainty visualisations. 
 These graphics are just normal information visualisations, and authors can follow existing principles of graphical design. 
