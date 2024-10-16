@@ -83,16 +83,18 @@ library(rgeos)
 
 From entertainment choices to news articles to insurance plans, the modern citizen is so inundated with information in every aspect of their life it can be overwhelming. 
 In the face of this overflow of information, tools that effectively reduce piles of information to simple and clear ideas become more valuable. 
-Even more so if they can this information with a healthy amount of scepticism.
+That is, we need tools that can sort the signal from the noise.
 
 Among these summary tools, information visualisations are one of the most powerful as they allow for quick and memorable communication that allow us to identify quirks in our data that we didn't know to look for.
 Datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurpkg] show a case where visual statistics highlight elements of the data that are invisible to the typical summary statistics. 
 Something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
 
 "Uncertainty visualisation" is a relatively new field in research. 
-Early papers that specifically reference uncertainty visualisation appear in the late 80s [@Ibrekk1987], with geospatial information visualisation literature in the early 90s declaring this to be essential aspect of information display [@MacEachren1992; @Carr1992]. 
+Early mentions of uncertainty visualisation start to appear in the late 1980s [@Ibrekk1987], with geospatial information visualisation literature from the early 1990s declaring this to be essential aspect of any information display [@MacEachren1992; @Carr1992]. 
 @fig-ibrekk depicts an example of the uncertainty visualisations discussed in these early papers. 
-Despite the new terminology visualisation of uncertainty has been present since the earliest times. 
+Despite kicking off the field, these papers did not define uncertainty visualisation.
+This has led to a lack of consensus on what it means for a graphic to visualise uncertainty, an issue we will return to later.
+Therefore, while the field is considered to be quite new, many of the graphics used for uncertainty visualisation have been around for much longer. 
 For example, box plots and histograms display variation which becomes synonymous with uncertainty when we are using them to depict the variation of an estimate. 
 Today, there are an abundance of publications on the topic which makes it timely to construct a review of the field.
 That is, now that there is an overwhelming amount of information, it is valuable to distil it into simple facts. 
@@ -1237,7 +1239,8 @@ These heuristics have the potential to create noise in signal suppression evalua
 This paper has identified gaps in the uncertainty visualisation literature that must be filled for the field to progress. 
 We formalised the uncertainty visualisation problem, and in doing so highlighted an untouched area of uncertainty visualisation research.
 
-*Experimental practices on uncertainty visualisation need to be standardised.* Uncertainty visualisations for decision making treat uncertainty as signal, while visualisations for signal-suppression treat uncertainty as noise. 
+*Experimental practices on uncertainty visualisation need to be standardised.* 
+Uncertainty visualisations for decision making treat uncertainty as signal, while visualisations for signal-suppression treat uncertainty as noise. 
 As the literature currently exists, there is no way to combine papers to get a meaningful sense of how uncertainty information is understood by a viewer.
 Researchers need to ensure that when they identify the motivation behind their visualisation technique, and that their evaluation methods match the motivations of the paper. 
 Additionally *evaluation methods that evaluate uncertainty as noise need to be developed.*
