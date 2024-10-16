@@ -20,7 +20,7 @@ author:
       city: Melbourne
       country: Australia
   - name: Sarah Goodwin
-    url: www.linkedin.com/in/smgoodwin/
+    url: https://www.linkedin.com/in/smgoodwin/
     orcid: 0000-0001-8894-8282
     email: Sarah.Goodwin@monash.edu
     affiliation:
@@ -29,7 +29,7 @@ author:
       city: Melbourne
       country: Australia
   - name: Emi Tanaka
-    url: emitanaka.org
+    url: https://emitanaka.org/
     orcid: 0000-0002-1455-259X
     email: Emi.Tanaka@anu.edu.au
     affiliation: 
@@ -38,7 +38,7 @@ author:
       city: Canberra
       country: Australia
   - name: Susan Vanderplus
-    url: srvanderplas.github.io
+    url: https://srvanderplas.github.io
     orcid: 0000-0002-3803-0972
     email: susan.vanderplas@unl.edu
     affiliation:
@@ -335,11 +335,15 @@ Finally, we discuss how uncertainty visualisations can be effectively evaluated.
 When discussing each of these methods, we will repeatedly return to the *purpose* of uncertainty visualisation and the effectiveness of each approach in fulfilling that purpose.
 
 ## Spatial example
-
-There are far too many uncertainty visualisations to exhaustively discuss them all. Instead we focus on the changes made to a single plot, the choropleth map. 
+There are far too many uncertainty visualisations to exhaustively discuss them all. 
+Instead we focus on the changes made to a single plot, the choropleth map. 
 Due to the field's origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. 
-While the theoretical approach we outline is useful to all uncertainty visualisations regardless of their application, focusing on a single example will help isolate the ideas we are trying to convey. 
-We will use these maps to show the effects we are talking about, and highlight the costs and benefits of each approach. 
+Utilising a single example will help isolate the ideas we are trying to convey. 
+Therefore, it is important to remember that even though we focus our discussion on the choropleth map, the theoretical approach we outline in this review is useful to all uncertainty visualisations regardless of their application. 
+Additionally, our examples focus on incorporating uncertainty through colour manipulation, as that is the key visual channel used in a choropleth map.
+However, the methods we discuss go beyond variations in a colour palette.
+Even though they are not explicitly shown, visualisations that depict uncertainty using layers such as position or shape, and more complicated graphics that incorporate animation or interactivity are also within the scope of this review.
+We will use the choropleth maps as a tool to clearly highlight the costs and benefits of each approach. 
 
 @fig-data shows the first six rows and the geographical boundaries of our data set. 
 The temperature variable was generated using a sine wave, that is $Temperature_i = 29-2\cdot{|Latitude_i - \sin{2 \cdot Longitude_i}|}$ where the $Longitude$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
