@@ -365,8 +365,20 @@ This is the data we will be using in our spatial uncertainty examples for the re
 # Get map data: do this once and save
 my_map_data <- get_urbn_map("counties", sf = TRUE) |>
   filter(state_name=="Iowa")
+save(my_map_data, file="data/iowa_map.rda")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Get centroid because rgeos is depreciated
+load("data/iowa_map.rda")
+centroids <- as_tibble(gCentroid(as(my_map_data$geometry, "Spatial"), byid = TRUE))
+my_map_data$cent_long <- centroids$x
+my_map_data$cent_lat <- centroids$y
 save(my_map_data, file="data/my_map_data.rda")
 ```
+
 
 ```{r}
 #| echo: false
@@ -379,17 +391,14 @@ save(my_map_data, file="data/my_map_data.rda")
 #|   - "Map Boundaries"
 #| layout-nrow: 1
 #| cap-location: "bottom"
+
+# get data
 load("data/my_map_data.rda")
 
 # seed for sampling
 set.seed(1997)
 
-# Get map data
-my_map_data <- get_urbn_map("counties", sf = TRUE) |>
-  filter(state_name=="Iowa")
-centroids <- as_tibble(gCentroid(as(my_map_data$geometry, "Spatial"), byid = TRUE))
-my_map_data$cent_long <- centroids$x
-my_map_data$cent_lat <- centroids$y
+# data dimension for sampling
 n <- dim(my_map_data)[1]
 
 # Make palettes
@@ -936,20 +945,9 @@ While the spatial trend is just barely visible in the high uncertainty case, it 
 This means the graphic also achieves the third criteria for signal-suppression, i.e. our difficulty in seeing the distribution is proportional to the level of uncertainty in the graphic. 
 
 ```{r}
+#| eval: false
 #| echo: false
-#| message: false
-#| warning: false
-#| label: fig-pixel
-#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several small areas and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value. In this graphic, we can clearly see the spatial trend in the low variance case, while the spatial trend is much harder to identify in the high variance case. "
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "Pixel Map Palette"
-#| layout-ncol: 3
-#| layout-valign: "bottom"
-
-# Pixel Map
-
+# Make + save pixel map (in case of depreciation)
 # Low variance map
 my_map_data_a <- my_map_data |>
   filter(variance_class == "lowvar") |>
@@ -1026,8 +1024,26 @@ p4b <- view(pmap_b) +
   scale_colour_gradientn(colours = longpal) +
   theme(legend.position="none")
 
+save(p4a, file="data/p4a.rda")
+save(p4b, file="data/p4b.rda")
+```
 
-  
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-pixel
+#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several small areas and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value. In this graphic, we can clearly see the spatial trend in the low variance case, while the spatial trend is much harder to identify in the high variance case. "
+#| fig-subcap: 
+#|   - "Low Variance Data"
+#|   - "High Variance Data"
+#|   - "Pixel Map Palette"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+
+# load pixel maps
+load("data/p4a.rda")
+load("data/p4b.rda")
 # Display plots and palettes
 p4a
 p4b
