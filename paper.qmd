@@ -71,11 +71,13 @@ editor_options:
 
 # load Libraries
 library(tidyverse)
+# devtools::install_github("lydialucchesi/Vizumap")
 library(Vizumap)
 library(RColorBrewer)
 library(scales)
 library(sf)
 library(ggrepel)
+# devtools::install_github("UrbanInstitute/urbnmapr")
 library(urbnmapr)
 library(flextable)
 library(colorspace)
