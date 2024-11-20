@@ -37,7 +37,7 @@ author:
       department: Biological Data Science Institute
       city: Canberra
       country: Australia
-  - name: Susan Vanderplus
+  - name: Susan VanderPlas
     url: https://srvanderplas.github.io
     orcid: 0000-0002-3803-0972
     email: susan.vanderplas@unl.edu
