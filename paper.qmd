@@ -51,6 +51,7 @@ abstract: Uncertainty visualisation is quickly becomming a hot topic in informat
 date: last-modified
 toc: false
 number-sections: true
+latex-clean: true
 format:
   jasa-pdf:
     keep-tex: true  
