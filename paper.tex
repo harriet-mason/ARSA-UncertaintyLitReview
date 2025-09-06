@@ -1,25 +1,27 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   12pt]{article}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -37,9 +39,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -65,8 +64,7 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -78,17 +76,35 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[]{natbib}
+\bibliographystyle{agsm}
+
 
 \addtolength{\oddsidemargin}{-.5in}%
 \addtolength{\evensidemargin}{-1in}%
@@ -136,16 +152,9 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[]{natbib}
-\bibliographystyle{agsm}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={The Noisy Work of Uncertainty Visualisation Research: A Review},
   pdfauthor={Harriet Mason; Dianne Cook; Sarah Goodwin; Emi Tanaka; Susan VanderPlas},
@@ -167,7 +176,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\date{November 21, 2024}
+\date{September 7, 2025}
 \title{\bf The Noisy Work of Uncertainty Visualisation Research: A
 Review}
 \author{
@@ -187,31 +196,30 @@ Statistics Department, University of Nebraska--Lincoln\\
 \bigskip
 \bigskip
 \begin{abstract}
-Uncertainty visualisation is quickly becomming a hot topic in
-information visualisation. Exisiting reviews in the field take the
-definition and purpose of an uncertainty visualisation to be self
-evident which results in a large amout of conflicting information. This
-conflict largely stems from a conflation between uncertainty
-visualisations designed for decision making and those designed to
-prevent false conclusions. We coin the term ``signal suppression'' to
-describe a visualisation that is designed for preventing false
-conclusions, as the approach demands that the signal (i.e.~the
-collective take away of the estimates) is suppressed by the noise
-(i.e.~the variance on those estimates). We argue that the current
-standards in visualisation suggest that uncertainty visualisations
-designed for decision making should not be considered uncertainty
-visualisations at all. Therefore, future work should focus on signal
-suppression. Effective signal suppression requires us to communicate the
-signal and the noise as a single ``validity of signal'' variable, and
-doing so proves to be difficult with current methods. We illustrate
-current approaches to uncertainty visualisation by showing how they
-would change the visual apprearance of a choropleth map. These maps
-allow us to see why some methods succeed at signal suppression, while
-others fall short. Evaluating visualisations on how well they perform
-signal suppression also proves to be difficult, as it involves measuring
-the effect of noise, a variable we typically try to ignore. We suggest
-authors use qualitative studies or compare uncertainty visualisations to
-the relevant hypothesis tests.
+Uncertainty visualisation is quickly becoming a hot topic in information
+visualisation. Existing reviews in the field take the definition and
+purpose of an uncertainty visualisation to be self evident which results
+in a large amout of conflicting information. This conflict largely stems
+from a conflation between uncertainty visualisations designed for
+decision making and those designed to prevent false conclusions. We coin
+the term ``signal suppression'' to describe a visualisation that is
+designed for preventing false conclusions, as the approach demands that
+the signal (i.e.~the collective take away of the estimates) is
+suppressed by the noise (i.e.~the variance on those estimates). We argue
+that the current standards in visualisation suggest that uncertainty
+visualisations designed for decision making should not be considered
+uncertainty visualisations at all. Therefore, future work should focus
+on signal suppression. Effective signal suppression requires us to
+communicate the signal and the noise as a single ``validity of signal''
+variable, and doing so proves to be difficult with current methods. We
+illustrate current approaches to uncertainty visualisation by showing
+how they would change the visual apprearance of a choropleth map. These
+maps allow us to see why some methods succeed at signal suppression,
+while others fall short. Evaluating visualisations on how well they
+perform signal suppression also proves to be difficult, as it involves
+measuring the effect of noise, a variable we typically try to ignore. We
+suggest authors use qualitative studies or compare uncertainty
+visualisations to the relevant hypothesis tests.
 \end{abstract}
 
 
@@ -232,11 +240,12 @@ Among these summary tools, information visualisations are one of the
 most powerful as they allow for quick and memorable communication that
 allow us to identify quirks in our data that we didn't know to look for.
 Datasets such as Anscombe's quartet \citep{anscombe} or the Datasaurus
-Dozen \citep{datasaurpkg} show a case where visual statistics highlight
-elements of the data that are invisible to the typical summary
-statistics. Something as simple as sketching a distribution before
-recalling statistics or making predictions can greatly increase the
-accuracy of those measures \citep{Hullman2018, Goldstein2014}.
+Dozen \citep{datasaurus, datasaurpkg} show a case where visual
+statistics highlight elements of the data that are invisible to the
+typical summary statistics. Something as simple as sketching a
+distribution before recalling statistics or making predictions can
+greatly increase the accuracy of those measures
+\citep{Hullman2018, Goldstein2014}.
 
 ``Uncertainty visualisation'' is a relatively new field in research.
 Early mentions of uncertainty visualisation start to appear in the late
@@ -255,7 +264,7 @@ uncertainty when we are using them to depict the variation of an
 estimate. Today, there are an abundance of publications on the topic
 which makes it timely to construct a review of the field. That is, now
 that there is an overwhelming amount of information, it is valuable to
-distil it into simple facts. In fact, there have already been several
+distill it into simple facts. In fact, there have already been several
 reviews published but a central piece of discussion is missing.
 
 \begin{figure}
@@ -264,7 +273,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-1.pdf}}
 
 }
 
@@ -276,7 +285,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-2.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-2.pdf}}
 
 }
 
@@ -288,7 +297,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-3.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-3.pdf}}
 
 }
 
@@ -300,7 +309,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-4.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-4.pdf}}
 
 }
 
@@ -312,7 +321,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-5.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-5.pdf}}
 
 }
 
@@ -324,7 +333,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-6.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-6.pdf}}
 
 }
 
@@ -336,7 +345,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-7.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-7.pdf}}
 
 }
 
@@ -348,7 +357,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-8.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-8.pdf}}
 
 }
 
@@ -360,7 +369,7 @@ reviews published but a central piece of discussion is missing.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-ibrekk-9.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-ibrekk-9.pdf}}
 
 }
 
@@ -479,7 +488,7 @@ spatial uncertainty examples for the rest of the paper.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-data-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-data-1.pdf}}
 
 }
 
@@ -491,7 +500,7 @@ spatial uncertainty examples for the rest of the paper.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-data-2.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-data-2.pdf}}
 
 }
 
@@ -534,7 +543,7 @@ the trend communicated through the visualisation?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-choropleth-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-choropleth-1.pdf}}
 
 }
 
@@ -546,7 +555,7 @@ the trend communicated through the visualisation?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-choropleth-2.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-choropleth-2.pdf}}
 
 }
 
@@ -558,7 +567,7 @@ the trend communicated through the visualisation?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-choropleth-3.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-choropleth-3.pdf}}
 
 }
 
@@ -682,7 +691,7 @@ to categorise this visualisation as an uncertainty visualisation.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-exceed-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-exceed-1.pdf}}
 
 }
 
@@ -694,7 +703,7 @@ to categorise this visualisation as an uncertainty visualisation.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-exceed-2.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-exceed-2.pdf}}
 
 }
 
@@ -706,7 +715,7 @@ to categorise this visualisation as an uncertainty visualisation.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-exceed-3.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-exceed-3.pdf}}
 
 }
 
@@ -818,7 +827,7 @@ make to ensure signal-suppression occurs?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-bivariate-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-bivariate-1.pdf}}
 
 }
 
@@ -830,7 +839,7 @@ make to ensure signal-suppression occurs?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-bivariate-2.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-bivariate-2.pdf}}
 
 }
 
@@ -842,7 +851,7 @@ make to ensure signal-suppression occurs?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-bivariate-3.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-bivariate-3.pdf}}
 
 }
 
@@ -1013,7 +1022,7 @@ signal-suppression even possible?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-vsup-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-vsup-1.pdf}}
 
 }
 
@@ -1025,7 +1034,7 @@ signal-suppression even possible?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-vsup-2.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-vsup-2.pdf}}
 
 }
 
@@ -1037,7 +1046,7 @@ signal-suppression even possible?
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-vsup-3.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-vsup-3.pdf}}
 
 }
 
@@ -1193,7 +1202,7 @@ is proportional to the level of uncertainty in the graphic.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-pixel-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-pixel-1.pdf}}
 
 }
 
@@ -1205,7 +1214,7 @@ is proportional to the level of uncertainty in the graphic.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-pixel-2.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-pixel-2.pdf}}
 
 }
 
@@ -1217,7 +1226,7 @@ is proportional to the level of uncertainty in the graphic.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-pixel-3.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-pixel-3.pdf}}
 
 }
 
@@ -1792,7 +1801,7 @@ contains the files required to reproduce this article in full.
 
 
 \renewcommand\refname{Bibliography}
-  \bibliography{paper.bib}
+\bibliography{paper.bib}
 
 
 
