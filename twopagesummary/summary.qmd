@@ -1,0 +1,70 @@
+---
+title: "Paper Summary: Uncertainty Visualisation"
+author: 
+  - name: Harriet Mason
+    url: https://harrietmason.netlify.app/
+    orcid: 0009-0007-4568-8215
+    email:  harriet.m.mason@gmail.com
+    affiliation:
+    - name: Monash University
+      department: Department of Econometrics and Business Statistics
+      city: Melbourne
+      country: Australia
+  - name: Dianne Cook
+    url: https://dicook.org
+    orcid: 0000-0002-3813-7155
+    email: dicook@monash.edu
+    affiliation:
+    - name: Monash University
+      department: Department of Econometrics and Business Statistics
+      city: Melbourne
+      country: Australia
+  - name: Sarah Goodwin
+    url: https://www.linkedin.com/in/smgoodwin/
+    orcid: 0000-0001-8894-8282
+    email: Sarah.Goodwin@monash.edu
+    affiliation:
+    - name: Monash University
+      department: Department of Human Centred Computing
+      city: Melbourne
+      country: Australia
+  - name: Emi Tanaka
+    url: https://emitanaka.org/
+    orcid: 0000-0002-1455-259X
+    email: Emi.Tanaka@anu.edu.au
+    affiliation: 
+    - name: The Australian National University
+      department: Biological Data Science Institute
+      city: Canberra
+      country: Australia
+  - name: Susan VanderPlas
+    url: https://srvanderplas.github.io
+    orcid: 0000-0002-3803-0972
+    email: susan.vanderplas@unl.edu
+    affiliation:
+    - name: University of Nebraska–Lincoln
+      department: Statistics Department
+      city:  Lincoln
+      country: United States
+bibliography: summary.bib
+nocite: |
+  @*
+abstract: Uncertainty visualisation reviews often take the definition and purpose of an uncertainty visualisation to be self evident which results in a large amout of conflicting information. This conflict largely stems from a conflation between uncertainty visualisations designed for to visualise uncertainty as signal and those used to visualise uncertainty as noise. We coin the term "signal suppression" to describe a visualisation that is designed for preventing false conclusions, as the approach demands that the signal (i.e. the collective take away of the estimates) is suppressed by the noise (i.e. the variance on those estimates). We argue that the current standards in visualisation suggest that uncertainty visualisations designed to extract uncertain information should not be considered uncertainty visualisations at all. Therefore, future work should focus on signal suppression. Effective signal suppression requires us to communicate the signal and the noise as a single "validity of signal" variable, and doing so proves to be difficult with current methods. We illustrate current approaches to uncertainty visualisation by showing how they would change the visual apprearance of a choropleth map. These maps allow us to see why some methods succeed at signal suppression, while others fall short. Evaluating visualisations on how well they perform signal suppression also proves to be difficult, as it involves measuring the effect of noise, a variable we typically try to ignore. We suggest authors use qualitative studies or compare uncertainty visualisations to the relevant hypothesis tests. 
+date: last-modified
+toc: false
+number-sections: true
+latex-clean: true
+format:
+  jasa-pdf:
+    keep-tex: true  
+    journal:
+      blinded: false
+  jasa-html: default
+fig-valign: bottom
+cap-location: bottom
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
