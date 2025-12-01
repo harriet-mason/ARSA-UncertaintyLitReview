@@ -27,15 +27,14 @@ Better ways of including a representation of the uncertainty in a data visualisa
 
 # Outline
 
-1. Common uses of the terms "uncertainty visualisation": Here we will provide some background to the use of the term "uncertainty visualisation" and tie it to statistical definitions of uncertainty.
+1. Common uses of the term "uncertainty visualisation": Here we will provide some background to the use of the term "uncertainty visualisation" and tie it to statistical definitions of uncertainty.
 2. Dangers of ignoring uncertainty representation in a visualisation. This part motivates the reason for the importance of this area of research. 
 3. Review of current approaches to representing uncertainty in plots, as gathered from discipline journals in information visualisation, statistics, environmental science and psychology. 
 4. Review of literature describing experiments testing effectiveness of different representations. The information visualisation literature is especially prolific in describing experiments assessing the relative merits of different uncertainty visualisations, and this section will critically summarise these efforts, and propose refining of procedures. 
 5. Examples: 
 
-- spatial data poses substantial challenges because of the difficulties of using the page for the map coordinates, and hence little room for representing uncertatinty. It also has been a place with useful recent work, providing some good solutions. 
-- comparing groups (boxplots, letter value plots, dotplots) OR
-- confidence intervals, vs rainclouds, vs dotplots, vs transparency
+- Comparing distributions with the purpose to illustrate definitions of uncertainty, and distinction between representations of signal vs noise. It is also a place where software exists providing some good choices but are not yet sufficient.
+- Spatial data poses substantial challenges because of the difficulties of using the page for the map coordinates, and hence little room for representing uncertainty. It also has been a place with useful recent work, providing some good solutions. 
 
 6. Recommendations for research directions. Here we will gather the discussion into some suggestions for framing new work, developing methodology and designing experiments. 
 
