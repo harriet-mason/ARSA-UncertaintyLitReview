@@ -1,5 +1,5 @@
 ---
-title: "Paper Summary: Uncertainty Visualisation"
+title: "Paper Outline"
 author: 
   - name: Harriet Mason
     url: https://harrietmason.netlify.app/
@@ -49,22 +49,27 @@ author:
 bibliography: summary.bib
 nocite: |
   @*
-abstract: Uncertainty visualisation reviews often take the definition and purpose of an uncertainty visualisation to be self evident which results in a large amout of conflicting information. This conflict largely stems from a conflation between uncertainty visualisations designed for to visualise uncertainty as signal and those used to visualise uncertainty as noise. We coin the term "signal suppression" to describe a visualisation that is designed for preventing false conclusions, as the approach demands that the signal (i.e. the collective take away of the estimates) is suppressed by the noise (i.e. the variance on those estimates). We argue that the current standards in visualisation suggest that uncertainty visualisations designed to extract uncertain information should not be considered uncertainty visualisations at all. Therefore, future work should focus on signal suppression. Effective signal suppression requires us to communicate the signal and the noise as a single "validity of signal" variable, and doing so proves to be difficult with current methods. We illustrate current approaches to uncertainty visualisation by showing how they would change the visual apprearance of a choropleth map. These maps allow us to see why some methods succeed at signal suppression, while others fall short. Evaluating visualisations on how well they perform signal suppression also proves to be difficult, as it involves measuring the effect of noise, a variable we typically try to ignore. We suggest authors use qualitative studies or compare uncertainty visualisations to the relevant hypothesis tests. 
-date: last-modified
 toc: false
 number-sections: true
 latex-clean: true
-format:
-  jasa-pdf:
-    keep-tex: true  
-    journal:
-      blinded: false
-  jasa-html: default
+format: pdf
 fig-valign: bottom
 cap-location: bottom
 editor_options: 
   chunk_output_type: console
 ---
 
+# Proposed title: The Noisy Work of Uncertainty Visualisation Research
 
+# Overview: 
+
+XXX needs re-writing: The literature on uncertainty visualisation treats the definition and purpose to be self evident which results in a large amount of conflicting information. This conflict largely stems from a conflation between uncertainty visualisations designed for to visualise uncertainty as signal and those used to visualise uncertainty as noise. We coin the term "signal suppression" to describe a visualisation that is designed for preventing false conclusions, as the approach demands that the signal (i.e. the collective take away of the estimates) is suppressed by the noise (i.e. the variance on those estimates). We argue that the current standards in visualisation suggest that uncertainty visualisations designed to extract uncertain information should not be considered uncertainty visualisations at all. Therefore, future work should focus on signal suppression. Effective signal suppression requires us to communicate the signal and the noise as a single "validity of signal" variable, and doing so proves to be difficult with current methods. We illustrate current approaches to uncertainty visualisation by showing how they would change the visual apprearance of a choropleth map. These maps allow us to see why some methods succeed at signal suppression, while others fall short. Evaluating visualisations on how well they perform signal suppression also proves to be difficult, as it involves measuring the effect of noise, a variable we typically try to ignore. We suggest authors use qualitative studies or compare uncertainty visualisations to the relevant hypothesis tests. 
+
+# Topics planned
+
+1. Common uses of the terms "uncertainty", and "uncertainty visualisation"
+2. Dangers of ignoring uncertainty representation in a visualisation
+3. Review of current approaches to representing uncertainty in plots, 
+4. Review of literature describing experiments testing effectiveness of different representations
+5. Examples: spatial and ??
 
