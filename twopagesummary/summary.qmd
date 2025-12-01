@@ -1,51 +1,11 @@
 ---
-title: "Paper Outline"
+title: "Proposed title: The Noisy Work of Uncertainty Visualisation Research"
 author: 
   - name: Harriet Mason
-    url: https://harrietmason.netlify.app/
-    orcid: 0009-0007-4568-8215
-    email:  harriet.m.mason@gmail.com
-    affiliation:
-    - name: Monash University
-      department: Department of Econometrics and Business Statistics
-      city: Melbourne
-      country: Australia
   - name: Dianne Cook
-    url: https://dicook.org
-    orcid: 0000-0002-3813-7155
-    email: dicook@monash.edu
-    affiliation:
-    - name: Monash University
-      department: Department of Econometrics and Business Statistics
-      city: Melbourne
-      country: Australia
   - name: Sarah Goodwin
-    url: https://www.linkedin.com/in/smgoodwin/
-    orcid: 0000-0001-8894-8282
-    email: Sarah.Goodwin@monash.edu
-    affiliation:
-    - name: Monash University
-      department: Department of Human Centred Computing
-      city: Melbourne
-      country: Australia
   - name: Emi Tanaka
-    url: https://emitanaka.org/
-    orcid: 0000-0002-1455-259X
-    email: Emi.Tanaka@anu.edu.au
-    affiliation: 
-    - name: The Australian National University
-      department: Biological Data Science Institute
-      city: Canberra
-      country: Australia
   - name: Susan VanderPlas
-    url: https://srvanderplas.github.io
-    orcid: 0000-0002-3803-0972
-    email: susan.vanderplas@unl.edu
-    affiliation:
-    - name: University of Nebraska–Lincoln
-      department: Statistics Department
-      city:  Lincoln
-      country: United States
 bibliography: summary.bib
 nocite: |
   @*
@@ -59,17 +19,24 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Proposed title: The Noisy Work of Uncertainty Visualisation Research
+# Rationale 
 
-# Overview: 
+Better ways of including a representation of the uncertainty in a data visualisation is a focus of recent research activity. A problem with the current literature is that there is a lack of clarity in the definition of uncertainty, and what it means to represent it in a plot. This confusion can also be seen in literature describing experiments to test effectiveness of choices of different uncertainty representation. The purpose of this review article is to summarise the current literature, provide workable definitions, and illustrate with examples. It is hope that it will be useful to guide new graphics methodology and  experimental work. 
 
-XXX needs re-writing: The literature on uncertainty visualisation treats the definition and purpose to be self evident which results in a large amount of conflicting information. This conflict largely stems from a conflation between uncertainty visualisations designed for to visualise uncertainty as signal and those used to visualise uncertainty as noise. We coin the term "signal suppression" to describe a visualisation that is designed for preventing false conclusions, as the approach demands that the signal (i.e. the collective take away of the estimates) is suppressed by the noise (i.e. the variance on those estimates). We argue that the current standards in visualisation suggest that uncertainty visualisations designed to extract uncertain information should not be considered uncertainty visualisations at all. Therefore, future work should focus on signal suppression. Effective signal suppression requires us to communicate the signal and the noise as a single "validity of signal" variable, and doing so proves to be difficult with current methods. We illustrate current approaches to uncertainty visualisation by showing how they would change the visual apprearance of a choropleth map. These maps allow us to see why some methods succeed at signal suppression, while others fall short. Evaluating visualisations on how well they perform signal suppression also proves to be difficult, as it involves measuring the effect of noise, a variable we typically try to ignore. We suggest authors use qualitative studies or compare uncertainty visualisations to the relevant hypothesis tests. 
+<!-- XXX needs re-writing: The literature on uncertainty visualisation treats the definition and purpose to be self evident which results in a large amount of conflicting information. This conflict largely stems from a conflation between uncertainty visualisations designed for to visualise uncertainty as signal and those used to visualise uncertainty as noise. We coin the term "signal suppression" to describe a visualisation that is designed for preventing false conclusions, as the approach demands that the signal (i.e. the collective take away of the estimates) is suppressed by the noise (i.e. the variance on those estimates). We argue that the current standards in visualisation suggest that uncertainty visualisations designed to extract uncertain information should not be considered uncertainty visualisations at all. Therefore, future work should focus on signal suppression. Effective signal suppression requires us to communicate the signal and the noise as a single "validity of signal" variable, and doing so proves to be difficult with current methods. We illustrate current approaches to uncertainty visualisation by showing how they would change the visual apprearance of a choropleth map. These maps allow us to see why some methods succeed at signal suppression, while others fall short. Evaluating visualisations on how well they perform signal suppression also proves to be difficult, as it involves measuring the effect of noise, a variable we typically try to ignore. We suggest authors use qualitative studies or compare uncertainty visualisations to the relevant hypothesis tests. -->
 
-# Topics planned
+# Outline
 
-1. Common uses of the terms "uncertainty", and "uncertainty visualisation"
-2. Dangers of ignoring uncertainty representation in a visualisation
-3. Review of current approaches to representing uncertainty in plots, 
-4. Review of literature describing experiments testing effectiveness of different representations
-5. Examples: spatial and ??
+1. Common uses of the terms "uncertainty visualisation": Here we will provide some background to the use of the term "uncertainty visualisation" and tie it to statistical definitions of uncertainty.
+2. Dangers of ignoring uncertainty representation in a visualisation. This part motivates the reason for the importance of this area of research. 
+3. Review of current approaches to representing uncertainty in plots, as gathered from discipline journals in information visualisation, statistics, environmental science and psychology. 
+4. Review of literature describing experiments testing effectiveness of different representations. The information visualisation literature is especially prolific in describing experiments assessing the relative merits of different uncertainty visualisations, and this section will critically summarise these efforts, and propose refining of procedures. 
+5. Examples: 
 
+- spatial data poses substantial challenges because of the difficulties of using the page for the map coordinates, and hence little room for representing uncertatinty. It also has been a place with useful recent work, providing some good solutions. 
+- comparing groups (boxplots, letter value plots, dotplots) OR
+- confidence intervals, vs rainclouds, vs dotplots, vs transparency
+
+6. Recommendations for research directions. Here we will gather the discussion into some suggestions for framing new work, developing methodology and designing experiments. 
+
+# References
