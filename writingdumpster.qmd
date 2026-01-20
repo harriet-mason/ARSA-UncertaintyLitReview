@@ -3,6 +3,24 @@ title: "Writing Trash Bin"
 author: "Harriet Mason"
 format: html
 ---
+
+# Extra notes
+- @[Hullman2021]Issues with EDA e.g. checking multiple hypothesis which makes them less valid (more likely to find spurious relationships) - I think of EDA as a search for hypothesis rather than a confirmation of any hypothesis.
+- @[Hullman2021] “Researchers have commented on uncertainty as implicit in exploratory and interactive analysis”
+- @[Kay2019] "It is important to have clear, domain- and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty". Signal vs noise issue.
+- @[geointerviews] Designed visual system for geology and interviewed users and iterated through designs
+- @[geointerviews] Describe it as a challenging to even define what constitutes uncertainty, even before visualisation. Call uncertainty in science “maleable”. 
+- @[geointerviews] Uncertainty metrics are not systematically published along tephra studies (from geologist interview)
+- @[geointerviews] Uncertainty is context-dependent, interconnected, and malleable. Whether uncertainty is a source of doubt or not depends on context.
+- @[geointerviews] On confusion of uncertainty as signal or noise: “Also cases where our experts expressed uncertainty a a source of inspiration for future research.”
+- @[intervaldata] Propse two visualisation methods, segment and dandelion plots that offer more information than the existing methods as a new way to conduct EDA with interval variables (“propose two new plots for EDIA”). They specify it's need as you can only see "correlation in center" and not "correlation in range". Seems like a signal vs noise problem. Variance (in this case range) is a different variable in this case. Unclear why you wouldn't just do a scatter plot of the ranges.
+- @[visualmirage] Have several elements that they consider to cause "visual mirages", from improper imputation of missing values, to summary functions obfuscating the variabiliy of the data. It seems to be a bizzare mismatch of different types of information that are grouped together with "visual mirage".
+- [@cookhdr] State that “EDA starts from the data”
+- [@compsci_lineup] Try to evaluate the statistical significance of a plot using a null generation method similar to a lineup but with the null generated inside the plot using Guassian priors. Compare values to hypothesis test equivalent
+- [@unwinhdr] “One persons statistics might be another person’s raw data”
+- [@deepuncert] Geoscience review of uncertainty visualisations - discussing problems and how to move forward
+ - @[ieeetrust]  Suggests that a plot has uncertainty if it "may hinder the user in gaining insights from the data" is bizzare. Specific cases are resolution and clutter. All forms of communication are finite in what they can convey, this is not a useful definition and will only cause confusion.
+
 # Introduction
 - @Spiegelhalter2017 noted we "cannot assess the quality of risk communication unless the objectives are clear".
 - @Fischhoff2014  takes this approach by considerting how decisions with different levels of flexibility should have different uncertainty visualisations. If the user has no choice they should simply be made aware of the risk, if they have several options, the user needs to see the uncertainty in each, if they need to come up with the options themselves, they need to see how things work and how the system fails.
