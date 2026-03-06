@@ -4,6 +4,85 @@ author: "Harriet Mason"
 format: html
 ---
 
+# Taken from ggdibbler dumpster
+- We will not go through how this uncertainty is quantified, but we will rely on the fact that all uncertainty, no matter how abstract, can always be quantified by a random variable [@Mason2024].   
+  - Make sure I actually go back and make this argument.
+
+We can see how this works with a basic measurement error example. If we record our daily maximum temperature as 23 degrees celsius on a device with +-1 degree of error, then we can represent the observation as a uniform $U(22, 24)$ random variable *assuming we want to represent the true temperature*. If we want to represent the recording itself, it is 23 degrees celsius, no uncertainty needed. It is the act of inference that creates uncertainty, and the uncertainty created can be represented by a distribution. 
+
+@Leland2005 also suggested signal supression as the goal of uncertainty visualisation "This chapter is about graphics that guide, qualify, or soften our judgments of uncertain data."
+  - Also applies some of the logic occasionally in the direction and stuff, "Some of the letters (B, P, X) almost disappear because they are frequently confused with other letters."
+## Introduction
+Uncertainty plays an unusual role in statistics that can make it difficult to work with. It can act as both a signal when we want to perform inference on a specific variance or probability, and a noise as a variable that is supposed to hedge our conclusions on other statistics. This dual role of uncertainty often causes researchers to get caught up in the weeds. The difficulties with this duality is felt particularly strongly in uncertainty visualisation.
+
+#### Distributions are both necessary and sufficient for uncertainty visualisation
+
+### Bayesian vs Frequentist sample?
+###  Dists of Dists (Check if it can be moved to dist section of paper)
+Carrying uncertainty through multiple layers
+-   note what can/cant be nested
+    -   e.g. climate change scenario and forecast uncertainty
+    -   two unrelated estimates *cannot* be nested (it doesn't make sense)
+    -   Nesting becomes unecessary with convolution, unless you want to hold onto the uncertainty. Technically, anything that is nested should also be able to be calculated through convolution.
+
+- this makes visualisation an incredibly powerful tool for quantifying uncertainty.
+-  It is far easier to hold onto uncertainty at every step than to try and reintroduce it at the very end
+-  concepts like nested positions natrually flow on from this nested object type problem
+- speiglehatter comment about how hard it is to quantify uncertainty to the last layer
+-   this is a potential solution for that
+-   you can combine a bunch of uncertain values and take inference from signal suppression
+-   we use visual statistics to implicitly calculate values that are difficult to calculate theoretically
+-   different levels of uncertainty can be hard to quantify, especially in a final statistic
+-   by sampling each value at n, we can do visual interence to see the impact on the final plot
+
+These divisions create @Thomson2005 discussed the problem of multiple times of uncertainty and suggested mapping each type of uncertainty (such as accuracy, precision, credibility, etc) separetely and then have the analyst combine them in their head. To map each of these variables separately suggests that each level of uncertainty is somehow its own variable. While this is possible, and relevant if 
+
+If you are already confused by this distinction, it is about to get worse for you, because these can technically be performed at the same time. This can occur is a scenario that covers many cases that researchers will consider to be too uncertain to quantify, something called "deep uncertainty" by @Hadjimichael2024. These abstract uncertainties can include abstract concepts like expert disagreement, the credibility of a source [@Thomson2005], forecaster confidence [@Padilla2021], or alternative decisions that could have been made in the analysis [@Kale2019] (something that frequently see visualised in climate scenario uncertainty). If the authors are willing to quantify them, these cases can almost always be covered by distributions of distributions, and can lead to a `ggdibbler` version of a `ggdist` plot. Note that we cannot have a `ggdist` version of a `ggdibbler` chart.Lets look at two examples of this to see what we mean. 
+
+@fig-dibble-dist displays two distributions of distributions.
+Secnario uncertainty - categorical(Exp, Linear,) with equal probabilities, 
+random parameters (bayesian hierarchical), dist of dist, joint density, transformation
+
+
+```{r}
+#| label: fig-dibble-dist
+#| fig-cap: ""
+set.seed(123)
+
+# Nested uncertainty
+density_data <- data.frame(xmean = rnorm(15, 163, 7),
+                           xse = rexp(15,0.5)) |>
+  mutate(xdist = distributional::dist_normal(xmean, xse))
+
+# Climate scenario uncertainty (joint)
+year = rep(1950:2100, each = 3)
+scenario = rep(c("Exponential", "Linear", "Log"), times = 151)
+temp_change = rep(0, times = 3*151)
+tibble(year, scenario, temp_change) 
+  
+```
+
+We will admit that cases where the uncertainty is not published, as discussed by @geointerviews are a little more difficult, but still possible. If something is worth doing, it is worth doing badly, so imputing the distribution of random variables using the resources available is better than not ignoring it entirely. 
+
+case of "deep uncertainty" 
+
+This occurs when you have a distribution of distributions. These cases are often thought to be "unquantifiable" by other researchers, but that is not entirely true, they can be represented by random variables. 
+
+
+
+- [@Thomson2005] Analysts are also concerned with abstract uncertainty such as credibility of a source, and as uncertainty becomes more abstract, it is more difficult to quantify, represent and understand.
+- [@Hadjimichael2024] Say that uncertainty can’t be quantified by a probability distribution because experts do not agree and call it “deep uncertainty“
+- [@geointerviews] In interviews with geologists expressed they had to “work with other sources of uncertainty that were more abstract and less easy to pinpoint or measure”
+- [@geointerviews] Uncertainty metrics are not systematically published along tephra studies (from geologist interview)
+
+-   e.g. climate change scenario and forecast uncertainty
+
+While each random variable level can only hold one role, These goals cannot be performed simultaneously on the same distribution, but they *can* be performed on the same plot. We can theoretically have a `ggdibbler` version of a `ggdist` plot.
+
+
+Now, a list of examples is helpful, but not exactly sufficient to describe the greater problem we are facing here.
+
+
 # Necessary changes for the following papers
 - Make the inference point clearer. Specifically mention that the only way for EDA, a process with no specific inferential statistic, to *have* uncertainty, a by product of inference, is if the input itself is uncertain (i.e. inference has already occured before we started graphing).
 - Establish difference between EDA and Confirmatory (deductive vs inductive, searing for a hypothesis vs validating a hypothesis).
