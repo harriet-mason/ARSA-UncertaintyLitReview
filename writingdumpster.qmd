@@ -4,6 +4,219 @@ author: "Harriet Mason"
 format: html
 ---
 
+## NICE SENTANCES REMOVED
+When discussing each of these methods, we will repeatedly return to the *purpose* of uncertainty visualisation and the effectiveness of each approach in fulfilling that purpose.
+
+## CITATIONS WHERE SECTION WAS REMOVED
+- Datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurus; @datasaurpkg] show a case where visual statistics highlight elements of the data that are invisible to the typical summary statistics. 
+- Something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
+- Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. 
+
+## FIGURES THAT WERE REMOVED
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-ibrekk
+#| fig-cap: "A replication of the uncertainty visualisations shown by @Ibrekk1987 in one of the earliest uncertainty visualisation experiments. Several visualisation methods that are now unpopular (such as the pie chart) are used throughout this paper."
+#| fig-subcap: 
+#|   - "Picture 1"
+#|   - "Picture 2"
+#|   - "Picture 3"
+#|   - "Picture 4"
+#|   - "Picture 5"
+#|   - "Picture 6"
+#|   - "Picture 7"
+#|   - "Picture 8"
+#|   - "Picture 9"
+#| layout-ncol: 3
+
+# Generate data
+set.seed(1)
+x=rnorm(1000, 8, 4)
+ib_data <- tibble(x=ifelse(x<0, -x, x))
+
+# Picture 1
+p1 <- ib_data |>
+  summarise(avg = mean(x),
+          conf_95a = quantile(x, probs=c(0.025)),
+          conf_95b = quantile(x, probs=c(0.975))) |>
+  ggplot(aes(y="NA")) +
+  geom_point(aes(x=avg)) +
+  geom_errorbar(aes(xmin = conf_95a, xmax = conf_95b), width = 0.1) +
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks=seq(0,19),
+                     labels= ggplot2:::interleave(as.character(c(seq(0,18, 2), 19)), rep("", 11))[c(0:19, 21)],
+                     limits=c(0,19)) +
+  theme_classic() +
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=1/10)
+
+  
+# Picture 2
+p2 <- ib_data |>
+  mutate(x = ifelse(x>18, 18, x),
+         binx = cut(x, breaks=seq(0,18,2))) |>
+  group_by(binx) |>
+  summarise(n = n()) |>
+  mutate(Probability = n / sum(n)) |>
+  ggplot(aes(x=binx, y=Probability)) +
+  geom_col(fill="black", colour="white") +
+  scale_x_discrete(name = "INCHES OF SNOW",
+                   labels= paste0(seq(0,16,2), sep = "-", seq(2,18,2))) +
+  scale_y_continuous(breaks = seq(0.00, 0.25, 0.05)) +
+  theme_classic() + 
+  theme(aspect.ratio=0.33)
+
+# Picture 3
+p3 <- ib_data |>
+  mutate(x = ifelse(x>18, 18, x),
+         binx = cut(x, 
+                     breaks=seq(0,18,2), 
+                     labels= paste0(seq(0,16,2), sep = "-", seq(2,18,2)))) |>
+  group_by(binx) |>
+  summarise(n = n()) |>
+  mutate(Probability = n / sum(n),
+         csum = rev(cumsum(rev(Probability))), 
+         pos = Probability/2 + lead(csum, 1),
+         pos = if_else(is.na(pos), Probability/2, pos)) |>
+  ggplot(aes(x="", y=Probability, fill=binx)) +
+  geom_bar(stat="identity", width=1) +
+  geom_text_repel(aes(y = pos, label = paste0(round(Probability*100), sep="", "%")),
+                   size = 3, nudge_x = 0.6, show.legend = FALSE, segment.color = 'transparent') +
+  #geom_label(aes(label = paste0(round(Probability*100), sep="", "%")),
+  #          position = position_stack(vjust = 0.5)) + 
+  scale_fill_grey() +
+  coord_polar("y", start=0) +
+  labs(fill = "INCHES OF SNOW") + 
+  theme_void() + 
+  theme(aspect.ratio=1)
+
+# Picture 4
+p4 <- ib_data |>
+  ggplot(aes(x=x)) +
+  geom_density() + 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2))) +
+  scale_y_continuous(name = "Probability density",
+                     breaks = seq(0.00, 0.20, 0.02)) +
+  theme_classic() + 
+  theme(aspect.ratio=0.33)
+
+
+
+# Picture 5
+p5 <- ib_data |>
+  ggplot(aes(y="", x=x)) +
+  geom_violin() + 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2)),
+                     limits=c(0,20)) +
+  theme_classic() + 
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=0.4)
+
+# Picture 6
+set.seed(1)
+x=rnorm(5000, 8, 4)
+ib_data2 <- tibble(x=ifelse(x<0, -x, x)) |>
+  mutate(x=ifelse(x>=18, 18-rexp(5000,rate=0), x))
+p6 <- ib_data2 |>
+  ggplot(aes(y="", x=x)) +
+  geom_jitter(size=0.05) + 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2)),
+                     limits=c(0,20)) +
+  theme_classic() + 
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=0.1)
+
+
+# Picture 7
+p7 <- ib_data2 |>
+  arrange(x) |>
+  mutate(group = rep(1:50, each=100))|>
+  group_by(group) |>
+  summarise(x = max(x, na.rm=TRUE)) |>
+  add_row(group=c(0,51), x = c(0,20)) |>
+  ggplot(aes(x=x)) +
+  geom_linerange(ymin = 0.1, ymax = 1) + 
+  geom_linerange(y=1, xmin = -0.03, xmax = 20.03)+ 
+  geom_linerange(y=0.1, xmin = -0.03, xmax = 20.03)+ 
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks = seq(0,20,2),
+                     labels= paste0(seq(0,20,2)),
+                     limits=c(0,20)) +
+  scale_y_continuous(limits=c(0,1)) + 
+  theme_classic() + 
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=0.1)
+
+# Picture 8
+p8 <- ib_data |>
+  reframe(x = quantile(x, probs=c(0.25, 0.50, 0.75)))|>
+  add_row(x = c(0,20)) |>
+  arrange(x) |>
+  mutate(quantile = c("min", "q1", "med", "q3", "max")) |>
+  pivot_wider(names_from = quantile, values_from = x) |>
+  ggplot(aes(y="")) +
+  #geom_point(aes(x=med)) +
+  geom_errorbar(aes(y="", xmin = min, xmax = max), width = 0.2) +
+  geom_crossbar(aes(y="", x=med, xmin = q1, xmax = q3), width = 0.5) +
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks=seq(0,20),
+                     labels= ggplot2:::interleave(as.character(c(seq(0,20, 2))), rep("", 11))[1:21],
+                     limits=c(0,20)) +
+  theme_classic() +
+  theme(axis.line.y=element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        aspect.ratio=1/10)
+
+
+# Picture 9
+p9 <- ib_data |>
+  ggplot(aes(x)) +
+  stat_ecdf(geom = "step") +
+  scale_x_continuous(name = "INCHES OF SNOW",
+                     breaks=seq(0,20),
+                     labels= ggplot2:::interleave(as.character(c(seq(0,20, 2))), rep("", 11))[1:21],
+                     limits=c(0,20)) +
+  scale_y_continuous(name = "Cumulative probability",
+                     breaks=seq(0,1,0.1),
+                     labels= seq(0,1,0.1),
+                     limits=c(0,1)) +
+  theme_classic() +
+  theme(aspect.ratio=4/10)
+
+# Display Plots
+p1
+p2
+p3
+p4
+p5
+p6
+p7
+p8
+p9
+```
+
 # Taken from ggdibbler dumpster
 - We will not go through how this uncertainty is quantified, but we will rely on the fact that all uncertainty, no matter how abstract, can always be quantified by a random variable [@Mason2024].   
   - Make sure I actually go back and make this argument.
