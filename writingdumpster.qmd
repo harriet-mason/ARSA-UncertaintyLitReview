@@ -4,9 +4,36 @@ author: "Harriet Mason"
 format: html
 ---
 
-
+## Unused Paragraphs
+### Qualitative evaluation
+- Upon further interviews @Hullman2020a found that authors believed uncertainty would overwhelm the audience and make their data seem questionable because decision makers are unable to understand uncertainty.
+- open-ended estimation tasks elicit certain well-known biases such as the tendency to round to multiples of 5 or 10 [@Vanderplas2020]
+Alternatively visualisation research could shift away from evaluation all together and instead use open ended studies to inform authors on *how* the uncertainty information was used by the participants. 
+@Hofmann2012 captured this by asking participants why they considered a particular plot to be more right-shifted, even though this qualitative analysis did not make it into the final paper. 
+@Daradkeh2015 presented participants with ten investment alternatives and asked participants "from among available alternatives, which alternative do you prefer the most", and were asked to think aloud and consider the uncertainty in their decision making. 
+The experimenters goal was to observe and organise the methods people use when making decisions in the face of uncertainty. 
+They highlighted the specific aspects of uncertainty that participants typically considered, such as the range of outcomes that are above/below a certain threshold, minimum and maximum values, the risk of a loss, etc., and identified where in the decision making process participants made these considerations. 
 
 ## Unused Citations
+- [@compsci_lineup] Try to evaluate the statistical significance of a plot using a null generation method similar to a lineup but with the null generated inside the plot using Guassian priors. Compare values to hypothesis test equivalent
+- Other authors have commented on the complexity of communicating hurricane risk because the path, storm surge and wind speed are all important and can have an impact [@Spiegelhalter2017]. 
+- @Correll2018 “place your 5 ships on the safest locations on the board.” (minimise danger) It is a convoluted value extraction task, where participants basicaly have to look at the palette and see that if it is in the lower uncertainty, and lower error it is better, but higher uncertainty is better
+- @Ibrekk1987 expected participants to calculate the mean using a pie chart that had numerical bins combined (e.g. segment one was 0-2 inches of snow, and segment two was 2-4 inches of snow) so it could not be done by calculation. The authors also expected participants to use a CDF to calculate the mean, which needs to be converted *back* into a PDF to do so mathematically, so it was unclear how participants were supposed to do this calculation visually unless they were to just make a blind guess. The authors interpreted this as the participants misinterpreting how the CDF works, not seeming to realise they gave them an impossible task.
+
+
+- For example, @Zhao2023 found participants were more trusting of estimates with low uncertainty, but seemed surprised when these results did not translate to trust in estimates with high uncertainty.
+- Findings like this are quite common in the literature, with @uncertchap2022 commenting that including uncertainty will not necessarily increase trust in their review.
+- The subconscious distinction between trust and trustworthiness is even cited as a reason authors don't visualise uncertainty, as @Hullman2020a found that authors simultaneously believed failing to visualise uncertainty was akin to fraud, but avoided doing so in case their work came across as untrustworthy. 
+
+- @Gustafson2019 found that the framing of our uncertainty, (i.e. if the source of uncertainty is from a lack of knowledge, approximations, unknown unknowns, or disagreement among parties) was found to not have a detrimental effect on the belief in the estimates, perceived credibility, or behavioural intentions of the decision makers.
+- This idea also extends to interval estimation, where questions about probability are best answered with gradients and questions about start and end times are easiest to answer with ambiguation [@Gschwandtnei2016].
+- or counting outcomes is mroe accurate than an area estimate [@Hullman2015]
+- @Sanyal2009 users performed significantly well using Glyph-size when the task was to search for locations of least uncertainty. However, both Glyph-color and Surface-color performed better than Glyph- size when the task was to search for locations of high uncertainty. We did not expect to find a significant difference between the two search tasks since both the tasks were designed to find extremes in the data
+- @Gschwandtnei2016 asked users for averages, maximums and minimums, all directly.
+@Correll2014 asked participants to separately extract the mean and variance from four uncertainty visualisations. 
+
+- answering questions about a prediction interval is more difficult when users are shown a confidence interval, rather than a prediction interval [@Hofman2020; @Zhang2022]
+- @Hullman2016 the lack of generalisability in using plot ranking as a response technique.
 - Datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurus; @datasaurpkg] show a case where visual statistics highlight elements of the data that are invisible to the typical summary statistics. 
 - Something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
 - Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. 
@@ -58,6 +85,8 @@ format: html
 
 ## Unused Abstractions
 When discussing each of these methods, we will repeatedly return to the *purpose* of uncertainty visualisation and the effectiveness of each approach in fulfilling that purpose.
+
+These methods explicitly view the uncertainty and signal as two separate variables that should be extracted from a plot, and not two variables that should be interpreted together. 
 
 ## Unused Figures
 ```{r}
