@@ -85,6 +85,98 @@ library(colorspace)
 #library(rgeos)
 ```
 
+
+```{r}
+#| eval: false
+#| echo: false
+# Get map data: do this once and save
+my_map_data <- get_urbn_map("counties", sf = TRUE) |>
+  filter(state_name=="Iowa")
+save(my_map_data, file="data/iowa_map.rda")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+# Get centroid because rgeos is depreciated
+load("data/iowa_map.rda")
+centroids <- as_tibble(gCentroid(as(my_map_data$geometry, "Spatial"), byid = TRUE))
+my_map_data$cent_long <- centroids$x
+my_map_data$cent_lat <- centroids$y
+save(my_map_data, file="data/my_map_data.rda")
+```
+
+```{r mapdata}
+#| echo: false
+#| message: false
+#| warning: false
+
+# get data
+load("data/my_map_data.rda")
+
+# seed for sampling
+set.seed(1997)
+
+# data dimension for sampling
+n <- dim(my_map_data)[1]
+
+# Make palettes
+longpal <- rev(sequential_hcl(13, palette = "YlOrRd"))
+basecols <- longpal[3:10]
+breaks <- 21:29 
+breakslong <- 18:32 
+names(basecols) <- seq(8)
+names(longpal) <- -1:11
+
+my_map_data <- my_map_data |>
+  mutate(temp = 29 - 2*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
+         highvar = runif(n, min=2, max=4), # high variance
+         lowvar = runif(n, min=0, max=2), # low variance
+         count_id = row_number()) |>
+  pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
+  # add bivariate classes to data
+  mutate(bitemp = cut(temp, breaks=breaks, labels=seq(8)),
+         bivar = cut(variance, breaks=0:4, labels=seq(4)),
+         biclass = paste(bitemp, bivar, sep="-"))|>
+  mutate(highlight = ifelse(count_id <= 5, TRUE, FALSE))
+
+# Make nice example table
+example_table <- my_map_data |>
+  mutate(variance = sqrt(variance)) |>
+  select(c(count_id, county_name, temp, variance_class, variance)) |>
+  as_tibble()|>
+  pivot_wider(id_cols=c(count_id, county_name, temp,), 
+              names_from = variance_class, 
+              values_from = variance) |>
+  head(5)|>
+  flextable() |>
+  set_caption(caption = "Average Daily High Temperatures of Iowa Counties") |>
+  add_header_row(colwidths = c(3, 2),
+                 values = c("", "Standard Error")) |>
+  colformat_double(digits = 2) |>
+  set_header_labels(count_id = "ID", 
+                    county_name  = "County",
+                    temp = "Average Temperature (°C)",
+                    highvar = "High",
+                    lowvar = "Low") |>
+  add_footer_row(values = rep("..."), colwidths = 5) |>
+  theme_vanilla() |>
+  vline(i=c(1,2), j=3, part="header")|>
+  align(align = "left", part = "all") |>
+  bg(j = "temp",
+    bg = col_numeric(palette = brewer.pal(8, name = "Oranges"),
+                     domain = c(21, 30)),
+    part = "body"
+  ) |>
+  bg(j = c("highvar", "lowvar"),
+    bg = col_numeric(palette = brewer.pal(8, name = "Greens"),
+                     domain = c(0, 3)),
+    part = "body"
+  ) 
+```
+
+
+
 ## Introduction
 The phrase "uncertainty visualisation" can sometimes feel like a bit of an oxymoron.
 Uncertainty is often discussed as though it is an omnipresent spectre, touching every stage of our analysis despite the fact that we don't seem to have a precise definition of what it is.
@@ -127,29 +219,97 @@ This review attempts to address this issue by offering a novel perspective on th
 That is, we are going to use the wealth of established stone to construct the foundations on which we can build a house. 
 
 ## Ignoring uncertainty
-The comment sentiment expressed by the uncertainty visualisation literature is that visualising uncertainty is needed for transparency, but what does transparency look like?
-We can try and illustrate this with an example.
 
+### Spatial Example
+The comment sentiment expressed by the uncertainty visualisation literature is that we need to visualise uncertainty for the sake of transparency, but what is transparency?
+Some authors have taken their sentiments towards uncertainty visualisation a bit further, and connected their ideas to the language of statistical significance by claiming that uncertainty should communicate our degree of confidence or trust in the data [@Boukhelifa2012; @Zhao2023], or that it ensures the validity of a statement [@Hullman2020a; @Griethe2006], but allows for a proportional level of trust that is more detailed than the binary results of a hypothesis test [@Correll2014; @Correll2018]. 
+Therefore, we can interpret this to mean that uncertainty visualisation should be acting as a sort of "visual hypothesis test".
 
-
-Some authors have said that uncertainty should be included to degree of confidence or trust in the data [@Boukhelifa2012; @Zhao2023]. 
-Some authors directly connect uncertainty visualisation to hypothesis testing as it ensures the validity of a statement [@Hullman2020a; @Griethe2006], but allows for a proportional level of trust that is more detailed than the binary results of a hypothesis test [@Correll2014; @Correll2018]. 
-
-This consensus leads us to understand that uncertainty visualisation is motivated by the need for a sort of "visual hypothesis test". 
-A successful uncertainty visualisation would act as a "statistical hedge" for any inference we make using the graphic. 
+A successful uncertainty visualisation should act as a "statistical hedge" for any inference we make using the graphic. 
 Since the purpose of a visualisation is to give a quick gist of the information [@Spiegelhalter2017], this hedging needs to be communicated visually without the need for complicated calculations. 
 If we refer to the conclusion we draw from a graphic to be its signal and the variance that makes this signal harder to identify as the "noise", we can summarise the above information into three key requirements. A good uncertainty visualisation needs to:
 
   1) Reinforce justified signals to encourage confidence in results
   2) Hide signals that are overwhelmed by noise to prevent unjustified conclusions
   3) Perform tasks 1) and 2) in a way that is proportional to the level of confidence in those conclusions.
+  
+Given that we know what we are looking for, lets try and make some plots without uncertainty and see how well they do.
+
+
+#### The choropleth map
+@fig-choropleth depicts a choropleth map of the counties of Iowa. 
+Each of these counties are coloured according to an estimate of average daily temperature that was generated so that the values followed a clear spatial trend. 
+The variance of these estimates were simulated such that the trend accounts for most of the variance in the plot in the low variance case (so we should expect the trend to be visible) while in the high variance, there is more variance within each county than between all the counties, so we should expect it to (at least in some capacity) overwhelm the spatial trend. 
+Is this aspect of the data and the spatial data it communicates clear in in the map? 
+Is the strength of the trend communicated through the visualisation?
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-choropleth
+#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the centre of the map are hotter than counties on the edge of the map. In the low variance condition, the trend accounts for most of the variation in the data, in the high variance case, the variance on the temperature estimate accounts for most of the variance. This distinction is not clear in the map as they both appear identical. The high variance condition displays a spatial trend that could simply be spurious, which means the plot is displaying a false conclusion."
+#| fig-subcap: 
+#|   - "Low Variance Data"
+#|   - "High Variance Data"
+#|   - "Choropleth Palette"
+#| layout-ncol: 3
+#| layout-valign: "bottom"
+#| cap-location: "bottom"
+
+
+# Choropleth Map
+p1a <- my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(fill = bitemp, 
+              geometry = geometry), colour=NA) + 
+  scale_fill_manual(values = basecols) +
+  #scale_fill_gradientn(colours = basecols, 
+  #                     values=breaks/limits[2],
+  #                     limits=limits) +
+  theme_void() + 
+  theme(legend.position = "none")
+
+p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
+
+show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, xlabx, xlaby, tsize=1.2) {
+  # Set dimensions of palette
+  n <- length(colours)
+  ncol <- ncol %||% ceiling(sqrt(length(colours)))
+  nrow <- ceiling(n/ncol)
+  # make matrix with null values (if not full)
+  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
+  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
+  # set graphical parameters (?)
+  old <- par(pty = "s", mar = c(0, 0, 0, 0))
+  on.exit(par(old))
+  size <- max(dim(colours))
+  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "", 
+      axes = FALSE)
+  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
+       col = colours, border = borders)
+  text(c(0,col(colours)) + textnudge, -c(1,row(colours))-0.25, breaks, 
+              cex = 1, col = "black")
+  text(xlabx, xlaby, myxlab ,cex = tsize, col = "black")
+}
+p1c <- show_pal(basecols, ncol=8, borders=NA, myxlab = "Temperature", breaks = 21:29, textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75, tsize=1.5)
+
+p1a
+p1b
+
+
+```
+
+
+
 
 As @fig-choropleth showed, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. 
 Therefore, we call this approach to uncertainty visualisation as "signal-suppression" since it primarily differentiates itself from from the normal "noiseless" visualisation approach through criteria (2). 
 That is, the main difference between an uncertainty visualisation and a normal visualisation is that an uncertainty visualisation should prevent us from drawing unjustified conclusions. 
 
 
-## Current Methods
+## Current Approaches
 - Split this section between "ignoring uncertainty" and "current uncertainty visualisation"
 
 
@@ -159,17 +319,13 @@ That is, the main difference between an uncertainty visualisation and a normal v
 - Tie it to statistical definitions of uncertainty and concepts of inference
 
 
-### Goal of uncertainty vis
-
-
-
-
 ### Signal vs noise
 - @Leland2005 also suggested signal supression as the goal of uncertainty visualisation "This chapter is about graphics that guide, qualify, or soften our judgments of uncertain data."
   - Also applies some of the logic occasionally in the direction and stuff, "Some of the letters (B, P, X) almost disappear because they are frequently confused with other letters."
 - @[Kay2019] "It is important to have clear, domain- and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty".
 - @[geointerviews] On confusion of uncertainty as signal or noise: “Also cases where our experts expressed uncertainty a a source of inspiration for future research.”
-
+- @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
+- Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019]. There is no evidence that this psychological effect translates to issues with the visual representation of uncertainty.  Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behaviour, there is no reason to assume this is what makes uncertainty visualisation so special. 
   
 Uncertainty visualisation is not only motivated by signal-suppression, and we would be remiss if we did not mention these alternative approaches. 
 Some authors explicitly state it as a variable of importance in of itself [@Blenkinsop2000]. 
@@ -659,195 +815,6 @@ These heuristics have the potential to create noise in signal suppression evalua
 
 
 ## Applications
-### Spatial Example
-Due to the field's origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. 
-Utilising a single example will help isolate the ideas we are trying to convey. 
-Therefore, it is important to remember that even though we focus our discussion on the choropleth map, the theoretical approach we outline in this review is useful to all uncertainty visualisations regardless of their application. 
-
-@fig-data shows the first six rows and the geographical boundaries of our data set. 
-The temperature variable was generated using a sine wave, that is $Temperature_i = 29-2\cdot{|Latitude_i - \sin{2 \cdot Longitude_i}|}$ where the $Longitude$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
-Each county's variance is independently, randomly sampled from a uniform distribution. 
-The low standard errors are drawn from a $U_{[0,1]}$ distribution, while the high standard errors are drawn from a $U_{[1,2]}$ distribution. 
-As we are dealing with an average, the sampling distribution would be approximately normal by the central limit theorem, so each county temperature estimate is assumed to come from a $N(Temp_i, SE_{case,i})$. 
-This is the data we will be using in our spatial uncertainty examples for the rest of the paper.
-
-```{r}
-#| eval: false
-#| echo: false
-# Get map data: do this once and save
-my_map_data <- get_urbn_map("counties", sf = TRUE) |>
-  filter(state_name=="Iowa")
-save(my_map_data, file="data/iowa_map.rda")
-```
-
-```{r}
-#| eval: false
-#| echo: false
-# Get centroid because rgeos is depreciated
-load("data/iowa_map.rda")
-centroids <- as_tibble(gCentroid(as(my_map_data$geometry, "Spatial"), byid = TRUE))
-my_map_data$cent_long <- centroids$x
-my_map_data$cent_lat <- centroids$y
-save(my_map_data, file="data/my_map_data.rda")
-```
-
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-data
-#| fig-cap: "The first 5 observations of the data used for the spatial uncertainty examples along with the boundaries of each county. The map boundaries are the Iowa county boundaries, however the 'temperature' data is not representative of the average temperature in Iowa. The temperature and standard error represent the average of the daily high temperature and the standard error of that average respectively."
-#| fig-subcap: 
-#|   - "Data Table"
-#|   - "Map Boundaries"
-#| layout-nrow: 1
-#| cap-location: "bottom"
-
-# get data
-load("data/my_map_data.rda")
-
-# seed for sampling
-set.seed(1997)
-
-# data dimension for sampling
-n <- dim(my_map_data)[1]
-
-# Make palettes
-longpal <- rev(sequential_hcl(13, palette = "YlOrRd"))
-basecols <- longpal[3:10]
-breaks <- 21:29 
-breakslong <- 18:32 
-names(basecols) <- seq(8)
-names(longpal) <- -1:11
-
-my_map_data <- my_map_data |>
-  mutate(temp = 29 - 2*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
-         highvar = runif(n, min=2, max=4), # high variance
-         lowvar = runif(n, min=0, max=2), # low variance
-         count_id = row_number()) |>
-  pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
-  # add bivariate classes to data
-  mutate(bitemp = cut(temp, breaks=breaks, labels=seq(8)),
-         bivar = cut(variance, breaks=0:4, labels=seq(4)),
-         biclass = paste(bitemp, bivar, sep="-"))|>
-  mutate(highlight = ifelse(count_id <= 5, TRUE, FALSE))
-
-# Make nice example table
-example_table <- my_map_data |>
-  mutate(variance = sqrt(variance)) |>
-  select(c(count_id, county_name, temp, variance_class, variance)) |>
-  as_tibble()|>
-  pivot_wider(id_cols=c(count_id, county_name, temp,), 
-              names_from = variance_class, 
-              values_from = variance) |>
-  head(5)|>
-  flextable() |>
-  set_caption(caption = "Average Daily High Temperatures of Iowa Counties") |>
-  add_header_row(colwidths = c(3, 2),
-                 values = c("", "Standard Error")) |>
-  colformat_double(digits = 2) |>
-  set_header_labels(count_id = "ID", 
-                    county_name  = "County",
-                    temp = "Average Temperature (°C)",
-                    highvar = "High",
-                    lowvar = "Low") |>
-  add_footer_row(values = rep("..."), colwidths = 5) |>
-  theme_vanilla() |>
-  vline(i=c(1,2), j=3, part="header")|>
-  align(align = "left", part = "all") |>
-  bg(j = "temp",
-    bg = col_numeric(palette = brewer.pal(8, name = "Oranges"),
-                     domain = c(21, 30)),
-    part = "body"
-  ) |>
-  bg(j = c("highvar", "lowvar"),
-    bg = col_numeric(palette = brewer.pal(8, name = "Greens"),
-                     domain = c(0, 3)),
-    part = "body"
-  ) 
-
-
-  
-# make blank map 
-example_map <- my_map_data |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf(aes(geometry = geometry, fill=highlight)) + 
-  scale_fill_manual(values=c("white", "#fbfba2")) +
-  geom_text(data=filter(my_map_data, highlight==TRUE), aes(x=cent_long, y=cent_lat, label=count_id), size=3) +
-  theme_void() +
-  theme(legend.position = 'none') 
-
-plot(example_table)
-
-example_map
-
-```
-
-#### The choropleth map
-@fig-choropleth depicts a choropleth map of the counties of Iowa. 
-Each of these counties are coloured according to an estimate of average daily temperature that was generated so that the values followed a clear spatial trend. 
-The variance of these estimates were simulated such that the trend accounts for most of the variance in the plot in the low variance case (so we should expect the trend to be visible) while in the high variance, there is more variance within each county than between all the counties, so we should expect it to (at least in some capacity) overwhelm the spatial trend. 
-Is this aspect of the data and the spatial data it communicates clear in in the map? 
-Is the strength of the trend communicated through the visualisation?
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-choropleth
-#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the centre of the map are hotter than counties on the edge of the map. In the low variance condition, the trend accounts for most of the variation in the data, in the high variance case, the variance on the temperature estimate accounts for most of the variance. This distinction is not clear in the map as they both appear identical. The high variance condition displays a spatial trend that could simply be spurious, which means the plot is displaying a false conclusion."
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "Choropleth Palette"
-#| layout-ncol: 3
-#| layout-valign: "bottom"
-#| cap-location: "bottom"
-
-
-# Choropleth Map
-p1a <- my_map_data |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf(aes(fill = bitemp, 
-              geometry = geometry), colour=NA) + 
-  scale_fill_manual(values = basecols) +
-  #scale_fill_gradientn(colours = basecols, 
-  #                     values=breaks/limits[2],
-  #                     limits=limits) +
-  theme_void() + 
-  theme(legend.position = "none")
-
-p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
-
-show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, xlabx, xlaby, tsize=1.2) {
-  # Set dimensions of palette
-  n <- length(colours)
-  ncol <- ncol %||% ceiling(sqrt(length(colours)))
-  nrow <- ceiling(n/ncol)
-  # make matrix with null values (if not full)
-  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
-  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
-  # set graphical parameters (?)
-  old <- par(pty = "s", mar = c(0, 0, 0, 0))
-  on.exit(par(old))
-  size <- max(dim(colours))
-  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "", 
-      axes = FALSE)
-  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
-       col = colours, border = borders)
-  text(c(0,col(colours)) + textnudge, -c(1,row(colours))-0.25, breaks, 
-              cex = 1, col = "black")
-  text(xlabx, xlaby, myxlab ,cex = tsize, col = "black")
-}
-
-p1a
-p1b
-show_pal(basecols, ncol=8, borders=NA, myxlab = "Temperature", breaks = 21:29, textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75, tsize=1.5)
-
-```
 
 #### Exceedance probability map
 

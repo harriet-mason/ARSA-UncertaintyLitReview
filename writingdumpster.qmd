@@ -3,15 +3,46 @@ title: "Writing Trash Bin"
 author: "Harriet Mason"
 format: html
 ---
-### Field motivations
-- @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
-Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019].
-There is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. 
-Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behaviour, there is no reason to assume this is what makes uncertainty visualisation so special. 
+### Spatial data explanation
+Due to the field's origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. 
+Utilising a single example will help isolate the ideas we are trying to convey. 
+Therefore, it is important to remember that even though we focus our discussion on the choropleth map, the theoretical approach we outline in this review is useful to all uncertainty visualisations regardless of their application. 
 
-There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluate competing plot designs, or start a theoretical discussion on a niche aspect of the field.
-This is important work that needs to be done, but each of these papers offers up their own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their periphery.
-This becomes even more difficult to manage when these studies are in conflict. The field is in desperate need of a unifying theory that can tie this swath of research together.
+@fig-data shows the first six rows and the geographical boundaries of our data set. 
+The temperature variable was generated using a sine wave, that is $Temperature_i = 29-2\cdot{|Latitude_i - \sin{2 \cdot Longitude_i}|}$ where the $Longitude$ and $Latitude$ are the longitude and latitude of the county's centroid scaled to a standard normal distribution. 
+Each county's variance is independently, randomly sampled from a uniform distribution. 
+The low standard errors are drawn from a $U_{[0,1]}$ distribution, while the high standard errors are drawn from a $U_{[1,2]}$ distribution. 
+As we are dealing with an average, the sampling distribution would be approximately normal by the central limit theorem, so each county temperature estimate is assumed to come from a $N(Temp_i, SE_{case,i})$. 
+This is the data we will be using in our spatial uncertainty examples for the rest of the paper.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-data
+#| fig-cap: "The first 5 observations of the data used for the spatial uncertainty examples along with the boundaries of each county. The map boundaries are the Iowa county boundaries, however the 'temperature' data is not representative of the average temperature in Iowa. The temperature and standard error represent the average of the daily high temperature and the standard error of that average respectively."
+#| fig-subcap: 
+#|   - "Data Table"
+#|   - "Map Boundaries"
+#| layout-nrow: 1
+#| cap-location: "bottom"
+
+# make blank map 
+example_map <- my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(geometry = geometry, fill=highlight)) + 
+  scale_fill_manual(values=c("white", "#fbfba2")) +
+  geom_text(data=filter(my_map_data, highlight==TRUE), aes(x=cent_long, y=cent_lat, label=count_id), size=3) +
+  theme_void() +
+  theme(legend.position = 'none') 
+
+plot(example_table)
+
+example_map
+
+```
+
 ## Unused Paragraphs
 Uncertainty plays an unusual role in statistics that can make it difficult to work with. It can act as both a signal when we want to perform inference on a specific variance or probability, and a noise as a variable that is supposed to hedge our conclusions on other statistics. This dual role of uncertainty often causes researchers to get caught up in the weeds. The difficulties with this duality is felt particularly strongly in uncertainty visualisation.
 
@@ -45,7 +76,9 @@ They highlighted the specific aspects of uncertainty that participants typically
 - Other authors have commented on the complexity of communicating hurricane risk because the path, storm surge and wind speed are all important and can have an impact [@Spiegelhalter2017]. 
 - @Correll2018 “place your 5 ships on the safest locations on the board.” (minimise danger) It is a convoluted value extraction task, where participants basicaly have to look at the palette and see that if it is in the lower uncertainty, and lower error it is better, but higher uncertainty is better
 - @Ibrekk1987 expected participants to calculate the mean using a pie chart that had numerical bins combined (e.g. segment one was 0-2 inches of snow, and segment two was 2-4 inches of snow) so it could not be done by calculation. The authors also expected participants to use a CDF to calculate the mean, which needs to be converted *back* into a PDF to do so mathematically, so it was unclear how participants were supposed to do this calculation visually unless they were to just make a blind guess. The authors interpreted this as the participants misinterpreting how the CDF works, not seeming to realise they gave them an impossible task.
-
+There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluate competing plot designs, or start a theoretical discussion on a niche aspect of the field.
+This is important work that needs to be done, but each of these papers offers up their own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their periphery.
+This becomes even more difficult to manage when these studies are in conflict. The field is in desperate need of a unifying theory that can tie this swath of research together.
 
 - For example, @Zhao2023 found participants were more trusting of estimates with low uncertainty, but seemed surprised when these results did not translate to trust in estimates with high uncertainty.
 - Findings like this are quite common in the literature, with @uncertchap2022 commenting that including uncertainty will not necessarily increase trust in their review.
