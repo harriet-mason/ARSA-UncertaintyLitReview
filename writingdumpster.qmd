@@ -3,8 +3,22 @@ title: "Writing Trash Bin"
 author: "Harriet Mason"
 format: html
 ---
+### Field motivations
+- @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
+Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019].
+There is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. 
+Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behaviour, there is no reason to assume this is what makes uncertainty visualisation so special. 
 
+There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluate competing plot designs, or start a theoretical discussion on a niche aspect of the field.
+This is important work that needs to be done, but each of these papers offers up their own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their periphery.
+This becomes even more difficult to manage when these studies are in conflict. The field is in desperate need of a unifying theory that can tie this swath of research together.
 ## Unused Paragraphs
+Uncertainty plays an unusual role in statistics that can make it difficult to work with. It can act as both a signal when we want to perform inference on a specific variance or probability, and a noise as a variable that is supposed to hedge our conclusions on other statistics. This dual role of uncertainty often causes researchers to get caught up in the weeds. The difficulties with this duality is felt particularly strongly in uncertainty visualisation.
+
+There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluate competing plot designs, or start a theoretical discussion on a niche aspect of the field.
+This is important work that needs to be done, but each of these papers offers up their own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their periphery.
+This becomes even more difficult to manage when these studies are in conflict. The field is in desperate need of a unifying theory that can tie this swath of research together.
+
 ### Qualitative evaluation
 - Upon further interviews @Hullman2020a found that authors believed uncertainty would overwhelm the audience and make their data seem questionable because decision makers are unable to understand uncertainty.
 - open-ended estimation tasks elicit certain well-known biases such as the tendency to round to multiples of 5 or 10 [@Vanderplas2020]
@@ -15,6 +29,18 @@ The experimenters goal was to observe and organise the methods people use when m
 They highlighted the specific aspects of uncertainty that participants typically considered, such as the range of outcomes that are above/below a certain threshold, minimum and maximum values, the risk of a loss, etc., and identified where in the decision making process participants made these considerations. 
 
 ## Unused Citations
+- @Spiegelhalter2017 commented that different plots are good for different things, and disagreed with the goal of identifying a universal best plot for all people and circumstances.
+- Something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
+- Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. 
+- answering questions about a prediction interval is more difficult when users are shown a confidence interval, rather than a prediction interval [@Hofman2020; @Zhang2022]
+- Some economists suggest that visualisation authors are responding to incentives that make it tempting to avoid visualising uncertainty, even if those incentives are based more in perception than reality [@Manski2020].
+- The use of uncertainty in high dimensional environments is especially important in energy data. Large models that incorporate spatial-temporal data from many sources and systems are used to predict energy uses in the short and long term. Understanding how to improve and make better decisions in these models is imperative in both the daily operation of the energy sector as well as in the transition from fossil fuels to clean energy. The energy sector needs better heuristics to make energy supply analysis less costly to conduct [@Stenclik2021], therefore it is an incredibly relevant application of uncertainty visualisation techniques. 
+- While @Han2009 found people have more worry when presented with uncertainty regarding health outcomes, this worry is not a bad thing if the concern is warranted given the ambiguous situation.
+- While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017],
+- (reason probably that uncertainty is annoying) At least one interviewee from the study by @Hullman2020a claimed that expertise implies that the signal being conveyed is significant, but also said they would omit uncertainty if it obfuscated the message they were trying to convey.  Other authors who were capable of calculating and and representing uncertainty well did not do it, and were unable to provide a self-satisfying reason why [@Hullman2020a]. These conflicting motivations are acknowledged in the paper itself where @Hullman2020a says: "It is worth noting that many authors seemed confident in stating rationales, as though they perceived them to be truths that do not require examples to demonstrate. It is possible that rationales for omission represent ingrained beliefs more than conclusions authors have drawn from concrete experiences attempting to convey uncertainty". 
+- @Thomson2005 titled their paper "A typology for visualizing uncertainty" however it is a taxonomy for the specific types of uncertainty that we may want to visualise and a way to calculate that uncertainty. While this paper is more about mathematics than visualisation, it is clearly written as a precursor to visualisation.
+- @Griethe2006 defined uncertainty as "the degree to which the lack of knowledge about the amount of error is responsible for hesitancy in accepting results and observations without caution".
+- @Suh2023 found that the main issue with deployment of AI was communication between data science and subject matter experts, since subject matter experts didn't want technical presentations that didn't explain exactly when and how a model would fail.
 - [@compsci_lineup] Try to evaluate the statistical significance of a plot using a null generation method similar to a lineup but with the null generated inside the plot using Guassian priors. Compare values to hypothesis test equivalent
 - Other authors have commented on the complexity of communicating hurricane risk because the path, storm surge and wind speed are all important and can have an impact [@Spiegelhalter2017]. 
 - @Correll2018 “place your 5 ships on the safest locations on the board.” (minimise danger) It is a convoluted value extraction task, where participants basicaly have to look at the palette and see that if it is in the lower uncertainty, and lower error it is better, but higher uncertainty is better
@@ -32,11 +58,7 @@ They highlighted the specific aspects of uncertainty that participants typically
 - @Gschwandtnei2016 asked users for averages, maximums and minimums, all directly.
 @Correll2014 asked participants to separately extract the mean and variance from four uncertainty visualisations. 
 
-- answering questions about a prediction interval is more difficult when users are shown a confidence interval, rather than a prediction interval [@Hofman2020; @Zhang2022]
 - @Hullman2016 the lack of generalisability in using plot ranking as a response technique.
-- Datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurus; @datasaurpkg] show a case where visual statistics highlight elements of the data that are invisible to the typical summary statistics. 
-- Something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
-- Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. 
 - @[geointerviews] Designed visual system for geology and interviewed users and iterated through designs
 - @[geointerviews] Uncertainty metrics are not systematically published along tephra studies (from geologist interview)
 - @[Zhang2022] Propse two visualisation methods, segment and dandelion plots that offer more information than the existing methods as a new way to conduct EDA with interval variables (“propose two new plots for EDIA”). They specify it's need as you can only see "correlation in center" and not "correlation in range". Seems like a signal vs noise problem. Variance (in this case range) is a different variable in this case. Unclear why you wouldn't just do a scatter plot of the ranges.

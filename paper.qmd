@@ -86,47 +86,37 @@ library(colorspace)
 ```
 
 ## Introduction
-- A 6-month survey of anti-mask groups on Facebook during the COVID-19 pandemic showed that the anti-maskers thought carefully about their grammar of graphics and made persuasive visualisations using the same data as pro-mask groups. They did this by exploiting information ignored by the pro-maskers [@Lee2021].
-- displaying numerical estimates of uncertainty information has shown to lead to greater trust in predictions [@Joslyn2012; @VanderBles2020]. While @Han2009 found people have more worry when presented with uncertainty regarding health outcomes, this worry is not a bad thing if the concern is warranted given the ambiguous situation.
+The phrase "uncertainty visualisation" can sometimes feel like a bit of an oxymoron.
+Uncertainty is often discussed as though it is an omnipresent spectre, touching every stage of our analysis despite the fact that we don't seem to have a precise definition of what it is.
+A point that is either directly stated by authors who work in the field [@Spiegelhalter2017; @Griethe2006] or implied by describing a myriad of things uncertainty could be without a concrete definition [@Kinkeldey2014; @Hullman2016].
+Contrary to the murky waters of uncertainty, visualisations illuminates and unveils the unknowns in our data.
+This is illustrated with datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurus; @datasaurpkg] where visual statistics reveal elements of the data that are hidden to the typical summary statistics. 
+This leads us to the conclusions that uncertainty visualisation is about revealing the unknown and shining a light on the more questionable parts of our analysis.
 
-Uncertainty plays an unusual role in statistics that can make it difficult to work with. It can act as both a signal when we want to perform inference on a specific variance or probability, and a noise as a variable that is supposed to hedge our conclusions on other statistics. This dual role of uncertainty often causes researchers to get caught up in the weeds. The difficulties with this duality is felt particularly strongly in uncertainty visualisation.
+This sentiment is regularly echoed by the literature where we see authors express that visualising uncertainty is necessary for transparency and improved decision making [@uncertchap2022].
+Some authors even go so far as to claim that failing to include uncertainty is akin to fraud or lying [@Hullman2020a; @Manski2020].
+There is good reason to believe these assertions are true and failing to incorporate the uncertain information in an analysis will lead to research being undermined, uninformative, or untrustworthy.
+A 6-month survey of anti-mask groups on Facebook during the COVID-19 pandemic showed that anti-maskers made persuasive arguments by exploiting the uncertainty information that was ignored by pro-maskers [@Lee2021].
+Failing to present uncertain information can lead to poor estimation of failure probabilities [@Kiureghian2009], as well as poorer decision making both experimentally [@Joslyn2012; @Savelli2013; @Kay2016; @Fernandes2018] and in practice [@Al-Kassab2014].
+We see authors repeatedly suggest uncertainty is important to include as it communicates the legitimacy (or illegitimacy) of the conclusion drawn from visual inference [@Correll2014; @Kale2018; @Griethe2006]. 
+Despite this, a survey conducted by @Hullman2020a found that very few authors actually include uncertainty in their visualisations, with only a quarter of respondents included uncertainty in 50% or more of their visualisations.
+Part of the abstinence of uncertainty visualisation comes from the fact that authors think that the plots will be overwhelming or they are uncertain how to calculate the uncertainty [@Hullman2020a].
 
-- A survey conducted by @Hullman2020a found that majority of visualisation authors agreed that expressing uncertainty is important and should be done more often than it currently is, some even agreed that failing to do so is tantamount to fraud. Despite this, only a quarter of respondents included uncertainty in 50% or more of their visualisations [@Hullman2020a].
-- @Suh2023 found that the main issue with deployment of AI was communication between data science and subject matter experts, since subject matter experts didn't want technical presentations that didn't explain exactly when and how a model would fail.
-- The use of uncertainty in high dimensional environments is especially important in energy data. Large models that incorporate spatial-temporal data from many sources and systems are used to predict energy uses in the short and long term. Understanding how to improve and make better decisions in these models is imperative in both the daily operation of the energy sector as well as in the transition from fossil fuels to clean energy. The energy sector needs better heuristics to make energy supply analysis less costly to conduct [@Stenclik2021], therefore it is an incredibly relevant application of uncertainty visualisation techniques. 
-- Failing to communicate the nature of your uncertainty can result in underestimation or overestimation of failure probabilities [@Kiureghian2009]
-- @uncertchap2022 "Effectively communicating uncertainty is necessary for establishing scientific transparency"
-- @Griethe2006 defined uncertainty as "the degree to which the lack of knowledge about the amount of error is responsible for hesitancy in accepting results and observations without caution".
-- Some economists suggest that visualisation authors are responding to incentives that make it tempting to avoid visualising uncertainty, even if those incentives are based more in perception than reality [@Manski2020].
-- (reason probably that uncertainty is annoying) At least one interviewee from the study by @Hullman2020a claimed that expertise implies that the signal being conveyed is significant, but also said they would omit uncertainty if it obfuscated the message they were trying to convey.  Other authors who were capable of calculating and and representing uncertainty well did not do it, and were unable to provide a self-satisfying reason why [@Hullman2020a]. These conflicting motivations are acknowledged in the paper itself where @Hullman2020a says: "It is worth noting that many authors seemed confident in stating rationales, as though they perceived them to be truths that do not require examples to demonstrate. It is possible that rationales for omission represent ingrained beliefs more than conclusions authors have drawn from concrete experiences attempting to convey uncertainty". 
-- There is a large amount of research suggesting that presenting uncertainty information improves decision making, both experimentally [@Joslyn2012; @Savelli2013; @Kay2016; @Fernandes2018] and in practice [@Al-Kassab2014]. 
+When reading the uncertainty visualisation literature itself, we can see why people will think the plots are overwhelming, as the field of uncertainty visualisation itself is quite overwhelming.
+The literature often reads like several independent conversations happening at once, largely because for many years, that is what the literature was.
+Early mentions of uncertainty visualisation start to spring up in the late 1980s [@Ibrekk1987] as a discussion in the most effective ways to communicate random variables and their associated density.
+This work was motivated by conversations around risk communication, a subfield of psychology where heuristics, such as risk or ambiguity aversion, make it difficult to communicate probabilities to the public. 
+This risk communication sub field end up with their own version of "uncertainty visualisation" that is not as concerned with conveying the correct shape and sense of a distribution, but rather in designing visualisations that help the public make accurate informed decisions about things like the outcomes of medical procedures [@Spiegelhalter2017].
+In parallel, around the early 1990s, authors in geoscience declare uncertainty to be an essential aspect to any information display [@MacEachren1992; @Carr1992] and start working towards implementing it in their visualisations. 
+Since geoscience often involves high dimensional (usually at least 4 axis) data with inherent measurement error, getting all the information into a single display was proving difficult, even to this day [@geointerviews].
+Thrown into the melting pot and stewed for years, these separate motivations behind uncertainty visualisation all bleed together and are treated interchangeable as early work in"uncertainty visualisation". 
 
-Source of problem 
-- @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
-
-
-"Uncertainty visualisation" is a relatively new field in research. 
-Early mentions of uncertainty visualisation start to appear in the late 1980s [@Ibrekk1987], with geospatial information visualisation literature from the early 1990s declaring this to be essential aspect of any information display [@MacEachren1992; @Carr1992]. 
-
-- @[MacEachren2005] Literature review focused on visualising geospatial uncertainty
- - @Thomson2005 titled their paper "A typology for visualizing uncertainty" however it is a taxonomy for the specific types of uncertainty that we may want to visualise and a way to calculate that uncertainty. While this paper is more about mathematics than visualisation, it is clearly written as a precursor to visualisation.
-
-Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019].
-While it is true that heuristics lead people to avoid uncertainty [@Spiegelhalter2017], there is no evidence that this psychological effect translates to issues with the visual representation of uncertainty. 
-Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behaviour, there is no reason to assume this is what makes uncertainty visualisation so special. 
-
-There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluate competing plot designs, or start a theoretical discussion on a niche aspect of the field.
-This is important work that needs to be done, but each of these papers offers up their own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their periphery.
-This becomes even more difficult to manage when these studies are in conflict. The field is in desperate need of a unifying theory that can tie this swath of research together.
-
-Reviews on uncertainty visualisation rarely offer tried and tested rules for effective uncertainty visualisation, but rather, they comment on the *difficulties* faced when trying to summarise the field. 
+This "melting pot of ideas" becomes a bit of a problem when we try and write review papers that turn the literature into a set of generalised theoretical principles. Rather than providing an overarching, cohesive narrative of the field, it is far more common to see a review paper lament the *difficulties* faced when trying to extract any cohesive insights. 
 @Kinkeldey2014 found most experimental methods to be ad hoc, with no commonly agreed upon methodology, formalisations, or greater goal of describing general principals. 
-@Hullman2016 noticed there is a serious noise issue in the data coming from uncertainty visualisation experiments. 
-She commented on the prevalence of confounding variables that make it unclear as to what exactly caused a subjects poor performance on a set of particular questions.
-Mistakes due to misunderstanding visualisations, misinterpreting questions, and incorrectly applying heuristics are all combined into a single error value.
-@Spiegelhalter2017 commented that different plots are good for different things, and disagreed with the goal of identifying a universal best plot for all people and circumstances.
-@Griethe2006 did not identify common themes, but instead listed the findings and opinions of a collection of papers. 
-@uncertchap2022 summarised several cognitive effects that repeatedly arise in uncertainty visualisation experiments, however these effects were each discussed in isolation as a list of considerations an author might make rather than an overarching theory of rules for effective uncertainty visualisation. 
+@Hullman2016 noticed there is a serious noise issue in the field, with noise from participants misunderstanding visualisations, misinterpreting questions, and incorrectly applying heuristics all overwhelming any information we can glean from studies.
+@MacEachren2005 identified so much contradicting evidence that they were able to spend an entire page discussing the contradictions around a question as simple as "Should I map uncertainty to colour hue?".
+@Griethe2006 did not identify common themes, but instead listed the findings and opinions of a collection of papers.
+@uncertchap2022 was able to synthesise some results cognative effects that arise in uncertainty visualisation experiments, however these effects were each discussed in isolation as a list of considerations an author might make rather than an overarching theory of rules for effective uncertainty visualisation. 
 While these reviews are thorough in scope, none discuss how the existing literature contribute to the broader goal of uncertainty visualisation. 
 The problem faced by the literature is easily summarised with a famous quote by Henri Poincaré.
 
@@ -136,23 +126,14 @@ That is to say, despite the wealth of reviews, the field of uncertainty visualis
 This review attempts to address this issue by offering a novel perspective on the uncertainty visualisation problem.
 That is, we are going to use the wealth of established stone to construct the foundations on which we can build a house. 
 
+## Ignoring uncertainty
+The comment sentiment expressed by the uncertainty visualisation literature is that visualising uncertainty is needed for transparency, but what does transparency look like?
+We can try and illustrate this with an example.
 
-## What is uncertainty visualisation? 
-- Split this section between "ignoring uncertainty" and "current uncertainty visualisation"
 
 
-- Common uses of the term “uncertainty visualisation”
-- Provide some background to the use of the term “uncertainty visualisation” 
-- Tie it to statistical definitions of uncertainty and concepts of inference
-- @[geointerviews] Describe it as a challenging to even define what constitutes uncertainty, even before visualisation. Call uncertainty in science “maleable”. 
-- The absence of an encompassing definition of uncertainty is mentioned by every uncertainty visualisation directly [@Spiegelhalter2017; @Griethe2006] or indirectly by describing a myriad of ways it can be considered in the literature [@Kinkeldey2014; @Hullman2016].
-
-### Goal of uncertainty vis
-
-Some authors suggest uncertainty is important to include as it communicates the legitimacy (or illegitimacy) of the conclusion drawn from visual inference [@Correll2014; @Kale2018; @Griethe2006]. 
 Some authors have said that uncertainty should be included to degree of confidence or trust in the data [@Boukhelifa2012; @Zhao2023]. 
 Some authors directly connect uncertainty visualisation to hypothesis testing as it ensures the validity of a statement [@Hullman2020a; @Griethe2006], but allows for a proportional level of trust that is more detailed than the binary results of a hypothesis test [@Correll2014; @Correll2018]. 
-Some authors even go so far as to claim that failing to include uncertainty is akin to fraud or lying [@Hullman2020a; @Manski2020].
 
 This consensus leads us to understand that uncertainty visualisation is motivated by the need for a sort of "visual hypothesis test". 
 A successful uncertainty visualisation would act as a "statistical hedge" for any inference we make using the graphic. 
@@ -166,6 +147,22 @@ If we refer to the conclusion we draw from a graphic to be its signal and the va
 As @fig-choropleth showed, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. 
 Therefore, we call this approach to uncertainty visualisation as "signal-suppression" since it primarily differentiates itself from from the normal "noiseless" visualisation approach through criteria (2). 
 That is, the main difference between an uncertainty visualisation and a normal visualisation is that an uncertainty visualisation should prevent us from drawing unjustified conclusions. 
+
+
+## Current Methods
+- Split this section between "ignoring uncertainty" and "current uncertainty visualisation"
+
+
+
+- Common uses of the term “uncertainty visualisation”
+- Provide some background to the use of the term “uncertainty visualisation” 
+- Tie it to statistical definitions of uncertainty and concepts of inference
+
+
+### Goal of uncertainty vis
+
+
+
 
 ### Signal vs noise
 - @Leland2005 also suggested signal supression as the goal of uncertainty visualisation "This chapter is about graphics that guide, qualify, or soften our judgments of uncertain data."
@@ -552,7 +549,6 @@ Is this a question we can easily answer?
 ## Evaluating uncertainty visualisations
 If we want to make conclusions about how effective any uncertainty visualisation method is we need to look at the results of evaluation experiments. 
 Unfortunately, despite the abundance of these studies, existing literature reviews have struggled to synthesise them into any common rules [@MacEachren2005; @Kinkeldey2014; @Bostrom2008; @Hullman2016].
-These contradictions are not small either, with one review paper identifying so many contradictions in a question as simple as "Should I map uncertainty to colour hue?", they were able to spend a full page listing them out [@MacEachren2005].
 This issue is particular to uncertainty visualisation, and pervasive, so it begs the question, what is causing it?
 
 There are as many explanations for the noisy evaluation studies, as there are contradictions in the research itself. 
@@ -641,15 +637,23 @@ Designing an implicit testing method for uncertainty visualisation that allows u
 
 ### Heuristics research
 There is one element of uncertainty visualisation research that we have not touched on yet, but is incredibly consistent, and that is the research around visual heuristics.
-Unlike the plot comparison work, these findings are regularly replicated and rarely have any contradictions. 
-This is likely due to the fact that the evaluation of of visual heuristics is agnostic to the uncertainty's role as signal or noise.
+The uncertainty visualisation heuristics research, unlike the plot evaluation work, is increbidly consistent, likely because heuristics are indifferent to the goal of our analysis and uncertainty's role as signal or noise.
+Several heuristics are of particular importance for uncertainty visualisation.
+We will give a brief overview of them here, and for a more in depth analysis, we recommend reading @uncertchap2022 as they provide a more in depth review.
 
-Several heuristics are of particular importance for uncertainty visualisations, and are likely to impact how well different methods performing signal suppression. 
+The use of confidence intervals or boundaries have a few known issues in their interpretation.
 The sine illusion can cause the confidence interval of a smoothed sine curve to seem wider at the peaks than the troughs, causing us to underestimate uncertainty associated with changing values [@Vanderplas2015]. 
-Points that were on an outcome of an ensemble display were perceived as more likely than points not on an outcome, even when the point that was not on an outcome was closer to the centre of the distribution (and therefore more likely) [@Padilla2017]. 
+Similarly researchers frequently find that visual boundaries such as the cone of uncertainty in hurricane forcasts [@uncertchap2022], or confidence bands or ellipses [@vanderplas2017] create the impression of a meaningful bound, separating points outside the bounds from those within it which can create problems if the bound is not inherently meaningful.
+
+The choose of geometry is not neutral regarding the interpretation either, and several approaches have
 This can be considered an extension of the within bar bias, where participants looking at a bar chat with error bars view outcomes within the bar as more likely than those outside it [@Newman2012]. 
 
-Similarly researchers frequently find that visual boundaries such as the cone of uncertainty in hurricane forcasts [@uncertchap2022], or confidence bands or ellipses [@vanderplas2017] create the impression of a meaningful bound, separating points outside the bounds from those within it which can create problems if the bound is not inherrently meaningful.
+While many researchers tend to prefer frequency framing, they are not without their critiques.
+Points that were on an outcome of an ensemble display were perceived as more likely than points not on an outcome, even when the point that was not on an outcome was closer to the centre of the distribution (and therefore more likely) [@Padilla2017]. 
+
+
+
+The final heuristic surrounds the finding that people seem to ignore uncertainty information if you give them the ability.
 Several studies have found that including the estimate on an uncertainty visualisation plot can cause viewers to ignore the uncertainty information and simply compare the difference between the two means [@uncertchap2022].
 These heuristics have the potential to create noise in signal suppression evaluations, and should be kept in mind when designing uncertainty visualisations as well as evaluation experiments.
 
