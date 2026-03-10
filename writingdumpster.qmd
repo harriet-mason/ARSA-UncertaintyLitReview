@@ -3,6 +3,60 @@ title: "Writing Trash Bin"
 author: "Harriet Mason"
 format: html
 ---
+
+
+### Nested uncertainty example?
+Carrying uncertainty through multiple layers
+-   note what can/cant be nested
+    -   e.g. climate change scenario and forecast uncertainty
+    -   two unrelated estimates *cannot* be nested (it doesn't make sense)
+    -   Nesting becomes unecessary with convolution, unless you want to hold onto the uncertainty. Technically, anything that is nested should also be able to be calculated through convolution.
+
+- this makes visualisation an incredibly powerful tool for quantifying uncertainty.
+-  It is far easier to hold onto uncertainty at every step than to try and reintroduce it at the very end
+-  concepts like nested positions natrually flow on from this nested object type problem
+- speiglehatter comment about how hard it is to quantify uncertainty to the last layer
+-   this is a potential solution for that
+-   you can combine a bunch of uncertain values and take inference from signal suppression
+-   we use visual statistics to implicitly calculate values that are difficult to calculate theoretically
+-   different levels of uncertainty can be hard to quantify, especially in a final statistic
+-   by sampling each value at n, we can do visual interence to see the impact on the final plot
+
+
+
+### Captions
+"A pixel map of the counties of Iowa. In this map, each county is broken up into several small areas and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value. In this graphic, we can clearly see the spatial trend in the low variance case, while the spatial trend is much harder to identify in the high variance case."
+
+"Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the centre of the map are hotter than counties on the edge of the map. In the low variance condition, the trend accounts for most of the variation in the data, in the high variance case, the variance on the temperature estimate accounts for most of the variance. This distinction is not clear in the map as they both appear identical. The high variance condition displays a spatial trend that could simply be spurious, which means the plot is displaying a false conclusion."
+
+"An exceedance probability map that depict the counties of Iowa where each country coloured acording to the probability that the average temperature exceeds 27. This map is a choropleth map where the variable of interest is a probability."
+
+"A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a choropleth map with a two dimensional colour palette where temperature is represented by colour hue, and variance is represented by colour saturation. Even though uncertainty has been added to the graphic the spatial trend is still clearly visible in the high variance case."
+
+
+@fig-dibble-dist displays two distributions of distributions.
+Secnario uncertainty - categorical(Exp, Linear,) with equal probabilities, 
+random parameters (bayesian hierarchical), dist of dist, joint density, transformation
+```{r}
+#| label: fig-dibble-dist
+#| fig-cap: ""
+set.seed(123)
+
+# Nested uncertainty
+density_data <- data.frame(xmean = rnorm(15, 163, 7),
+                           xse = rexp(15,0.5)) |>
+  mutate(xdist = distributional::dist_normal(xmean, xse))
+
+# Climate scenario uncertainty (joint)
+year = rep(1950:2100, each = 3)
+scenario = rep(c("Exponential", "Linear", "Log"), times = 151)
+temp_change = rep(0, times = 3*151)
+tibble(year, scenario, temp_change) 
+  
+```
+
+
+
 ### Spatial data explanation
 Due to the field's origins and focus in geospatial information visualisation, there have been a large number of suggested variations on the choropleth map that allow authors to include uncertainty. 
 Utilising a single example will help isolate the ideas we are trying to convey. 

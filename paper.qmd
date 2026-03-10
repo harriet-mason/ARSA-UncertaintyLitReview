@@ -83,6 +83,12 @@ library(urbnmapr)
 library(flextable)
 library(colorspace)
 #library(rgeos)
+library(ggplotify)
+library(ggthemes)
+library(distributional)
+library(patchwork)
+library(ggdist)
+library(ggdibbler)
 ```
 
 
@@ -173,7 +179,507 @@ example_table <- my_map_data |>
                      domain = c(0, 3)),
     part = "body"
   ) 
+
 ```
+
+
+```{r example-regressions}
+#| echo: false
+#| message: false
+#| warning: false
+# Linear regression - Case 1
+# fit linear regression
+fit1 <- lm(mpg ~ wt, data = mtcars)
+model_summary1 <- summary(fit1)
+
+# pull out estimates
+int_est_1 <- coef(fit1)[1]
+int_se_1 <- model_summary1$coefficients["(Intercept)", "Std. Error"]
+slope_est_1 <- coef(fit1)[2]
+slope_se_1 <- model_summary1$coefficients["wt", "Std. Error"]
+
+# Linear regression - Case 2
+# sample data
+set.seed(14) # selected seed to make spurious relationship
+small_cars <- mtcars |>
+  sample_n(3) 
+# fit regression
+fit2 <- lm(mpg ~ wt, data = small_cars)
+model_summary2 <- summary(fit2)
+
+# pull out estimates
+int_est_2 <- coef(fit2)[1]
+int_se_2 <- model_summary2$coefficients["(Intercept)", "Std. Error"]
+slope_est_2 <- coef(fit2)[2]
+slope_se_2 <- model_summary2$coefficients["wt", "Std. Error"]
+
+# Estimate Plots
+reg1a <- mtcars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few()  + 
+  geom_abline(intercept = int_est_1,
+              slope = slope_est_1,
+              colour = "dodgerblue3") +
+  theme(aspect.ratio=1) +
+  ylim(9,35) +
+  xlim(1.5,5.5)
+
+reg1b <- small_cars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few()  + 
+  geom_abline(intercept = int_est_2,
+              slope = slope_est_2,
+              colour = "dodgerblue3") +
+  theme(aspect.ratio=1) +
+  ylim(9,35)+
+  xlim(1.5,5.5)
+
+# Stat plot
+reg2a <- mtcars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few()  + 
+  geom_abline(intercept = int_se_1,
+              slope = slope_se_1,
+              colour = "dodgerblue3") +
+  theme(aspect.ratio=1) +
+  ylim(0,35) +
+  xlim(0,5.5)
+
+reg2b <- small_cars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few()  + 
+  geom_abline(intercept = int_se_2,
+              slope = slope_se_2,
+              colour = "dodgerblue3") +
+  theme(aspect.ratio=1) +
+  ylim(0,35) +
+  xlim(0,5.5)
+
+
+# Width plot
+reg3a <- mtcars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few()  + 
+  geom_abline(intercept = int_est_1,
+              slope = slope_est_1,
+              alpha = 2/int_se_1,
+              linewidth = slope_se_1,
+              colour = "dodgerblue3") +
+  theme(aspect.ratio=1) +
+  ylim(9,35) +
+  xlim(1.5,5.5)
+
+reg3b <- small_cars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few()  + 
+  geom_abline(intercept = int_est_2,
+              slope = slope_est_2,
+              alpha = 2/int_se_2,
+              linewidth = 2*slope_se_2,
+              colour = "dodgerblue3") +
+  theme(aspect.ratio=1) +
+  ylim(9,35) +
+  xlim(1.5,5.5)
+
+
+# Sample plot
+reg4a <-  mtcars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few()  + 
+  geom_abline_sample(intercept = dist_normal(int_est_1, int_se_1),
+                     slope = dist_normal(slope_est_1,slope_se_1),
+                     alpha=0.2, times=100,
+                     colour = "dodgerblue3")+
+  theme(aspect.ratio=1) +
+  ylim(9,35) +
+  xlim(1.5,5.5)
+
+reg4b <- small_cars |>
+  ggplot(aes(wt, mpg)) + 
+  #geom_point() + 
+  theme_few() + 
+  geom_abline_sample(intercept = dist_normal(int_est_2, int_se_2),
+                     slope = dist_normal(slope_est_2, slope_se_2),
+                     alpha=0.5, times=100,
+                     colour = "dodgerblue3")+
+  theme(aspect.ratio=1) +
+  ylim(9,35) +
+  xlim(1.5,5.5)
+
+
+```
+
+```{r example-univariate}
+#| echo: false
+#| message: false
+#| warning: false
+# Point with y axis
+group_df <- tibble(x = c(1,2,3,4,5),
+       se_low = c(1,1,1,1,1),
+       se_high = c(1,2,3,4,5),
+       group = c("A", "B", "C", "D", "E"))
+
+# Estimate
+uni1a <- group_df |>
+  ggplot() +
+  geom_point(aes(x=x, y=group), colour = "forestgreen") +
+  theme_few() + 
+  theme(aspect.ratio=1)
+
+uni1b <- group_df |>
+  ggplot() +
+  geom_point(aes(x=x, y=group), colour = "forestgreen") +
+  theme_few() + 
+  theme(aspect.ratio=1)
+
+# Statistic
+uni2a <-group_df |>
+  ggplot() +
+  geom_point(aes(x=se_low, y=group), colour = "forestgreen") +
+  theme_few() + 
+  theme(aspect.ratio=1)
+
+uni2b <- group_df |>
+  ggplot() +
+  geom_point(aes(x=se_high, y=group), colour = "forestgreen") +
+  theme_few() + 
+  theme(aspect.ratio=1)
+
+# Error bars
+uni3a <- group_df |>
+  ggplot(aes(xdist = dist_normal(x, se_low), y=group)) +
+  theme_few() +
+  stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
+  theme(aspect.ratio=1)
+
+uni3b <- group_df |>
+  ggplot(aes(xdist = dist_normal(x, se_high), y=group)) +
+  theme_few() +
+  stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
+  theme(aspect.ratio=1)
+
+
+# Distribution
+uni4a <-group_df |>
+  ggplot(aes(xdist = dist_normal(x, se_low), y=group)) +
+  theme_few() +
+  stat_dots(fill = "forestgreen", colour=NA) + 
+  theme(aspect.ratio=1)
+
+uni4b <- group_df |>
+  ggplot(aes(xdist = dist_normal(x, se_high), y=group)) +
+  theme_few() +
+  stat_dots(fill = "forestgreen", colour=NA) + 
+  theme(aspect.ratio=1)
+
+
+```
+
+
+
+```{r example-maps}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Show palette function
+show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, vnudge = 0.25, xlabx, xlaby, tsize=1.2) {
+  # Set dimensions of palette
+  n <- length(colours)
+  ncol <- ncol %||% ceiling(sqrt(length(colours)))
+  nrow <- ceiling(n/ncol)
+  # make matrix with null values (if not full)
+  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
+  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
+  # set graphical parameters (?)
+  old <- par(pty = "s", mar = c(0, 0, 0, 0))
+  on.exit(par(old))
+  size <- max(dim(colours))
+  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "", 
+       axes = FALSE)
+  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
+       col = colours, border = borders)
+  text(c(0,col(colours)) + textnudge, -c(1,row(colours))-vnudge, breaks, 
+              cex = 1, col = "black")
+  text(xlabx, xlaby, myxlab ,cex = tsize, col = "black")
+}
+
+###################### CHOROPLETH MAP ###################### 
+p1a <- my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(fill = bitemp, 
+              geometry = geometry), colour=NA) + 
+  scale_fill_manual(values = basecols) +
+  theme_void() + 
+  theme(legend.position = "none")
+
+p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
+
+p1c <- as.ggplot(
+  expression(
+  show_pal(basecols, ncol=8, borders=NA, 
+                          myxlab = "Temperature", breaks = 21:29, 
+                          textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2),
+                          vnudge = 0.5,
+                          xlabx= 4, xlaby=-2.5, tsize=1.5)
+  )
+)
+
+choro1 <- p1a 
+choro2 <- p1b
+choro3 <- p1c
+#choro2 <- p1b / p1c + plot_layout(heights = c(8, 1))
+
+
+
+######################  Exceed Prob Map ######################  
+prob_breaks <- seq(-0.1,1.1, length.out=9)
+exeed_data <- my_map_data |> 
+  as_tibble() |>
+  mutate(xprob = 1- pnorm(27, mean=temp, sd=sqrt(variance))) |>
+  mutate(xprob = cut(xprob, breaks=prob_breaks, labels=seq(8)))
+             
+p2a <- exeed_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(fill = xprob, 
+              geometry = geometry), colour=NA) + 
+  scale_fill_manual(values = basecols) +
+  theme_void() + 
+  theme(legend.position = "none")
+
+p2b <- p2a %+% filter(exeed_data, variance_class=="highvar")
+
+p2c <- as.ggplot(expression(
+  show_pal(basecols, ncol=8, borders=NA, 
+           myxlab = "P(Temperature>27)", vnudge = 0.5,
+           breaks = c(0, prob_breaks[2:8], 1), 
+           textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), 
+           xlabx= 4, xlaby=-2.5, tsize=1.2))
+)
+
+
+exceed1 <- p2a #/ p2c + plot_layout(heights = c(2, 1.5))
+exceed2 <- p2b #/ p2c + plot_layout(heights = c(2, 1.5))
+exceed3 <- p2c
+
+####################### Bivariate maps ###################### 
+# Make bivariate palette
+# Function to devalue by a certain amount
+colsupress <- function(basecols, hue=1, sat=1, val=1) {
+    X <- diag(c(hue, sat, val)) %*% rgb2hsv(col2rgb(basecols))
+    hsv(pmin(X[1,], 1), pmin(X[2,], 1), pmin(X[3,], 1))
+}
+
+# recursively decrease value
+v_val = 0.5
+bivariatepal <- c(basecols,
+                  colsupress(basecols, sat=v_val),
+                  colsupress(colsupress(basecols, sat=v_val), sat=v_val),
+                  colsupress(colsupress(colsupress(basecols, sat=v_val), sat=v_val), sat=v_val))
+# establish levels of palette
+names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
+
+# mapping
+p3a <- my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
+  scale_fill_manual(values = bivariatepal) +
+  theme_void() + 
+  theme(legend.position = "none")
+  
+p3b <- p3a %+% filter(my_map_data, variance_class=="highvar")
+
+show_pal2 <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, myylab, breaks, breaks2, tsize1=1.2, tsize2=1.2) {
+  # Set dimensions of palette
+  n <- length(colours)
+  ncol <- ncol %||% ceiling(sqrt(length(colours)))
+  nrow <- ceiling(n/ncol)
+  # make matrix with null values (if not full)
+  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
+  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
+  # set graphical parameters (?)
+  old <- par(pty = "s", mar = c(0, 0, 0, 0))
+  on.exit(par(old))
+  size <- max(dim(colours))
+  plot(c(-1.5, size), c(0, -size), type = "n", xlab = "", ylab = "", 
+      axes = FALSE)
+  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
+       col = colours, border = borders)
+  text(c(0,col(colours)[nrow,]) + c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2) , -4.5, 
+       breaks, cex = 1, col = "black")
+  text(-0.25, -c(0,row(colours)[,ncol]) + c(-0.2, -0.1, 0, 0.1, 0.2),
+       breaks2, cex = 1, col = "black")
+  text(4, -5.5, myxlab ,cex = tsize1, col = "black")
+  text(x=-1.25,y=-2, myylab, srt=270, cex = tsize2, col = "black")
+}
+
+p3c <- as.ggplot(expression(
+  show_pal2(colours = bivariatepal, ncol=8, borders=NA, 
+            myxlab = "Temperature", myylab = "Variance", 
+            breaks = 21:29, breaks2 = 0:4)
+))
+
+bivar1 <- p3a #/ p3c + plot_layout(heights = c(2, 1.5))
+bivar2 <- p3b #/ p3c + plot_layout(heights = c(2, 1.5))
+bivar3 <- p3c
+####################### VSUP maps ###################### 
+# Function to combine colours for VSUP
+colourblend <- function(basecols, p_length, nblend) {
+    X <- rgb2hsv(col2rgb(unique(basecols)))
+    v1 <- X[,seq(1,dim(X)[2], 2)]
+    v2 <- X[,seq(2,dim(X)[2], 2)]
+    if("matrix" %in% class(v1)){
+      # hue issue wrap around pt 1
+      v3 <- (v1+v2)
+      v3["h",] <- ifelse(abs(v1["h",]-v2["h",])>0.5, v3["h",]+1, v3["h",])
+      v3 <- v3/2
+      # hue issue wrap around pt 2
+      v3["h",] <- ifelse(v3["h",]>=1 , v3["h",]-1 ,v3["h",])
+      hsv(rep(v3[1,], each=nblend), rep(v3[2,], each=nblend), rep(v3[3,], each=nblend))
+      } else {
+        v3 <- (v1+v2)
+        v3["h"] <- ifelse(abs(v1["h"]-v2["h"])>0.5, v3["h"]+1, v3["h"])
+        v3 <- v3/2
+        v3["h"] <- ifelse(v3["h"]>=1 , v3["h"]-1 ,v3["h"])
+        rep(hsv(h=v3[1], s=v3[2], v=v3[3]), p_length)
+        }
+}
+
+VSUPfunc <- function(basecols, p_length, nblend){
+  colourblend(colsupress(basecols, sat=0.5), p_length, nblend)
+}
+
+# VSUP
+p = length(basecols)
+VSUP <- c(basecols,
+          VSUPfunc(basecols, p, 2),
+          VSUPfunc(VSUPfunc(basecols, p, 2), p, 4),
+          VSUPfunc(VSUPfunc(VSUPfunc(basecols, p, 2), p, 4), p, 8))
+
+names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
+
+# VSUP maps
+p4a <- my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
+  scale_fill_manual(values = VSUP) +
+  theme_void() + 
+  theme(legend.position = "none")
+
+p4b <- p4a %+% filter(my_map_data, variance_class=="highvar")
+
+p4c <- as.ggplot(expression(
+  show_pal2(colours = VSUP, ncol=8, borders=NA, 
+            myxlab = "Temperature", myylab = "Variance",
+            breaks = 21:29, breaks2 = 0:4)
+))
+
+vsup1 <- p4a #/ p4c + plot_layout(heights = c(2, 1.5))
+vsup2 <- p4b #/ p4c + plot_layout(heights = c(2, 1.5))
+vsup3 <- p4c
+
+####################### Pixel maps ######################
+my_map_data_a <- my_map_data |>
+  filter(variance_class == "lowvar") |>
+  mutate(my_id = seq(n),
+         error = variance) 
+
+# quantile
+q_a <- my_map_data_a |> 
+  as.tibble() |>
+  mutate(bitemp=as.numeric(bitemp)) |>
+  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
+                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
+                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
+                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
+                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
+
+
+pixel_1a <- my_map_data_a |>
+  as.data.frame() |>
+  select(my_id, bitemp, error) |>
+  read.uv(estimate="bitemp", error="error")
+
+pixel_2a <- my_map_data_a |> as("Spatial")
+
+pix_a <- pixelate(pixel_2a, pixelSize = 70, id = "my_id")
+
+pmap_a <- build_pmap(data = pixel_1a, distribution = "discrete", pixelGeo = pix_a, id = "my_id", border = pixel_2a, q=q_a)
+
+p5a <- view(pmap_a) +
+  geom_path(
+      data = pmap_a$bord,
+      aes_string(x = 'long', y = 'lat', group = 'group'),
+      colour = "white"
+    )  +
+  scale_fill_gradientn(colours = longpal) +
+  scale_colour_gradientn(colours = longpal) +
+  theme(legend.position="none")
+
+# High variance
+my_map_data_b <- my_map_data |>
+  filter(variance_class == "highvar") |>
+  mutate(my_id = seq(n),
+         error = variance) 
+
+q_b <- my_map_data_b |> 
+  as.tibble() |>
+  mutate(bitemp=as.numeric(bitemp)) |>
+  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
+                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
+                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
+                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
+                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
+
+pixel_1b <- my_map_data_b |>
+  as.data.frame() |>
+  select(my_id, bitemp, error) |>
+  read.uv(estimate="bitemp", error="error")
+
+pixel_2b <- my_map_data_b |> 
+  as("Spatial")
+
+pix_b <- pixelate(pixel_2b, pixelSize = 70, id = "my_id")
+
+  
+pmap_b <- build_pmap(data = pixel_1b, distribution = "discrete", pixelGeo = pix_b, id = "my_id", border = pixel_2b, q=q_b)
+
+p5b <- view(pmap_b) +
+  geom_path(
+      data = pmap_b$bord,
+      aes_string(x = 'long', y = 'lat', group = 'group'),
+      colour = "white"
+    )  +
+  scale_fill_gradientn(colours = longpal) +
+  scale_colour_gradientn(colours = longpal) +
+  theme(legend.position="none")
+
+p5c <- as.ggplot(expression(
+  show_pal(longpal, ncol=13, borders="white", 
+           myxlab = "Temperature", breaks = 19:32, 
+           textnudge = c(0.2, 0.1, 0,0,0,0,0,0,0,0,0,0,-0.1,-0.2), 
+           vnudge = 0.75,
+           xlabx= 6.5, xlaby=-4)
+))
+
+pixel1 <- p5a #/ p5c + plot_layout(heights = c(2, 1.5))
+pixel2 <- p5b #/ p5c + plot_layout(heights = c(2, 1.5))
+pixel3 <- p5c
+```
+
+
+
 
 
 
@@ -219,114 +725,111 @@ This review attempts to address this issue by offering a novel perspective on th
 That is, we are going to use the wealth of established stone to construct the foundations on which we can build a house. 
 
 ## Ignoring uncertainty
-
-### Spatial Example
 The comment sentiment expressed by the uncertainty visualisation literature is that we need to visualise uncertainty for the sake of transparency, but what is transparency?
-Some authors have taken their sentiments towards uncertainty visualisation a bit further, and connected their ideas to the language of statistical significance by claiming that uncertainty should communicate our degree of confidence or trust in the data [@Boukhelifa2012; @Zhao2023], or that it ensures the validity of a statement [@Hullman2020a; @Griethe2006], but allows for a proportional level of trust that is more detailed than the binary results of a hypothesis test [@Correll2014; @Correll2018]. 
+Authors become more explicit in what they mean when they directly connect their ideas to the language of statistics by describing it as a degree of confidence [@Boukhelifa2012] or validity [@Hullman2020a; @Griethe2006] in our conclusions, or as a proportional level of trust in our data that is more detailed than the binary results of a hypothesis test [@Correll2014; @Correll2018]. 
 Therefore, we can interpret this to mean that uncertainty visualisation should be acting as a sort of "visual hypothesis test".
 
 A successful uncertainty visualisation should act as a "statistical hedge" for any inference we make using the graphic. 
 Since the purpose of a visualisation is to give a quick gist of the information [@Spiegelhalter2017], this hedging needs to be communicated visually without the need for complicated calculations. 
+Therefore, an effective uncertainty visualisation should not just "show" uncertainty, untrustworthy conclusions should *not be visible*.
 If we refer to the conclusion we draw from a graphic to be its signal and the variance that makes this signal harder to identify as the "noise", we can summarise the above information into three key requirements. A good uncertainty visualisation needs to:
 
   1) Reinforce justified signals to encourage confidence in results
   2) Hide signals that are overwhelmed by noise to prevent unjustified conclusions
   3) Perform tasks 1) and 2) in a way that is proportional to the level of confidence in those conclusions.
-  
-Given that we know what we are looking for, lets try and make some plots without uncertainty and see how well they do.
+
+These are quite a few requirements, and it might be worthwhile to ask if we even need to include uncertainty to fulfil these goals, after all, if looking at data is often how we unveil the truth, what is it about our standard visualisation methods that is falling short?
 
 
-#### The choropleth map
-@fig-choropleth depicts a choropleth map of the counties of Iowa. 
-Each of these counties are coloured according to an estimate of average daily temperature that was generated so that the values followed a clear spatial trend. 
+
+
+
+@fig-ignore shows three different plots that frequently come up in uncertainty visualisation discussions, which we will be focusing on for this paper.
+First, due to the simplicity of the example, we will look at a line made by the estimated coefficients of a simple linear regression, a plot type that we also pops up in forecasting time series.
+Our example is the result of a simple linear regression on the `mtcars` data that comes with the `datasets` package of base R.
+Plot (a) shows the regression on the full data set, while plot (b) shows the regression on a much smaller sample, resulting in a significantly higher standard error.
+
+Next, due to the fields roots in geoscience, we will look at an example of a choropleth map depicted in plots (a) and (d), which show simulated average temperature data for the counties of Iowa.
+Plot (a) is a case where the standard error is quite low, while plot (d) is a case where the standard error is quite high.
+
+
+Finally, we look at a case of
+In this case, unlike the linear regression, the standard error is independent to the estimate value.
+
+Can you spot the difference between these two plots?
+There is a slight difference in the linear regression, but in the case of the choropleth and univariate map, the variance measure has been set up to be independent of the estimate, so the plots are identical.
+
 The variance of these estimates were simulated such that the trend accounts for most of the variance in the plot in the low variance case (so we should expect the trend to be visible) while in the high variance, there is more variance within each county than between all the counties, so we should expect it to (at least in some capacity) overwhelm the spatial trend. 
 Is this aspect of the data and the spatial data it communicates clear in in the map? 
 Is the strength of the trend communicated through the visualisation?
+
+We can look at our current approach to visualisation and see how well they fulfil these requirements
 
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
-#| label: fig-choropleth
-#| fig-cap: "Two choropleth maps that depict the counties of Iowa where each country coloured acording to a simulated average temperature. Both maps depict a spatial trend, where counties closer to the centre of the map are hotter than counties on the edge of the map. In the low variance condition, the trend accounts for most of the variation in the data, in the high variance case, the variance on the temperature estimate accounts for most of the variance. This distinction is not clear in the map as they both appear identical. The high variance condition displays a spatial trend that could simply be spurious, which means the plot is displaying a false conclusion."
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "Choropleth Palette"
-#| layout-ncol: 3
+#| label: fig-ignore
+#| fig-width: 10
+#| fig-height: 6
+#| fig-cap: "blah"
 #| layout-valign: "bottom"
 #| cap-location: "bottom"
 
+(reg1a/reg1b) | (choro1 / choro2 /choro3) | (uni1a/uni1b) 
 
-# Choropleth Map
-p1a <- my_map_data |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf(aes(fill = bitemp, 
-              geometry = geometry), colour=NA) + 
-  scale_fill_manual(values = basecols) +
-  #scale_fill_gradientn(colours = basecols, 
-  #                     values=breaks/limits[2],
-  #                     limits=limits) +
-  theme_void() + 
-  theme(legend.position = "none")
+# layout <- "
+# AACCFF
+# AACCFF
+# AADDFF
+# BBDDGG
+# BBEEGG
+# BBEEGG
+# "
+# reg1a + reg1b + choro1 + choro3 + choro2 + uni1a + uni1b +
+#   plot_layout(design = layout)
+  
+```
 
-p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
 
-show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, xlabx, xlaby, tsize=1.2) {
-  # Set dimensions of palette
-  n <- length(colours)
-  ncol <- ncol %||% ceiling(sqrt(length(colours)))
-  nrow <- ceiling(n/ncol)
-  # make matrix with null values (if not full)
-  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
-  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
-  # set graphical parameters (?)
-  old <- par(pty = "s", mar = c(0, 0, 0, 0))
-  on.exit(par(old))
-  size <- max(dim(colours))
-  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "", 
-      axes = FALSE)
-  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
-       col = colours, border = borders)
-  text(c(0,col(colours)) + textnudge, -c(1,row(colours))-0.25, breaks, 
-              cex = 1, col = "black")
-  text(xlabx, xlaby, myxlab ,cex = tsize, col = "black")
-}
-p1c <- show_pal(basecols, ncol=8, borders=NA, myxlab = "Temperature", breaks = 21:29, textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75, tsize=1.5)
+As @fig-ignore shows, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. 
+Therefore, we call this approach to uncertainty visualisation as "signal-suppression" since it primarily differentiates itself from from the normal "noiseless" visualisation approach through criteria (2). 
+That is, the main difference between an uncertainty visualisation and a normal visualisation is that an uncertainty visualisation should prevent us from drawing unjustified conclusions. 
 
-p1a
-p1b
+## Current Approaches
+
+- Why approaches do/dont work
+- Review of current approaches to representing uncertainty in plots, as gathered from discipline journals in information visualisation, statistics, environmental science and psychology.
+
+- Most studies involve intrinsic approaches such as colour, transparency, and those that used extrinsic techniques typically used glyphs, error bars, grid based techniques, or contouring @Kinkeldey2014
+- @uncertchap2022 two broad categories of uncertainty visualisation techniques, 1) graphical annotation (mean, error bar, hops) 2) map probability of cI to a visual encoding channel 3) hybrid approaches (e.g. contour boxplot, probability density and interval plot)
+- Elements from a single distribution should be displayed using a single plot, since displaying the features of one distribution across multiple plots makes the information hard to combine and results in some details (such as the estimate error) being completely ignored [@moritz2017trust; Correll2018]. 
+
+
+
+
+### Uncertainty as a statistic
+
+@fig-exceed depicts an exceedance probability map that was designed as an alternative to the choropleth map to improve decision making under uncertainty [@Kuhnert2018; @Lucchesi2021]. 
+A keen viewer may notice that the exceedance probability map is actually just a choropleth map, only the statistic being displayed has changed. 
+We are not sure it is productive to categorise this visualisation as an uncertainty visualisation.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-statistic
+#| fig-width: 10
+#| fig-height: 6
+#| fig-cap: "blah"
+#| layout-valign: "bottom"
+#| cap-location: "bottom"
+
+(reg2a/reg2b) | (exceed1/ exceed2 / exceed3) | (uni2a/uni2b) 
 
 
 ```
 
-
-
-
-As @fig-choropleth showed, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. 
-Therefore, we call this approach to uncertainty visualisation as "signal-suppression" since it primarily differentiates itself from from the normal "noiseless" visualisation approach through criteria (2). 
-That is, the main difference between an uncertainty visualisation and a normal visualisation is that an uncertainty visualisation should prevent us from drawing unjustified conclusions. 
-
-
-## Current Approaches
-- Split this section between "ignoring uncertainty" and "current uncertainty visualisation"
-
-
-
-- Common uses of the term “uncertainty visualisation”
-- Provide some background to the use of the term “uncertainty visualisation” 
-- Tie it to statistical definitions of uncertainty and concepts of inference
-
-
-### Signal vs noise
-- @Leland2005 also suggested signal supression as the goal of uncertainty visualisation "This chapter is about graphics that guide, qualify, or soften our judgments of uncertain data."
-  - Also applies some of the logic occasionally in the direction and stuff, "Some of the letters (B, P, X) almost disappear because they are frequently confused with other letters."
-- @[Kay2019] "It is important to have clear, domain- and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty".
-- @[geointerviews] On confusion of uncertainty as signal or noise: “Also cases where our experts expressed uncertainty a a source of inspiration for future research.”
-- @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
-- Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019]. There is no evidence that this psychological effect translates to issues with the visual representation of uncertainty.  Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behaviour, there is no reason to assume this is what makes uncertainty visualisation so special. 
-  
 Uncertainty visualisation is not only motivated by signal-suppression, and we would be remiss if we did not mention these alternative approaches. 
 Some authors explicitly state it as a variable of importance in of itself [@Blenkinsop2000]. 
 While uncertainty can provide useful information, it is important to recognise that the "uncertainty" in these cases is not acting as uncertainty at all. 
@@ -357,7 +860,44 @@ Just like any other statistic, these metrics provide important and useful inform
 However, there is no interesting visualisation challenge associated with these graphics, and they do not require any special visualisation techniques. 
 The uncertainty in these graphics are acting as a signal variable, and they should be visualised using existing principles of graphic design
 
-### It's a variable... it's metadata... it's uncertainty?
+- Common uses of the term “uncertainty visualisation”
+- Provide some background to the use of the term “uncertainty visualisation” 
+- Tie it to statistical definitions of uncertainty and concepts of inference
+
+- @Leland2005 also suggested signal supression as the goal of uncertainty visualisation "This chapter is about graphics that guide, qualify, or soften our judgments of uncertain data."
+  - Also applies some of the logic occasionally in the direction and stuff, "Some of the letters (B, P, X) almost disappear because they are frequently confused with other letters."
+- @[Kay2019] "It is important to have clear, domain- and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty".
+- @[geointerviews] On confusion of uncertainty as signal or noise: “Also cases where our experts expressed uncertainty a a source of inspiration for future research.”
+- @Griethe2006 clearly sees uncertainty as additional information or data, and therefore sees the uncertainty visualisation problem as a specific case of the high dimensional visualisation issues. 
+- Some authors implicitly suggest that visualisations of variance or probability are differentiated due to the psychological heuristics involved in interpreting uncertainty [@Hullman2019]. There is no evidence that this psychological effect translates to issues with the visual representation of uncertainty.  Again, given that we do not make these same visual considerations for other variables that elicit distaste or irrational behaviour, there is no reason to assume this is what makes uncertainty visualisation so special. 
+  
+
+### Uncertainty as a variable
+#### Independent variable
+@fig-variable depicts a variation of the choropleth map, where we have a two dimensional colour palette. 
+In this graphic, temperature is still mapped to hue, but the variance is included by utilising colour saturation. 
+While these two maps *do* look visually different (which was not the case in the choropleth map) the spatial trend is still clearly visible in both graphics. 
+This means the uncertainty *is technically* being communicated, however the main message of the graphic is still the spatial trend (that may not exist). 
+The graphic did not suppress the invalid signal, so it is not performing signal-suppression as we would like. 
+At this point, it might be reasonable to ask, why? 
+Why is including the uncertainty as a variable insufficient to achieve signal-suppression, and what changes should we make to ensure signal-suppression occurs?
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-variable
+#| fig-width: 10
+#| fig-height: 6
+#| fig-cap: "blah"
+#| layout-valign: "bottom"
+#| cap-location: "bottom"
+
+(reg3a/reg3b) | (bivar1/ bivar2 / bivar3) | (uni3a/uni3b) +
+  plot_layout(widths = c(1, 5, 1))
+
+```
+
 Describing what uncertainty actually is, is surprisingly hard. 
 Most authors simply avoid the problem and describe the characteristics of uncertainty, of which there are plenty. 
 
@@ -401,7 +941,101 @@ Each of these violations will impact the statistic we have calculated and push i
 Uncertainty is the amalgamation of these impacts. 
 If we do not violate the uniformity of nature assumption at any point in our analysis, we do not have any uncertainty.
 
-### There is no uncertainty in EDA
+#### Combined variable?
+Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves. 
+As a matter of fact, some uncertainty visualisation authors already have.
+
+There is another benefit to mapping uncertainty to saturation that is not directly related to integrability. 
+As the saturation decreases colours become harder to distinguish. 
+This means high uncertainty values are harder to differentiate than low uncertainty values. 
+We can leverage this implicit feature of colour value by transforming the visual feature space ourselves.
+
+The Value Suppressing Uncertainty Palette (VSUP) [@Correll2018], was designed with the intention of preventing high uncertainty values from being extracted from a map.
+Since the palette was designed with the extraction of individual values in mind and it has only been tested on simple value extraction tasks [@Correll2018] or search tasks [@Ndlovu2023], it is unclear how effective the method is at suppressing broader insights such as spatial trends. 
+
+
+The methods used by the VSUP bring to light a slight problem with uncertainty visualisation. 
+Specifically, uncertainty and the purpose of visualisation are somewhat at odds with one another. 
+There are two primary motivations behind visualisation, communication and exploratory data analysis (EDA). 
+Communication involves identifying a signal we want to communicate and designing a visualisation that best conveys that, while EDA involves creating a versatile visualisation and using it to extract several signals. 
+If we are designing an uncertainty visualisation for communication then we can just suppress the specific signal we are seeking to communicate. 
+In the map example, we would consider @fig-vsup to be a success as the only signal we are concerned with is the spatial trend. 
+
+The lack of versatility of the VSUP is easy to see with a simple example. 
+
+Let's say we have a graphic that depicts a set of coefficients from a linear regression and the value of the coefficient is shown using a single colour. 
+We want to know "Which of these coefficients are different from 0?" as well as "Which of these coefficients are different from each other?". 
+To answer this question we do a series of $t$-tests on these estimates. 
+All of the individual $t$-tests of fail to reject the null hypothesis that the coefficients are different from 0. 
+We then make a visualisation that suppresses this signal and ensures that all of the estimates are visually indistinguishable from 0. 
+Next, we conduct two sample $t$-test and find that several of the values need to be visually distinguishable from each other. 
+The VSUP method must pick a single colour for each estimate, and these colours must be *either* visually distinguishable or indistinguishable from each other. 
+We cannot perform signal-suppression on both these signals simultaneously.
+
+This example highlights a fundamental problem with the VSUP that extends to the bivariate map as well. 
+When we blend these colours, we need to decide at what level of uncertainty to blend these colours together. 
+Even though the bivariate map does not explicitly combine colour values at certain variance levels, the mapping of variance to colour saturation does this implicitly. 
+That is, at certain saturation values the colours in a bivariate map are imperceptibly different and appear as though they are mapped to the same value.
+At this point, it is irrelevant whether or not the colours are technically different, they are the same colour in the human brain. 
+This is of course complicated by the fact that human colour perception varies at an individual level. 
+Some women are believed to have four different cone cells which allows them to perceive a greater range of colours, while others only have one or two types of cone cells and have colour deficiencies [@simunovic2010] 
+For VSUP to function for all individuals, we must calibrate each plot to an individual's ability to perceive colour.
+
+If we only use a single colour to express each signal-suppressed statistic, we will always need to decide which signals we suppress and which we do not. 
+This issue has already been raised in the literature. 
+Which hypothesis are suppressed and which are not largely depends on the method used to combining colours in the palette [@Kay2019]. 
+The VSUP in @fig-vsup used the tree based method that was used by @Correll2018, but there are alternatives that are more appropriate for different hypothesis. 
+
+Uncertainty visualisation for EDA would be possible if we designed a plot in such a way that suppressing individual estimates using their variance would naturally extend to broader suppression of plot level insights. 
+This assumption is commonly made by visualisation researchers in normal visualisation experiments [@North2006]. 
+If we could express the statistic of a cell using multiple colours, this limitation may disappear entirely.
+@fig-vsup is a visualisation of the Iowa temperature data using a VSUP to colour the counties. 
+The low uncertainty case still has a visible spatial trend, while the spatial trend in the high uncertainty map has functionally disappeared. 
+This means the VSUP has successfully suppressed the spatial trend in the data.
+However, the spatial trend may not be the only signal of concern in our graphic.
+Now we must return to the original signal-suppression criteria and ask ourselves if they have all been met. 
+Are all the justified signals reinforced, while all the unjustified signals are suppressed? 
+Is a graphic that performs perfect signal-suppression even possible?
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-vsup
+#| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to its average daily temperature and the variance in temperature. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. Unlike the bivariance map, the colour space we are mapping our variables to has been transformed so that high variance estimates are harder to discern from each other. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
+#| layout-valign: "bottom"
+#| cap-location: "bottom"
+
+p4a + p4b + p4c 
+
+```
+
+
+
+### Uncertainty as a random variable
+
+@fig-pixel displays a pixel map [@Lucchesi2021], which is a variation of the choropleth map where each area is divided up into several smaller areas, each coloured using outcomes from the larger area's (i.e. the county's) average temperature sampling distribution. 
+The spatial trend is clearly visible in the low variance case, but functionally disappears in the low variance case. 
+While the spatial trend is just barely visible in the high uncertainty case, it is much harder to see. 
+This means the graphic also achieves the third criteria for signal-suppression, i.e. our difficulty in seeing the distribution is proportional to the level of uncertainty in the graphic. 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-pixel
+#| fig-width: 10
+#| fig-height: 6
+#| fig-cap: "blah"
+#| layout-valign: "bottom"
+#| cap-location: "bottom"
+
+(reg4a/reg4b) | (pixel1/ pixel2/ pixel3) | (uni4a/uni4b) +
+  plot_layout(widths = c(1, 5, 1))
+
+```
+
+#### EDA thing?
 - We will not go through how this uncertainty is quantified, but we will rely on the fact that all uncertainty, no matter how abstract, can always be quantified by a random variable 
 - We can see how this works with a basic measurement error example. If we record our daily maximum temperature as 23 degrees celsius on a device with +-1 degree of error, then we can represent the observation as a uniform $U(22, 24)$ random variable *assuming we want to represent the true temperature*. If we want to represent the recording itself, it is 23 degrees celsius, no uncertainty needed. It is the act of inference that creates uncertainty, and the uncertainty created can be represented by a distribution.
 
@@ -420,7 +1054,7 @@ For example, if we have a visualisation that shows an average, we would need to 
 The distribution we use depends on the inferential statistic but until the viewer chooses one and thinks about it (which isn't easily observable), the particular variety of uncertainty which would need to be displayed can't be calculated.
 This means the ideal uncertainty visualisation should not only meet the signal suppression requirements, but should also endeavor to be versatile enough to meet those requirements for all the signals displayed in the graphic.
 
-### All uncertainty can be quantified
+#### Quantify all of it?
 quantification
 - In order to visualise uncertainty, it needs to be quantifiable [@Griethe2006; Leland2005], in order to quantify uncertainty, it needs to be mathematically defined. The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase, (e.g. @utypo defined it as any deviation from complete determinism) but go on to quantify uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation. This definition swap happens so subtly that it seems to go unnoticed by authors
 
@@ -440,28 +1074,10 @@ These divisions create @Thomson2005 discussed the problem of multiple times of u
 
 If you are already confused by this distinction, it is about to get worse for you, because these can technically be performed at the same time. This can occur is a scenario that covers many cases that researchers will consider to be too uncertain to quantify, something called "deep uncertainty" by @Hadjimichael2024. These abstract uncertainties can include abstract concepts like expert disagreement, the credibility of a source [@Thomson2005], forecaster confidence [@Padilla2021], or alternative decisions that could have been made in the analysis [@Kale2019] (something that frequently see visualised in climate scenario uncertainty). If the authors are willing to quantify them, these cases can almost always be covered by distributions of distributions, and can lead to a `ggdibbler` version of a `ggdist` plot. Note that we cannot have a `ggdist` version of a `ggdibbler` chart.Lets look at two examples of this to see what we mean. 
 
-@fig-dibble-dist displays two distributions of distributions.
-Secnario uncertainty - categorical(Exp, Linear,) with equal probabilities, 
-random parameters (bayesian hierarchical), dist of dist, joint density, transformation
 
 
-```{r}
-#| label: fig-dibble-dist
-#| fig-cap: ""
-set.seed(123)
 
-# Nested uncertainty
-density_data <- data.frame(xmean = rnorm(15, 163, 7),
-                           xse = rexp(15,0.5)) |>
-  mutate(xdist = distributional::dist_normal(xmean, xse))
 
-# Climate scenario uncertainty (joint)
-year = rep(1950:2100, each = 3)
-scenario = rep(c("Exponential", "Linear", "Log"), times = 151)
-temp_change = rep(0, times = 3*151)
-tibble(year, scenario, temp_change) 
-  
-```
 
 We will admit that cases where the uncertainty is not published, as discussed by @geointerviews are a little more difficult, but still possible. If something is worth doing, it is worth doing badly, so imputing the distribution of random variables using the resources available is better than not ignoring it entirely. 
 
@@ -483,7 +1099,7 @@ While each random variable level can only hold one role, These goals cannot be p
 
 Now, a list of examples is helpful, but not exactly sufficient to describe the greater problem we are facing here.
 
-### Statistical inference and exploratory data analysis
+#### Statistical inference and exploratory data analysis
 - @[Hullman2021] “Researchers have commented on uncertainty as implicit in exploratory and interactive analysis”
 - @[Hullman2021] Issues with EDA e.g. checking multiple hypothesis which makes them less valid (more likely to find spurious relationships) - I think of EDA as a search for hypothesis rather than a confirmation of any hypothesis.
 
@@ -528,7 +1144,7 @@ We will work from the assumption that users have already quantified the uncertai
 If readers are looking for help on how to do this, you may be better off reading @Mason2024, as that will not be the focus of this work.
 Instead, we will discuss how to redesign a data visualisation such that we can pass a random matrix just as easily as we can pass our deterministic data frame. 
 
-### Show me the data
+#### Show me the data
 - we should aim to show enough information to solve a task while avoiding irrelevant distracting information [@kosslyn2006graph]. 
 
 - [@Unwin2020] “One persons statistics might be another person’s raw data”
@@ -592,101 +1208,11 @@ For example, if we have a specific statistic in mind, it may be more appropriate
 If we visualise that sampling distribution in a way that allows us to see it's shape, and therefore recognise any assumption violations (such as a non-normal distribution), we maintain some of the benefits that came with visualising the raw data. 
 This is exactly what the pixel map does, and likely contributes to it's success as a signal suppression method.
 
-## Current Approaches
-- Why approaches do/dont work
-- Review of current approaches to representing uncertainty in plots, as gathered from discipline journals in information visualisation, statistics, environmental science and psychology.
-- Most studies involve intrinsic approaches such as colour, transparency, and those that used extrinsic techniques typically used glyphs, error bars, grid based techniques, or contouring @Kinkeldey2014
-- @uncertchap2022 two broad categories of uncertainty visualisation techniques, 1) graphical annotation (mean, error bar, hops) 2) map probability of cI to a visual encoding channel 3) hybrid approaches (e.g. contour boxplot, probability density and interval plot)
-- Elements from a single distribution should be displayed using a single plot, since displaying the features of one distribution across multiple plots makes the information hard to combine and results in some details (such as the estimate error) being completely ignored [@moritz2017trust; Correll2018]. 
-
-### Ignoring uncertainty
-- Dangers of ignoring uncertainty representation in a visualisation. 
-- This part motivates the reason for the importance of this area of research.
-
-A good place to start might be at a deceptively straight forward question, why should we include uncertainty at all? 
-
-### Uncertainty as a statistic
-
-### Uncertainty as a variable
-- Glyph maps can be used to depict the multi-dimensional information in spatial-temporal data by mapping line plots to map locations, but we still need to decide what information is important. The map can either present trends in the global or local variance depending on whether or not the line plot is scaled globally or locally [@Wickham2012], however smaller details are almost impossible to convey. No matter how much information we try and put in a plot, there will always be only a handful of key takeaways.
-
-Upon hearing that uncertainty needs to be included for transparency, you may decide to simply map uncertainty to an unused visual channel. 
-This is a reasonable approach, bit it is unclear if this is sufficient for our purposes. 
-The difficulty in incorporating uncertainty into a visualisation is frequently mentioned but seldom explained. 
-@Hullman2016 commented that it is straightforward to show a value but it is much more complex to show uncertainty but did not explain why. 
-Many authors treat uncertainty visualisation as a simple high-dimensional visualisation problem, as the difficulty comes from working out how to add uncertainty into already existing graphics [@Griethe2006]. 
-While this is part of the problem, it is not the complete picture. 
-@fig-bivariate makes it clear that simply including uncertainty as a variable is insufficient to perform signal-suppression. 
-
-This interpretation of uncertainty indicates that the uncertainty is not a variable of importance in of itself. 
-Uncertainty is metadata about our statistic that is required for valid inference.
-This means uncertainty should not be visualised by itself and we should seek to display signal and uncertainty together as a "single integrated uncertain value" [@Kinkeldey2014]. 
-This aspect of uncertainty visualisation makes it a uniquely difficult problem. 
-
-Typically, when making visualisations, we want the visual channels to be separable. 
-That is, we don't want the data represented through one visual channel to interfere with the others [@Smart2019]. 
-Mapping uncertainty and signal to separable channels allows them to be read separately, which does not align with the goal of communicating them as a single integrated channel. 
-Visualising uncertainty and signal separately allows the uncertainty information to simply be ignored, which is a pervasive issue in current uncertainty visualisation methods [@uncertchap2022]. 
-We can see this problem in @fig-bivariate, as it sends the message "this data has a spatial trend **and** the estimates have a large variance". We read the signal and uncertainty separately.
-
-This means effective uncertainty visualisation should be leveraging integrability. 
-That is, the visual channels of the uncertainty and the signal would need to be separately manipulable, but read as a single channel by the human brain. 
-While most visual aesthetics *are* separable, there are some variables that have been shown to be integrable, such as colour hue and brightness [@Vanderplas2020].
-When visualising uncertainty using its own visual channel, we can also consider visual semiotics and make sure to map uncertainty to intuitive visual channels, such as mapping more uncertain values to lighter colours [@Maceachren2012].
-Unfortunately relying on integrability may not give us the amount of control we want over our signal-suppression. 
-Without a strong understanding of how these visual channels collapse down into a single channel, relying on integrability could create unintended consequences such as displaying phantom signals or hiding justified signals. 
-Additionally, multi-dimensional colour palettes can make the graphics harder to read and hurt the accessibility of the plots [@Vanderplas2015]. 
-
-### Combining uncertainty and signal in a transformed space
-Instead of hoping that uncertainty might collapse signal values into a single dimension, we can do some of that work ourselves. 
-As a matter of fact, some uncertainty visualisation authors already have.
-
-There is another benefit to mapping uncertainty to saturation that is not directly related to integrability. 
-As the saturation decreases colours become harder to distinguish. 
-This means high uncertainty values are harder to differentiate than low uncertainty values. 
-We can leverage this implicit feature of colour value by transforming the visual feature space ourselves.
-
-The Value Suppressing Uncertainty Palette (VSUP) [@Correll2018], was designed with the intention of preventing high uncertainty values from being extracted from a map.
-Since the palette was designed with the extraction of individual values in mind and it has only been tested on simple value extraction tasks [@Correll2018] or search tasks [@Ndlovu2023], it is unclear how effective the method is at suppressing broader insights such as spatial trends. 
 
 
-The methods used by the VSUP bring to light a slight problem with uncertainty visualisation. 
-Specifically, uncertainty and the purpose of visualisation are somewhat at odds with one another. 
-There are two primary motivations behind visualisation, communication and exploratory data analysis (EDA). 
-Communication involves identifying a signal we want to communicate and designing a visualisation that best conveys that, while EDA involves creating a versatile visualisation and using it to extract several signals. 
-If we are designing an uncertainty visualisation for communication then we can just suppress the specific signal we are seeking to communicate. 
-In the map example, we would consider @fig-vsup to be a success as the only signal we are concerned with is the spatial trend. 
 
-The lack of versatility of the VSUP is easy to see with a simple example. 
 
-Let's say we have a graphic that depicts a set of coefficients from a linear regression and the value of the coefficient is shown using a single colour. 
-We want to know "Which of these coefficients are different from 0?" as well as "Which of these coefficients are different from each other?". 
-To answer this question we do a series of $t$-tests on these estimates. 
-All of the individual $t$-tests of fail to reject the null hypothesis that the coefficients are different from 0. 
-We then make a visualisation that suppresses this signal and ensures that all of the estimates are visually indistinguishable from 0. 
-Next, we conduct two sample $t$-test and find that several of the values need to be visually distinguishable from each other. 
-The VSUP method must pick a single colour for each estimate, and these colours must be *either* visually distinguishable or indistinguishable from each other. 
-We cannot perform signal-suppression on both these signals simultaneously.
-
-This example highlights a fundamental problem with the VSUP that extends to the bivariate map as well. 
-When we blend these colours, we need to decide at what level of uncertainty to blend these colours together. 
-Even though the bivariate map does not explicitly combine colour values at certain variance levels, the mapping of variance to colour saturation does this implicitly. 
-That is, at certain saturation values the colours in a bivariate map are imperceptibly different and appear as though they are mapped to the same value.
-At this point, it is irrelevant whether or not the colours are technically different, they are the same colour in the human brain. 
-This is of course complicated by the fact that human colour perception varies at an individual level. 
-Some women are believed to have four different cone cells which allows them to perceive a greater range of colours, while others only have one or two types of cone cells and have colour deficiencies [@simunovic2010] 
-For VSUP to function for all individuals, we must calibrate each plot to an individual's ability to perceive colour.
-
-If we only use a single colour to express each signal-suppressed statistic, we will always need to decide which signals we suppress and which we do not. 
-This issue has already been raised in the literature. 
-Which hypothesis are suppressed and which are not largely depends on the method used to combining colours in the palette [@Kay2019]. 
-The VSUP in @fig-vsup used the tree based method that was used by @Correll2018, but there are alternatives that are more appropriate for different hypothesis. 
-
-Uncertainty visualisation for EDA would be possible if we designed a plot in such a way that suppressing individual estimates using their variance would naturally extend to broader suppression of plot level insights. 
-This assumption is commonly made by visualisation researchers in normal visualisation experiments [@North2006]. 
-If we could express the statistic of a cell using multiple colours, this limitation may disappear entirely.
-
-### Samples and Distributions
+#### Show me the data
 - rarely used extension is aggregation of uncertainty over an area (retrieve overall estimation from a spatial distribution of uncertainty). Other tasks include comparisons, rankings. also have a task called "search" where participants have to identify entities that fulfill certainty characteristics (high or low values) @Kinkeldey2014
 
 Rather than trying to figure out how to combine signal and uncertainty into a single colour, we can just display a sample instead and allow the viewer to extract *both* the estimate and the variance.
@@ -812,334 +1338,6 @@ Points that were on an outcome of an ensemble display were perceived as more lik
 The final heuristic surrounds the finding that people seem to ignore uncertainty information if you give them the ability.
 Several studies have found that including the estimate on an uncertainty visualisation plot can cause viewers to ignore the uncertainty information and simply compare the difference between the two means [@uncertchap2022].
 These heuristics have the potential to create noise in signal suppression evaluations, and should be kept in mind when designing uncertainty visualisations as well as evaluation experiments.
-
-
-## Applications
-
-#### Exceedance probability map
-
-@fig-exceed depicts an exceedance probability map that was designed as an alternative to the choropleth map to improve decision making under uncertainty [@Kuhnert2018; @Lucchesi2021]. 
-A keen viewer may notice that the exceedance probability map is actually just a choropleth map, only the statistic being displayed has changed. 
-We are not sure it is productive to categorise this visualisation as an uncertainty visualisation.
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-exceed
-#| fig-cap: "An exceedance probability map that depict the counties of Iowa where each country coloured acording to the probability that the average temperature exceeds 27. This map is a choropleth map where the variable of interest is a probability."
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "Exceedance Probability Map Palette"
-#| layout-ncol: 3
-
-# quantile
-prob_breaks <- seq(-0.1,1.1, length.out=9)
-exeed_data <- my_map_data |> 
-  as_tibble() |>
-  mutate(xprob = 1- pnorm(27, mean=temp, sd=sqrt(variance))) |>
-  mutate(xprob = cut(xprob, breaks=prob_breaks, labels=seq(8)))
-             
-# Exceed Prob Map
-p2a <- exeed_data |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf(aes(fill = xprob, 
-              geometry = geometry), colour=NA) + 
-  scale_fill_manual(values = basecols) +
-  theme_void() + 
-  theme(legend.position = "none")
-
-p2b <- p2a %+% filter(exeed_data, variance_class=="highvar")
-
-p2a
-p2b
-show_pal(basecols, ncol=8, borders=NA, myxlab = "P(Temperature>27)", breaks = c(0, prob_breaks[2:8], 1), textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), xlabx= 4, xlaby=-1.75, tsize=1.2)
-```
-
-#### The bivariate map
-@fig-bivariate depicts a variation of the choropleth map, where we have a two dimensional colour palette. 
-In this graphic, temperature is still mapped to hue, but the variance is included by utilising colour saturation. 
-While these two maps *do* look visually different (which was not the case in the choropleth map) the spatial trend is still clearly visible in both graphics. 
-This means the uncertainty *is technically* being communicated, however the main message of the graphic is still the spatial trend (that may not exist). 
-The graphic did not suppress the invalid signal, so it is not performing signal-suppression as we would like. 
-At this point, it might be reasonable to ask, why? 
-Why is including the uncertainty as a variable insufficient to achieve signal-suppression, and what changes should we make to ensure signal-suppression occurs?
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-bivariate
-#| fig-cap: "A bivariate map that depict the counties of Iowa where each county is coloured acording to it's average daily temperature and the variance in temperature. This map is a choropleth map with a two dimensional colour palette where temperature is represented by colour hue, and variance is represented by colour saturation. Even though uncertainty has been added to the graphic the spatial trend is still clearly visible in the high variance case."
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "Bivariate Palette"
-#| layout-ncol: 3
-#| layout-valign: "bottom"
-
-# Bivariate Map
-# Make bivariate palette
-# Function to devalue by a certain amount
-colsupress <- function(basecols, hue=1, sat=1, val=1) {
-    X <- diag(c(hue, sat, val)) %*% rgb2hsv(col2rgb(basecols))
-    hsv(pmin(X[1,], 1), pmin(X[2,], 1), pmin(X[3,], 1))
-}
-
-# recursively decrease value
-v_val = 0.5
-bivariatepal <- c(basecols,
-                  colsupress(basecols, sat=v_val),
-                  colsupress(colsupress(basecols, sat=v_val), sat=v_val),
-                  colsupress(colsupress(colsupress(basecols, sat=v_val), sat=v_val), sat=v_val))
-# establish levels of palette
-names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
-
-# Bivariate maps
-p2a <- my_map_data |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
-  scale_fill_manual(values = bivariatepal) +
-  theme_void() + 
-  theme(legend.position = "none")
-  
-p2b <- p2a %+% filter(my_map_data, variance_class=="highvar")
-
-show_pal2 <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, myylab, breaks, breaks2, tsize1=1.2, tsize2=1.2) {
-  # Set dimensions of palette
-  n <- length(colours)
-  ncol <- ncol %||% ceiling(sqrt(length(colours)))
-  nrow <- ceiling(n/ncol)
-  # make matrix with null values (if not full)
-  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
-  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
-  # set graphical parameters (?)
-  old <- par(pty = "s", mar = c(0, 0, 0, 0))
-  on.exit(par(old))
-  size <- max(dim(colours))
-  plot(c(-1.5, size), c(0, -size), type = "n", xlab = "", ylab = "", 
-      axes = FALSE)
-  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
-       col = colours, border = borders)
-  text(c(0,col(colours)[nrow,]) + c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2) , -4.5, 
-       breaks, cex = 1, col = "black")
-  text(-0.25, -c(0,row(colours)[,ncol]) + c(-0.2, -0.1, 0, 0.1, 0.2),
-       breaks2, cex = 1, col = "black")
-  text(4, -5.5, myxlab ,cex = tsize1, col = "black")
-  text(x=-1.25,y=-2, myylab, srt=270, cex = tsize2, col = "black")
-}
-
-p2a
-p2b
-show_pal2(colours = bivariatepal, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
-```
-
-#### VSUP map
-@fig-vsup is a visualisation of the Iowa temperature data using a VSUP to colour the counties. 
-The low uncertainty case still has a visible spatial trend, while the spatial trend in the high uncertainty map has functionally disappeared. 
-This means the VSUP has successfully suppressed the spatial trend in the data.
-However, the spatial trend may not be the only signal of concern in our graphic.
-Now we must return to the original signal-suppression criteria and ask ourselves if they have all been met. 
-Are all the justified signals reinforced, while all the unjustified signals are suppressed? 
-Is a graphic that performs perfect signal-suppression even possible?
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-vsup
-#| fig-cap: "A map made with a VSUP. The counties of Iowa are coloured acording to its average daily temperature and the variance in temperature. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. Unlike the bivariance map, the colour space we are mapping our variables to has been transformed so that high variance estimates are harder to discern from each other. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "VSUP Palette"
-#| layout-ncol: 3
-#| layout-valign: "bottom"
-
-# VSUP
-# Function to combine colours for VSUP
-colourblend <- function(basecols, p_length, nblend) {
-    X <- rgb2hsv(col2rgb(unique(basecols)))
-    v1 <- X[,seq(1,dim(X)[2], 2)]
-    v2 <- X[,seq(2,dim(X)[2], 2)]
-    if("matrix" %in% class(v1)){
-      # hue issue wrap around pt 1
-      v3 <- (v1+v2)
-      v3["h",] <- ifelse(abs(v1["h",]-v2["h",])>0.5, v3["h",]+1, v3["h",])
-      v3 <- v3/2
-      # hue issue wrap around pt 2
-      v3["h",] <- ifelse(v3["h",]>=1 , v3["h",]-1 ,v3["h",])
-      hsv(rep(v3[1,], each=nblend), rep(v3[2,], each=nblend), rep(v3[3,], each=nblend))
-      } else {
-        v3 <- (v1+v2)
-        v3["h"] <- ifelse(abs(v1["h"]-v2["h"])>0.5, v3["h"]+1, v3["h"])
-        v3 <- v3/2
-        v3["h"] <- ifelse(v3["h"]>=1 , v3["h"]-1 ,v3["h"])
-        rep(hsv(h=v3[1], s=v3[2], v=v3[3]), p_length)
-        }
-}
-
-VSUPfunc <- function(basecols, p_length, nblend){
-  colourblend(colsupress(basecols, sat=0.5), p_length, nblend)
-}
-
-# VSUP
-p = length(basecols)
-VSUP <- c(basecols,
-          VSUPfunc(basecols, p, 2),
-          VSUPfunc(VSUPfunc(basecols, p, 2), p, 4),
-          VSUPfunc(VSUPfunc(VSUPfunc(basecols, p, 2), p, 4), p, 8))
-
-names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
-
-# VSUP maps
-p3a <- my_map_data |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
-  scale_fill_manual(values = VSUP) +
-  theme_void() + 
-  theme(legend.position = "none")
-
-p3b <- p3a %+% filter(my_map_data, variance_class=="highvar")
-
-p3a
-p3b
-show_pal2(colours = VSUP, ncol=8, borders=NA, myxlab = "Temperature", myylab = "Variance", breaks = 21:29, breaks2 = 0:4)
-
-```
-
-#### Pixel map
-@fig-pixel displays a pixel map [@Lucchesi2021], which is a variation of the choropleth map where each area is divided up into several smaller areas, each coloured using outcomes from the larger area's (i.e. the county's) average temperature sampling distribution. 
-The spatial trend is clearly visible in the low variance case, but functionally disappears in the low variance case. 
-While the spatial trend is just barely visible in the high uncertainty case, it is much harder to see. 
-This means the graphic also achieves the third criteria for signal-suppression, i.e. our difficulty in seeing the distribution is proportional to the level of uncertainty in the graphic. 
-
-```{r}
-#| eval: false
-#| echo: false
-# Make + save pixel map (in case of depreciation)
-# Low variance map
-my_map_data_a <- my_map_data |>
-  filter(variance_class == "lowvar") |>
-  mutate(my_id = seq(n),
-         error = variance) 
-
-# quantile
-q_a <- my_map_data_a |> 
-  as.tibble() |>
-  mutate(bitemp=as.numeric(bitemp)) |>
-  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
-                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
-                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
-                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
-                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
-
-
-pixel_1a <- my_map_data_a |>
-  as.data.frame() |>
-  select(my_id, bitemp, error) |>
-  read.uv(estimate="bitemp", error="error")
-
-pixel_2a <- my_map_data_a |> as("Spatial")
-
-pix_a <- pixelate(pixel_2a, pixelSize = 70, id = "my_id")
-
-pmap_a <- build_pmap(data = pixel_1a, distribution = "discrete", pixelGeo = pix_a, id = "my_id", border = pixel_2a, q=q_a)
-
-p4a <- view(pmap_a) +
-  geom_path(
-      data = pmap_a$bord,
-      aes_string(x = 'long', y = 'lat', group = 'group'),
-      colour = "white"
-    )  +
-  scale_fill_gradientn(colours = longpal) +
-  scale_colour_gradientn(colours = longpal) +
-  theme(legend.position="none")
-
-# High variance
-my_map_data_b <- my_map_data |>
-  filter(variance_class == "highvar") |>
-  mutate(my_id = seq(n),
-         error = variance) 
-
-q_b <- my_map_data_b |> 
-  as.tibble() |>
-  mutate(bitemp=as.numeric(bitemp)) |>
-  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
-                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
-                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
-                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
-                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
-
-pixel_1b <- my_map_data_b |>
-  as.data.frame() |>
-  select(my_id, bitemp, error) |>
-  read.uv(estimate="bitemp", error="error")
-
-pixel_2b <- my_map_data_b |> 
-  as("Spatial")
-
-pix_b <- pixelate(pixel_2b, pixelSize = 70, id = "my_id")
-
-  
-pmap_b <- build_pmap(data = pixel_1b, distribution = "discrete", pixelGeo = pix_b, id = "my_id", border = pixel_2b, q=q_b)
-
-p4b <- view(pmap_b) +
-  geom_path(
-      data = pmap_b$bord,
-      aes_string(x = 'long', y = 'lat', group = 'group'),
-      colour = "white"
-    )  +
-  scale_fill_gradientn(colours = longpal) +
-  scale_colour_gradientn(colours = longpal) +
-  theme(legend.position="none")
-
-save(p4a, file="data/p4a.rda")
-save(p4b, file="data/p4b.rda")
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-pixel
-#| fig-cap: "A pixel map of the counties of Iowa. In this map, each county is broken up into several small areas and coloured according to a potential daily temperature, given the its average daily temperature and its sampling distribution. This results in each county being represented by a sample rather than a single value. In this graphic, we can clearly see the spatial trend in the low variance case, while the spatial trend is much harder to identify in the high variance case. "
-#| fig-subcap: 
-#|   - "Low Variance Data"
-#|   - "High Variance Data"
-#|   - "Pixel Map Palette"
-#| layout-ncol: 3
-#| layout-valign: "bottom"
-
-# load pixel maps
-load("data/p4a.rda")
-load("data/p4b.rda")
-# Display plots and palettes
-p4a
-p4b
-show_pal(longpal, ncol=13, borders="white", myxlab = "Temperature", breaks = 19:32, textnudge = c(0.2, 0.1, 0,0,0,0,0,0,0,0,0,0,-0.1,-0.2), xlabx= 6.5, xlaby=-2.2)
-```
-
-### Nested uncertainty example?
-Carrying uncertainty through multiple layers
--   note what can/cant be nested
-    -   e.g. climate change scenario and forecast uncertainty
-    -   two unrelated estimates *cannot* be nested (it doesn't make sense)
-    -   Nesting becomes unecessary with convolution, unless you want to hold onto the uncertainty. Technically, anything that is nested should also be able to be calculated through convolution.
-
-- this makes visualisation an incredibly powerful tool for quantifying uncertainty.
--  It is far easier to hold onto uncertainty at every step than to try and reintroduce it at the very end
--  concepts like nested positions natrually flow on from this nested object type problem
-- speiglehatter comment about how hard it is to quantify uncertainty to the last layer
--   this is a potential solution for that
--   you can combine a bunch of uncertain values and take inference from signal suppression
--   we use visual statistics to implicitly calculate values that are difficult to calculate theoretically
--   different levels of uncertainty can be hard to quantify, especially in a final statistic
--   by sampling each value at n, we can do visual interence to see the impact on the final plot
 
 
 
