@@ -216,7 +216,7 @@ slope_se_2 <- model_summary2$coefficients["wt", "Std. Error"]
 # Estimate Plots
 reg1a <- mtcars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few()  + 
   geom_abline(intercept = int_est_1,
               slope = slope_est_1,
@@ -227,7 +227,7 @@ reg1a <- mtcars |>
 
 reg1b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few()  + 
   geom_abline(intercept = int_est_2,
               slope = slope_est_2,
@@ -239,7 +239,7 @@ reg1b <- small_cars |>
 # Stat plot
 reg2a <- mtcars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few()  + 
   geom_abline(intercept = int_se_1,
               slope = slope_se_1,
@@ -250,7 +250,7 @@ reg2a <- mtcars |>
 
 reg2b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few()  + 
   geom_abline(intercept = int_se_2,
               slope = slope_se_2,
@@ -263,7 +263,7 @@ reg2b <- small_cars |>
 # Width plot
 reg3a <- mtcars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few()  + 
   geom_abline(intercept = int_est_1,
               slope = slope_est_1,
@@ -276,7 +276,7 @@ reg3a <- mtcars |>
 
 reg3b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few()  + 
   geom_abline(intercept = int_est_2,
               slope = slope_est_2,
@@ -291,7 +291,7 @@ reg3b <- small_cars |>
 # Sample plot
 reg4a <-  mtcars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few()  + 
   geom_abline_sample(intercept = dist_normal(int_est_1, int_se_1),
                      slope = dist_normal(slope_est_1,slope_se_1),
@@ -303,7 +303,7 @@ reg4a <-  mtcars |>
 
 reg4b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  #geom_point() + 
+  geom_point() + 
   theme_few() + 
   geom_abline_sample(intercept = dist_normal(int_est_2, int_se_2),
                      slope = dist_normal(slope_est_2, slope_se_2),
@@ -738,32 +738,25 @@ If we refer to the conclusion we draw from a graphic to be its signal and the va
   2) Hide signals that are overwhelmed by noise to prevent unjustified conclusions
   3) Perform tasks 1) and 2) in a way that is proportional to the level of confidence in those conclusions.
 
-These are quite a few requirements, and it might be worthwhile to ask if we even need to include uncertainty to fulfil these goals, after all, if looking at data is often how we unveil the truth, what is it about our standard visualisation methods that is falling short?
+Usually visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. 
+Therefore, we call this approach to uncertainty visualisation as "signal-suppression" since it primarily differentiates itself from from the normal "noiseless" visualisation approach through criteria (2). 
+That is, the main difference between an uncertainty visualisation and a normal visualisation is that an uncertainty visualisation should prevent us from drawing unjustified conclusions. 
 
-
-
-
-
+You might be wondering, what do these "noiseless" visualisations look like, and how are these standard current approaches falling short?
+To answer this question, we can look at an example.
 @fig-ignore shows three different plots that frequently come up in uncertainty visualisation discussions, which we will be focusing on for this paper.
-First, due to the simplicity of the example, we will look at a line made by the estimated coefficients of a simple linear regression, a plot type that we also pops up in forecasting time series.
-Our example is the result of a simple linear regression on the `mtcars` data that comes with the `datasets` package of base R.
-Plot (a) shows the regression on the full data set, while plot (b) shows the regression on a much smaller sample, resulting in a significantly higher standard error.
-
-Next, due to the fields roots in geoscience, we will look at an example of a choropleth map depicted in plots (a) and (d), which show simulated average temperature data for the counties of Iowa.
-Plot (a) is a case where the standard error is quite low, while plot (d) is a case where the standard error is quite high.
-
-
-Finally, we look at a case of
-In this case, unlike the linear regression, the standard error is independent to the estimate value.
-
-Can you spot the difference between these two plots?
-There is a slight difference in the linear regression, but in the case of the choropleth and univariate map, the variance measure has been set up to be independent of the estimate, so the plots are identical.
-
-The variance of these estimates were simulated such that the trend accounts for most of the variance in the plot in the low variance case (so we should expect the trend to be visible) while in the high variance, there is more variance within each county than between all the counties, so we should expect it to (at least in some capacity) overwhelm the spatial trend. 
-Is this aspect of the data and the spatial data it communicates clear in in the map? 
+The first is a line plot, here the line represents a simple linear regression on the `mtcars` data, but we also use line plots for forecasting uncertainty. 
+The second plot is a choroploth map, which show simulated average temperature data for the counties of Iowa, and we will look at due to the fields origins and focus in geospatial information visualisation.
+Finally, we look at a case of a set of univariate variables, where we want to compare their outcomes on the variable x.
+For all plots, the plot on the top row (a, b, c) has low uncertainty, while the plot on the bottom row (d, e, f) have high uncertainty. 
+In ne of the plots the signal disappears in the high variance case, in another the signal remains, and in last plot, the uncertainty itself have a pattern. 
+Can you tell which is which?
 Is the strength of the trend communicated through the visualisation?
+The answer to both of these questions is, no, at least not in these plots.
+In @fig-ignore, the high and low variance cases are identical (or near identical for the linear regression), however, this is not the last we will see of this example.
+We will return to these plots when we work through the approaches to uncertainty visualisation presented by the literature and use it to assess which approaches reveal, these hidden structures in the data.
+Our main focus is going to be identifying which approachs perform signal suppression, and which do not.
 
-We can look at our current approach to visualisation and see how well they fulfil these requirements
 
 ```{r}
 #| echo: false
@@ -778,23 +771,8 @@ We can look at our current approach to visualisation and see how well they fulfi
 
 (reg1a/reg1b) | (choro1 / choro2 /choro3) | (uni1a/uni1b) 
 
-# layout <- "
-# AACCFF
-# AACCFF
-# AADDFF
-# BBDDGG
-# BBEEGG
-# BBEEGG
-# "
-# reg1a + reg1b + choro1 + choro3 + choro2 + uni1a + uni1b +
-#   plot_layout(design = layout)
   
 ```
-
-
-As @fig-ignore shows, visualisations that are unconcerned with uncertainty have no issue showing justified signals, but struggle with the display of unjustified signals. 
-Therefore, we call this approach to uncertainty visualisation as "signal-suppression" since it primarily differentiates itself from from the normal "noiseless" visualisation approach through criteria (2). 
-That is, the main difference between an uncertainty visualisation and a normal visualisation is that an uncertainty visualisation should prevent us from drawing unjustified conclusions. 
 
 ## Current Approaches
 
