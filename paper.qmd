@@ -324,61 +324,62 @@ reg4b <- small_cars |>
 group_df <- tibble(x = c(1,2,3,4,5),
        se_low = c(1,1,1,1,1),
        se_high = c(1,2,3,4,5),
-       group = c("A", "B", "C", "D", "E"))
+       group = c("A", "B", "C", "D", "E")) |>
+  mutate(dist_low = x + dist_beta(1/se_low, 1/se_low),
+         dist_high = x*dist_beta(1/se_high, 1/se_high))
+
 
 # Estimate
 uni1a <- group_df |>
   ggplot() +
-  geom_point(aes(x=x, y=group), colour = "forestgreen") +
+  geom_point(aes(x=mean(dist_low), y=group), colour = "forestgreen") +
   theme_few() + 
   theme(aspect.ratio=1)
 
 uni1b <- group_df |>
   ggplot() +
-  geom_point(aes(x=x, y=group), colour = "forestgreen") +
+  geom_point(aes(x=mean(dist_high), y=group), colour = "forestgreen") +
   theme_few() + 
   theme(aspect.ratio=1)
 
 # Statistic
-uni2a <-group_df |>
+uni2a <- group_df |>
   ggplot() +
-  geom_point(aes(x=se_low, y=group), colour = "forestgreen") +
+  geom_point(aes(x=variance(dist_low), y=group), colour = "forestgreen") +
   theme_few() + 
   theme(aspect.ratio=1)
 
 uni2b <- group_df |>
   ggplot() +
-  geom_point(aes(x=se_high, y=group), colour = "forestgreen") +
+  geom_point(aes(x=variance(dist_high), y=group), colour = "forestgreen") +
   theme_few() + 
   theme(aspect.ratio=1)
 
 # Error bars
 uni3a <- group_df |>
-  ggplot(aes(xdist = dist_normal(x, se_low), y=group)) +
+  ggplot(aes(xdist = dist_low, y=group)) +
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
   theme(aspect.ratio=1)
 
 uni3b <- group_df |>
-  ggplot(aes(xdist = dist_normal(x, se_high), y=group)) +
+  ggplot(aes(xdist = dist_high, y=group)) +
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
   theme(aspect.ratio=1)
 
-
 # Distribution
-uni4a <-group_df |>
-  ggplot(aes(xdist = dist_normal(x, se_low), y=group)) +
+uni4a <- group_df |>
+  ggplot(aes(xdist = dist_low, y=group)) +
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
   theme(aspect.ratio=1)
 
 uni4b <- group_df |>
-  ggplot(aes(xdist = dist_normal(x, se_high), y=group)) +
+  ggplot(aes(xdist = dist_high, y=group)) +
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
   theme(aspect.ratio=1)
-
 
 ```
 
