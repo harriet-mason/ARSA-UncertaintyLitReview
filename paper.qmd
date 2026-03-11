@@ -133,52 +133,76 @@ breaks <- 21:29
 breakslong <- 18:32 
 names(basecols) <- seq(8)
 names(longpal) <- -1:11
+var_seq <- seq(0,12, by=3)
 
 my_map_data <- my_map_data |>
   mutate(temp = 29 - 2*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
-         highvar = runif(n, min=2, max=4), # high variance
-         lowvar = runif(n, min=0, max=2), # low variance
+         highvar = runif(n, min=var_seq[3], max=var_seq[5]), # high variance
+         lowvar = runif(n, min=var_seq[1], max=var_seq[3]), # low variance
          count_id = row_number()) |>
   pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
   # add bivariate classes to data
   mutate(bitemp = cut(temp, breaks=breaks, labels=seq(8)),
-         bivar = cut(variance, breaks=0:4, labels=seq(4)),
-         biclass = paste(bitemp, bivar, sep="-"))|>
-  mutate(highlight = ifelse(count_id <= 5, TRUE, FALSE))
+         bivar = cut(variance, breaks=var_seq, labels=seq(4)),
+         biclass = paste(bitemp, bivar, sep="-")) |>
+  mutate(highlight = ifelse(count_id <= 5, TRUE, FALSE)) |>
+  mutate(temp = as.numeric(temp))
 
 # Make nice example table
-example_table <- my_map_data |>
-  mutate(variance = sqrt(variance)) |>
-  select(c(count_id, county_name, temp, variance_class, variance)) |>
-  as_tibble()|>
-  pivot_wider(id_cols=c(count_id, county_name, temp,), 
-              names_from = variance_class, 
-              values_from = variance) |>
-  head(5)|>
-  flextable() |>
-  set_caption(caption = "Average Daily High Temperatures of Iowa Counties") |>
-  add_header_row(colwidths = c(3, 2),
-                 values = c("", "Standard Error")) |>
-  colformat_double(digits = 2) |>
-  set_header_labels(count_id = "ID", 
-                    county_name  = "County",
-                    temp = "Average Temperature (°C)",
-                    highvar = "High",
-                    lowvar = "Low") |>
-  add_footer_row(values = rep("..."), colwidths = 5) |>
-  theme_vanilla() |>
-  vline(i=c(1,2), j=3, part="header")|>
-  align(align = "left", part = "all") |>
-  bg(j = "temp",
-    bg = col_numeric(palette = brewer.pal(8, name = "Oranges"),
-                     domain = c(21, 30)),
-    part = "body"
-  ) |>
-  bg(j = c("highvar", "lowvar"),
-    bg = col_numeric(palette = brewer.pal(8, name = "Greens"),
-                     domain = c(0, 3)),
-    part = "body"
-  ) 
+# example_table <- my_map_data |>
+#   mutate(variance = sqrt(variance)) |>
+#   select(c(count_id, county_name, temp, variance_class, variance)) |>
+#   as_tibble()|>
+#   pivot_wider(id_cols=c(count_id, county_name, temp,), 
+#               names_from = variance_class, 
+#               values_from = variance) |>
+#   head(5)|>
+#   flextable() |>
+#   set_caption(caption = "Average Daily High Temperatures of Iowa Counties") |>
+#   add_header_row(colwidths = c(3, 2),
+#                  values = c("", "Standard Error")) |>
+#   colformat_double(digits = 2) |>
+#   set_header_labels(count_id = "ID", 
+#                     county_name  = "County",
+#                     temp = "Average Temperature (°C)",
+#                     highvar = "High",
+#                     lowvar = "Low") |>
+#   add_footer_row(values = rep("..."), colwidths = 5) |>
+#   theme_vanilla() |>
+#   vline(i=c(1,2), j=3, part="header")|>
+#   align(align = "left", part = "all") |>
+#   bg(j = "temp",
+#     bg = col_numeric(palette = brewer.pal(8, name = "Oranges"),
+#                      domain = c(21, 30)),
+#     part = "body"
+#   ) |>
+#   bg(j = c("highvar", "lowvar"),
+#     bg = col_numeric(palette = brewer.pal(8, name = "Greens"),
+#                      domain = c(0, )),
+#     part = "body"
+#   ) 
+
+# dibble check 1
+my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf_sample(aes(fill = dist_normal(temp, variance), 
+              geometry = geometry), colour=NA, times=20) + 
+  geom_sf(aes(geometry = geometry), fill=NA, linewidth=0.7) +
+  theme_void() + 
+  scale_fill_distiller(palette = "OrRd", direction=1) +
+  theme(legend.position = "none")
+
+# dibble check 2
+my_map_data |>
+  filter(variance_class=="highvar") |>
+  ggplot() +
+  geom_sf_sample(aes(fill = dist_normal(temp, variance), 
+              geometry = geometry), colour=NA, times=20) + 
+  geom_sf(aes(geometry = geometry), fill=NA, linewidth=0.7) +
+  theme_void() + 
+  scale_fill_distiller(palette = "OrRd", direction=1) +
+  theme(legend.position = "none")
 
 ```
 
@@ -527,7 +551,7 @@ show_pal2 <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxl
 p3c <- as.ggplot(expression(
   show_pal2(colours = bivariatepal, ncol=8, borders=NA, 
             myxlab = "Temperature", myylab = "Variance", 
-            breaks = 21:29, breaks2 = 0:4)
+            breaks = 21:29, breaks2 = var_seq)
 ))
 
 bivar1 <- p3a #/ p3c + plot_layout(heights = c(2, 1.5))
@@ -583,7 +607,7 @@ p4b <- p4a %+% filter(my_map_data, variance_class=="highvar")
 p4c <- as.ggplot(expression(
   show_pal2(colours = VSUP, ncol=8, borders=NA, 
             myxlab = "Temperature", myylab = "Variance",
-            breaks = 21:29, breaks2 = 0:4)
+            breaks = 21:29, breaks2 = var_seq)
 ))
 
 vsup1 <- p4a #/ p4c + plot_layout(heights = c(2, 1.5))
