@@ -167,7 +167,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\date{March 11, 2026}
+\date{March 12, 2026}
 \title{\bf The Noisy Work of Uncertainty Visualisation Research: A
 Review}
 \author{
@@ -378,32 +378,30 @@ uncertainty visualisation and a normal visualisation is that an
 uncertainty visualisation should prevent us from drawing unjustified
 conclusions.
 
-You might be wondering, what do these ``noiseless'' visualisations look
-like, and how are these standard current approaches falling short? To
-answer this question, we can look at an example. Figure~\ref{fig-ignore}
-shows three different plots that frequently come up in uncertainty
-visualisation discussions, which we will be focusing on for this paper.
-The first is a line plot, here the line represents a simple linear
-regression on the \texttt{mtcars} data, but we also use line plots for
-forecasting uncertainty. The second plot is a choroploth map, which show
-simulated average temperature data for the counties of Iowa, and we will
-look at due to the fields origins and focus in geospatial information
-visualisation. Finally, we look at a case of a set of univariate
-variables, where we want to compare their outcomes on the variable x.
-For all plots, the plot on the top row (a, b, c) has low uncertainty,
-while the plot on the bottom row (d, e, f) have high uncertainty. In ne
-of the plots the signal disappears in the high variance case, in another
-the signal remains, and in last plot, the uncertainty itself have a
-pattern. Can you tell which is which? Is the strength of the trend
-communicated through the visualisation? The answer to both of these
-questions is, no, at least not in these plots. In
-Figure~\ref{fig-ignore}, the high and low variance cases are identical
-(or near identical for the linear regression), however, this is not the
-last we will see of this example. We will return to these plots when we
-work through the approaches to uncertainty visualisation presented by
-the literature and use it to assess which approaches reveal, these
-hidden structures in the data. Our main focus is going to be identifying
-which approachs perform signal suppression, and which do not.
+To look at how we can achieve this goal, it might be helpful to start
+with some visualisations that are typically considered to not include
+uncertainty at all so we can understand how they are falling short.
+Figure~\ref{fig-ignore} shows six different plots, a high and low
+uncertainty case for three different plots which occur commonly in
+discussions around uncertainty visualisation. Plots (a) and (b) show the
+line plot from a simple linear regression on the \texttt{mtcars} data,
+the regression in (a) has been done on the full dataset, and therefore
+has low uncertainty, while (b) was done on a sample of three points and
+has very high uncertainty. Plots (c) and (d) show a choropleth map, with
+county in Iowa being coloured by a simulated measured temperature, with
+plot (c) depicting a case where the measurement error is low, while plot
+(d) depictes a case where the measurement error is high. Finally, plots
+(e) and (f) depict a set of five groups of univariate variables we are
+looking to compare, where (e) depicts a case where the group variance is
+high (f) shows a case where the group variance is low. In all plots, we
+can only choose a single value to represent the distribution, so we opt
+for the average of all these distributions. In all plots, the variance
+in the plots in the top row is significantly different to the plots in
+the bottom row, so much so, that the trend should actually disappear.
+Can you see a difference between the plots in the top row versus the
+bottom row? Is the strength of the trend communicated through the
+visualisation? The answer to both of these questions is no, the high and
+low variance cases are identical.
 
 \begin{figure}
 
@@ -413,9 +411,27 @@ which approachs perform signal suppression, and which do not.
 
 }
 
-\caption{\label{fig-ignore}blah}
+\caption{\label{fig-ignore}Six different plots, each depicting a high
+and low uncertainty case for three plots commonly seen in discussions
+around uncertainty visualisation. The plots are: (a) linear regression
+with low uncertainty, (b) linear regression with high uncertainty, (c)
+spatial trend with low uncertainty, (d) spatial trend with high
+uncertainty, (e) group comparison with low uncertainty, (f) group
+comparison with high uncertainty. The linear regressions have a downward
+slope, the spatial map has a sine wave pattern, and the groups show an
+increasing value in X. These patterns should be visible in the low
+uncertainty case, but almost invisible in the high uncertainty case. As
+each plot only shows the central estimate of each uncertainty value, the
+high and low scenario look identical for each plot.}
 
 \end{figure}%
+
+These plots ignore uncertainty and as such, do not perform signal
+suppression. We will use these plots as a touchstone for our discussion
+on uncertainty visualisation, and return to them when we discuss the
+approaches suggested in the literature. At each stage we will assess the
+approaches based on how well they hide spurious relationships, and
+reveal the hidden variance structures in the data.
 
 \section{Current Approaches}\label{current-approaches}
 
