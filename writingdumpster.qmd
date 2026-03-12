@@ -8,7 +8,7 @@ format: html
 
 - Most studies involve intrinsic approaches such as colour, transparency, and those that used extrinsic techniques typically used glyphs, error bars, grid based techniques, or contouring @Kinkeldey2014
 - @uncertchap2022 two broad categories of uncertainty visualisation techniques, 1) graphical annotation (mean, error bar, hops) 2) map probability of cI to a visual encoding channel 3) hybrid approaches (e.g. contour boxplot, probability density and interval plot)
-- @[Kay2019] "It is important to have clear, domain and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty".
+- @uncertchap2022 "can enter the analysis pipeline during the measurement, modeling, and forecasting phases"
 
 ### Pixel map codex
 ```{r pixel maps}
@@ -231,6 +231,10 @@ We will admit that cases where the uncertainty is not published, as discussed by
 
 
 ## Unused Citations
+- @Spiegelhalter2017 noted we "cannot assess the quality of risk communication unless the objectives are clear".
+- @Griethe2006 commented that uncertainty appears at every step in the analyis pipeline, and commented on some the mathematical definitions that seek to quantify uncertianty, but did not explain how these mathematical definitions can be combined across levels. Unfortunately this quantification is needed since she mentioned that in order to visualise uncertainty, it needs to be measurable
+- @[Kay2019] "It is important to have clear, domain and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty".
+  - Also applies some of the logic occasionally in the direction and stuff, "Some of the letters (B, P, X) almost disappear because they are frequently confused with other letters."
 - Risk communication also needs to have clear objectives, use plain language, limit information to only what is necessary, and segment the audience to allow for differences in interest and knowledge [@Spiegelhalter2017].
 - @Griethe2006 mentions that there are detailled classifications of uncertainty but the literature and subsequent techniques are not ballanced, and instead concentrate on scalar values. In facing this lack of ballance she creates a new classification system for uncertainty visualisation. 
 - Probability judgements are less relative than other psychophysical judgements, 0%, 50% and 100% all have well understood meanings. Subjective probability distributions are spontaneous, and subjects are constructing a distribution upon being asked rather than articulating a fully formed mental representation of their beliefs. Therefore it is subject to heuristics. consider anchoring a scale with farmiliar probabilities . not sure if being asked for the entire distribution helps, e.g. the graphical one reduces noise but asking people for an interval estimation leads to overprecision and overconfidence @Hullman2016
