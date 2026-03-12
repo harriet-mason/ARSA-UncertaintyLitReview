@@ -137,8 +137,8 @@ var_seq <- seq(0,12, by=3)
 
 my_map_data <- my_map_data |>
   mutate(temp = 29 - 2*abs(scale(cent_lat) - sin(2*(scale(cent_long)))[,1]), # trend
-         highvar = runif(n, min=var_seq[3], max=var_seq[5]), # high variance
-         lowvar = runif(n, min=var_seq[1], max=var_seq[3]), # low variance
+         highvar = runif(n, min=8, max=var_seq[5]), # high variance
+         lowvar = runif(n, min=2, max=4), # low variance
          count_id = row_number()) |>
   pivot_longer(cols=highvar:lowvar, names_to = "variance_class", values_to = "variance") |>
   # add bivariate classes to data
@@ -181,28 +181,6 @@ my_map_data <- my_map_data |>
 #                      domain = c(0, )),
 #     part = "body"
 #   ) 
-
-# dibble check 1
-my_map_data |>
-  filter(variance_class=="lowvar") |>
-  ggplot() +
-  geom_sf_sample(aes(fill = dist_normal(temp, variance), 
-              geometry = geometry), colour=NA, times=20) + 
-  geom_sf(aes(geometry = geometry), fill=NA, linewidth=0.7) +
-  theme_void() + 
-  scale_fill_distiller(palette = "OrRd", direction=1) +
-  theme(legend.position = "none")
-
-# dibble check 2
-my_map_data |>
-  filter(variance_class=="highvar") |>
-  ggplot() +
-  geom_sf_sample(aes(fill = dist_normal(temp, variance), 
-              geometry = geometry), colour=NA, times=20) + 
-  geom_sf(aes(geometry = geometry), fill=NA, linewidth=0.7) +
-  theme_void() + 
-  scale_fill_distiller(palette = "OrRd", direction=1) +
-  theme(legend.position = "none")
 
 ```
 
@@ -469,7 +447,7 @@ choro3 <- p1c
 prob_breaks <- seq(-0.1,1.1, length.out=9)
 exeed_data <- my_map_data |> 
   as_tibble() |>
-  mutate(xprob = 1- pnorm(27, mean=temp, sd=sqrt(variance))) |>
+  mutate(xprob = 1- pnorm(27, mean=temp, sd=variance)) |>
   mutate(xprob = cut(xprob, breaks=prob_breaks, labels=seq(8)))
              
 p2a <- exeed_data |>
@@ -615,97 +593,28 @@ vsup2 <- p4b #/ p4c + plot_layout(heights = c(2, 1.5))
 vsup3 <- p4c
 
 ####################### Pixel maps ######################
-my_map_data_a <- my_map_data |>
-  filter(variance_class == "lowvar") |>
-  mutate(my_id = seq(n),
-         error = variance) 
-
-# quantile
-q_a <- my_map_data_a |> 
-  as.tibble() |>
-  mutate(bitemp=as.numeric(bitemp)) |>
-  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
-                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
-                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
-                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
-                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
-
-
-pixel_1a <- my_map_data_a |>
-  as.data.frame() |>
-  select(my_id, bitemp, error) |>
-  read.uv(estimate="bitemp", error="error")
-
-pixel_2a <- my_map_data_a |> as("Spatial")
-
-pix_a <- pixelate(pixel_2a, pixelSize = 70, id = "my_id")
-
-pmap_a <- build_pmap(data = pixel_1a, distribution = "discrete", pixelGeo = pix_a, id = "my_id", border = pixel_2a, q=q_a)
-
-p5a <- view(pmap_a) +
-  geom_path(
-      data = pmap_a$bord,
-      aes_string(x = 'long', y = 'lat', group = 'group'),
-      colour = "white"
-    )  +
+# low variance
+pixel1 <- my_map_data |>
+  filter(variance_class=="lowvar") |>
+  ggplot() +
+  geom_sf_sample(aes(fill = dist_normal(temp, variance), 
+              geometry = geometry), colour=NA, times=30) + 
+  theme_void() + 
   scale_fill_gradientn(colours = longpal) +
-  scale_colour_gradientn(colours = longpal) +
-  theme(legend.position="none")
+  labs(fill = "Temp") +
+  theme(legend.position = "bottom")
 
-# High variance
-my_map_data_b <- my_map_data |>
-  filter(variance_class == "highvar") |>
-  mutate(my_id = seq(n),
-         error = variance) 
-
-q_b <- my_map_data_b |> 
-  as.tibble() |>
-  mutate(bitemp=as.numeric(bitemp)) |>
-  with(data.frame(p0.05 = qnorm(0.05, mean=bitemp, sd=sqrt(variance)),
-                  p0.25 = qnorm(0.25, mean=bitemp, sd=sqrt(variance)), 
-                  p0.5 = qnorm(0.5, mean=bitemp, sd=sqrt(variance)), 
-                  p0.75 = qnorm(0.75, mean=bitemp, sd=sqrt(variance)), 
-                  p0.95 = qnorm(0.95, mean=bitemp, sd=sqrt(variance))))
-
-pixel_1b <- my_map_data_b |>
-  as.data.frame() |>
-  select(my_id, bitemp, error) |>
-  read.uv(estimate="bitemp", error="error")
-
-pixel_2b <- my_map_data_b |> 
-  as("Spatial")
-
-pix_b <- pixelate(pixel_2b, pixelSize = 70, id = "my_id")
-
-  
-pmap_b <- build_pmap(data = pixel_1b, distribution = "discrete", pixelGeo = pix_b, id = "my_id", border = pixel_2b, q=q_b)
-
-p5b <- view(pmap_b) +
-  geom_path(
-      data = pmap_b$bord,
-      aes_string(x = 'long', y = 'lat', group = 'group'),
-      colour = "white"
-    )  +
+# high variance
+pixel2 <- my_map_data |>
+  filter(variance_class=="highvar") |>
+  ggplot() +
+  geom_sf_sample(aes(fill = dist_normal(temp, variance), 
+              geometry = geometry), colour=NA, times=30) + 
   scale_fill_gradientn(colours = longpal) +
-  scale_colour_gradientn(colours = longpal) +
-  theme(legend.position="none")
-
-p5c <- as.ggplot(expression(
-  show_pal(longpal, ncol=13, borders="white", 
-           myxlab = "Temperature", breaks = 19:32, 
-           textnudge = c(0.2, 0.1, 0,0,0,0,0,0,0,0,0,0,-0.1,-0.2), 
-           vnudge = 0.75,
-           xlabx= 6.5, xlaby=-4)
-))
-
-pixel1 <- p5a #/ p5c + plot_layout(heights = c(2, 1.5))
-pixel2 <- p5b #/ p5c + plot_layout(heights = c(2, 1.5))
-pixel3 <- p5c
+  theme_void() +
+  labs(fill = "Temp") +
+  theme(legend.position = "bottom")
 ```
-
-
-
-
 
 
 ## Introduction
@@ -1033,7 +942,7 @@ This means the graphic also achieves the third criteria for signal-suppression, 
 #| layout-valign: "bottom"
 #| cap-location: "bottom"
 
-(reg4a/reg4b) | (pixel1/ pixel2/ pixel3) | (uni4a/uni4b) +
+(reg4a/reg4b) | (pixel1/ pixel2) | (uni4a/uni4b) +
   plot_layout(widths = c(1, 5, 1))
 
 ```
