@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 .DS_Store
+.Rapp.history
 ST14_Topics*.pdf
