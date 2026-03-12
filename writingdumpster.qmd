@@ -4,6 +4,13 @@ author: "Harriet Mason"
 format: html
 ---
 
+### Holding for later
+
+- Most studies involve intrinsic approaches such as colour, transparency, and those that used extrinsic techniques typically used glyphs, error bars, grid based techniques, or contouring @Kinkeldey2014
+- @uncertchap2022 two broad categories of uncertainty visualisation techniques, 1) graphical annotation (mean, error bar, hops) 2) map probability of cI to a visual encoding channel 3) hybrid approaches (e.g. contour boxplot, probability density and interval plot)
+- @[Kay2019] "It is important to have clear, domain and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty".
+
+### Pixel map codex
 ```{r pixel maps}
 
 ####################### Pixel maps ######################
@@ -190,6 +197,16 @@ example_map
 ```
 
 ## Unused Paragraphs
+This history lesson illustrates what uncertainty actually is. 
+At several stages in a statistical analysis, we will violate the uniformity of nature assumption. 
+Each of these violations will impact the statistic we have calculated and push it further from the population parameter we wish to draw inference on. 
+Uncertainty is the amalgamation of these impacts. 
+If we do not violate the uniformity of nature assumption at any point in our analysis, we do not have any uncertainty.
+
+@Kinkeldey2014 categorised uncertainty according to five criteria depicted in fig-tax which considers if a visualisation is implicit or explicit, intrinsic or extrinsic, visually integrable or seperable, coincident or adjacent, and static or dynamic. A similar version of this taxonomy was presented by @uncertchap2022 who commented that visualisation can be organised into two categories, "graphical annotations of distributional properties" and "visual encodings of uncertainty" which seems to functionally align with the intrinsic/extrinsic distinction by @Kinkeldey2014. @Griethe2006 organised uncertainty visualisations into two cases (1) a hypothesis test was preformed to confirm the validity of the visualisation and (2) the visualisation has uncertainty depicted. @Potter2012 organised several existing uncertainty visualisations into groups based on the dimensionality of the data (1D, 2D, 3D, and No Dimension) and the dimensionality of the uncertainty (Scalar, Vector, Tensor).  However, because the term "PDF", function that is used to describe a random variable, is used to describe both the data and the uncertainty for all dimensions. @Grewal2021 created a taxonomy that mapped uncertainty visualisations to some point in a 2D space defined by the "domain expertise" and "continuum of discreteness" (that scaled from "point estimate" to "continuous distribution").
+There are enough qualitative descriptors of uncertainty to fill a paper, but, a lot of it amounts to rearranging deck chairs on the titanic.
+The distinctions are often accurate, but have little, if any, impact on how we should visualise, quantify, or discuss the uncertainty.
+
 Uncertainty plays an unusual role in statistics that can make it difficult to work with. It can act as both a signal when we want to perform inference on a specific variance or probability, and a noise as a variable that is supposed to hedge our conclusions on other statistics. This dual role of uncertainty often causes researchers to get caught up in the weeds. The difficulties with this duality is felt particularly strongly in uncertainty visualisation.
 
 There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluate competing plot designs, or start a theoretical discussion on a niche aspect of the field.
@@ -205,7 +222,20 @@ Alternatively visualisation research could shift away from evaluation all togeth
 The experimenters goal was to observe and organise the methods people use when making decisions in the face of uncertainty. 
 They highlighted the specific aspects of uncertainty that participants typically considered, such as the range of outcomes that are above/below a certain threshold, minimum and maximum values, the risk of a loss, etc., and identified where in the decision making process participants made these considerations. 
 
+These divisions create @Thomson2005 discussed the problem of multiple times of uncertainty and suggested mapping each type of uncertainty (such as accuracy, precision, credibility, etc) separetely and then have the analyst combine them in their head. To map each of these variables separately suggests that each level of uncertainty is somehow its own variable. While this is possible, and relevant if 
+
+If you are already confused by this distinction, it is about to get worse for you, because these can technically be performed at the same time. This can occur is a scenario that covers many cases that researchers will consider to be too uncertain to quantify, something called "deep uncertainty" by @Hadjimichael2024. These abstract uncertainties can include abstract concepts like expert disagreement, the credibility of a source [@Thomson2005], forecaster confidence [@Padilla2021], or alternative decisions that could have been made in the analysis [@Kale2019] (something that frequently see visualised in climate scenario uncertainty). If the authors are willing to quantify them, these cases can almost always be covered by distributions of distributions, and can lead to a `ggdibbler` version of a `ggdist` plot. Note that we cannot have a `ggdist` version of a `ggdibbler` chart.Lets look at two examples of this to see what we mean. 
+
+
+We will admit that cases where the uncertainty is not published, as discussed by @geointerviews are a little more difficult, but still possible. If something is worth doing, it is worth doing badly, so imputing the distribution of random variables using the resources available is better than not ignoring it entirely. 
+
+
 ## Unused Citations
+- Risk communication also needs to have clear objectives, use plain language, limit information to only what is necessary, and segment the audience to allow for differences in interest and knowledge [@Spiegelhalter2017].
+- @Griethe2006 mentions that there are detailled classifications of uncertainty but the literature and subsequent techniques are not ballanced, and instead concentrate on scalar values. In facing this lack of ballance she creates a new classification system for uncertainty visualisation. 
+- Probability judgements are less relative than other psychophysical judgements, 0%, 50% and 100% all have well understood meanings. Subjective probability distributions are spontaneous, and subjects are constructing a distribution upon being asked rather than articulating a fully formed mental representation of their beliefs. Therefore it is subject to heuristics. consider anchoring a scale with farmiliar probabilities . not sure if being asked for the entire distribution helps, e.g. the graphical one reduces noise but asking people for an interval estimation leads to overprecision and overconfidence @Hullman2016
+- Even something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
+- @McNutt2020 Have several elements that they consider to cause "visual mirages", from improper imputation of missing values, to summary functions obfuscating the variabiliy of the data. It seems to be a bizzare mismatch of different types of information that are grouped together with "visual mirage".
 - @Spiegelhalter2017 commented that different plots are good for different things, and disagreed with the goal of identifying a universal best plot for all people and circumstances.
 - Something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
 - Some authors claim the purpose of uncertainty is to improve decision making [@Ibrekk1987; @uncertchap2022; @Hullman2016; @Cheong2016; @Boone2018; @Padilla2017]. 
