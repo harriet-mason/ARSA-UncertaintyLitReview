@@ -5,6 +5,8 @@ format: html
 ---
 
 ### Holding for later
+- Other reviewers of the field have noticed the way that confusion about uncertainty materialises, and it is unclear if uncertainty should be treated as a variable, metadata, or as something else entirely [@Kinkeldey2014]. 
+- The lack of explicit distinction between these two motivations leaves the literature muddled and reviewers comment that it is difficult to understand if uncertainty should be treated as a variable, as metadata, or as something else entirely [@Kinkeldey2014]. 
 
 - Most studies involve intrinsic approaches such as colour, transparency, and those that used extrinsic techniques typically used glyphs, error bars, grid based techniques, or contouring @Kinkeldey2014
 - @uncertchap2022 two broad categories of uncertainty visualisation techniques, 1) graphical annotation (mean, error bar, hops) 2) map probability of cI to a visual encoding channel 3) hybrid approaches (e.g. contour boxplot, probability density and interval plot)
@@ -197,6 +199,12 @@ example_map
 ```
 
 ## Unused Paragraphs
+The spatial trend may not be the only signal of concern in our graphic.
+Now we must return to the original signal-suppression criteria and ask ourselves if they have all been met. 
+Are all the justified signals reinforced, while all the unjustified signals are suppressed? 
+Is a graphic that performs perfect signal-suppression even possible?
+
+
 This history lesson illustrates what uncertainty actually is. 
 At several stages in a statistical analysis, we will violate the uniformity of nature assumption. 
 Each of these violations will impact the statistic we have calculated and push it further from the population parameter we wish to draw inference on. 
@@ -231,6 +239,9 @@ We will admit that cases where the uncertainty is not published, as discussed by
 
 
 ## Unused Citations
+
+- Multiple authors have commented on the need to consider quantifying and expressing uncertainty at every stage of a project as the goal shapes every step of the analysis [@Kinkeldey2014; @Hullman2016; @Refsgaard2007]. 
+- @Fischhoff2014 looks at uncertainty visualisation for decision making decides that we should have different ways of communicating uncertainty based off what the user is supposed to do with it.  
 - @Spiegelhalter2017 noted we "cannot assess the quality of risk communication unless the objectives are clear".
 - @Griethe2006 commented that uncertainty appears at every step in the analyis pipeline, and commented on some the mathematical definitions that seek to quantify uncertianty, but did not explain how these mathematical definitions can be combined across levels. Unfortunately this quantification is needed since she mentioned that in order to visualise uncertainty, it needs to be measurable
 - @[Kay2019] "It is important to have clear, domain and task-relevant guidance on how to determine how much value to suppress—or if to suppress value at all—due to uncertainty".
