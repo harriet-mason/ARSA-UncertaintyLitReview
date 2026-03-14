@@ -757,11 +757,11 @@ The communicating of this repeated point is clear, the role of signal and noise 
 The only constant is that signal is our inferential statistic, and noise is the distribution of outcomes around that signal.
 
 As a uncertainty is by product of statistical inference, it would make sense to simply quantify it as a distribution.
-Suggesting distributions as a representation of uncertainty is not new, @Kay2023 originally suggested thinking about uncertainty visualisations with distribution inputs, to replace the commonly used mean and standard deviation, as the latter requires us to assume a Gaussian distribution.
-We would even take this point a step further and assert that a distribution is sufficient to characterise *any* uncertainty, no matter how intangible it is.
+Suggesting distributions as a representation of uncertainty is not new, @Kay2023 originally suggested thinking about uncertainty visualisations with distribution inputs, to replace the commonly used mean and standard deviation, removing the assumption of Gaussian distribution.
+Taking this point a step further we suggest that a distribution is sufficient to characterise *any* uncertainty, no matter how intangible it is.
 This is in contrast to the assertions made by some authors, who believe abstract notions of uncertainty, such as credibility [@Thomson2005], forecaster confidence [@Padilla2021], or uncertainty about uncertainty [@Hadjimichael2024], are too complex to be quantified. 
 This is simply untrue, as abstract concepts such as human belief or credibility are regularly quantified by Bayesians and hierarchical models are often used for uncertainty about uncertainty.
-As a matter of fact, since uncertainty is always a by-product of statistical inference, it should always be possible to quantify it using a distribution.
+Since uncertainty is always a by-product of statistical inference, it should always be possible to quantify it using a distribution.
 
 #### Example: visualising estimates
 If visualising uncertainty is fundamentally a scenario where we are visualising a set of random variables what does "ignoring" uncertainty look like?
@@ -950,7 +950,7 @@ The fear of this inherent uncertainty leads authors to try to perform some kind 
 This is typically done by visualising a null distribution alongside the observed data on a single plot, an approach that is statistically identical to the line-up protocol [@Buja2009]. 
 As a line-up protocols were designed to a graphical parallel to standard statistical hypothesis tests, a core tool of inductive statistics, they are deductive reasoning, and therefore not EDA.
 The sum total of a lot of CDA is not EDA, just as frantically swinging a high-pressure jet around a room is not equivalent to using a misting spray.
-Even if you do manage to wet everything, you are going to use an exorbitant amount of water to do it (and possibly also break a few personal items).
+Even if you do manage to wet everything, you are going to use an exorbitant amount of water to do it (and possibly also break a few things).
 This is not to say there is anything wrong with these approaches; they are incredibly useful tools for induction.
 The line-up protocol in particular is a useful alternative to hypothesis testing, as it allows for statistical inference when there is no classical test available or when tests involve multiple effects [@Hofmann2012].
 Rather, the problem is that we cannot simultaneously perform EDA and inference as the approaches are, philosophically speaking, perpendicular to one another.
