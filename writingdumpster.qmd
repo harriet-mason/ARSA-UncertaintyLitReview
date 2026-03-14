@@ -5,7 +5,13 @@ format: html
 ---
 
 ### Holding for later
+As @Unwin2020 put it, “one persons statistics might be another person’s raw data”.
 
+The disconnect between quantifiable and unquantifiable uncertainty creates a huge problem for authors trying to visualise it as "not knowing how to calculate uncertainty" is one of the primary reasons authors do not include it in visualisations [@Hullman2020a]. 
+
+As for whether or not there even is such a thing as raw data is up for debate, and the two can be treated interchageably as, @Unwin2020 put it, “One persons statistics might be another person’s raw data”
+
+we should aim to show enough information to solve a task while avoiding irrelevant distracting information [@kosslyn2006graph]. 
 The distribution we use depends on the inferential statistic but until the viewer chooses one and thinks about it (which isn't easily observable), the particular variety of uncertainty which would need to be displayed can't be calculated.
 
 Often EDA is used to give us an understanding of our data and identify which signals are worth pursuing.
@@ -207,6 +213,9 @@ example_map
 ```
 
 ## Unused Paragraphs
+Uncertainty visualisation for EDA would be possible if we designed a plot in such a way that suppressing individual estimates using their variance would naturally extend to broader suppression of plot level insights. 
+This assumption is commonly made by visualisation researchers in normal visualisation experiments [@North2006]. 
+
 The spatial trend may not be the only signal of concern in our graphic.
 Now we must return to the original signal-suppression criteria and ask ourselves if they have all been met. 
 Are all the justified signals reinforced, while all the unjustified signals are suppressed? 
@@ -247,6 +256,9 @@ We will admit that cases where the uncertainty is not published, as discussed by
 
 
 ## Unused Citations
+- rarely used extension is aggregation of uncertainty over an area (retrieve overall estimation from a spatial distribution of uncertainty). Other tasks include comparisons, rankings. also have a task called "search" where participants have to identify entities that fulfill certainty characteristics (high or low values) @Kinkeldey2014
+- In order to visualise uncertainty, it needs to be quantifiable [@Griethe2006; Leland2005], in order to quantify uncertainty, it needs to be mathematically defined. The uncertainty visualisation literature is completely awash with papers that define uncertainty using a vague encompassing phrase, (e.g. @utypo defined it as any deviation from complete determinism) but go on to quantify uncertainty as a PDF, error, or some other easily quantified mathematical object when it comes time to do the visualisation. This definition swap happens so subtly that it seems to go unnoticed by authors
+- @uncertchap2022 do specify that they are going to refer to quantified uncertainty that can be visualised ("most commonly as a probability distribution")
 - @[Hullman2021] Issues with EDA e.g. checking multiple hypothesis which makes them less valid (more likely to find spurious relationships) - I think of EDA as a search for hypothesis rather than a confirmation of any hypothesis.
 - @[Hullman2021] “Researchers have commented on uncertainty as implicit in exploratory and interactive analysis”
 - Multiple authors have commented on the need to consider quantifying and expressing uncertainty at every stage of a project as the goal shapes every step of the analysis [@Kinkeldey2014; @Hullman2016; @Refsgaard2007]. 
