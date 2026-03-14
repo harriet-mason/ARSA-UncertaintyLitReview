@@ -5,6 +5,14 @@ format: html
 ---
 
 ### Holding for later
+
+The distribution we use depends on the inferential statistic but until the viewer chooses one and thinks about it (which isn't easily observable), the particular variety of uncertainty which would need to be displayed can't be calculated.
+
+Often EDA is used to give us an understanding of our data and identify which signals are worth pursuing.
+Due to the absense of an explicit hypothesis, can be seen as a parallel to descriptive statistics.
+
+If we are designing an uncertainty visualisation for communication then we can just suppress the specific signal we are seeking to communicate. 
+In the map example, we would consider @fig-vsup to be a success as the only signal we are concerned with is the spatial trend. 
 - Other reviewers of the field have noticed the way that confusion about uncertainty materialises, and it is unclear if uncertainty should be treated as a variable, metadata, or as something else entirely [@Kinkeldey2014]. 
 - The lack of explicit distinction between these two motivations leaves the literature muddled and reviewers comment that it is difficult to understand if uncertainty should be treated as a variable, as metadata, or as something else entirely [@Kinkeldey2014]. 
 
@@ -239,7 +247,8 @@ We will admit that cases where the uncertainty is not published, as discussed by
 
 
 ## Unused Citations
-
+- @[Hullman2021] Issues with EDA e.g. checking multiple hypothesis which makes them less valid (more likely to find spurious relationships) - I think of EDA as a search for hypothesis rather than a confirmation of any hypothesis.
+- @[Hullman2021] “Researchers have commented on uncertainty as implicit in exploratory and interactive analysis”
 - Multiple authors have commented on the need to consider quantifying and expressing uncertainty at every stage of a project as the goal shapes every step of the analysis [@Kinkeldey2014; @Hullman2016; @Refsgaard2007]. 
 - @Fischhoff2014 looks at uncertainty visualisation for decision making decides that we should have different ways of communicating uncertainty based off what the user is supposed to do with it.  
 - @Spiegelhalter2017 noted we "cannot assess the quality of risk communication unless the objectives are clear".
