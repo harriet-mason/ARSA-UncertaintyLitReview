@@ -409,8 +409,6 @@ uni4b <- group_df |>
 
 ```
 
-
-
 ```{r example-maps}
 #| echo: false
 #| message: false
@@ -644,16 +642,15 @@ pixel2 <- my_map_data |>
 
 ## Introduction
 The phrase "uncertainty visualisation" can sometimes feel like a bit of an oxymoron.
-Uncertainty is often discussed as though it is an omnipresent spectre, touching every stage of our analysis despite the fact that we don't seem to have a precise definition of what it is.
-A point that is either directly stated by authors who work in the field [@Spiegelhalter2017; @Griethe2006] or implied by describing a myriad of things uncertainty could be without a concrete definition [@Kinkeldey2014; @Hullman2016].
+Uncertainty is often discussed as though it is an omnipresent spectre, touching every stage of our analysis.
+The fact that nobody really knows what it is, is either directly stated by authors who work in the field [@Spiegelhalter2017; @Griethe2006] or implied by describing a myriad of things uncertainty could be without a concrete definition [@Kinkeldey2014; @Hullman2016].
 Contrary to the murky waters of uncertainty, visualisations illuminates and unveils the unknowns in our data.
 This is illustrated with datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurus; @datasaurpkg] where visual statistics reveal elements of the data that are hidden to the typical summary statistics. 
 This leads us to the conclusions that uncertainty visualisation is about revealing the unknown and shining a light on the more questionable parts of our analysis.
 
 This sentiment is regularly echoed by the literature where we see authors express that visualising uncertainty is necessary for transparency and improved decision making [@uncertchap2022].
-There is good reason to believe these assertions are true and failing to incorporate the uncertain information in an analysis will lead to research being undermined.
-A 6-month survey of anti-mask groups on Facebook during the COVID-19 pandemic showed that anti-maskers made persuasive arguments by exploiting the uncertainty information that was ignored by pro-maskers [@Lee2021].
-Failing to present uncertain information can lead to poor estimation of failure probabilities [@Kiureghian2009], as well as poorer decision making both experimentally [@Joslyn2012; @Savelli2013; @Kay2016; @Fernandes2018] and in practice [@Al-Kassab2014].
+Failing to incorporate the uncertain information in an analysis will lead to research being undermined as evidenced by a 6-month survey of anti-mask groups on Facebook during the COVID-19 pandemic that showed anti-maskers made persuasive arguments by exploiting inherrent uncertainty that was ignored by pro-maskers [@Lee2021].
+Additionally, failing to present uncertain information can lead to poor estimation of failure probabilities [@Kiureghian2009], and poorer decision making both experimentally [@Joslyn2012; @Savelli2013; @Kay2016; @Fernandes2018] and in practice [@Al-Kassab2014].
 
 Given the importance of uncertainty visualisation, it would be nice if the field had some overarching guidelines, but this turns out to be easier asked for, than done.
 Rather than providing an overarching, cohesive narrative of the field, it is far more common to see a review paper lament the *difficulties* faced when trying to extract any cohesive insights. 
@@ -675,7 +672,7 @@ That is, we are going to use the wealth of established stone to construct the fo
 Reading the uncertainty visualisation literature, we can become turned around as it often feels like we are reading several independent conversations at once.
 Largely because, we are.
 
-Early mentions of uncertainty visualisation start to spring up in the late 1980s and early 1990s across several different fields [@Ibrekk1987;@MacEachren1992], each with their own motivation for the work, with statistics often dappling in three.
+Early mentions of uncertainty visualisation start to spring up in the late 1980s and early 1990s across several different fields [@Ibrekk1987; @MacEachren1992], each with their own motivation for the work, with statistics often dappling in three.
 The work in computer science is motivated by issues in the publics perception of random variables, with the hope that visualisations would give laypeople the ability to extract important information from graphical representations [@Ibrekk1987].
 This field views uncertainty visualisation as a human perception problem, where researchers often compare box plots, density plots, histograms, and other visual representations of a distribution to see which approach allows people to best extract means, probabilities, variances, etc.
 The methods discussed by psychology/economics also have similar foundations in the publics understanding of randomness, as they are concerned with using visualisations to help mitigate psychological bias that comes up when you try to communicate risk, a problem of concern since the early 1980s [@Spiegelhalter2017].
@@ -726,14 +723,11 @@ Most authors simply avoid the problem and describe the characteristics of uncert
 Examples of these distinctions include whether or not the uncertainty is:
 
 - Due to true randomness or a lack of knowledge [@Begg2014; @Spiegelhalter2017; @Gustafson2019; @uncertchap2022; @Hullman2016; @utypo]
-- Scientific, e.g. measurement error, or human, e.g. disagreement among parties [@Benjamin2018; @Gustafson2019]
-- Systematic (bias) or random (variance) [@Sanyal2009]
-- Statistical or bounded [@Gschwandtnei2016; @Olston2002]
-- Accuracy or precision [@Griethe2006; @Benjamin2018; @Hullman2016]
-- From the data collection, modelling, or estimation stage of the analysis [@utypo]
 - Quantifiable or unquantifiable [@Spiegelhalter2017; @utypo; @uncertchap2022]
-- In the attribute, spatial elements, or temporal element of the data [@Kinkeldey2014]
-- 
+- Scientific or human [@Benjamin2018; @Gustafson2019]
+- Systematic or random (variance) [@Sanyal2009]
+- Statistical or bounded [@Gschwandtnei2016; @Olston2002]
+- In accuracy or precision [@Griethe2006; @Benjamin2018; @Hullman2016]
 
 We could go on, there are enough taxonomies and typologies of uncertainty to fill several papers.
 It is the most common approach authors take to provide a definition, but the sheer volume of them makes it hard to see the method as anything other than a distinction without a difference, at least for our purposes.
@@ -952,7 +946,7 @@ This aligns with our earlier definition of uncertainty as descriptive statistics
 This is why, despite the fact that an uncertainty visualisation system for EDA is one of the most discussed topics in the field [@Hadjimichael2024; @geointerviews; @MacEachren2005; @Sarma2024; @Griethe2006], we have avoided the topic until now.
 Discussing EDA versus CDA gives us an additional layer of confusion, as authors frequently conflate the uncertainty in our data with the uncertainty in our conclusions that is inherent to the method.
 Authors often try to account for this inherent uncertainty and believe it should be incorporated into their plots, an argument made explicitly by @Hullman2021 when they said there is no such thing as a "model-free" visualisation.
-The fear of this inherent uncertainty leads authors to try to perform some kind of statistical super-test, where they pre-emptively hedge against every false inference that could possibly be drawn from a graphic [@Guo2024; @Hullman2021; @Savvides2019].
+The fear of this inherent uncertainty leads authors to try to perform some kind of statistical super-test, where they pre-emptively hedge against every false inference that could possibly be drawn from a graphic [@Guo2024; @Savvides2019; @Hullman2021].
 This is typically done by visualising a null distribution alongside the observed data on a single plot, an approach that is statistically identical to the line-up protocol [@Buja2009]. 
 As a line-up protocols were designed to a graphical parallel to standard statistical hypothesis tests, a core tool of inductive statistics, they are deductive reasoning, and therefore not EDA.
 The sum total of a lot of CDA is not EDA, just as frantically swinging a high-pressure jet around a room is not equivalent to using a misting spray.
@@ -1023,7 +1017,7 @@ Rather, our point is that uncertainty is a living breathing component of our vis
 
 ## Evaluating uncertainty visualisations
 If we want to make conclusions about how effective any uncertainty visualisation method is we need to look at the results of evaluation experiments. 
-Unfortunately, despite the abundance of these studies, existing literature reviews have struggled to synthesise them into any common rules [@MacEachren2005; @Kinkeldey2014; @Bostrom2008; @Hullman2016].
+Unfortunately, despite the abundance of these studies, existing literature reviews have struggled to synthesise them into any common rules [@MacEachren2005; @Kinkeldey2014; @Hullman2016].
 This issue is particular to uncertainty visualisation, and pervasive, so it begs the question, what is causing it?
 
 There are as many explanations for the noisy evaluation studies, as there are contradictions in the research itself. 

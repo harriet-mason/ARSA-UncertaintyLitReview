@@ -5,6 +5,9 @@ format: html
 ---
 
 ### Holding for later
+- In the attribute, spatial elements, or temporal element of the data [@Kinkeldey2014]
+- From the data collection, modelling, or estimation stage of the analysis [@utypo]
+
 As @Unwin2020 put it, “one persons statistics might be another person’s raw data”.
 
 The disconnect between quantifiable and unquantifiable uncertainty creates a huge problem for authors trying to visualise it as "not knowing how to calculate uncertainty" is one of the primary reasons authors do not include it in visualisations [@Hullman2020a]. 

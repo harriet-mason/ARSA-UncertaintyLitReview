@@ -167,7 +167,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\date{March 12, 2026}
+\date{March 15, 2026}
 \title{\bf The Noisy Work of Uncertainty Visualisation Research: A
 Review}
 \author{
@@ -222,82 +222,42 @@ visualisations to the relevant hypothesis tests.
 
 The phrase ``uncertainty visualisation'' can sometimes feel like a bit
 of an oxymoron. Uncertainty is often discussed as though it is an
-omnipresent spectre, touching every stage of our analysis despite the
-fact that we don't seem to have a precise definition of what it is. A
-point that is either directly stated by authors who work in the field
-\citep{Spiegelhalter2017, Griethe2006} or implied by describing a myriad
-of things uncertainty could be without a concrete definition
-\citep{Kinkeldey2014, Hullman2016}. Contrary to the murky waters of
-uncertainty, visualisations illuminates and unveils the unknowns in our
-data. This is illustrated with datasets such as Anscombe's quartet
-\citep{anscombe} or the Datasaurus Dozen \citep{datasaurus, datasaurpkg}
-where visual statistics reveal elements of the data that are hidden to
-the typical summary statistics. This leads us to the conclusions that
-uncertainty visualisation is about revealing the unknown and shining a
-light on the more questionable parts of our analysis.
+omnipresent spectre, touching every stage of our analysis. The fact that
+nobody really knows what it is, is either directly stated by authors who
+work in the field \citep{Spiegelhalter2017, Griethe2006} or implied by
+describing a myriad of things uncertainty could be without a concrete
+definition \citep{Kinkeldey2014, Hullman2016}. Contrary to the murky
+waters of uncertainty, visualisations illuminates and unveils the
+unknowns in our data. This is illustrated with datasets such as
+Anscombe's quartet \citep{anscombe} or the Datasaurus Dozen
+\citep{datasaurus, datasaurpkg} where visual statistics reveal elements
+of the data that are hidden to the typical summary statistics. This
+leads us to the conclusions that uncertainty visualisation is about
+revealing the unknown and shining a light on the more questionable parts
+of our analysis.
 
 This sentiment is regularly echoed by the literature where we see
 authors express that visualising uncertainty is necessary for
-transparency and improved decision making \citep{uncertchap2022}. Some
-authors even go so far as to claim that failing to include uncertainty
-is akin to fraud or lying \citep{Hullman2020a, Manski2020}. There is
-good reason to believe these assertions are true and failing to
-incorporate the uncertain information in an analysis will lead to
-research being undermined, uninformative, or untrustworthy. A 6-month
-survey of anti-mask groups on Facebook during the COVID-19 pandemic
-showed that anti-maskers made persuasive arguments by exploiting the
-uncertainty information that was ignored by pro-maskers \citep{Lee2021}.
-Failing to present uncertain information can lead to poor estimation of
-failure probabilities \citep{Kiureghian2009}, as well as poorer decision
-making both experimentally
+transparency and improved decision making \citep{uncertchap2022}.
+Failing to incorporate the uncertain information in an analysis will
+lead to research being undermined as evidenced by a 6-month survey of
+anti-mask groups on Facebook during the COVID-19 pandemic that showed
+anti-maskers made persuasive arguments by exploiting inherrent
+uncertainty that was ignored by pro-maskers \citep{Lee2021}.
+Additionally, failing to present uncertain information can lead to poor
+estimation of failure probabilities \citep{Kiureghian2009}, and poorer
+decision making both experimentally
 \citep{Joslyn2012, Savelli2013, Kay2016, Fernandes2018} and in practice
-\citep{Al-Kassab2014}. We see authors repeatedly suggest uncertainty is
-important to include as it communicates the legitimacy (or illegitimacy)
-of the conclusion drawn from visual inference
-\citep{Correll2014, Kale2018, Griethe2006}. Despite this, a survey
-conducted by \citet{Hullman2020a} found that very few authors actually
-include uncertainty in their visualisations, with only a quarter of
-respondents included uncertainty in 50\% or more of their
-visualisations. Part of the abstinence of uncertainty visualisation
-comes from the fact that authors think that the plots will be
-overwhelming or they are uncertain how to calculate the uncertainty
-\citep{Hullman2020a}.
+\citep{Al-Kassab2014}.
 
-When reading the uncertainty visualisation literature itself, we can see
-why people will think the plots are overwhelming, as the field of
-uncertainty visualisation itself is quite overwhelming. The literature
-often reads like several independent conversations happening at once,
-largely because for many years, that is what the literature was. Early
-mentions of uncertainty visualisation start to spring up in the late
-1980s \citep{Ibrekk1987} as a discussion in the most effective ways to
-communicate random variables and their associated density. This work was
-motivated by conversations around risk communication, a subfield of
-psychology where heuristics, such as risk or ambiguity aversion, make it
-difficult to communicate probabilities to the public. This risk
-communication sub field end up with their own version of ``uncertainty
-visualisation'' that is not as concerned with conveying the correct
-shape and sense of a distribution, but rather in designing
-visualisations that help the public make accurate informed decisions
-about things like the outcomes of medical procedures
-\citep{Spiegelhalter2017}. In parallel, around the early 1990s, authors
-in geoscience declare uncertainty to be an essential aspect to any
-information display \citep{MacEachren1992, Carr1992} and start working
-towards implementing it in their visualisations. Since geoscience often
-involves high dimensional (usually at least 4 axis) data with inherent
-measurement error, getting all the information into a single display was
-proving difficult, even to this day \citep{geointerviews}. Thrown into
-the melting pot and stewed for years, these separate motivations behind
-uncertainty visualisation all bleed together and are treated
-interchangeable as early work in''uncertainty visualisation''.
-
-This ``melting pot of ideas'' becomes a bit of a problem when we try and
-write review papers that turn the literature into a set of generalised
-theoretical principles. Rather than providing an overarching, cohesive
-narrative of the field, it is far more common to see a review paper
-lament the \emph{difficulties} faced when trying to extract any cohesive
-insights. \citet{Kinkeldey2014} found most experimental methods to be ad
-hoc, with no commonly agreed upon methodology, formalisations, or
-greater goal of describing general principals. \citet{Hullman2016}
+Given the importance of uncertainty visualisation, it would be nice if
+the field had some overarching guidelines, but this turns out to be
+easier asked for, than done. Rather than providing an overarching,
+cohesive narrative of the field, it is far more common to see a review
+paper lament the \emph{difficulties} faced when trying to extract any
+cohesive insights. \citet{Kinkeldey2014} found most experimental methods
+to be ad hoc, with no commonly agreed upon methodology, formalisations,
+or greater goal of describing general principals. \citet{Hullman2016}
 noticed there is a serious noise issue in the field, with noise from
 participants misunderstanding visualisations, misinterpreting questions,
 and incorrectly applying heuristics all overwhelming any information we
@@ -311,10 +271,10 @@ results cognative effects that arise in uncertainty visualisation
 experiments, however these effects were each discussed in isolation as a
 list of considerations an author might make rather than an overarching
 theory of rules for effective uncertainty visualisation. While these
-reviews are thorough in scope, none discuss how the existing literature
-contribute to the broader goal of uncertainty visualisation. The problem
-faced by the literature is easily summarised with a famous quote by
-Henri Poincaré.
+reviews are thorough in scope, none discuss exactly what we are trying
+to do hwen visualising uncertainty, or how the existing literature
+contribute to the broader goal of the field. The problem faced by the
+literature is easily summarised with a famous quote by Henri Poincaré.
 
 \begin{quote}
 ``Science is built up of facts, as a house is built of stones; but an
@@ -329,31 +289,86 @@ visualisation problem. That is, we are going to use the wealth of
 established stone to construct the foundations on which we can build a
 house.
 
-\section{Ignoring uncertainty}\label{ignoring-uncertainty}
+\section{The purpose of uncertainty
+visualisation}\label{the-purpose-of-uncertainty-visualisation}
 
-The comment sentiment expressed by the uncertainty visualisation
-literature is that we need to visualise uncertainty for the sake of
-transparency, but what is transparency? Authors become more explicit in
-what they mean when they directly connect their ideas to the language of
-statistics by describing it as a degree of confidence
+Reading the uncertainty visualisation literature, we can become turned
+around as it often feels like we are reading several independent
+conversations at once. Largely because, we are.
+
+Early mentions of uncertainty visualisation start to spring up in the
+late 1980s and early 1990s across several different fields
+\citep{Ibrekk1987, MacEachren1992}, each with their own motivation for
+the work, with statistics often dappling in three. The work in computer
+science is motivated by issues in the publics perception of random
+variables, with the hope that visualisations would give laypeople the
+ability to extract important information from graphical representations
+\citep{Ibrekk1987}. This field views uncertainty visualisation as a
+human perception problem, where researchers often compare box plots,
+density plots, histograms, and other visual representations of a
+distribution to see which approach allows people to best extract means,
+probabilities, variances, etc. The methods discussed by
+psychology/economics also have similar foundations in the publics
+understanding of randomness, as they are concerned with using
+visualisations to help mitigate psychological bias that comes up when
+you try to communicate risk, a problem of concern since the early 1980s
+\citep{Spiegelhalter2017}. These approaches often utilise pictographs
+and stress the importance of correct framing of the probabilities.
+Finally, around the early 1990s, discussions of uncertainty pop up in
+the cartography literature motivated by the inherent uncertainty in the
+measurements or estimates they are trying to visualise within the
+constrained visual environment of maps \citep{MacEachren1992, Carr1992}.
+This area views uncertainty visualisation as a problem in high
+dimensional visualisation, where uncertainty is just another variable
+that needs to be integrated into the visualisation
+\citep{Griethe2006, geointerviews}. As the field trudges on these
+distinct motivations bleed together and are now treated interchangeably
+as ``uncertainty visualisation''. We see computer science and psychology
+combine to form the research on ``decision making'' where researchers
+see which distribution representation elicits the best decisions and
+best mitigate psychological bias
+\citep{Joslyn2012, Savelli2013, Kay2016, Fernandes2018}. We see
+geoscience and computer science combine to evaluate map representations
+based on how well viewers can extract statistics about the distribution
+\citep{Maceachren2012, Correll2018, Ndlovu2023}.
+
+This all begs the question, if theses fields do not agree on the purpose
+of uncertaitny visualisation, why have they intermixed so much that the
+literature treats them as interchangeable? There seems to be a single
+common thread that connects these approaches, that comes up time and
+time again across all subfields, and that is the belief that uncertainty
+visualisation is in pursuit of \emph{transparency}. We see it comes up
+when authors claim that failing to include uncertainty is akin to fraud
+or lying \citep{Hullman2020a, Manski2020}. We see it when authors assert
+that uncertainty communicates the legitimacy (or illegitimacy) of the
+conclusion drawn from visual inference
+\citep{Correll2014, Kale2018, Griethe2006}. We see it when authors say
+uncertainty visualisations should communicate a degree of confidence
 \citep{Boukhelifa2012} or validity \citep{Hullman2020a, Griethe2006} in
-our conclusions, or as a proportional level of trust in our data that is
-more detailed than the binary results of a hypothesis test
-\citep{Correll2014, Correll2018}. Therefore, we can interpret this to
-mean that uncertainty visualisation should be acting as a sort of
-``visual hypothesis test''.
+our conclusions. When authors suggest uncertainty visualisation should
+``guide, qualify, or soften our judgments of uncertain data''
+\citep{Leland2005}. When authors assert uncertainty visualisation should
+communivate a proportional level of trust in our data that is more
+detailed than the binary results of a hypothesis test
+\citep{Correll2014, Correll2018}. Combining these statements together,
+there is one glaring through line, and it is the assertion that
+uncertainty visualisation should act as some kind of visual hypothesis
+test where conclusions are visible when they are backed up by data, and
+invisible when they are not.
 
-A successful uncertainty visualisation should act as a ``statistical
-hedge'' for any inference we make using the graphic. Since the purpose
-of a visualisation is to give a quick gist of the information
-\citep{Spiegelhalter2017}, this hedging needs to be communicated
-visually without the need for complicated calculations. Therefore, an
-effective uncertainty visualisation should not just ``show''
-uncertainty, untrustworthy conclusions should \emph{not be visible}. If
-we refer to the conclusion we draw from a graphic to be its signal and
-the variance that makes this signal harder to identify as the ``noise'',
-we can summarise the above information into three key requirements. A
-good uncertainty visualisation needs to:
+Therefore, the one fundamental motivator of the field is the idea that
+uncertainty visualisation should act as a ``statistical hedge'' for any
+inference we make using the graphic, and the other goals. Since the
+purpose of a visualisation is to give a quick gist of the information
+\citep{Spiegelhalter2017}, this hedging should be communicated
+immediately through the graphic without the need for complicated mental
+calculations. Therefore, an effective uncertainty visualisation should
+not just ``show'' uncertainty, untrustworthy conclusions should
+\emph{not be visible}. If we refer to the conclusion we draw from a
+graphic to be its signal and the uncertainty that makes this signal
+harder to identify as the ``noise'', we can summarise the above
+information into three key requirements. A good uncertainty
+visualisation needs to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi})}
@@ -373,21 +388,163 @@ issue showing justified signals, but struggle with the display of
 unjustified signals. Therefore, we call this approach to uncertainty
 visualisation as ``signal-suppression'' since it primarily
 differentiates itself from from the normal ``noiseless'' visualisation
-approach through criteria (2). That is, the main difference between an
-uncertainty visualisation and a normal visualisation is that an
-uncertainty visualisation should prevent us from drawing unjustified
-conclusions.
+approach through criteria (2). This is the main criteria we will use to
+assess uncertainty visualisations as we disentangle which approaches
+integrate uncertainty as signal, and which integrate uncertainty as
+noise.
 
-To look at how we can achieve this goal, it might be helpful to start
-with some visualisations that are typically considered to not include
-uncertainty at all so we can understand how they are falling short.
-Figure~\ref{fig-ignore} shows six different plots, a high and low
-uncertainty case for three different plots which occur commonly in
-discussions around uncertainty visualisation. Plots (a) and (b) show the
-line plot from a simple linear regression on the \texttt{mtcars} data,
-the regression in (a) has been done on the full dataset, and therefore
-has low uncertainty, while (b) was done on a sample of three points and
-has very high uncertainty. Plots (c) and (d) show a choropleth map, with
+\section{Current Approaches}\label{current-approaches}
+
+Even if transparency is the key pursuit of the field, most
+visualisations that are developed are developed with reference to their
+specific problem. That is, they are trying to come up with flexible
+distribution representations or new mappings that uncertainty could be
+mapped to in an existing graphic. These goals are not necessarily in
+conflict with the goal of transparency, so we will look at the existing
+approaches developed in the field and assess which successfully act as a
+statistical hedge, and discuss why, or why not, certain approaches do,
+or do not, work.
+
+\subsection{Ignoring uncertainty}\label{ignoring-uncertainty}
+
+The most common way uncertainty is integrated into a visualisation is
+actually to not do it at all. A survey conducted by \citet{Hullman2020a}
+found that very few authors actually include uncertainty in their
+visualisations, with only a quarter of respondents included uncertainty
+in 50\% or more of their visualisations. Part of the abstinence of
+uncertainty visualisation comes from the fact that authors think that
+the plots will be overwhelming or they are uncertain how to calculate
+the uncertainty \citep{Hullman2020a}. This is not entirely unreasonable,
+given that even visualisation authors themselves seem to be in conflict
+about what exactly uncertainty is, and it is hard to assert people are
+ignoring it if we don't even know what it is they are ignoring.
+
+\subsubsection{What is uncertainty?}\label{what-is-uncertainty}
+
+Describing what uncertainty actually is, is surprisingly hard. Most
+authors simply avoid the problem and describe the characteristics of
+uncertainty, of which there are plenty. Examples of these distinctions
+include whether or not the uncertainty is:
+
+\begin{itemize}
+\tightlist
+\item
+  Due to true randomness or a lack of knowledge
+  \citep{Begg2014, Spiegelhalter2017, Gustafson2019, uncertchap2022, Hullman2016, utypo}
+\item
+  Quantifiable or unquantifiable
+  \citep{Spiegelhalter2017, utypo, uncertchap2022}
+\item
+  Scientific or human \citep{Benjamin2018, Gustafson2019}
+\item
+  Systematic or random (variance) \citep{Sanyal2009}
+\item
+  Statistical or bounded \citep{Gschwandtnei2016, Olston2002}
+\item
+  In accuracy or precision
+  \citep{Griethe2006, Benjamin2018, Hullman2016}
+\end{itemize}
+
+We could go on, there are enough taxonomies and typologies of
+uncertainty to fill several papers. It is the most common approach
+authors take to provide a definition, but the sheer volume of them makes
+it hard to see the method as anything other than a distinction without a
+difference, at least for our purposes. The distinctions are often
+accurate, but have little, if any, impact on how we should visualise,
+quantify, or discuss the uncertainty, bloating the literature and
+offering little in terms of genuine insights.
+
+Rather than trying to define uncertainty by looking at the myriad ways
+in which it \emph{does} appear in an analysis, we may find it easier to
+look at where it \emph{does not}. Descriptive statistics describe our
+sample as it is and summarises large data down into an easy to swallow
+format. Descriptive statistics are not seen as the primary goal of
+modern statistics, however, this was not always the case. In 19th
+century England, \emph{positivism} was the popular philosophical
+approach to science (positivists included famous statisticians such as
+Francis Galton and Karl Pearson). Practitioners of the approach believed
+statistics ended with descriptive statistics as science must be based on
+actual experience and observations \citep{Otsuka2023}. In order to make
+statements about population statistics, future values, or new
+observations we need to perform inference, which requires the assumption
+of the ``uniformity of nature'', that is, we need to assume that
+unobserved phenomena should be similar to observed phenomena
+\citep{Otsuka2023}. Positivists believed referencing the unobservable
+was bad science. In other words, these scientists embraced descriptive
+statistics due to the inherent certainty that came with them. Since
+uncertainty is non-existent in descriptive statistics, it is clear that
+uncertainty is a by-product of inference. Looking at the previous
+classifications, we can see that they either offer information on what
+type of distribution to use (e.g.~precision and bounded uncertainty are
+uniform distributions) or they offer suggestions in where to look to
+quantify the uncertainty (e.g.~stage of the analysis, source of
+uncertainty, lack of knowledge, etc). These taxonomies likely describe
+what uncertainty is like or similar to because uncertainty is
+fundamentally statistical inference the cost of statistical inference.
+
+The relationship between inference and uncertainty frequently appears in
+the literature and is one of the most consistent comments made, but it
+is often reffered to as a dependence on the ``goals'' of our analysis
+rather than inferential statistics. This has been known in some form or
+another since the earliest work on the subject, with \citet{Ibrekk1987}
+finding that ``The performance of a display depends upon the information
+that a subject is trying to extract.'' \citet{Meng2014} commented what
+is kept as data and what is tossed away is determined by the motivation
+of an analysis and what was previously noise can be shown to become
+signal depending on the question we seek to answer.\\
+\citet{Otsuka2023} suggested that the process of observing data to
+perform statistics is largely dependent on our goals, because the
+process of boiling real world entities down into probabilistic objects
+(or ``probabilistic kind'' as he puts it) depends on the relationship we
+seek to identify with our data. \citet{Wallsten1997} argue that the best
+method for evaluating or combining subjective probabilities depends on
+the uncertainty the decision maker wants to represent and why it
+matters. \citet{Fischhoff2014} looks at uncertainty visualisation for
+decision making decides that we should have different ways of
+communicating uncertainty based off what the user is supposed to do with
+it.\\
+\citet{Spiegelhalter2017} noted we ``cannot assess the quality of risk
+communication unless the objectives are clear''. \citet{geointerviews}
+asserted that uncertainty is context-dependent, and whether or not it is
+a source of doubt depends on the context. The communicating of this
+repeated point is clear, the role of signal and noise is not set in
+stone, it is flexible and can easily change. The only constant is that
+signal is our inferential statistic, and noise is the distribution of
+outcomes around that signal.
+
+As a uncertainty is by product of statistical inference, it would make
+sense to simply quantify it as a distribution. Suggesting distributions
+as a representation of uncertainty is not new, \citet{Kay2023}
+originally suggested thinking about uncertainty visualisations with
+distribution inputs, to replace the commonly used mean and standard
+deviation, as the latter requires us to assume a Gaussian distribution.
+We would even take this point a step further and assert that a
+distribution is sufficient to characterise \emph{any} uncertainty, no
+matter how intangible it is. This is in contrast to the assertions made
+by some authors, who believe abstract notions of uncertainty, such as
+credibility \citep{Thomson2005}, forecaster confidence
+\citep{Padilla2021}, or uncertainty about uncertainty
+\citep{Hadjimichael2024}, are too complex to be quantified. This is
+simply untrue, as abstract concepts such as human belief or credibility
+are regularly quantified by Bayesians and hierarchical models are often
+used for uncertainty about uncertainty. As a matter of fact, since
+uncertainty is always a by-product of statistical inference, it should
+always be possible to quantify it using a distribution.
+
+\subsubsection{Example: visualising
+estimates}\label{example-visualising-estimates}
+
+If visualising uncertainty is fundamentally a scenario where we are
+visualising a set of random variables what does ``ignoring'' uncertainty
+look like? Figure~\ref{fig-ignore} shows six different plots, a high and
+low uncertainty case for three different plots, all of which simply
+visualise the central mean of the distribution, which is what the
+uncertainty visualisation literature typically means when they say a
+method ``ignores'' uncertainty. Plots (a) and (b) show the line plot
+from a simple linear regression on the \texttt{mtcars} data, the
+regression in (a) has been done on the full dataset, and therefore has
+low uncertainty, while (b) was done on a sample of three points and has
+very high uncertainty. Plots (c) and (d) show a choropleth map, with
 county in Iowa being coloured by a simulated measured temperature, with
 plot (c) depicting a case where the measurement error is low, while plot
 (d) depictes a case where the measurement error is high. Finally, plots
@@ -400,8 +557,8 @@ in the plots in the top row is significantly different to the plots in
 the bottom row, so much so, that the trend should actually disappear.
 Can you see a difference between the plots in the top row versus the
 bottom row? Is the strength of the trend communicated through the
-visualisation? The answer to both of these questions is no, the high and
-low variance cases are identical.
+visualisation? The answer to both of these questions is no as the high
+and low variance cases are identical.
 
 \begin{figure}
 
@@ -427,50 +584,55 @@ high and low scenario look identical for each plot.}
 \end{figure}%
 
 These plots ignore uncertainty and as such, do not perform signal
-suppression. We will use these plots as a touchstone for our discussion
-on uncertainty visualisation, and return to them when we discuss the
-approaches suggested in the literature. At each stage we will assess the
-approaches based on how well they hide spurious relationships, and
-reveal the hidden variance structures in the data.
-
-\section{Current Approaches}\label{current-approaches}
-
-\begin{itemize}
-\item
-  Why approaches do/dont work
-\item
-  Review of current approaches to representing uncertainty in plots, as
-  gathered from discipline journals in information visualisation,
-  statistics, environmental science and psychology.
-\item
-  Most studies involve intrinsic approaches such as colour,
-  transparency, and those that used extrinsic techniques typically used
-  glyphs, error bars, grid based techniques, or contouring
-  \citet{Kinkeldey2014}
-\item
-  \citet{uncertchap2022} two broad categories of uncertainty
-  visualisation techniques, 1) graphical annotation (mean, error bar,
-  hops) 2) map probability of cI to a visual encoding channel 3) hybrid
-  approaches (e.g.~contour boxplot, probability density and interval
-  plot)
-\item
-  Elements from a single distribution should be displayed using a single
-  plot, since displaying the features of one distribution across
-  multiple plots makes the information hard to combine and results in
-  some details (such as the estimate error) being completely ignored
-  {[}\citet{moritz2017trust}; Correll2018{]}.
-\end{itemize}
+suppression. They don't even show a visual difference in the plot as the
+uncertainty changes. We will use these plots as a touchstone for our
+discussion on uncertainty visualisation, and return to them when we
+discuss the approaches suggested in the literature, assessing the
+approach on how well it hides spurious relationships, and reveals the
+hidden variance structures in the data.
 
 \subsection{Uncertainty as a
 statistic}\label{uncertainty-as-a-statistic}
 
-\textbf{?@fig-exceed} depicts an exceedance probability map that was
-designed as an alternative to the choropleth map to improve decision
-making under uncertainty \citep{Kuhnert2018, Lucchesi2021}. A keen
-viewer may notice that the exceedance probability map is actually just a
-choropleth map, only the statistic being displayed has changed. We are
-not sure it is productive to categorise this visualisation as an
-uncertainty visualisation.
+The most common approach to uncertainty visualisation (after just
+ignoring it all together) is to swap out our original statistic for one
+that shows uncertainty. The argument that an ``uncertainty
+visualisation'' should include visualisations of probability or variance
+is rooted in the decision making approach to the field, as research in
+this form is typically motivated by the psychological heuristics
+involved in interpreting uncertainty \citep{Hullman2019}. These days it
+pops up in all sub fields of visualisation. We see it as an exceedance
+probability map in geoscience \citep{Kuhnert2018, Lucchesi2021}, as an
+icon array in risk communication \citep{Spiegelhalter2017}, or as a
+summary plot in statistics \citep{Potter2010}. Some authors take this
+approach because they explicitly believe uncertainty is a variable of
+importance in of itself \citep{Blenkinsop2000}, others strattle the
+line, asserting uncertainty is acting as signal and noise and should
+fulfil both roles \citep{geointerviews}. This seems a little too easy,
+can we just swap out the statistic for an ``uncertainty statistic'' and
+get an ``uncertainty visualisation''? Is it that easy?
+
+\subsubsection{Example: visualising
+error}\label{example-visualising-error}
+
+Figure~\ref{fig-statistic} depicts the six visualisations from
+Figure~\ref{fig-ignore}, except the original central value estimate has
+been replaced with an uncertainty statistic. Visually these plots are
+identical with the visualisations remaining as a line plot, a choropleth
+map, and a scatter plot, with the change being in the meaning behind the
+plot rather than the visual appearance. Plots (a) and (b) are the most
+absurd examples of this visualisation approach, as replacing the
+estimated slope and intercept of a line with the standard error of said
+estimate produces a plot that is inherently meaningless and is obviously
+completely unrelated to the data. This will not always be the case, as
+plots (c) and (d) are exceedance probability maps, real plots used in
+the literature to depict the probability of \(P(X>27)\) for the
+temperature of each county. Plots (e) and (f) simply show a scatter plot
+that depicts the variance of the groups instead of the estimate. The
+trend is no longer visible in the regression or the group comparison,
+but that is because the meaning of the plot has fundamentally changed,
+while the trend in the exceed probability map is still visible, although
+the meaning of this plot is also different.
 
 \begin{figure}
 
@@ -480,133 +642,129 @@ uncertainty visualisation.
 
 }
 
-\caption{\label{fig-statistic}blah}
+\caption{\label{fig-statistic}Six different plots, each depicting a high
+and low uncertainty case for three plots (regression, choropleth, and
+group comparison) commonly seen in discussions around uncertainty
+visualisation. Plots (a) and (b) have the standard error of the slope
+and intercept mapped to the slope and intercept of the line, plots (c)
+and (d) visualise the estimate value of P(X\textgreater27), and plots
+(e) and (f) visualise the mean of each group. We can see that there are
+some differences between the top and bottom row, but our visualisations
+are functionally meaningless in their new context. The standard error of
+a slope and intercept have no meaning when mapped to a line, the spatial
+pattern in the high and low spatial map is still visible. The group
+comparison is interpretable, but we are looking at a fundamnetally
+different visualisation.}
 
 \end{figure}%
 
-Uncertainty visualisation is not only motivated by signal-suppression,
-and we would be remiss if we did not mention these alternative
-approaches. Some authors explicitly state it as a variable of importance
-in of itself \citep{Blenkinsop2000}. While uncertainty can provide
-useful information, it is important to recognise that the
-``uncertainty'' in these cases is not acting as uncertainty at all. It
-is acting as signal. This is obvious for the cases where we are
-explicitly interested in the variance or error, as we are literally
-trying to draw conclusions about an statistic that is used to describe
-uncertainty. The uncertainty visualisations that would perform the best
-in these cases would simply display the uncertainty statistic we are
-interested in, such as the variance, or probability of an event, using
-existing visualisation principles. This is precisely what we observe in
-the literature.
+\subsubsection{What is an uncertainty
+visualisation?}\label{what-is-an-uncertainty-visualisation}
 
-There seem to be two different definitions of uncertainty visualisation
-floating around in the literature. The first considers \emph{any}
-visualisation of error, variance, or probability to be an uncertainty
-visualisation. The second believes an uncertainty visualisation is the
-output of a function that takes a normal visualisation as an input, and
-transforms it to include uncertainty information. The former group
-believe the purpose of uncertainty visualisation to provide signal about
-a distribution, while the later believe it should act as noise to
-obfuscate a signal. The lack of explicit distinction between these two
-motivations leaves the literature muddled and reviewers struggle to
-understand if uncertainty should be treated as a variable, as metadata,
-or as something else entirely \citep{Kinkeldey2014}. This disagreement
-creates constant contradictions in what the literature considers to be
-an uncertainty visualisation. For example \citet{Leland2005} mentions
-that popular graphics, such as pie charts and bar charts omit
-uncertainty, and \citet{Wickham2011} suggests their product plot
-framework, which includes histograms and bar charts, should be extended
-to include uncertainty. However, pie charts, bar charts and histograms
-have all been used in a significant number of uncertainty visualisation
-experiments \citep{Ibrekk1987, Olston2002, Zhao2023, Hofmann2012}. If
-you view an uncertainty visualisation as a function applied to an
-existing graphic, then you would not see a pie chart or bar chart as
-uncertainty visualisations. These charts are they are yet to have the
-uncertainty visualisation function applied to them. If you view an
-uncertainty visualisation as any graphic that depicts a statistic then
-there are no limitations on which graphics can or cannot be uncertainty
-visualisations.
-
-When we use the term uncertainty visualisation to refer to graphics that
-simply communicate a variance or probability, we are classifying
-visualisations by the data they display, not their visual features.
-Graphics, just like statistics, are not defined by their input data. A
-scatter plot that compares mean and a scatter plot that compares
+When we refer to these graphics as ``uncertainty visualisations'' we are
+classifying visualisations by the data they display, not their visual
+features, even though graphics have never been defined by their input
+data. A scatter plot that compares mean and a scatter plot that compares
 variances are both scatter plots. Given that there is no special class
 of visualisation for \emph{other} statistics (such the median or
 maximum) there is no reason to assume visualisations that simply depict
 a variance, error, or probability to be special.
 
-Of course, there is nothing wrong with explicitly visualising variance,
-error, bias, or any other statistic used to depict uncertainty as a
-signal. Just like any other statistic, these metrics provide important
-and useful information for analysis and decisions. However, there is no
-interesting visualisation challenge associated with these graphics, and
-they do not require any special visualisation techniques. The
+The question about what is, or is not, an uncertainty visualisation
+seems to be one of the most pervasive divides in the literature. For
+example \citet{Leland2005} mentions that popular graphics, such as pie
+charts and bar charts omit uncertainty, and \citet{Wickham2011} suggests
+their product plot framework, which includes histograms and bar charts,
+should be extended to include uncertainty. However, pie charts, bar
+charts and histograms have all been used as a significant number of
+experiments as examples of an ``uncertainty visualisation''
+\citep{Ibrekk1987, Olston2002, Zhao2023, Hofmann2012}. What is going on
+here? Well, this problem seems to go back to the motivation of the field
+we discussed earlier. If you believe uncertainty visualisation is about
+communicating risks or random variables, uncertainty visualisations are
+just visualisations of ``uncertainty statistics'' or distributions. On
+the other hand you believe uncertainty visualisation is a dimensionality
+problem, then uncertainty visualisation is a function applied to an
+existing graphic that somehow adds the uncertainty in. The former has no
+limitation on the visual appearance of an ``uncertainty visualisation'',
+allowing pie charts, bar charts or histograms, so long as the graphic is
+visualising ``uncertainty'', while the latter believes uncertainty
+visualisations only exist in relation to some ``normal'' visualisation.
+
+The fundamental problem with the statistic approach is that the
+uncertainty in the plot isn't acting as noise, it is acting as signal.
+This is because the ``uncertainty statistic'' has become the statistic
+we are drawing inference on, which mean our new statistic \emph{also has
+uncertainty attached to it}, and therefore also have it's own
+uncertainty visualisation. Fundamentally, we have simply changed our
+inferential statistic, and in doing so, swapped the role of signal and
+noise. Of course, there is nothing wrong with explicitly visualising
+variance, error, bias, or any other statistic used to depict uncertainty
+as a signal. Just like any other statistic, these metrics provide
+important and useful information for analysis and decisions. However,
+this approach means that everything is an uncertainty visualisation, and
+if everything is an uncertainty visualisation, nothing is. Additionally,
+there is no interesting visual challenge associated with these graphics
+as they do not require any special visualisation techniques. The
 uncertainty in these graphics are acting as a signal variable, and they
 should be visualised using existing principles of graphic design
 
-\begin{itemize}
-\item
-  Common uses of the term ``uncertainty visualisation''
-\item
-  Provide some background to the use of the term ``uncertainty
-  visualisation''
-\item
-  Tie it to statistical definitions of uncertainty and concepts of
-  inference
-\item
-  \citet{Leland2005} also suggested signal supression as the goal of
-  uncertainty visualisation ``This chapter is about graphics that guide,
-  qualify, or soften our judgments of uncertain data.''
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Also applies some of the logic occasionally in the direction and
-    stuff, ``Some of the letters (B, P, X) almost disappear because they
-    are frequently confused with other letters.''
-  \end{itemize}
-\item
-  @{[}Kay2019{]} ``It is important to have clear, domain- and
-  task-relevant guidance on how to determine how much value to
-  suppress---or if to suppress value at all---due to uncertainty''.
-\item
-  @{[}geointerviews{]} On confusion of uncertainty as signal or noise:
-  ``Also cases where our experts expressed uncertainty a a source of
-  inspiration for future research.''
-\item
-  \citet{Griethe2006} clearly sees uncertainty as additional information
-  or data, and therefore sees the uncertainty visualisation problem as a
-  specific case of the high dimensional visualisation issues.
-\item
-  Some authors implicitly suggest that visualisations of variance or
-  probability are differentiated due to the psychological heuristics
-  involved in interpreting uncertainty \citep{Hullman2019}. There is no
-  evidence that this psychological effect translates to issues with the
-  visual representation of uncertainty. Again, given that we do not make
-  these same visual considerations for other variables that elicit
-  distaste or irrational behaviour, there is no reason to assume this is
-  what makes uncertainty visualisation so special.
-\end{itemize}
-
 \subsection{Uncertainty as a variable}\label{uncertainty-as-a-variable}
 
-\subsubsection{Independent variable}\label{independent-variable}
+If we need to include uncertainty in a plot, the enxt This approach
+treats uncertainty as a variable and is quite common, with many authors,
+across computer science \citep{Kinkeldey2014}, cartogophy
+\citep{MacEachren2005}, and statistical graphics \citep{Leland2005}
+implicitly treating this ``additional aesthetic'' approach as the
+\emph{only} method. We often see authors take this approach to
+uncertainty visualisation, not because we recognise the role in
+inference in our analysis, but rather because it is believed that
+displaying the features of one distribution across multiple plots makes
+the information hard to combine and results in some details (such as the
+estimate error) being completely ignored {[}\citet{moritz2017trust};
+Correll2018{]}.
 
-Figure~\ref{fig-variable} depicts a variation of the choropleth map,
-where we have a two dimensional colour palette. In this graphic,
-temperature is still mapped to hue, but the variance is included by
-utilising colour saturation. While these two maps \emph{do} look
-visually different (which was not the case in the choropleth map) the
-spatial trend is still clearly visible in both graphics. This means the
-uncertainty \emph{is technically} being communicated, however the main
-message of the graphic is still the spatial trend (that may not exist).
-The graphic did not suppress the invalid signal, so it is not performing
-signal-suppression as we would like. At this point, it might be
-reasonable to ask, why? Why is including the uncertainty as a variable
-insufficient to achieve signal-suppression, and what changes should we
-make to ensure signal-suppression occurs?
+\subsubsection{Example: mapping independent
+varianbles}\label{example-mapping-independent-varianbles}
+
+There are several approaches to mapping uncertainty to a spare axis in
+the plot. \citet{Kinkeldey2014} identified a split between intrinsic
+plots, where we map uncertainty to the colour or size of the geometric
+object of our estimate, and extrinsic plots where uncertainty is mapped
+to a separate geometric object glyphs or error bars. A similar
+distinction was made by \citet{uncertchap2022} who classified
+uncertainty visualisations as graphical annotations (extrinsic), and
+probability mapped to a visual encoding channel (intrinsic), or a hybrid
+of the two. While these discussions to draw attention to how
+``integrated'' the uncertainty is in the visualisation, it is unclear if
+this ``intrinsic'' plot
+
+Figure~\ref{fig-variable} depicts the six visualisations
+Figure~\ref{fig-ignore} except we have also mapped uncertainty to a
+spare aesthetic in the plot. The integrable approach is shown in plots
+(a) and (b) we have mapped the standard error of the slope to the width
+of the line, and the standard error of the intercept to the
+transparency. A bivariate map is shown in plots (c) and (d) and it
+offers a slight divergence from the intrinsic/extrinsic approach as it
+visualises uncertainty within one variable, mapping both the estimate
+and it's variance to colour. The extrinsic approach is then shown in
+plots (e) and (f) map the estimate to a point, and map the variance to a
+separate geometric object, the length of a bar, to show a 95\%
+confidence interval. We can see in all three maps, the trend is both
+visible in the top row where the variance is low, but also in the bottom
+row where the variance is high. While the high and low variance case do
+not look identical as they did in Figure~\ref{fig-ignore}, they
+communicate a message that says ``here is the trend \emph{and} here is
+the uncertainty'' as two separate pieces of information, we are now
+visualising two independent signals, rather than a signal and it's
+noise. This method clearly is not visualising uncertainty as a ``single
+integrated uncertain value'' as \citet{Kinkeldey2014} would put it. The
+reality is, based on our discussion on inferential statistics,
+uncertainty \emph{isn't} a separate variable, it is an component of the
+random variable that is indistinguishable from the random variable
+itself. It is worthwhile to interrogate why this occurs to see if we can
+move towards a version of this plot where we are able to communicate
+signal and noise as a single signal.
 
 \begin{figure}
 
@@ -616,212 +774,82 @@ make to ensure signal-suppression occurs?
 
 }
 
-\caption{\label{fig-variable}blah}
+\caption{\label{fig-variable}Six different plots, each depicting a high
+and low uncertainty case for three plots (regression, choropleth, and
+group comparison). Plots (a) and (b) have the standard error of the
+slope mapped to the line width, while the standard error of the
+intercept is mapped to the transparency. Plots (c) and (d) use a
+bivariate colour palette where the mean of the distribution is mapped to
+the colour hue, while the variance is mapped to the colour saturation.
+Plots (e) and (f) visualise the mean of each group as a point, and the
+uncertainty as an interval. We can see that there are some differences
+between the top and bottom row, but the `signals' in the plots are still
+visible in the bottom row.}
 
 \end{figure}%
 
-Describing what uncertainty actually is, is surprisingly hard. Most
-authors simply avoid the problem and describe the characteristics of
-uncertainty, of which there are plenty.
+\subsubsection{How to visualise a ``single integrated uncertain
+value''}\label{how-to-visualise-a-single-integrated-uncertain-value}
 
-Specify difference between uncertainty and variance \citet{Begg2014}
-highlight that uncertainty is related to not knowing a specific value,
-while variability refers to the range of values a quantity can take at
-different locations, times or instances. \citet{Spiegelhalter2017} made
-sure to comment on the difference between precise random events (such as
-the probability associated with a coin flip), and uncertainty (such as
-the estimated probability associated with a coin that might be biased).
+Typically, when making visualisations, we want the visual channels to be
+separable, that is, we don't want the data represented through one
+visual channel to interfere with the others \citep{Smart2019}. While
+this approach works for standard data visualisation, in uncertainty
+visualisation it allows the estimate and its variance to be read
+separately, preventing us from seeing the single integrated channel.
+This problem has actually popped up before in the literature as it has
+been repeatedly found that visualising uncertainty and signal separately
+causes the uncertainty to simply be ignored \citep{uncertchap2022}.
+Additionally, there is research in visual semiotics on mapping
+uncertainty to intuitive aesthetic mappings, many of which interfere
+with the reading of the estimate such as mapping more uncertain values
+to lighter colours \citep{Maceachren2012}. To facilitate a visualisation
+of a single integrated value, maybe we should be leveraging
+integrability and visual semiotics to create a an ideal situation where
+the estimate and uncertainty are separately manipulable but read as a
+single channel by the human brain.
 
-Often, uncertainty is split using an endless stream of ever changing
-boundaries, such as: - Whether the uncertainty is due to true randomness
-or a lack of knowledge \citep{Spiegelhalter2017, Hullman2016, utypo} -
-If the uncertainty is in the attribute, spatial elements, or temporal
-element of the data \citep{Kinkeldey2014} - Whether the uncertainty is
-scientific (e.g.~error) or human (e.g.~disagreement among parties)
-\citep{Benjamin2018} - if the uncertainty is random or systematic
-\citep{Sanyal2009} - Statistical or bounded
-\citep{Gschwandtnei2016, Olston2002} - Recorded as accuracy or precision
-\citep{Griethe2006, Benjamin2018} - Which stage of the data analysis
-pipeline the uncertainty comes from \citep{utypo} - How quantifiable the
-uncertainty is \citep{Spiegelhalter2017, utypo}
+The problem is that even if we implement the most extreme versions of
+integrabiltiy our methods fall short. The bivariate map in
+Figure~\ref{fig-variable} already leveraged the fact that colour hue and
+brightness is integrable \citep{Vanderplas2020} and decreasing
+saturation should make the colours harder to distinguish, but the signal
+is still clearly visible. However, the failure to perform signal
+suppression is not the only concern with relying on visual interference.
+The first problem is that the saturation relative to the signal is
+scaled arbitrarily with little concern for the strength of the signal.
+Another issue is that relying on perceptual interference to create
+statistical inference may not give us the level of control we need.
+Without a strong understanding of how these visual channels collapse
+down into a single channel, relying on integrability could create
+unintended consequences such as displaying phantom signals or hiding
+justified signals. Additionally, multi-dimensional colour palettes can
+make the graphics harder to read and hurt the accessibility of the plots
+\citep{Vanderplas2015}. This is further complicated by the fact that
+human colour perception varies at an individual level. Some women are
+believed to have four different cone cells which allows them to perceive
+a greater range of colours, while others only have one or two types of
+cone cells and have colour deficiencies \citep{simunovic2010}. If this
+method were to work, we would need to calibrate each plot to an
+individual's ability to perceive colour. Instead of hoping that
+uncertainty might collapse signal values into a single dimension, we can
+do some of that work ourselves. As a matter of fact, some uncertainty
+visualisation authors already have.
 
-\begin{itemize}
-\tightlist
-\item
-  \citet{Gustafson2019} organises uncertainty into the four groups:
-  Deficient: Lack of knowledge; Technical: modelling approximations and
-  measurement error; Scientific Unknown unknowns; Consensus:
-  Disagreement among parties
-\item
-  \citet{uncertchap2022} mention aleatric, epistemic, ontological divide
-  and also differentiates risk with uncertainty
-\item
-  Mentioned alleatory vs epistemic uncertainty, in the visualisation
-  literature alleatory uncertainty is more commonly the focus. also
-  mentions dependence and joint pdfs as a consideration
-  \citet{Hullman2016}
-\item
-  mentions uncertainty can be variance, precision, accuracy,
-  reliability, or related concepts \citet{Hullman2016}
-\item
-  @{[}McNutt2020{]} Have several elements that they consider to cause
-  ``visual mirages'', from improper imputation of missing values, to
-  summary functions obfuscating the variabiliy of the data. It seems to
-  be a bizzare mismatch of different types of information that are
-  grouped together with ``visual mirage''.
-\end{itemize}
-
-\citet{Kinkeldey2014} categorised uncertainty according to five criteria
-depicted in fig-tax which considers if a visualisation is implicit or
-explicit, intrinsic or extrinsic, visually integrable or seperable,
-coincident or adjacent, and static or dynamic. A similar version of this
-taxonomy was presented by \citet{uncertchap2022} who commented that
-visualisation can be organised into two categories, ``graphical
-annotations of distributional properties'' and ``visual encodings of
-uncertainty'' which seems to functionally align with the
-intrinsic/extrinsic distinction by \citet{Kinkeldey2014}.
-\citet{Griethe2006} organised uncertainty visualisations into two cases
-(1) a hypothesis test was preformed to confirm the validity of the
-visualisation and (2) the visualisation has uncertainty depicted.
-\citet{Potter2012} organised several existing uncertainty visualisations
-into groups based on the dimensionality of the data (1D, 2D, 3D, and No
-Dimension) and the dimensionality of the uncertainty (Scalar, Vector,
-Tensor). However, because the term ``PDF'', function that is used to
-describe a random variable, is used to describe both the data and the
-uncertainty for all dimensions. \citet{Grewal2021} created a taxonomy
-that mapped uncertainty visualisations to some point in a 2D space
-defined by the ``domain expertise'' and ``continuum of discreteness''
-(that scaled from ``point estimate'' to ``continuous distribution'').
-There are enough qualitative descriptors of uncertainty to fill a paper,
-but, a lot of it amounts to rearranging deck chairs on the titanic. The
-distinctions are often accurate, but have little, if any, impact on how
-we should visualise, quantify, or discuss the uncertainty.
-
-Rather than trying to define uncertainty by looking at the myriad ways
-in which it \emph{does} appear in an analysis, we may find it easier to
-look at where it \emph{does not}. Descriptive statistics describe our
-sample as it is and summarises large data down into an easy to swallow
-format. Descriptive statistics are not seen as the primary goal of
-modern statistics, however, this was not always the case. In 19th
-century England, \emph{positivism} was the popular philosophical
-approach to science (positivists included famous statisticians such as
-Francis Galton and Karl Pearson). Practitioners of the approach believed
-statistics ended with descriptive statistics as science must be based on
-actual experience and observations \citep{Otsuka2023}. In order to make
-statements about population statistics, future values, or new
-observations we need to perform inference, which requires the assumption
-of the ``uniformity of nature'', that is, we need to assume that
-unobserved phenomena should be similar to observed phenomena
-\citep{Otsuka2023}. Positivists believed referencing the unobservable
-was bad science. In other words, these scientists embraced descriptive
-statistics due to the inherent certainty that came with them. Since
-uncertainty is non-existent in descriptive statistics, it is clear that
-uncertainty is a by-product of inference.
-
-This history lesson illustrates what uncertainty actually is. At several
-stages in a statistical analysis, we will violate the uniformity of
-nature assumption. Each of these violations will impact the statistic we
-have calculated and push it further from the population parameter we
-wish to draw inference on. Uncertainty is the amalgamation of these
-impacts. If we do not violate the uniformity of nature assumption at any
-point in our analysis, we do not have any uncertainty.
-
-\subsubsection{Combined variable?}\label{combined-variable}
-
-Instead of hoping that uncertainty might collapse signal values into a
-single dimension, we can do some of that work ourselves. As a matter of
-fact, some uncertainty visualisation authors already have.
-
-There is another benefit to mapping uncertainty to saturation that is
-not directly related to integrability. As the saturation decreases
-colours become harder to distinguish. This means high uncertainty values
-are harder to differentiate than low uncertainty values. We can leverage
-this implicit feature of colour value by transforming the visual feature
-space ourselves.
+\subsubsection{Another example: mapping combined
+variables}\label{another-example-mapping-combined-variables}
 
 The Value Suppressing Uncertainty Palette (VSUP) \citep{Correll2018},
 was designed with the intention of preventing high uncertainty values
-from being extracted from a map. Since the palette was designed with the
-extraction of individual values in mind and it has only been tested on
-simple value extraction tasks \citep{Correll2018} or search tasks
-\citep{Ndlovu2023}, it is unclear how effective the method is at
-suppressing broader insights such as spatial trends.
-
-The methods used by the VSUP bring to light a slight problem with
-uncertainty visualisation. Specifically, uncertainty and the purpose of
-visualisation are somewhat at odds with one another. There are two
-primary motivations behind visualisation, communication and exploratory
-data analysis (EDA). Communication involves identifying a signal we want
-to communicate and designing a visualisation that best conveys that,
-while EDA involves creating a versatile visualisation and using it to
-extract several signals. If we are designing an uncertainty
-visualisation for communication then we can just suppress the specific
-signal we are seeking to communicate. In the map example, we would
-consider Figure~\ref{fig-vsup} to be a success as the only signal we are
-concerned with is the spatial trend.
-
-The lack of versatility of the VSUP is easy to see with a simple
-example.
-
-Let's say we have a graphic that depicts a set of coefficients from a
-linear regression and the value of the coefficient is shown using a
-single colour. We want to know ``Which of these coefficients are
-different from 0?'' as well as ``Which of these coefficients are
-different from each other?''. To answer this question we do a series of
-\(t\)-tests on these estimates. All of the individual \(t\)-tests of
-fail to reject the null hypothesis that the coefficients are different
-from 0. We then make a visualisation that suppresses this signal and
-ensures that all of the estimates are visually indistinguishable from 0.
-Next, we conduct two sample \(t\)-test and find that several of the
-values need to be visually distinguishable from each other. The VSUP
-method must pick a single colour for each estimate, and these colours
-must be \emph{either} visually distinguishable or indistinguishable from
-each other. We cannot perform signal-suppression on both these signals
-simultaneously.
-
-This example highlights a fundamental problem with the VSUP that extends
-to the bivariate map as well. When we blend these colours, we need to
-decide at what level of uncertainty to blend these colours together.
-Even though the bivariate map does not explicitly combine colour values
-at certain variance levels, the mapping of variance to colour saturation
-does this implicitly. That is, at certain saturation values the colours
-in a bivariate map are imperceptibly different and appear as though they
-are mapped to the same value. At this point, it is irrelevant whether or
-not the colours are technically different, they are the same colour in
-the human brain. This is of course complicated by the fact that human
-colour perception varies at an individual level. Some women are believed
-to have four different cone cells which allows them to perceive a
-greater range of colours, while others only have one or two types of
-cone cells and have colour deficiencies \citep{simunovic2010} For VSUP
-to function for all individuals, we must calibrate each plot to an
-individual's ability to perceive colour.
-
-If we only use a single colour to express each signal-suppressed
-statistic, we will always need to decide which signals we suppress and
-which we do not. This issue has already been raised in the literature.
-Which hypothesis are suppressed and which are not largely depends on the
-method used to combining colours in the palette \citep{Kay2019}. The
-VSUP in Figure~\ref{fig-vsup} used the tree based method that was used
-by \citet{Correll2018}, but there are alternatives that are more
-appropriate for different hypothesis.
-
-Uncertainty visualisation for EDA would be possible if we designed a
-plot in such a way that suppressing individual estimates using their
-variance would naturally extend to broader suppression of plot level
-insights. This assumption is commonly made by visualisation researchers
-in normal visualisation experiments \citep{North2006}. If we could
-express the statistic of a cell using multiple colours, this limitation
-may disappear entirely. Figure~\ref{fig-vsup} is a visualisation of the
-Iowa temperature data using a VSUP to colour the counties. The low
-uncertainty case still has a visible spatial trend, while the spatial
-trend in the high uncertainty map has functionally disappeared. This
-means the VSUP has successfully suppressed the spatial trend in the
-data. However, the spatial trend may not be the only signal of concern
-in our graphic. Now we must return to the original signal-suppression
-criteria and ask ourselves if they have all been met. Are all the
-justified signals reinforced, while all the unjustified signals are
-suppressed? Is a graphic that performs perfect signal-suppression even
-possible?
+from being extracted from a map, blending colours together as they
+become more uncertain. Figure~\ref{fig-vsup} depicts the Iowa choropleth
+map from Figure~\ref{fig-variable}, but instead of the standard
+bivariate palette, we have used the VSUP that blends high variance
+colours together. Since the palette was designed with the extraction of
+individual values in mind and it has only been tested on simple value
+extraction tasks \citep{Correll2018} or search tasks \citep{Ndlovu2023},
+but we can see that, at least for our example, the high uncertainty
+spatial trend has functionally disappeared.
 
 \begin{figure}
 
@@ -831,509 +859,225 @@ possible?
 
 }
 
-\caption{\label{fig-vsup}A map made with a VSUP. The counties of Iowa
-are coloured acording to its average daily temperature and the variance
-in temperature. Similar to the bivariate map, temperature is mapped to
-hue while variance is mapped to saturation. Unlike the bivariance map,
-the colour space we are mapping our variables to has been transformed so
-that high variance estimates are harder to discern from each other. This
-map successfully reduces the visibility of the spatial trend in the high
-uncertainty case while maintaining the visibility of the spatial trend
-in the low uncertainty case.}
+\caption{\label{fig-vsup}A variation of the choropleth map designed with
+a VSUP colour palette. The counties of Iowa are coloured acording to its
+average daily temperature and the variance in temperature. Similar to
+the bivariate map, temperature is mapped to hue while variance is mapped
+to saturation. Unlike the bivariance map, the colour space we are
+mapping our variables to has been transformed so that high variance
+estimates are harder to discern from each other. This map successfully
+reduces the visibility of the spatial trend in the high uncertainty case
+while maintaining the visibility of the spatial trend in the low
+uncertainty case.}
 
 \end{figure}%
 
-\subsection{Uncertainty as a random
-variable}\label{uncertainty-as-a-random-variable}
+While the VSUP map does have signal suppressions, this colour blending
+approach creates a trade off visible signals in the plot. If we only use
+a single colour to express each random variable, we will need to decide
+which signals we suppress and which we do not. The VSUP in
+Figure~\ref{fig-vsup} used the tree based method that was used by
+\citet{Correll2018}, but \citet{Kay2019} introduces several other
+methods and comments that which hypothesis are suppressed and which are
+not largely depends on the methods used in combining the colour palettes
+and the level at which the blending occurs. This means that the VSUP map
+is not suitable for exploratory data analysis, as we need to know the
+hypothesis we want to suppress before even generating the map.
 
-Figure~\ref{fig-pixel} displays a pixel map \citep{Lucchesi2021}, which
-is a variation of the choropleth map where each area is divided up into
-several smaller areas, each coloured using outcomes from the larger
-area's (i.e.~the county's) average temperature sampling distribution.
-The spatial trend is clearly visible in the low variance case, but
-functionally disappears in the low variance case. While the spatial
-trend is just barely visible in the high uncertainty case, it is much
-harder to see. This means the graphic also achieves the third criteria
-for signal-suppression, i.e.~our difficulty in seeing the distribution
-is proportional to the level of uncertainty in the graphic.
+\subsubsection{Uncertainty and exploratory data
+analysis}\label{uncertainty-and-exploratory-data-analysis}
+
+We often think of visualisations as having two roles in our analysis.
+They can simultaneously be used for exploratory data analysis (EDA),
+which is the process of searching for interesting hypotheses, and for
+confirmatory data analysis (CDA), the process of verifying a hypothesis
+\citep{Tukey1977}. Some have argued that the two methods are not
+entirely distinct, as it is often difficult to draw a hard line between
+EDA and CDA \citep{Hullman2021}. As with many concepts these approaches
+exist on a continuum, where we have an inherent trade-off between the
+number of hypotheses we can look for and the certainty of any
+conclusions reached. It can help to think of the knowledge-generating
+process of EDA and CDA as the nozzel on a hose with multiple spray
+options, where EDA is a fine misting spray that touches everything in
+the room, and CDA is a high-pressure jet capable of obliterating any and
+all debris from any single spot.
+
+The EDA versus CDA dichotomy can be compared to the dichotomy between
+induction, for building theories, and deduction, for testing theories,
+from formal logic. One of the trade off's in the two methods is that
+conclusions deduction provide certainty, while conclusions from
+induction are inherently uncertain. This means that EDA, the inductive
+counterpart, has uncertainty in any conclusions reached through the
+method, with the requirement to follow up our new-found hypothesis with
+CDA if we want true certainty. This aligns with our earlier definition
+of uncertainty as descriptive statistics, one of the standard methods
+for EDA, have no inherent uncertainty as they do not look beyond the
+data.
+
+This is why, despite the fact that an uncertainty visualisation system
+for EDA is one of the most discussed topics in the field
+\citep{Hadjimichael2024, geointerviews, MacEachren2005, Sarma2024, Griethe2006},
+we have avoided the topic until now. Discussing EDA versus CDA gives us
+an additional layer of confusion, as authors frequently conflate the
+uncertainty in our data with the uncertainty in our conclusions that is
+inherent to the method. Authors often try to account for this inherent
+uncertainty and believe it should be incorporated into their plots, an
+argument made explicitly by \citet{Hullman2021} when they said there is
+no such thing as a ``model-free'' visualisation. The fear of this
+inherent uncertainty leads authors to try to perform some kind of
+statistical super-test, where they pre-emptively hedge against every
+false inference that could possibly be drawn from a graphic
+\citep{Guo2024, Savvides2019, Hullman2021}. This is typically done by
+visualising a null distribution alongside the observed data on a single
+plot, an approach that is statistically identical to the line-up
+protocol \citep{Buja2009}. As a line-up protocols were designed to a
+graphical parallel to standard statistical hypothesis tests, a core tool
+of inductive statistics, they are deductive reasoning, and therefore not
+EDA. The sum total of a lot of CDA is not EDA, just as frantically
+swinging a high-pressure jet around a room is not equivalent to using a
+misting spray. Even if you do manage to wet everything, you are going to
+use an exorbitant amount of water to do it (and possibly also break a
+few personal items). This is not to say there is anything wrong with
+these approaches; they are incredibly useful tools for induction. The
+line-up protocol in particular is a useful alternative to hypothesis
+testing, as it allows for statistical inference when there is no
+classical test available or when tests involve multiple effects
+\citep{Hofmann2012}. Rather, the problem is that we cannot
+simultaneously perform EDA and inference as the approaches are,
+philosophically speaking, perpendicular to one another.
+
+To truly create an uncertainty visualisation approach that is capable of
+EDA, we need to accept that uncertainty is inherent to the method, and
+it cannot be pre-emptively removed from the visualisations. If we accept
+this fact, then the only possible source of uncertainty in our
+``flexible uncertainty visualisation system'' is from the data itself.
+That is to say, the only possible way for there to be uncertainty in a
+visualisation designed for EDA is that the data itself represents
+inference that has been done earlier in our analysis. We can see this in
+the explanation of Figure~\ref{fig-ignore} where the uncertainty in all
+cases, even measurement error, represents inference that was performed
+earlier in our analysis. This does not seem to be well understood in the
+uncertainty visualisation literature, where we see authors treat
+sampling and prediction distributions as though they are interchangeable
+\citep{Hofman2020}, despite the fact that they represent fundamentally
+different data.
+
+Unlike in EDA, the signal suppression for VSUP is tied to our
+conclusions and not the data itself. Our ability to arbitrarily decide
+which values to blend at, or which suppression approach to use means
+that the ``uncertainty'' we are visualising will be informed by the
+conclusions we are drawing, and not a product of the data itself.
+Visualising the uncertainty in this way requires us to have already
+decided what signals we will suppress and which we will keep visible.
+This leads us to an additional, EDA based, requirement of our
+uncertainty visualisation system; the uncertainty and estimate need to
+be seen as a single unit, and any signal suppression should be informed
+by the data itself and should work the same regardless of any higher
+level hypothesis we might generate from the visualisation.
+
+\subsection{Uncertainty as a
+distribution}\label{uncertainty-as-a-distribution}
+
+Instead of trying to summarise our random variables down into a single
+value or pair of values, why don't we just visualise the whole
+distribution? This is also a common sentiment in the literature, and we
+can see the approach in computer science with the HOPs
+\citep{Hullman2015}, in geoscience with pixel-maps
+\citep{Lucchesi2021, Blenkinsop2000}, and in statistics with spaghetti
+plots.
+
+\subsubsection{Example: visualising
+samples}\label{example-visualising-samples}
+
+Figure~\ref{fig-variable} depicts the six visualisations
+Figure~\ref{fig-ignore} as distributions represented by either a sample
+of outcomes, or a quantile dot plot. Plots (a) and (b) show a linear
+regression as a sample of possible outcomes from the distribution. Plots
+(c) and (d) show a pixel map, which is a choropleth map with each county
+coloured by a sample of outcomes from the distribution. Plots (e) and
+(f) show the groups as quantile dot plots. We can see that the strong
+downward trend in the linear regression, the sine wave in the choropleth
+map, and the incremental increase in the groups are all clearly visible
+in the low variance case, and are invisible in the high variance cases.
+In addition to successfully performing signal suppression, visualising
+the random variable as a distribution gives us additional information,
+such as the revealed bimodality of the distributions in (e) and (f).
+This means the graphic also achieves the third criteria for
+signal-suppression, i.e.~our difficulty in seeing the distribution is
+proportional to the level of uncertainty in the graphic.
 
 \begin{figure}
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-pixel-1.pdf}
+\includegraphics{paper_files/figure-pdf/fig-distribution-1.pdf}
 
 }
 
-\caption{\label{fig-pixel}blah}
+\caption{\label{fig-distribution}Six different plots, each depicting a
+high and low uncertainty case for our three examples: regression,
+choropleth, and group comparison. Plots (a) and (b) show a linear
+regression as a sample of possible outcomes from the distribution. Plots
+(c) and (d) show a pixel map, which is a choropleth map with each county
+coloured by a sample of outcomes from the distribution. Plots (e) and
+(f) show the groups as quantile dot plots. We can see that the strong
+downward trend in the linear regression, the sine wave in the choropleth
+map, and the incremental increase in the groups have all disappeared.}
 
 \end{figure}%
 
-\subsubsection{EDA thing?}\label{eda-thing}
+\subsubsection{Quantified versus unquantified
+uncertainty}\label{quantified-versus-unquantified-uncertainty}
 
-\begin{itemize}
-\tightlist
-\item
-  We will not go through how this uncertainty is quantified, but we will
-  rely on the fact that all uncertainty, no matter how abstract, can
-  always be quantified by a random variable
-\item
-  We can see how this works with a basic measurement error example. If
-  we record our daily maximum temperature as 23 degrees celsius on a
-  device with +-1 degree of error, then we can represent the observation
-  as a uniform \(U(22, 24)\) random variable \emph{assuming we want to
-  represent the true temperature}. If we want to represent the recording
-  itself, it is 23 degrees celsius, no uncertainty needed. It is the act
-  of inference that creates uncertainty, and the uncertainty created can
-  be represented by a distribution.
-\end{itemize}
+The visualisation in Figure~\ref{fig-distribution} performs signal
+suppression, without sacrificing the viewers ability to extract general
+statistics, unless those statistics \emph{should} be harder to extract
+due to the uncertainty in the value. By showing our distribution as
+``data'' we are able to read the ``uncertainty'' plots using the same
+perceptual tasks that are used to read the ``non-uncertainty'' plot.
+This is also easier on the reader, as \citet{Ndlovu2023} found that
+people read complicated bivariate and VSUP plots the same way they read
+choropleth maps, even it is invalid. This approach also does not
+significantly hinder our ability to extract the individual values mapped
+by the previous plots, as extracting global statistics from a sample can
+be done with relative ease \citep{Franconeri2021}. The success of this
+approach highlights an interesting problem for uncertainty
+visualisation. We are able to include more information by offloading
+more computation to visual processing, but should we offload \emph{all}
+computations to the visual processing and just visualise the raw data?
 
-However, it is not uncommon for authors to express a desire for
-uncertainty visualisations that perform signal-suppression in
-visualisations made for EDA \citep{Sarma2024, Griethe2006}. For
-uncertainty visualisation for EDA to work, we would need to assume that
-suppressing individual estimates using their variance should naturally
-extend to broader suppression of plot level insights.
+This is, in a way, a question about how much of our uncertainty should
+be quantified. Quantified uncertainty usually focus narrowly on concepts
+such as probability, confidence intervals, variance, error, or precision
+\citep{Hullman2018, Maceachren2012, Thomson2005}, while unquantified
+uncertainty often includes a broader range of concepts like missing
+values, reliability, model validity, or source integrity
+\citep{Griethe2006, Leland2005, Pang1997, Pham2009, Boukhelifa2017}.
+When discussing uncertainty we typically include these unquantified
+uncertainties, not because these things \emph{are} uncertainty, but
+because they can \emph{create} uncertainty when we perform inference by
+violating the assumption of the uniformity of nature.
 
-Earlier we established that uncertainty is a by-product of inference,
-which means without inference, there is no uncertainty. Often EDA is
-used to give us an understanding of our data and identify which signals
-are worth pursuing. In this sense, EDA is the visual parallel to
-descriptive statistics, as it is performed without an explicit
-hypothesis, which means there is no inference, and by extension, there
-is no uncertainty.
-
-Some authors recognise inference will always occur (in some shape or
-form) and believe uncertainty \emph{should} be visualised but do not
-recognise \emph{how} uncertainty would be visualised.
-\citet{Hullman2021} argued that there is no such thing as a
-``model-free'' visualisation, therefore all visualisations require
-uncertainty as we are always performing inference. While it is true that
-we can think of visualisations as containing implicit inferential
-properties, there are many potential inferences in any single
-visualisation. This makes it a little difficult to ensure uncertainty is
-always included. For example, if we have a visualisation that shows an
-average, we would need to identify if the signal suppression should be
-performed using the sampling variance or the sample variance
-\citep{Hofman2020}. The distribution we use depends on the inferential
-statistic but until the viewer chooses one and thinks about it (which
-isn't easily observable), the particular variety of uncertainty which
-would need to be displayed can't be calculated. This means the ideal
-uncertainty visualisation should not only meet the signal suppression
-requirements, but should also endeavor to be versatile enough to meet
-those requirements for all the signals displayed in the graphic.
-
-\subsubsection{Quantify all of it?}\label{quantify-all-of-it}
-
-quantification - In order to visualise uncertainty, it needs to be
-quantifiable {[}\citet{Griethe2006}; Leland2005{]}, in order to quantify
-uncertainty, it needs to be mathematically defined. The uncertainty
-visualisation literature is completely awash with papers that define
-uncertainty using a vague encompassing phrase, (e.g. \citet{utypo}
-defined it as any deviation from complete determinism) but go on to
-quantify uncertainty as a PDF, error, or some other easily quantified
-mathematical object when it comes time to do the visualisation. This
-definition swap happens so subtly that it seems to go unnoticed by
-authors
-
-\begin{itemize}
-\tightlist
-\item
-  Risk communication also needs to have clear objectives, use plain
-  language, limit information to only what is necessary, and segment the
-  audience to allow for differences in interest and knowledge
-  \citep{Spiegelhalter2017}.
-\item
-  \citet{uncertchap2022} do specify that they are going to refer to
-  quantified uncertainty that can be visualised (``most commonly as a
-  probability distribution'')
-\item
-  \citet{Griethe2006} mentions that there are detailled classifications
-  of uncertainty but the literature and subsequent techniques are not
-  ballanced, and instead concentrate on scalar values. In facing this
-  lack of ballance she creates a new classification system for
-  uncertainty visualisation.
-\item
-  Probability judgements are less relative than other psychophysical
-  judgements, 0\%, 50\% and 100\% all have well understood meanings.
-  Subjective probability distributions are spontaneous, and subjects are
-  constructing a distribution upon being asked rather than articulating
-  a fully formed mental representation of their beliefs. Therefore it is
-  subject to heuristics. consider anchoring a scale with farmiliar
-  probabilities . not sure if being asked for the entire distribution
-  helps, e.g.~the graphical one reduces noise but asking people for an
-  interval estimation leads to overprecision and overconfidence
-  \citet{Hullman2016}
-\item
-  Even something as simple as sketching a distribution before recalling
-  statistics or making predictions can greatly increase the accuracy of
-  those measures \citep{Hullman2018, Goldstein2014}.
-\end{itemize}
-
-pipelines - \citet{Griethe2006} commented that uncertainty appears at
-every step in the analyis pipeline, and commented on some the
-mathematical definitions that seek to quantify uncertianty, but did not
-explain how these mathematical definitions can be combined across
-levels. Unfortunately this quantification is needed since she mentioned
-that in order to visualise uncertainty, it needs to be measurable. -
-\citet{Fischhoff2014} takes this approach by considerting how decisions
-with different levels of flexibility should have different uncertainty
-visualisations. If the user has no choice they should simply be made
-aware of the risk, if they have several options, the user needs to see
-the uncertainty in each, if they need to come up with the options
-themselves, they need to see how things work and how the system fails. -
-\citet{uncertchap2022} ``can enter the analysis pipeline during the
-measurement, modeling, and forecasting phases''
-
-These divisions create \citet{Thomson2005} discussed the problem of
-multiple times of uncertainty and suggested mapping each type of
-uncertainty (such as accuracy, precision, credibility, etc) separetely
-and then have the analyst combine them in their head. To map each of
-these variables separately suggests that each level of uncertainty is
-somehow its own variable. While this is possible, and relevant if
-
-If you are already confused by this distinction, it is about to get
-worse for you, because these can technically be performed at the same
-time. This can occur is a scenario that covers many cases that
-researchers will consider to be too uncertain to quantify, something
-called ``deep uncertainty'' by \citet{Hadjimichael2024}. These abstract
-uncertainties can include abstract concepts like expert disagreement,
-the credibility of a source \citep{Thomson2005}, forecaster confidence
-\citep{Padilla2021}, or alternative decisions that could have been made
-in the analysis \citep{Kale2019} (something that frequently see
-visualised in climate scenario uncertainty). If the authors are willing
-to quantify them, these cases can almost always be covered by
-distributions of distributions, and can lead to a \texttt{ggdibbler}
-version of a \texttt{ggdist} plot. Note that we cannot have a
-\texttt{ggdist} version of a \texttt{ggdibbler} chart.Lets look at two
-examples of this to see what we mean.
-
-We will admit that cases where the uncertainty is not published, as
-discussed by \citet{geointerviews} are a little more difficult, but
-still possible. If something is worth doing, it is worth doing badly, so
-imputing the distribution of random variables using the resources
-available is better than not ignoring it entirely.
-
-case of ``deep uncertainty''
-
-This occurs when you have a distribution of distributions. These cases
-are often thought to be ``unquantifiable'' by other researchers, but
-that is not entirely true, they can be represented by random variables.
-
-\begin{itemize}
-\item
-  \citep{Thomson2005} Analysts are also concerned with abstract
-  uncertainty such as credibility of a source, and as uncertainty
-  becomes more abstract, it is more difficult to quantify, represent and
-  understand.
-\item
-  \citep{Hadjimichael2024} Say that uncertainty can't be quantified by a
-  probability distribution because experts do not agree and call it
-  ``deep uncertainty``
-\item
-  \citep{geointerviews} In interviews with geologists expressed they had
-  to ``work with other sources of uncertainty that were more abstract
-  and less easy to pinpoint or measure''
-\item
-  \citep{geointerviews} Uncertainty metrics are not systematically
-  published along tephra studies (from geologist interview)
-\item
-  e.g.~climate change scenario and forecast uncertainty
-\end{itemize}
-
-While each random variable level can only hold one role, These goals
-cannot be performed simultaneously on the same distribution, but they
-\emph{can} be performed on the same plot. We can theoretically have a
-\texttt{ggdibbler} version of a \texttt{ggdist} plot.
-
-Now, a list of examples is helpful, but not exactly sufficient to
-describe the greater problem we are facing here.
-
-\subsubsection{Statistical inference and exploratory data
-analysis}\label{statistical-inference-and-exploratory-data-analysis}
-
-\begin{itemize}
-\tightlist
-\item
-  @{[}Hullman2021{]} ``Researchers have commented on uncertainty as
-  implicit in exploratory and interactive analysis''
-\item
-  @{[}Hullman2021{]} Issues with EDA e.g.~checking multiple hypothesis
-  which makes them less valid (more likely to find spurious
-  relationships) - I think of EDA as a search for hypothesis rather than
-  a confirmation of any hypothesis.
-\end{itemize}
-
-Creating a concrete and well-defined uncertainty visualisation system
-has proven difficult due to uncertainty's abstract and omnipresent
-nature. This is made worse by the fact that uncertainty often plays two
-roles in our analysis: one of noise and one of signal \citep{Mason2024}.
-Uncertainty as a topic of inference in of itself is uncertainty as
-signal, while the uncertainty that \emph{interferes} with our inference
-is uncertainty as noise. We argue that uncertainty acting as noise is
-the only uncertainty we should be concerned with, but the conflation of
-the two approaches creates a lot of confusion in the literature. This
-confusion is not only created by the ``uncertainty'' component of
-uncertainty visualisation, but it can also be created by the dual roles
-of visualisation itself.
-
-Visualisations can simultaneously be used for exploratory data analysis
-(EDA), which is the process of searching for interesting hypotheses, and
-for confirmatory data analysis (CDA), the process of verifying a
-hypothesis \citep{Tukey1977}. Some have argued that the two methods are
-not entirely distinct, as it is often difficult to draw a hard line
-between EDA and CDA \citep{Hullman2021}. We would argue that the
-approaches exist on a continuum, where we have an inherent trade-off
-between the number of hypotheses we can look for and the certainty of
-any conclusions reached. It can help to think of the
-knowledge-generating process of EDA and CDA as the settings on a hose,
-where EDA is a fine misting spray that touches everything in the room,
-and CDA is a high-pressure jet capable of obliterating any and all
-debris from any single spot.
-
-The quest for a flexible uncertainty visualisation tool is fundamentally
-a quest for a tool that can perform EDA. The problem with this goal is
-that EDA has uncertainty that is inherent to the approach, which is
-often conflated with the uncertainty that comes from our data. The EDA
-versus CDA dichotomy is better known as inductive versus deductive
-reasoning within formal logic, where uncertainty in our conclusions is
-inherent to induction, but not deduction. This means that EDA,
-inductions counterpart, has uncertainty in any conclusions reached
-through the method, with the requirement to follow up our new-found
-hypothesis with CDA if we want true certainty. Visualisation authors
-often try to account for this inherent uncertainty, believing the
-uncertainty inherent to EDA can somehow be incorporated into our plots.
-This causes authors to try to perform some kind of statistical
-super-test, where they pre-emptively hedge against every false inference
-that could possibly be drawn from a graphic
-\citep{Guo2024, Hullman2021, Savvides2019}. This is typically done by
-visualising a null distribution alongside the observed data on a single
-plot, an approach that is statistically identical to the line-up
-protocol \citep{Buja2009}. These methods are, fundamentally, deductive
-reasoning, and therefore not EDA. This is not to say these approaches
-are pointless; the line-up protocol is a particularly useful alternative
-to hypothesis testing, as they allow for statistical inference when
-there is no classical test available \citep{Hofmann2012}. Rather, the
-problem is just that it is not EDA. The sum total of a lot of CDA is not
-EDA, just as frantically swinging a high-pressure jet around a room is
-not equivalent to using a misting spray. Even if you do manage to wet
-everything, you are going to use an exorbitant amount of water to do it
-(and possibly also break a few personal items). To truly create an
-uncertainty visualisation approach that is capable of EDA, we need to
-accept that uncertainty is inherent to the method, and it cannot be
-pre-emptively removed from the visualisations. If we accept this fact,
-then the only possible source of uncertainty in our ``flexible
-uncertainty visualisation system'' is from the data itself.
-
-Viewing the input to an uncertainty visualisation as a distribution is
-hardly new territory. \citet{Kay2023} originally suggested thinking
-about uncertainty visualisations with distribution inputs when
-developing \texttt{ggdist}. He proposed a distribution input to replace
-the commonly used mean and standard deviation, as the latter requires us
-to assume a Gaussian distribution. We would even take this point a step
-further and assert that a distribution is sufficient to characterise
-\emph{any} uncertainty, no matter how intangible it is. This is in
-contrast to the assertions made by some authors, who believe abstract
-notions of uncertainty, such as credibility \citep{Thomson2005},
-forecaster confidence \citep{Padilla2021}, or uncertainty about
-uncertainty \citep{Hadjimichael2024}, are too complex to be quantified.
-This is simply untrue, as abstract concepts such as human belief are
-regularly quantified by Bayesians and hierarchical models are often used
-for uncertainty about uncertainty. As a matter of fact, since
-uncertainty is always a by-product of statistical inference, it should
-always be possible to quantify it using a distribution, with the only
-distinction between ``quantified'' and ``unquantified'' being an
-inferential statistic and willingness to quantify the uncertainty
-\citep{Mason2024}.
-
-Quantifying uncertainty and representing it in the data is fundamentally
-part of the data manipulation stage of our analysis. Therefore,
-according to the philosophy proposed by \citet{ggplot2}, it should be
-kept as separate as possible from the visualisation stage of our
-analysis to give users full transparency in \emph{what} precisely they
-are visualising \citep{ggplot2}. In \texttt{ggdibbler}, this separation
-is created using \texttt{distributional} \citep{distributional}, which
-allows users to store distributions inside data frames as individual
-cells. We will work from the assumption that users have already
-quantified the uncertainty as distributions before attempting to
-visualise it, and simply design a system that allows for
-\texttt{distributional} inputs. If readers are looking for help on how
-to do this, you may be better off reading \citet{Mason2024}, as that
-will not be the focus of this work. Instead, we will discuss how to
-redesign a data visualisation such that we can pass a random matrix just
-as easily as we can pass our deterministic data frame.
-
-\subsubsection{Show me the data}\label{show-me-the-data}
-
-\begin{itemize}
-\item
-  we should aim to show enough information to solve a task while
-  avoiding irrelevant distracting information \citep{kosslyn2006graph}.
-\item
-  \citep{Unwin2020} ``One persons statistics might be another person's
-  raw data''
-\end{itemize}
-
-To thoroughly understand why pixel maps seem to successfully perform
-signal suppression, we would need a more thorough discussion than what
-can be offered here. However, this does not prohibit us from discussing
-potential reasons for the graph's effectiveness. There is a second type
-of uncertainty that the pixel map quietly communicates but we have not
-touched on yet, and this uncertainty is also conveyed by visualisations
-of our raw data. That is, these graphics can show assumption violations.
-
-As we discussed in previous sections, we can consider uncertainty to be
-``the amalgamations of the impacts of violations to the assumption of
-the uniformity of nature''. It's not a definition that rolls off the
-tongue, but we can work with it. Thankfully, this definition of
-uncertainty aligns nicely with all the concepts that are included in the
-uncertainty umbrella. Some works
-\citep{Hullman2018, Maceachren2012, Thomson2005} focus narrowly on
-specific terms with mathematical definitions, such as probability,
-confidence intervals, variance, error, or precision. These works are
-only concerned with quantifying the final impact of uncertainty on our
-statistics. That is, how large should the bound around our statistic be,
-such that our ``true'' statistic can be inferred. Others
-\citep{Griethe2006, Leland2005, Pang1997, Pham2009, Boukhelifa2017}
-include broader loosely related elements, such as missing values,
-reliability, model validity, or source integrity. These broader and
-harder to quantify concepts are concerned about potential sources of
-uncertainty, that is, they describe violations to the assumption of the
-uniformity of nature.
-
-What this means is that we have two types of uncertainty, but one is
-more ``processed'' than the other. Quantifiable uncertainties are just
-assumption violations expressed as an effect on our final statistic (or
-true variation of our data). The disconnect between quantifiable and
-unquantifiable uncertainty creates a huge problem for authors trying to
-visualise it. A survey of visualisation authors cited ``not knowing how
-to calculate uncertainty'' as one of the primary reasons they did not
-include it in visualisations \citep{Hullman2020a}.
-
-There are two reasons we might leave our uncertainty as an assumption
-violation rather quantifying the effect. The first reason is that we may
-be unable to translate the assumption violation to a quantifiable
-uncertainty. There is no blanket rule that allows us to reliably
-quantify all uncertainty for every statistic, although some researchers
-have tangled with the idea. For example, \citet{Thomson2005} suggests a
-mathematical formula for \emph{examples} of uncertainty, and information
-theory tries to quantify uncertainty using the idea of entropy, but they
-ignore the disconnect between the broad concept of uncertainty and what
-we can reliably quantify. Some authors don't believe that it is even
-possible to quantify all the assumption violations
-\citep{Spiegelhalter2017}.
-
-The second reason to leave uncertainty as a potential violation of our
-assumptions, is that we might not know the final statistic we are
-seeking to calculate. This is the case for visualisations made for EDA,
-and a large number of developments in EDA visualisation have been in
-displaying these difficult to quantify violations. For example,
-\citet{Tierney2023} builds upon the tidy data principles to allow users
-to handle missing values. This includes data plots with a missing value
-``shadow'' that allows visualisation authors to identify if the
-variables used in a plot have any structure in their missing values,
-which would contribute to uncertainty.
-
-With this understanding it becomes clear to see why uncertainty is tied
-to an endless string of examples in the data analysis pipeline.
-Uncertainty examples include imputed data, model selection, inherent
-randomness, biased sampling, etc., not because these things \emph{are}
-uncertainty, but because they \emph{create} uncertainty when we perform
-inference. Whether or not these elements are relevant is highly
-dependent on what statistic you are trying to draw inference on, and by
-extension, the purpose of your visualisation.
-
-This relationship between uncertainty and the purpose of our analysis is
-littered throughout the literature. - Mention the terminology shift,
-where infoviz people seem to refer to the fact that graphics are related
-to statistical inference as ``task based'' - @{[}geointerviews{]}
-Uncertainty is context-dependent, interconnected, and malleable. Whether
-uncertainty is a source of doubt or not depends on context. -
-\citet{Spiegelhalter2017} noted we ``cannot assess the quality of risk
-communication unless the objectives are clear''.
-
-Multiple authors have commented on the need to consider quantifying and
-expressing uncertainty at every stage of a project as the goal shapes
-every step of the analysis
-\citep{Kinkeldey2014, Hullman2016, Refsgaard2007}. \citet{Otsuka2023}
-suggested that the process of observing data to perform statistics is
-largely dependent on our goals, because the process of boiling real
-world entities down into probabilistic objects (or ``probabilistic
-kind'' as he puts it) depends on the relationship we seek to identify
-with our data. \citet{Meng2014} commented what is kept as data and what
-is tossed away is determined by the motivation of an analysis and what
-was previously noise can be shown to become signal depending on the
-question we seek to answer.\\
-\citet{Wallsten1997} argue that the best method for evaluating or
-combining subjective probabilities depends on the uncertainty the
-decision maker wants to represent and why it matters.
-\citet{Fischhoff2014} looks at uncertainty visualisation for decision
-making decides that we should have different ways of communicating
-uncertainty based off what the user is supposed to do with it.
-
-This makes it very difficult to move quantified uncertainty through the
-layers of our analysis, especially when designing a visualisation for
-EDA. If we don't know what the final statistic is, we cannot quantify
-the effects of our assumptions. Therefore, it is often the case that the
-best uncertainty visualisation is not an uncertainty visualisation at
-all, but simply the most accurate depiction of our raw data. This does
-not mean that visualising raw data will always prevent insignificant
-signal from getting through. \citet{Chowdhury} illustrated how groups
-that appear linearly separable in a linear discriminant analysis (LDA)
-visualisation of the data can actually be the result of a LDA performed
-on too many variables, something that was not clear from the
-visualisation until the line-up protocol was implemented. However, just
-showing the data is a simple but effective option for uncertainty
-visualisation that seems to be largely overlooked.
-
-Of course, visualising the raw data is not always possible nor suitable.
-For example, if we have a specific statistic in mind, it may be more
-appropriate to show the sampling distribution of that statistic rather
-than the variability of all observations. If we visualise that sampling
-distribution in a way that allows us to see it's shape, and therefore
-recognise any assumption violations (such as a non-normal distribution),
-we maintain some of the benefits that came with visualising the raw
-data. This is exactly what the pixel map does, and likely contributes to
-it's success as a signal suppression method.
-
-\subsubsection{Show me the data}\label{show-me-the-data-1}
-
-\begin{itemize}
-\tightlist
-\item
-  rarely used extension is aggregation of uncertainty over an area
-  (retrieve overall estimation from a spatial distribution of
-  uncertainty). Other tasks include comparisons, rankings. also have a
-  task called ``search'' where participants have to identify entities
-  that fulfill certainty characteristics (high or low values)
-  \citet{Kinkeldey2014}
-\end{itemize}
-
-Rather than trying to figure out how to combine signal and uncertainty
-into a single colour, we can just display a sample instead and allow the
-viewer to extract \emph{both} the estimate and the variance.
-
-It is clear that the pixel-map is not only suppressing the false
-information, but it is doing so by providing \emph{more} information.
-The efficacy of this method means that visualisations of simulated
-samples pop up repeatedly in the literature, with examples including
-samples that are animated over time \citep{Hullman2015, Blenkinsop2000},
-pixel-maps, and spaghetti time series plots. Not only does this method
-help readers understand the plot level gist, it is also unlikely to
-damage the viewers ability to extract individual estimates. Extracting
-global statistics, such as the mean or variance, from a sample can be
-done with relative ease, especially when those values are mapped to
-colour \citep{Franconeri2021}. Additionally, \citet{Ndlovu2023} found
-that participants applied the same methods they used for simple
-choropleth maps to complicated uncertainty maps even if that take away
-was invalid. The pixel map can be read the same way as a choropleth map,
-which allows us to leverage that automatic response. Therefore, the
-pixel map performs signal suppression, without sacrificing the viewers
-ability to extract general statistics, unless those statistics
-\emph{should} be harder to extract due to the uncertainty in the value.
-So, what is it about Figure~\ref{fig-pixel} that allows it to be such a
-successful uncertainty visualisation? Is this a question we can easily
-answer?
+If the assumption violations are relevant, and we have the tools to
+visualise them, we should. For example, in the event of missing data, we
+can use the \texttt{naniar} package \citet{Tierney2023} to include them
+as a ``shadow'' in our visualisations to check if missing values have
+structure. This approach amounts to just ``showing the data'' which is a
+simple but effective option for uncertainty visualisation that is
+largely overlooked. While this approach is easy (when the tools for it
+exist) this approach will not eliminate trends that have become invalid
+due to structure in missing data or an invalid model. We can only
+integrate uncertainty as noise when that uncertainty has been
+\emph{quantified} as an effect on the estimates we are visualising. This
+is not to say you should do one method over another, visualising both
+quantified and unquantified uncertainty is necessary for a healthy
+analysis. Data analysis often works in cycles, where we find assumption
+violations using EDA, quantifying the effect of these violations on our
+inference, and then visualising the output of that inference using
+uncertainty visualisation to perform even more EDA. Rather, our point is
+that uncertainty is a living breathing component of our visualisations
+that is always changing, and we should shine a light on it's shape with
+visualisation whenever we get the chance.
 
 \section{Evaluating uncertainty
 visualisations}\label{evaluating-uncertainty-visualisations}
@@ -1342,8 +1086,7 @@ If we want to make conclusions about how effective any uncertainty
 visualisation method is we need to look at the results of evaluation
 experiments. Unfortunately, despite the abundance of these studies,
 existing literature reviews have struggled to synthesise them into any
-common rules
-\citep{MacEachren2005, Kinkeldey2014, Bostrom2008, Hullman2016}. This
+common rules \citep{MacEachren2005, Kinkeldey2014, Hullman2016}. This
 issue is particular to uncertainty visualisation, and pervasive, so it
 begs the question, what is causing it?
 
@@ -1599,23 +1342,20 @@ forcasts \citep{uncertchap2022}, or confidence bands or ellipses
 separating points outside the bounds from those within it which can
 create problems if the bound is not inherently meaningful.
 
-The choose of geometry is not neutral regarding the interpretation
-either, and several approaches have This can be considered an extension
-of the within bar bias, where participants looking at a bar chat with
-error bars view outcomes within the bar as more likely than those
-outside it \citep{Newman2012}.
-
 While many researchers tend to prefer frequency framing, they are not
 without their critiques. Points that were on an outcome of an ensemble
 display were perceived as more likely than points not on an outcome,
 even when the point that was not on an outcome was closer to the centre
 of the distribution (and therefore more likely) \citep{Padilla2017}.
+This is considered to be a variation of the within bar bias, where
+outcomes within the bar on a bar chart as percieved to be more likely
+than those outside it \citep{Newman2012}.
 
-The final heuristic surrounds the finding that people seem to ignore
-uncertainty information if you give them the ability. Several studies
-have found that including the estimate on an uncertainty visualisation
-plot can cause viewers to ignore the uncertainty information and simply
-compare the difference between the two means \citep{uncertchap2022}.
+We should also try and avoid visualsing central estimates if possible as
+several studies have found that viewers ignore uncertainty and compare
+the difference between the two means if they have the option
+\citep{uncertchap2022}.
+
 These heuristics have the potential to create noise in signal
 suppression evaluations, and should be kept in mind when designing
 uncertainty visualisations as well as evaluation experiments.
@@ -1635,8 +1375,8 @@ way to combine papers to get a meaningful sense of how uncertainty
 information is understood by a viewer. Researchers need to ensure that
 when they identify the motivation behind their visualisation technique,
 and that their evaluation methods match the motivations of the paper.
-Additionally \emph{evaluation methods that evaluate uncertainty as noise
-need to be developed.}
+Additionally \emph{experimental methods that evaluate uncertainty as
+noise need to be developed.}
 
 \emph{Experimenters should consider evaluating visual aesthetics on how
 well they suppress information in a graphic.} Research into separability
