@@ -1,5 +1,5 @@
 ---
-title: "The Noisy Work of Uncertainty Visualisation Research: A Review"
+title: "Visualising Uncertainty as Noise"
 author: 
   - name: Harriet Mason
     url: https://harrietmason.netlify.app/
