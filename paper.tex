@@ -147,7 +147,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  pdftitle={The Noisy Work of Uncertainty Visualisation Research: A Review},
+  pdftitle={The Noisy Work of Uncertainty Visualisation},
   pdfauthor={Harriet Mason; Dianne Cook; Sarah Goodwin; Emi Tanaka; Susan VanderPlas},
   colorlinks=true,
   linkcolor={blue},
@@ -167,9 +167,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\date{March 15, 2026}
-\title{\bf The Noisy Work of Uncertainty Visualisation Research: A
-Review}
+\date{March 16, 2026}
+\title{\bf The Noisy Work of Uncertainty Visualisation}
 \author{
 Harriet Mason\\
 Department of Econometrics and Business Statistics, Monash University\\
@@ -517,19 +516,18 @@ sense to simply quantify it as a distribution. Suggesting distributions
 as a representation of uncertainty is not new, \citet{Kay2023}
 originally suggested thinking about uncertainty visualisations with
 distribution inputs, to replace the commonly used mean and standard
-deviation, as the latter requires us to assume a Gaussian distribution.
-We would even take this point a step further and assert that a
-distribution is sufficient to characterise \emph{any} uncertainty, no
-matter how intangible it is. This is in contrast to the assertions made
-by some authors, who believe abstract notions of uncertainty, such as
-credibility \citep{Thomson2005}, forecaster confidence
-\citep{Padilla2021}, or uncertainty about uncertainty
-\citep{Hadjimichael2024}, are too complex to be quantified. This is
-simply untrue, as abstract concepts such as human belief or credibility
-are regularly quantified by Bayesians and hierarchical models are often
-used for uncertainty about uncertainty. As a matter of fact, since
-uncertainty is always a by-product of statistical inference, it should
-always be possible to quantify it using a distribution.
+deviation, removing the assumption of Gaussian distribution. Taking this
+point a step further we suggest that a distribution is sufficient to
+characterise \emph{any} uncertainty, no matter how intangible it is.
+This is in contrast to the assertions made by some authors, who believe
+abstract notions of uncertainty, such as credibility
+\citep{Thomson2005}, forecaster confidence \citep{Padilla2021}, or
+uncertainty about uncertainty \citep{Hadjimichael2024}, are too complex
+to be quantified. This is simply untrue, as abstract concepts such as
+human belief or credibility are regularly quantified by Bayesians and
+hierarchical models are often used for uncertainty about uncertainty.
+Since uncertainty is always a by-product of statistical inference, it
+should always be possible to quantify it using a distribution.
 
 \subsubsection{Example: visualising
 estimates}\label{example-visualising-estimates}
@@ -937,14 +935,14 @@ EDA. The sum total of a lot of CDA is not EDA, just as frantically
 swinging a high-pressure jet around a room is not equivalent to using a
 misting spray. Even if you do manage to wet everything, you are going to
 use an exorbitant amount of water to do it (and possibly also break a
-few personal items). This is not to say there is anything wrong with
-these approaches; they are incredibly useful tools for induction. The
-line-up protocol in particular is a useful alternative to hypothesis
-testing, as it allows for statistical inference when there is no
-classical test available or when tests involve multiple effects
-\citep{Hofmann2012}. Rather, the problem is that we cannot
-simultaneously perform EDA and inference as the approaches are,
-philosophically speaking, perpendicular to one another.
+few things). This is not to say there is anything wrong with these
+approaches; they are incredibly useful tools for induction. The line-up
+protocol in particular is a useful alternative to hypothesis testing, as
+it allows for statistical inference when there is no classical test
+available or when tests involve multiple effects \citep{Hofmann2012}.
+Rather, the problem is that we cannot simultaneously perform EDA and
+inference as the approaches are, philosophically speaking, perpendicular
+to one another.
 
 To truly create an uncertainty visualisation approach that is capable of
 EDA, we need to accept that uncertainty is inherent to the method, and

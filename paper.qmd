@@ -1,5 +1,5 @@
 ---
-title: "Visualising Uncertainty as Noise"
+title: "The Noisy Work of Uncertainty Visualisation"
 author: 
   - name: Harriet Mason
     url: https://harrietmason.netlify.app/
@@ -414,88 +414,43 @@ uni4b <- group_df |>
 #| message: false
 #| warning: false
 
-# Show palette function
-show_pal <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, breaks, textnudge, vnudge = 0.25, xlabx, xlaby, tsize=1.2) {
-  # Set dimensions of palette
-  n <- length(colours)
-  ncol <- ncol %||% ceiling(sqrt(length(colours)))
-  nrow <- ceiling(n/ncol)
-  # make matrix with null values (if not full)
-  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
-  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
-  # set graphical parameters (?)
-  old <- par(pty = "s", mar = c(0, 0, 0, 0))
-  on.exit(par(old))
-  size <- max(dim(colours))
-  plot(c(0, size), c(0, -size), type = "n", xlab = "", ylab = "", 
-       axes = FALSE)
-  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
-       col = colours, border = borders)
-  text(c(0,col(colours)) + textnudge, -c(1,row(colours))-vnudge, breaks, 
-              cex = 1, col = "black")
-  text(xlabx, xlaby, myxlab ,cex = tsize, col = "black")
-}
-
 ###################### CHOROPLETH MAP ###################### 
-p1a <- my_map_data |>
+choro1 <- my_map_data |>
   filter(variance_class=="lowvar") |>
   ggplot() +
-  geom_sf(aes(fill = bitemp, 
+  geom_sf(aes(fill = temp, 
               geometry = geometry), colour=NA) + 
-  scale_fill_manual(values = basecols) +
-  theme_void() + 
-  theme(legend.position = "none")
+  scale_fill_gradientn(colours = basecols) +
+  theme_void() +
+  labs(fill = "Temp") +
+  theme(legend.position = "bottom") + 
+  ggtitle("(c) spatial pattern - low variance") 
 
-p1b <- p1a %+% filter(my_map_data, variance_class=="highvar")
-
-p1c <- as.ggplot(
-  expression(
-  show_pal(basecols, ncol=8, borders=NA, 
-                          myxlab = "Temperature", breaks = 21:29, 
-                          textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2),
-                          vnudge = 0.5,
-                          xlabx= 4, xlaby=-2.5, tsize=1.5)
-  )
-)
-
-choro1 <- p1a + ggtitle("(c) spatial pattern - low variance") 
-choro2 <- p1b + ggtitle("(d) spatial pattern - high variance") 
-choro3 <- p1c
-#choro2 <- p1b / p1c + plot_layout(heights = c(8, 1))
-
-
+choro2 <- choro1 %+% filter(my_map_data, variance_class=="highvar") +
+  ggtitle("(d) spatial pattern - high variance") 
 
 ######################  Exceed Prob Map ######################  
-prob_breaks <- seq(-0.1,1.1, length.out=9)
+
 exeed_data <- my_map_data |> 
   as_tibble() |>
-  mutate(xprob = 1- pnorm(27, mean=temp, sd=variance)) |>
-  mutate(xprob = cut(xprob, breaks=prob_breaks, labels=seq(8)))
+  mutate(xprob = 1- pnorm(27, mean=temp, sd=variance)) 
              
-p2a <- exeed_data |>
+exceed1 <- exeed_data |>
   filter(variance_class=="lowvar") |>
   ggplot() +
   geom_sf(aes(fill = xprob, 
               geometry = geometry), colour=NA) + 
-  scale_fill_manual(values = basecols) +
-  theme_void() + 
-  theme(legend.position = "none")
+  scale_fill_gradientn(colours = basecols, limits=c(0,1)) +
+  theme_void() +
+  labs(fill = "P(X>27)") +
+  theme(legend.position = "bottom") + 
+  ggtitle("(c) spatial pattern - low variance") 
 
-p2b <- p2a %+% filter(exeed_data, variance_class=="highvar")
+exceed2 <- exceed1 %+% filter(exeed_data, variance_class=="highvar") + 
+  ggtitle("(d) spatial pattern - high variance") 
 
-p2c <- as.ggplot(expression(
-  show_pal(basecols, ncol=8, borders=NA, 
-           myxlab = "P(Temperature>27)", vnudge = 0.5,
-           breaks = c(0, prob_breaks[2:8], 1), 
-           textnudge = c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2), 
-           xlabx= 4, xlaby=-2.5, tsize=1.2))
-)
-
-
-exceed1 <- p2a  + ggtitle("(c) spatial pattern - low variance") 
-exceed2 <- p2b + ggtitle("(d) spatial pattern - high variance") 
-exceed3 <- p2c
 ####################### Bivariate maps ###################### 
+
 # Make bivariate palette
 # Function to devalue by a certain amount
 colsupress <- function(basecols, hue=1, sat=1, val=1) {
@@ -513,49 +468,40 @@ bivariatepal <- c(basecols,
 names(bivariatepal) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 
 # mapping
-p3a <- my_map_data |>
+bivar1 <- my_map_data |>
   filter(variance_class=="lowvar") |>
   ggplot() +
   geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
   scale_fill_manual(values = bivariatepal) +
   theme_void() + 
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  ggtitle("(c) spatial pattern - low variance") 
   
-p3b <- p3a %+% filter(my_map_data, variance_class=="highvar")
+bivar2 <- bivar1 %+% filter(my_map_data, variance_class=="highvar") +
+  ggtitle("(d) spatial pattern - high variance") 
 
-show_pal2 <- function (colours, borders = NULL, cex_label = 1, ncol = NULL, myxlab, myylab, breaks, breaks2, tsize1=1.2, tsize2=1.2) {
-  # Set dimensions of palette
-  n <- length(colours)
-  ncol <- ncol %||% ceiling(sqrt(length(colours)))
-  nrow <- ceiling(n/ncol)
-  # make matrix with null values (if not full)
-  colours <- c(colours, rep(NA, nrow * ncol - length(colours)))
-  colours <- matrix(colours, ncol = ncol, byrow = TRUE)
-  # set graphical parameters (?)
-  old <- par(pty = "s", mar = c(0, 0, 0, 0))
-  on.exit(par(old))
-  size <- max(dim(colours))
-  plot(c(-1.5, size), c(0, -size), type = "n", xlab = "", ylab = "", 
-      axes = FALSE)
-  rect(col(colours) - 1, -row(colours) + 1, col(colours), -row(colours), 
-       col = colours, border = borders)
-  text(c(0,col(colours)[nrow,]) + c(0.2, 0.1, 0,0,0,0,0,-0.1,-0.2) , -4.5, 
-       breaks, cex = 1, col = "black")
-  text(-0.25, -c(0,row(colours)[,ncol]) + c(-0.2, -0.1, 0, 0.1, 0.2),
-       breaks2, cex = 1, col = "black")
-  text(4, -5.5, myxlab ,cex = tsize1, col = "black")
-  text(x=-1.25,y=-2, myylab, srt=270, cex = tsize2, col = "black")
-}
 
-p3c <- as.ggplot(expression(
-  show_pal2(colours = bivariatepal, ncol=8, borders=NA, 
-            myxlab = "Temperature", myylab = "Variance", 
-            breaks = 21:29, breaks2 = var_seq)
-))
+bivar_pal<- expand_grid(bitemp = seq(1,8), bivar = seq(1,4)) |>
+  mutate(biclass = paste(bitemp, bivar, sep="-"))
 
-bivar1 <- p3a  + ggtitle("(c) spatial pattern - low variance") 
-bivar2 <- p3b + ggtitle("(d) spatial pattern - high variance") 
-bivar3 <- p3c
+bivar3 <- bivar_pal |>
+  ggplot(aes(x=bitemp, y=bivar, fill=biclass)) +
+  geom_tile() +
+  scale_fill_manual(values = bivariatepal) +
+  theme_classic() +
+  theme(aspect.ratio=0.1) + 
+  scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8),
+                     expand=c(0,0)) +
+  scale_y_reverse() + 
+  labs(x = "Temperature",
+       y = "SE") +
+  theme(legend.position = "none",
+        axis.line = element_blank(),
+        axis.ticks = element_blank()) 
+
+bivar1 <- bivar1 / bivar3
+bivar2 <- bivar2 / bivar3
+
 ####################### VSUP maps ###################### 
 # Function to combine colours for VSUP
 colourblend <- function(basecols, p_length, nblend) {
@@ -593,25 +539,22 @@ VSUP <- c(basecols,
 names(VSUP) <- paste(rep(1:8, 4), "-" , rep(1:4, each=8), sep="")
 
 # VSUP maps
-p4a <- my_map_data |>
+vsup1 <- my_map_data |>
   filter(variance_class=="lowvar") |>
   ggplot() +
   geom_sf(aes(fill = biclass, geometry = geometry), colour=NA) + 
   scale_fill_manual(values = VSUP) +
   theme_void() + 
-  theme(legend.position = "none")
+  theme(legend.position = "none") + 
+  ggtitle("(c) spatial pattern - low variance") 
 
-p4b <- p4a %+% filter(my_map_data, variance_class=="highvar")
+vsup2 <- vsup1 %+% filter(my_map_data, variance_class=="highvar") + 
+  ggtitle("(d) spatial pattern - high variance") 
 
-p4c <- as.ggplot(expression(
-  show_pal2(colours = VSUP, ncol=8, borders=NA, 
-            myxlab = "Temperature", myylab = "Variance",
-            breaks = 21:29, breaks2 = var_seq)
-))
+vsup3 <- bivar3 + scale_fill_manual(values = VSUP)
 
-vsup1 <- p4a  + ggtitle("(c) spatial pattern - low variance") 
-vsup2 <- p4b + ggtitle("(d) spatial pattern - high variance") 
-vsup3 <- p4c
+vsup1 <- vsup1 / vsup3
+vsup2 <- vsup2 / vsup3
 
 ####################### Pixel maps ######################
 # low variance
@@ -780,12 +723,13 @@ The answer to both of these questions is no as the high and low variance cases a
 #| message: false
 #| warning: false
 #| label: fig-ignore
-#| fig-width: 10
-#| fig-height: 6
+#| fig-height: 9
+#| fig-width: 12
 #| fig-cap: "Six different plots, each depicting a high and low uncertainty case for three plots commonly seen in discussions around uncertainty visualisation. The plots are: (a) linear regression with low uncertainty, (b) linear regression with high uncertainty, (c) spatial trend with low uncertainty, (d) spatial trend with high uncertainty, (e) group comparison with low uncertainty, (f) group comparison with high uncertainty. The linear regressions have a downward slope, the spatial map has a sine wave pattern, and the groups show an increasing value in X. These patterns should be visible in the low uncertainty case, but almost invisible in the high uncertainty case. As each plot only shows the central estimate of each uncertainty value, the high and low scenario look identical for each plot."
 #| cap-location: "bottom"
 
-(reg1a | (choro1 /choro3) | uni1a) / (reg1b | (choro2 /choro3) | uni1b) 
+
+(reg1a | choro1 | uni1a) / (reg1b | choro2 | uni1b) 
   
 ```
 
@@ -817,12 +761,12 @@ The trend is no longer visible in the regression or the group comparison, but th
 #| message: false
 #| warning: false
 #| label: fig-statistic
-#| fig-width: 10
-#| fig-height: 6
+#| fig-height: 9
+#| fig-width: 12
 #| fig-cap: "Six different plots, each depicting a high and low uncertainty case for three plots (regression, choropleth, and group comparison) commonly seen in discussions around uncertainty visualisation. Plots (a) and (b) have the standard error of the slope and intercept mapped to the slope and intercept of the line, plots (c) and (d) visualise the estimate value of P(X>27), and plots (e) and (f) visualise the mean of each group. We can see that there are some differences between the top and bottom row, but our visualisations are functionally meaningless in their new context. The standard error of a slope and intercept have no meaning when mapped to a line, the spatial pattern in the high and low spatial map is still visible. The group comparison is interpretable, but we are looking at a fundamnetally different visualisation."
 #| cap-location: "bottom"
 
-(reg2a | (exceed1 /exceed3) | uni2a) / (reg2b | (exceed2 /exceed3) | uni2b) 
+(reg2a | exceed1 | uni2a) / (reg2b | exceed2 | uni2b) 
   
 ```
 
@@ -877,13 +821,13 @@ It is worthwhile to interrogate why this occurs to see if we can move towards a 
 #| message: false
 #| warning: false
 #| label: fig-variable
-#| fig-width: 10
-#| fig-height: 6
+#| fig-height: 9
+#| fig-width: 12
 #| fig-cap: "Six different plots, each depicting a high and low uncertainty case for three plots (regression, choropleth, and group comparison). Plots (a) and (b) have the standard error of the slope mapped to the line width, while the standard error of the intercept is mapped to the transparency. Plots (c) and (d) use a bivariate colour palette where the mean of the distribution is mapped to the colour hue, while the variance is mapped to the colour saturation. Plots (e) and (f) visualise the mean of each group as a point, and the uncertainty as an interval. We can see that there are some differences between the top and bottom row, but the 'signals' in the plots are still visible in the bottom row."
 #| layout-valign: "bottom"
 #| cap-location: "bottom"
 
-(reg3a | (bivar1 /bivar3) | uni3a) / (reg3b | (bivar2 /bivar3) | uni3b) 
+(reg3a | bivar1 | uni3a) / (reg3b | bivar2 | uni3b) 
 
 ```
 
@@ -918,11 +862,13 @@ Since the palette was designed with the extraction of individual values in mind 
 #| message: false
 #| warning: false
 #| label: fig-vsup
+#| fig-height: 4.5
+#| fig-width: 9
 #| fig-cap: "A variation of the choropleth map designed with a VSUP colour palette. The counties of Iowa are coloured acording to its average daily temperature and the variance in temperature. Similar to the bivariate map, temperature is mapped to hue while variance is mapped to saturation. Unlike the bivariance map, the colour space we are mapping our variables to has been transformed so that high variance estimates are harder to discern from each other. This map successfully reduces the visibility of the spatial trend in the high uncertainty case while maintaining the visibility of the spatial trend in the low uncertainty case."
 #| layout-valign: "bottom"
 #| cap-location: "bottom"
 
-p4a + p4b + p4c 
+vsup1 | vsup2 
 
 ```
 
@@ -984,8 +930,8 @@ This means the graphic also achieves the third criteria for signal-suppression, 
 #| message: false
 #| warning: false
 #| label: fig-distribution
-#| fig-width: 10
-#| fig-height: 6
+#| fig-height: 9
+#| fig-width: 12
 #| fig-cap: "Six different plots, each depicting a high and low uncertainty case for our three examples: regression, choropleth, and group comparison. Plots (a) and (b) show a linear regression as a sample of possible outcomes from the distribution. Plots (c) and (d) show a pixel map, which is a choropleth map with each county coloured by a sample of outcomes from the distribution. Plots (e) and (f) show the groups as quantile dot plots. We can see that the strong downward trend in the linear regression, the sine wave in the choropleth map, and the incremental increase in the groups have all disappeared."
 #| layout-valign: "bottom"
 #| cap-location: "bottom"
