@@ -3,6 +3,44 @@ title: "Writing Trash Bin"
 author: "Harriet Mason"
 format: html
 ---
+### Removed on second draft
+However, even if the approach did work, bivariate maps should generally be avoided for reasons other than their inability to perform signal suppression. 
+In general, multi-dimensional colour palettes can make the graphics harder to read and hurt the accessibility of the plots [@Vanderplas2015], but this would be significantly exhaserbated if we relied on integrability to communicate statistical validity.
+Without a strong understanding of how these visual channels collapse down into a single channel, we could have unintended consequences such as displaying phantom signals or hiding justified signals.
+The signal suppression would also be inconsistent between viewers, as some people are believed to have four different cone cells which allows them to perceive a greater range of colours, while others only have one or two types of cone cells and have colour deficiencies [@simunovic2010].
+
+Additionally, by since we are signal and noise as two separate variables, they are separately scaled, so even if the visual appearance of one *did* impact the visual appearance of the other, it is not guaranteed to have any relation to the statistical validity of our conclsuions.
+
+Additionally, there is research in visual semiotics on mapping uncertainty to intuitive aesthetic mappings, many of which interfere with the reading of the estimate such as mapping more uncertain values to lighter colours [@Maceachren2012].
+
+Given that there is no special class of visualisation for *other* statistics (such the median or maximum) there is no reason to assume visualisations that simply depict a variance, error, or probability to be special.
+
+In terms of the actual geometry of the plot, these graphics plots are identical to their certain counterparts.
+Changing the statistic has changed the meaning of the plot, rather than it's visual appearance.
+
+The argument that an "uncertainty visualisation" should include visualisations of probability or variance is rooted in the decision making approach to the field, as research in this form is typically motivated by the psychological heuristics involved in interpreting uncertainty [@Hullman2019].
+These days it pops up in all sub fields of visualisation.
+
+The only constant is that signal is our inferential statistic, and noise is the distribution of outcomes around that signal.
+
+This has been known in some form or another since the earliest work on the subject, with @Ibrekk1987 finding that "The performance of a display depends upon the information that a subject is trying to extract."
+
+Looking at the previous classifications, we can see that they either offer information on what type of distribution to use (e.g. precision and bounded uncertainty are uniform distributions) or they offer suggestions in where to look to quantify the uncertainty (e.g. stage of the analysis, source of uncertainty, lack of knowledge, etc).
+These taxonomies likely describe what uncertainty is like or similar to because uncertainty is fundamentally statistical inference the cost of statistical inference. 
+
+Additionally, failing to present uncertain information can lead to poor estimation of failure probabilities [@Kiureghian2009], and poorer decision making both experimentally [@Joslyn2012; @Savelli2013; @Kay2016; @Fernandes2018] and in practice [@Al-Kassab2014].
+
+As the field progresses see computer science and psychology combine to form the research on "decision making" where researchers see which distribution representation elicits the best decisions and best mitigate psychological bias [@Joslyn2012; @Savelli2013; @Kay2016; @Fernandes2018]. 
+We see geoscience and computer science combine to evaluate map representations based on how well viewers can extract statistics about the distribution [@Maceachren2012; @Correll2018; @Ndlovu2023].
+
+This field views uncertainty visualisation as a human perception problem, where researchers often compare box plots, density plots, histograms, and other visual representations of a distribution to see which approach allows people to best extract means, probabilities, variances, etc.
+These approaches often utilise pictographs and stress the importance of correct framing of the probabilities.
+This area views uncertainty visualisation as a problem in high dimensional visualisation, where uncertainty is just another variable that needs to be integrated into the visualisation [@Griethe2006; @geointerviews].
+
+
+
+@Griethe2006 did not identify common themes, but instead listed the findings and opinions of a collection of papers.
+@uncertchap2022 summarised several cognitive effects that repeatedly arise in uncertainty visualisation experiments, however these effects were each discussed in isolation as a list of considerations an author might make rather than an overarching theory of rules for effective uncertainty visualisation.
 
 ### Holding for later
 - In the attribute, spatial elements, or temporal element of the data [@Kinkeldey2014]
