@@ -4,6 +4,13 @@ author: "Harriet Mason"
 format: html
 ---
 ### Removed on second draft
+Rather, our point is that uncertainty is a living breathing component of our visualisations that is always changing, and we should shine a light on it's shape with visualisation whenever we get the chance.
+
+Evaluation studies for these missing value representations imply that this information should somehow be incorporated into the conclusions the viewer takes from the plot [@Sarma2023].
+
+This does not seem to be well understood in the uncertainty visualisation literature, where we see authors treat sampling and prediction distributions as though they are interchangeable [@Hofman2020], despite the fact that they represent fundamentally different data.
+
+
 However, even if the approach did work, bivariate maps should generally be avoided for reasons other than their inability to perform signal suppression. 
 In general, multi-dimensional colour palettes can make the graphics harder to read and hurt the accessibility of the plots [@Vanderplas2015], but this would be significantly exhaserbated if we relied on integrability to communicate statistical validity.
 Without a strong understanding of how these visual channels collapse down into a single channel, we could have unintended consequences such as displaying phantom signals or hiding justified signals.
