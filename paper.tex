@@ -285,11 +285,11 @@ Early mentions of ``uncertainty visualisation'' start springing up in
 the late 1980s and early 1990s across several different fields
 \citep{Ibrekk1987, MacEachren1992}, each with their own motivation for
 the work. The earliest work appears in computer science, motivated by
-issues in the publics perception of random variables, with the hope that
-visualisations would give laypeople the ability to extract important
-information from graphical representations \citep{Ibrekk1987}. Stemming
-from similar concerns in the publics understanding of randomness,
-psychology, statistics, and economics used ``uncertainty
+issues in the public's perception of random variables, with the hope
+that visualisations would give laypeople the ability to extract
+important information from graphical representations \citep{Ibrekk1987}.
+Stemming from similar concerns in the public's understanding of
+randomness, psychology, statistics, and economics used ``uncertainty
 visualisations'' as a communication tool to mitigate the psychological
 bias associated with the communication of risk, a topic of concern since
 the early 1980s \citep{Spiegelhalter2017}. Finally, around the early
@@ -510,7 +510,7 @@ exceedance probability map in geoscience
 communication \citep{Spiegelhalter2017}, or as a summary plot in
 computer science \citep{Potter2010}. Some authors take this approach
 because they explicitly believe uncertainty is a variable of importance
-in of itself \citep{Blenkinsop2000}, others strattle the line, asserting
+in of itself \citep{Blenkinsop2000}, others straddle the line, asserting
 uncertainty is acting as signal and noise and should fulfil both roles
 \citep{geointerviews}. This seems a little too easy, can we just swap
 out the statistic for an ``uncertainty statistic'' and get an
@@ -658,7 +658,7 @@ classified uncertainty visualisations as graphical annotations
 suppression.
 
 \subsubsection{Example: mapping two independent
-varianbles}\label{example-mapping-two-independent-varianbles}
+variables}\label{example-mapping-two-independent-variables}
 
 Figure~\ref{fig-variable} depicts the six visualisations
 Figure~\ref{fig-ignore} except we have also mapped uncertainty to a
@@ -674,7 +674,7 @@ represented the estimate with a point, and represented the variance, as
 a 95\% confidence interval, with a linerange. While the high and low
 variance case do not look identical as they did in
 Figure~\ref{fig-ignore}, the trend is still visible in the bottom row
-where the variance is high, thus failling at signal suppression. Because
+where the variance is high, thus failing at signal suppression. Because
 these graphic visualise the distributions estimate and uncertainty as
 two separate pieces of information, and so the message of the plot is
 two separate pieces of information that say ``here is the trend
@@ -732,7 +732,7 @@ others \citep{Smart2019}. While this approach works for standard data
 visualisation, in uncertainty visualisation it allows the estimate and
 its variance to be read independently, leading to the uncertainty being
 ignored \citep{uncertchap2022}. Therefore, rather than trying to
-maintain visual seperability, the goals of uncertainty visualisation
+maintain visual separability, the goals of uncertainty visualisation
 align far better with the pursuit of visual integrability. In an ideal
 system, our estimate and uncertainty would be separately manipulable,
 but so well integrated that they are read as a single channel by the
@@ -809,8 +809,8 @@ analysis}\label{uncertainty-and-exploratory-data-analysis}
 
 The reason there is no uncertainty in descriptive statistics is not due
 to a unique property of descriptive statistics, but rather due to the
-lack of inference. Desriptive statistics are actually a small piece of a
-much larger subfield that does not perform statistical inference and
+lack of inference. Descriptive statistics are actually a small piece of
+a much larger subfield that does not perform statistical inference and
 that subfield is exploratory data analysis (EDA). \citet{Tukey1977}
 described EDA as the process of searching for interesting hypothesis,
 and defined it in relation to confirmatory data analysis (CDA), the
@@ -822,13 +822,13 @@ CDA \citep{Hullman2021}. As with many concepts these approaches exist on
 a continuum, where we have an inherent trade-off between the number of
 hypotheses we can look for and the certainty of any conclusions reached.
 It can help to think of the knowledge-generating process of EDA and CDA
-as the nozzel on a hose with multiple spray options, where EDA is a fine
+as the nozzle on a hose with multiple spray options, where EDA is a fine
 misting spray that touches everything in the room, and CDA is a
 high-pressure jet capable of obliterating any and all debris from any
 single spot.
 
 The EDA versus CDA dichotomy can create some confusion when it comes to
-uncerstanding the source of uncertainty in our analysis. This is why,
+understanding the source of uncertainty in our analysis. This is why,
 despite the fact that an uncertainty visualisation system for EDA is one
 of the most discussed topics in the field
 \citep{Hadjimichael2024, geointerviews, MacEachren2005, Sarma2024, Griethe2006},
@@ -1028,7 +1028,7 @@ the evaluation methods used and the stated goals of any one experiment.
 methods}\label{current-evaluation-methods}
 
 The inconsistency in the broader motivations of uncertainty
-visualisation bleed into the evaluation studies and create conflincting
+visualisation bleed into the evaluation studies and create conflicting
 findings. This problem is pervasive within standard visualisation
 evaluation literature, where studies are regularly criticised for
 failing to correctly align questions and plot types
@@ -1176,15 +1176,15 @@ plots). This means that even when evaluations \emph{are} done correctly,
 there is no generalisable theory we can take from the results.
 
 The point here is not to mock the existing literature for poor academic
-rigor. If you were to go read these papers yourself, you would find them
-to (usually) be logically consistent and well formulated pieces of work.
-Rather, the point is to illustrate that evaluating uncertainty as a
-noise is surprisingly difficult. Designing tests for signal suppression
-will require a formalisation of uncertainty within the grammar of
-graphics, as well as improved evaluation methods.
+rigour. If you were to go read these papers yourself, you would find
+them to (usually) be logically consistent and well formulated pieces of
+work. Rather, the point is to illustrate that evaluating uncertainty as
+a noise is surprisingly difficult. Designing tests for signal
+suppression will require a formalisation of uncertainty within the
+grammar of graphics, as well as improved evaluation methods.
 
-\subsection{Implicit Hypotehsis
-Testing}\label{implicit-hypotehsis-testing}
+\subsection{Implicit Hypothesis
+Testing}\label{implicit-hypothesis-testing}
 
 The main problems with current uncertainty visualisation evaluations is
 that they often require explicit (or convoluted) questions about the
@@ -1193,18 +1193,18 @@ not an explicit requirement of visualisation evaluations. In their
 review of testing statistical graphics, \citet{Vanderplas2020} drew a
 distinction between explicit tests, where participants are asked direct
 questions about specific features of a plot, and implicit testing, where
-users identify both the purpose and function of the plot. The lineup
-protocol is the most salient example of the implicit approach. Lineups
+users identify both the purpose and function of the plot. The line-up
+protocol is the most salient example of the implicit approach. Line-ups
 are a confirmatory visualisation tool where participants are shown a set
 of \(M-1\) plots, and asked to identify the plot that is the ``most
 different'', leaving participants to decide what ``most different''
 means to them, even if it is not what the authors intended
 \citep{vanderplas2017}. The implicit testing does not limit the
-versatility of the approach, with the lineup being used to evaluate the
+versatility of the approach, with the line-up being used to evaluate the
 effectiveness of different types of plots \citep{Hofmann2012}, colour
 palettes \citep{Reda2021}, and design decisions \citep{vanderplas2017}.
 
-Lineup protocols are not only a useful for their implicit testing, but
+Line-up protocols are not only a useful for their implicit testing, but
 they also have parallels to hypothesis testing that can be leveraged for
 uncertainty visualisation. The concept of signal suppression is, at its
 core, an assertion of statistical validity, which means the visibility
@@ -1214,7 +1214,7 @@ visualisation where parallels have been drawn to frequentist statistics
 by \citet{Correll2014} who compared results to Cohen's D, and to
 Bayesian statistics by \citet{Kim2019} who evaluated plots based on
 their impact on users prior beliefs. The comparison to hypothesis
-testing is far more natural for the lineup protocol, with
+testing is far more natural for the line-up protocol, with
 \citet{Majumder2013} explicitly defining a visual test statistic, while
 \citet{Patrick2023} compared line-ups to standard statistical tests
 using power curves. The parallels to line-ups and uncertainty
@@ -1222,11 +1222,11 @@ visualisation are numerous, with the relationship even being identified
 by \citet{Hullman2015} in theirs development of hypothetical outcome
 plots.
 
-The lineup protocol and uncertainty visualisation share a lot in common,
-with the motivation behind lineups also rooted in checking if perceived
-patterns are real or merely the result of chance
+The line-up protocol and uncertainty visualisation share a lot in
+common, with the motivation behind line-ups also rooted in checking if
+perceived patterns are real or merely the result of chance
 \citep{Buja2009, Wickham2010}. As both approaches are attempting to do
-the same thing, it is likely that we are unable to leverage the lineup
+the same thing, it is likely that we are unable to leverage the line-up
 protocol directly to evaluate uncertainty visualisation, but new
 evaluation methodology should try to learn from the success of the
 line-up approach. Designing an implicit testing method for uncertainty
@@ -1251,7 +1251,7 @@ interval of a smoothed sine curve to seem wider at the peaks than the
 troughs, causing us to underestimate uncertainty associated with
 changing values \citep{Vanderplas2015}. Similarly researchers frequently
 find that visual boundaries such as the cone of uncertainty in hurricane
-forcasts \citep{uncertchap2022}, or confidence bands or ellipses
+forecasts \citep{uncertchap2022}, or confidence bands or ellipses
 \citep{vanderplas2017} create the impression of a meaningful bound,
 separating points outside the bounds from those within it which can
 create problems if said bound is not inherently meaningful.
@@ -1262,13 +1262,13 @@ display were perceived as more likely than points not on an outcome,
 even when the point that was not on an outcome was closer to the centre
 of the distribution (and therefore more likely) \citep{Padilla2017}.
 This is considered to be a variation of the within bar bias, where
-outcomes within the bar on a bar chart as percieved to be more likely
+outcomes within the bar on a bar chart as perceived to be more likely
 than those outside it \citep{Newman2012}.
 
-We should also try and avoid visualsing central estimates if possible as
-several studies have found that viewers ignore uncertainty information
-and compare the difference between the two means if they have the option
-\citep{uncertchap2022}.
+We should also try and avoid visualising central estimates if possible
+as several studies have found that viewers ignore uncertainty
+information and compare the difference between the two means if they
+have the option \citep{uncertchap2022}.
 
 These heuristics have the potential to create noise in signal
 suppression evaluations, and should be kept in mind when designing
@@ -1333,9 +1333,6 @@ work were: \texttt{tidyverse} \citep{tidyverse}, \texttt{RColorBrewer}
 \texttt{rgeos} \citep{rgeos}. The GitHub repository for this paper can
 be found at https://github.com/harriet-mason/ARSA-UncertaintyLitReview
 which contains the files required to reproduce this article in full.
-
-library(ggthemes) library(distributional) library(patchwork)
-library(ggdist) library(ggdibbler)
 
 
 \renewcommand\refname{Bibliography}
