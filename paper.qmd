@@ -185,7 +185,7 @@ reg1a <- mtcars |>
               slope = slope_est_1,
               colour = "dodgerblue3") +
   theme(aspect.ratio=1) +
-  ggtitle("(a) regression - low uncertainty") + 
+  ggtitle("R1 - low") + 
   ylim(9,35) +
   xlim(1.5,5.5)
 
@@ -196,9 +196,9 @@ reg1b <- small_cars |>
   geom_abline(intercept = int_est_2,
               slope = slope_est_2,
               colour = "dodgerblue3") +
-  ggtitle("(b) regression - high uncertainty") + 
+  ggtitle("R2 - high") + 
   theme(aspect.ratio=1) +
-  ylim(9,35)+
+  ylim(9,35) +
   xlim(1.5,5.5)
 
 # Stat plot
@@ -209,7 +209,7 @@ reg2a <- mtcars |>
   geom_abline(intercept = int_se_1,
               slope = slope_se_1,
               colour = "dodgerblue3") +
-  ggtitle("(a) regression - low uncertainty") + 
+  ggtitle("R1 - low") + 
   theme(aspect.ratio=1) +
   ylim(0,35) +
   xlim(0,5.5)
@@ -221,7 +221,7 @@ reg2b <- small_cars |>
   geom_abline(intercept = int_se_2,
               slope = slope_se_2,
               colour = "dodgerblue3") +
-  ggtitle("(b) regression - high uncertainty") + 
+  ggtitle("R2 - high") + 
   theme(aspect.ratio=1) +
   ylim(0,35) +
   xlim(0,5.5)
@@ -237,7 +237,7 @@ reg3a <- mtcars |>
               alpha = 2/int_se_1,
               linewidth = slope_se_1,
               colour = "dodgerblue3") +
-  ggtitle("(a) regression - low uncertainty") + 
+  ggtitle("R1 - low") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -251,7 +251,7 @@ reg3b <- small_cars |>
               alpha = 2/int_se_2,
               linewidth = 2*slope_se_2,
               colour = "dodgerblue3") +
-  ggtitle("(b) regression - high uncertainty") + 
+  ggtitle("R2 - high") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -266,7 +266,7 @@ reg4a <-  mtcars |>
                      slope = dist_normal(slope_est_1,slope_se_1),
                      alpha=0.2, times=100,
                      colour = "dodgerblue3")+
-  ggtitle("(a) regression - low uncertainty") + 
+  ggtitle("R1 - low") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -279,7 +279,7 @@ reg4b <- small_cars |>
                      slope = dist_normal(slope_est_2, slope_se_2),
                      alpha=0.5, times=100,
                      colour = "dodgerblue3")+
-  ggtitle("(b) regression - high uncertainty") + 
+  ggtitle("R2 - high") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -305,16 +305,16 @@ uni1a <- group_df |>
   ggplot() +
   geom_point(aes(x=mean(dist_low), y=group), colour = "forestgreen") +
   theme_few() + 
-  ggtitle("(e) compare groups - low uncertainty") + 
-  labs(x = "Treatment") + 
+  ggtitle("G1 - low") + 
+  labs(x = "treatment") + 
   theme(aspect.ratio=1)
 
 uni1b <- group_df |>
   ggplot() +
   geom_point(aes(x=mean(dist_high), y=group), colour = "forestgreen") +
   theme_few() + 
-  ggtitle("(f) compare groups - high uncertainty") + 
-  labs(x = "Treatment") + 
+  ggtitle("G2 - high") + 
+  labs(x = "treatment") + 
   theme(aspect.ratio=1)
 
 # Statistic
@@ -322,7 +322,7 @@ uni2a <- group_df |>
   ggplot() +
   geom_point(aes(x=round(variance(dist_low), 4), y=group), colour = "forestgreen") +
   theme_few() + 
-  ggtitle("(e) compare groups - low uncertainty") + 
+  ggtitle("G1 - low") + 
   labs(x = "Variance") + 
   theme(aspect.ratio=1)
 
@@ -330,7 +330,7 @@ uni2b <- group_df |>
   ggplot() +
   geom_point(aes(x=variance(dist_high), y=group), colour = "forestgreen") +
   theme_few() + 
-  ggtitle("(f) compare groups - high uncertainty") + 
+  ggtitle("G2 - high") + 
   labs(x = "Variance") + 
   theme(aspect.ratio=1)
 
@@ -339,16 +339,16 @@ uni3a <- group_df |>
   ggplot(aes(xdist = dist_low, y=group)) +
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
-  ggtitle("(e) compare groups - low uncertainty") + 
-  labs(x = "Treatment") + 
+  ggtitle("G1 - low") + 
+  labs(x = "treatment") + 
   theme(aspect.ratio=1)
 
 uni3b <- group_df |>
   ggplot(aes(xdist = dist_high, y=group)) +
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
-  ggtitle("(f) compare groups - high uncertainty") + 
-  labs(x = "Treatment") + 
+  ggtitle("G2 - high") + 
+  labs(x = "treatment") + 
   theme(aspect.ratio=1)
 
 # Distribution
@@ -356,16 +356,16 @@ uni4a <- group_df |>
   ggplot(aes(xdist = dist_low, y=group)) +
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
-  ggtitle("(e) compare groups - low uncertainty") + 
-  labs(x = "Treatment") + 
+  ggtitle("G1 - low") + 
+  labs(x = "treatment") + 
   theme(aspect.ratio=1)
 
 uni4b <- group_df |>
   ggplot(aes(xdist = dist_high, y=group)) +
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
-  ggtitle("(f) compare groups - high uncertainty") + 
-  labs(x = "Treatment") + 
+  ggtitle("G2 - high") + 
+  labs(x = "treatment") + 
   theme(aspect.ratio=1)
 
 ```
@@ -382,13 +382,14 @@ choro1 <- my_map_data |>
   geom_sf(aes(fill = temp, 
               geometry = geometry), colour=NA) + 
   scale_fill_gradientn(colours = basecols) +
-  theme_void() +
-  labs(fill = "Temp") +
+  #theme_void() +
+  labs(fill = "temperature") +
+  theme_map() +
   theme(legend.position = "bottom") + 
-  ggtitle("(c) spatial pattern - low variance") 
+  ggtitle("S1 - low") 
 
 choro2 <- choro1 %+% filter(my_map_data, variance_class=="highvar") +
-  ggtitle("(d) spatial pattern - high variance") 
+  ggtitle("S2 - high") 
 
 ######################  Exceed Prob Map ######################  
 
@@ -405,10 +406,10 @@ exceed1 <- exeed_data |>
   theme_void() +
   labs(fill = "P(X>27)") +
   theme(legend.position = "bottom") + 
-  ggtitle("(c) spatial pattern - low variance") 
+  ggtitle("S1 - low") 
 
 exceed2 <- exceed1 %+% filter(exeed_data, variance_class=="highvar") + 
-  ggtitle("(d) spatial pattern - high variance") 
+  ggtitle("S2 - high") 
 
 ####################### Bivariate maps ###################### 
 
@@ -436,10 +437,10 @@ bivar1 <- my_map_data |>
   scale_fill_manual(values = bivariatepal) +
   theme_void() + 
   theme(legend.position = "none") +
-  ggtitle("(c) spatial pattern - low variance") 
+  ggtitle("S1 - low") 
   
 bivar2 <- bivar1 %+% filter(my_map_data, variance_class=="highvar") +
-  ggtitle("(d) spatial pattern - high variance") 
+  ggtitle("S2 - high") 
 
 
 bivar_pal<- expand_grid(bitemp = seq(1,8), bivar = seq(1,4)) |>
@@ -455,7 +456,7 @@ bivar3 <- bivar_pal |>
                      expand=c(0,0)) +
   scale_y_reverse(breaks = c(0,1,2,3,4),
                   labels = c(0,3,6,9,12)) + 
-  labs(x = "Temperature",
+  labs(x = "temperature",
        y = "SE") +
   theme(legend.position = "none",
         axis.line = element_blank(),
@@ -508,7 +509,7 @@ vsup1 <- my_map_data |>
   scale_fill_manual(values = VSUP) +
   theme_void() + 
   theme(legend.position = "none") + 
-  ggtitle("(a) spatial pattern - low variance") 
+  ggtitle("S1 - low") 
 
 fake_data <- my_map_data |>
   filter(variance_class=="lowvar") |>
@@ -516,7 +517,7 @@ fake_data <- my_map_data |>
          biclass = paste(bitemp, bivar, sep="-"))
 
 vsup2 <- vsup1 %+% fake_data + 
-  ggtitle("(b) spatial pattern - ??? variance") 
+  ggtitle("S3 - ???") 
 
 
 fake_data <- my_map_data |>
@@ -542,9 +543,9 @@ pixel1 <- my_map_data |>
               geometry = geometry), colour=NA, times=30) + 
   theme_void() + 
   scale_fill_gradientn(colours = longpal) +
-  labs(fill = "Temp") +
+  labs(fill = "temperature") +
   theme(legend.position = "bottom")  + 
-  ggtitle("(c) spatial pattern - low variance") 
+  ggtitle("S1 - low") 
 
 # high variance
 pixel2 <- my_map_data |>
@@ -554,9 +555,9 @@ pixel2 <- my_map_data |>
               geometry = geometry), colour=NA, times=30) + 
   scale_fill_gradientn(colours = longpal) +
   theme_void() +
-  labs(fill = "Temp") +
+  labs(fill = "temperature") +
   theme(legend.position = "bottom") + 
-  ggtitle("(d) spatial pattern - high variance") 
+  ggtitle("S2 - high") 
 ```
 
 
@@ -633,7 +634,7 @@ The most common way to visualise uncertainty is to simply not do it at all.
 A study conducted by @Hullman2020a found that only a quarter of authors surveyed included uncertainty in 50% or more of their visualisations.
 Part of the abstinence comes from the fact that authors are not sure how to calculate the uncertainty [@Hullman2020a].
 This is not entirely unreasonable, given that even visualisation authors themselves seem to be in conflict about what exactly uncertainty is. 
-Therefore, it makes sense to start with visualisations that ignore uncertainty with the hope that, by looking at where uncertainty *isn't*, we can better understand where it *is*.
+Therefore, it makes sense to start with visualisations that ignore uncertainty with the hope that, by looking at where uncertainty *isn't*, we can better understand where it *is*. (XXX don't understand the secon part of this statement)
 
 #### What is uncertainty?
 It is surprisingly hard to describe what uncertainty actually is.
@@ -654,7 +655,7 @@ In other words, these scientists embraced descriptive statistics due to the inhe
 Since uncertainty is nonexistent in descriptive statistics, it is clear that uncertainty is a by-product of inference.
 Uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
 
-As uncertainty is a byproduct of statistical inference, it would make sense to simply quantify it as a distribution.
+If we consider uncertainty as a byproduct of statistical inference, it would make sense to simply quantify it as a distribution.
 Suggesting distributions as a representation of uncertainty is not new.
 @Kay2023 originally suggested thinking about uncertainty visualisations as visualisations with distribution inputs, to replace the commonly used mean and standard deviation, removing the assumption of a Gaussian distribution.
 Taking this point a step further, we suggest that a distribution is sufficient to characterise *any* uncertainty, no matter how intangible it is.
@@ -665,14 +666,14 @@ This is simply untrue, as abstract concepts such as human belief or credibility 
 
 If visualising uncertainty is fundamentally a scenario where we are visualising a set of random variables, what does "ignoring" uncertainty look like?
 @fig-ignore shows six different plots, a high and low uncertainty case for three different scenarios, all of which visualise the expected value of the input distribution.
-Plots (a) and (b) visualise the line from a simple linear regression on the `mtcars` data; the regression in (a) has been done on the full dataset and therefore has low uncertainty, while (b) was done on a sample of three points and has very high uncertainty. 
-Plots (c) and (d) show a choropleth map, where counties in Iowa are coloured according to a simulated temperature measurement, with plot (c) depicting a case where the measurement error is low, while plot (d) depicts a case where the measurement error is high. 
-Finally, plots (e) and (f) show five univariate distributions measured on the same variable, where (e) depicts a case where the group variance is high, and (f) shows a case where the group variance is low.
-In the linear regression, we see a downward trend, in the map, we see a sine wave, and in the univariate distributions, we see an incremental increase in the measurement.
-What we cannot see is the fact that the variance on the estimates in the bottom row is significantly higher than that in the top row, so much so that any visible trend should actually disappear.
+Plots R1 and R2 visualise the line from a simple linear regression on the `mtcars` data, with differing sample size underlying the uncertainty. 
+Plots S1 and S2 show a choropleth map, where counties in Iowa are coloured according to a simulated temperature measurement, with measurement error being the uncertainty. 
+Plots G1 and G2 show a summary of measurements on the same variable in five populations. In G1 distributions have low variance, and in G2 they have high variance.
+In the linear regression, we see a downward trend, and because this is overlaid on the observed data we can get a sense of the uncertainty. It is not ignored in this plot, because the data is plotted. In the map you should see a sine wave  spatial trend. In the univariate distributions, an incremental increase in treatment.
+In S1, S2, G1, G2 what we cannot see is that the variance on the estimates in the bottom row is significantly higher than that in the top row, so much so that any visible trend should actually disappear. If we were to ask a reader: 
 Can you see a difference between the plots in the top row versus the bottom row?
 Is the strength of the trend communicated through the visualisation?
-The answer to both of these questions is no, as the high and low variance cases are identical.
+The answer to both of these questions will be no, as the high and low variance cases are identical.
 
 ```{r}
 #| echo: false
@@ -681,13 +682,15 @@ The answer to both of these questions is no, as the high and low variance cases 
 #| label: fig-ignore
 #| fig-height: 9
 #| fig-width: 12
-#| fig-cap: "Six different plots, each depicting a high and low uncertainty case for three plots commonly seen in discussions around uncertainty visualisation. The plots are: (a) linear regression with low uncertainty, (b) linear regression with high uncertainty, (c) spatial trend with low uncertainty, (d) spatial trend with high uncertainty, (e) group comparison with low uncertainty, (f) group comparison with high uncertainty. The linear regressions have a downward slope, the spatial map has a sine wave pattern, and the groups show an increasing value in X. These patterns should be visible in the low uncertainty case, but almost invisible in the high uncertainty case. As each plot only shows the central estimate of each uncertainty value, the high and low scenarios look identical for each plot."
+#| fig-cap: "Three example types of data and associated plots that will be used to illustrate various choices of uncertainty representation throughout the paper: scatterplot and regression line (R1, R2), spatial choropleth map (S1, S2), grouped dotplot (G1, G2). Two levels of uncertainty (low, high) is used with each example. Only with R1 and R2, where the regression overlays the scatterplot can we see a difference between low and high."
 #| cap-location: "bottom"
 
-
-(reg1a | choro1 | uni1a) / (reg1b | choro2 | uni1b) 
+reg1a + choro1 + uni1a + reg1b + choro2 + uni1b + plot_layout(ncol=3, widths=c(30, 40, 30))
+#(reg1a | choro1 | uni1a) / (reg1b | choro2 | uni1b) 
   
 ```
+
+<!-- Six different plots, each depicting a high and low uncertainty case for three plots commonly seen in discussions around uncertainty visualisation. The plots are: (a) linear regression with low uncertainty, (b) linear regression with high uncertainty, (c) spatial trend with low uncertainty, (d) spatial trend with high uncertainty, (e) group comparison with low uncertainty, (f) group comparison with high uncertainty. The linear regressions have a downward slope, the spatial map has a sine wave pattern, and the groups show an increasing value in X. These patterns should be visible in the low uncertainty case, but almost invisible in the high uncertainty case. As each plot only shows the central estimate of each uncertainty value, the high and low scenarios look identical for each plot.-->
 
 We will use these plots as a touchstone for our discussion on uncertainty visualisation, and return to them when we discuss the approaches suggested in the literature. 
 This example will be used to assess the approach on how well suggested methods hide spurious relationships and reveal the hidden variance structures in the data.

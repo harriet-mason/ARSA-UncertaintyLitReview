@@ -390,7 +390,8 @@ is not entirely unreasonable, given that even visualisation authors
 themselves seem to be in conflict about what exactly uncertainty is.
 Therefore, it makes sense to start with visualisations that ignore
 uncertainty with the hope that, by looking at where uncertainty
-\emph{isn't}, we can better understand where it \emph{is}.
+\emph{isn't}, we can better understand where it \emph{is}. (XXX don't
+understand the secon part of this statement)
 
 \subsubsection{What is uncertainty?}\label{what-is-uncertainty}
 
@@ -432,18 +433,18 @@ uncertainty is nonexistent in descriptive statistics, it is clear that
 uncertainty is a by-product of inference. Uncertainty is the noise that
 is both inseparable from our inference and meaningless without it.
 
-As uncertainty is a byproduct of statistical inference, it would make
-sense to simply quantify it as a distribution. Suggesting distributions
-as a representation of uncertainty is not new. \citet{Kay2023}
-originally suggested thinking about uncertainty visualisations as
-visualisations with distribution inputs, to replace the commonly used
-mean and standard deviation, removing the assumption of a Gaussian
-distribution. Taking this point a step further, we suggest that a
-distribution is sufficient to characterise \emph{any} uncertainty, no
-matter how intangible it is. This is in contrast to the assertions made
-by some authors, who believe abstract notions of uncertainty, such as
-credibility \citep{Thomson2005}, forecaster confidence
-\citep{Padilla2021}, or uncertainty about uncertainty
+If we consider uncertainty as a byproduct of statistical inference, it
+would make sense to simply quantify it as a distribution. Suggesting
+distributions as a representation of uncertainty is not new.
+\citet{Kay2023} originally suggested thinking about uncertainty
+visualisations as visualisations with distribution inputs, to replace
+the commonly used mean and standard deviation, removing the assumption
+of a Gaussian distribution. Taking this point a step further, we suggest
+that a distribution is sufficient to characterise \emph{any}
+uncertainty, no matter how intangible it is. This is in contrast to the
+assertions made by some authors, who believe abstract notions of
+uncertainty, such as credibility \citep{Thomson2005}, forecaster
+confidence \citep{Padilla2021}, or uncertainty about uncertainty
 \citep{Hadjimichael2024}, are too complex to be quantified. This is
 simply untrue, as abstract concepts such as human belief or credibility
 are regularly quantified by Bayesians and hierarchical models are often
@@ -457,26 +458,25 @@ visualising a set of random variables, what does ``ignoring''
 uncertainty look like? Figure~\ref{fig-ignore} shows six different
 plots, a high and low uncertainty case for three different scenarios,
 all of which visualise the expected value of the input distribution.
-Plots (a) and (b) visualise the line from a simple linear regression on
-the \texttt{mtcars} data; the regression in (a) has been done on the
-full dataset and therefore has low uncertainty, while (b) was done on a
-sample of three points and has very high uncertainty. Plots (c) and (d)
-show a choropleth map, where counties in Iowa are coloured according to
-a simulated temperature measurement, with plot (c) depicting a case
-where the measurement error is low, while plot (d) depicts a case where
-the measurement error is high. Finally, plots (e) and (f) show five
-univariate distributions measured on the same variable, where (e)
-depicts a case where the group variance is high, and (f) shows a case
-where the group variance is low. In the linear regression, we see a
-downward trend, in the map, we see a sine wave, and in the univariate
-distributions, we see an incremental increase in the measurement. What
-we cannot see is the fact that the variance on the estimates in the
-bottom row is significantly higher than that in the top row, so much so
-that any visible trend should actually disappear. Can you see a
-difference between the plots in the top row versus the bottom row? Is
-the strength of the trend communicated through the visualisation? The
-answer to both of these questions is no, as the high and low variance
-cases are identical.
+Plots R1 and R2 visualise the line from a simple linear regression on
+the \texttt{mtcars} data, with differing sample size underlying the
+uncertainty. Plots S1 and S2 show a choropleth map, where counties in
+Iowa are coloured according to a simulated temperature measurement, with
+measurement error being the uncertainty. Plots G1 and G2 show a summary
+of measurements on the same variable in five populations. In G1
+distributions have low variance, and in G2 they have high variance. In
+the linear regression, we see a downward trend, and because this is
+overlaid on the observed data we can get a sense of the uncertainty. It
+is not ignored in this plot, because the data is plotted. In the map you
+should see a sine wave spatial trend. In the univariate distributions,
+an incremental increase in treatment. In S1, S2, G1, G2 what we cannot
+see is that the variance on the estimates in the bottom row is
+significantly higher than that in the top row, so much so that any
+visible trend should actually disappear. If we were to ask a reader: Can
+you see a difference between the plots in the top row versus the bottom
+row? Is the strength of the trend communicated through the
+visualisation? The answer to both of these questions will be no, as the
+high and low variance cases are identical.
 
 \begin{figure}
 
@@ -486,18 +486,13 @@ cases are identical.
 
 }
 
-\caption{\label{fig-ignore}Six different plots, each depicting a high
-and low uncertainty case for three plots commonly seen in discussions
-around uncertainty visualisation. The plots are: (a) linear regression
-with low uncertainty, (b) linear regression with high uncertainty, (c)
-spatial trend with low uncertainty, (d) spatial trend with high
-uncertainty, (e) group comparison with low uncertainty, (f) group
-comparison with high uncertainty. The linear regressions have a downward
-slope, the spatial map has a sine wave pattern, and the groups show an
-increasing value in X. These patterns should be visible in the low
-uncertainty case, but almost invisible in the high uncertainty case. As
-each plot only shows the central estimate of each uncertainty value, the
-high and low scenarios look identical for each plot.}
+\caption{\label{fig-ignore}Three example types of data and associated
+plots that will be used to illustrate various choices of uncertainty
+representation throughout the paper: scatterplot and regression line
+(R1, R2), spatial choropleth map (S1, S2), grouped dotplot (G1, G2). Two
+levels of uncertainty (low, high) is used with each example. Only with
+R1 and R2, where the regression overlays the scatterplot can we see a
+difference between low and high.}
 
 \end{figure}%
 
