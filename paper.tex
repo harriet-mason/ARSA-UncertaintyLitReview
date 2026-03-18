@@ -218,26 +218,26 @@ for guiding new graphics methodology and experimental research.
 
 What do we mean when we talk about ``uncertainty visualisation''? The
 phrase can feel like a bit of a contradiction to anyone who is familiar
-with the term. Among statisticians, uncertainty is often discussed as
-though it is an omnipresent spectre that touches every stage of our
+with the term. Among statisticians, ``uncertainty'' is often discussed
+as though it is an omnipresent spectre that touches every stage of our
 analysis without ever being fully seen. Authors will often mention that
 the phrase is incredibly vague \citep{Spiegelhalter2017, Griethe2006},
 or talk around the topic by describing a list of things uncertainty
 \emph{could} be \citep{Kinkeldey2014, Hullman2016}, but rarely do we see
 authors attempt to discuss what uncertainty actually \emph{is}. Almost
-as if in direct contrast with this, information visualisations are one
-of the most powerful tools in the statistician's toolbox, allowing for
-quick and memorable communication that identifies quirks in our data
-that we didn't even know to look for. We see this in datasets such as
-Anscombe's quartet \citep{anscombe} or the Datasaurus Dozen
-\citep{datasaurus, datasaurpkg}, where visual statistics are able to
-highlight elements of the data that are invisible to the typical summary
-statistics. We also see this in recall experiments, where something as
-simple as sketching a distribution before recalling statistics or making
-predictions can greatly increase the accuracy of those measures
-{[}\citet{Hullman2018}; Goldstein2014{]}. Taken together, uncertainty
-visualisation implies a need to pull back the curtain and expose the
-unknowns of our analysis to the light.
+as if in direct contrast with this, visual statistics (information
+visualisations, data plots) are one of the most powerful tools in the
+statistician's toolbox, allowing for quick and memorable communication
+that identifies quirks in our data that we didn't even know to look for.
+We see this in datasets such as Anscombe's quartet \citep{anscombe} or
+the Datasaurus Dozen \citep{datasaurus, datasaurpkg}, where visual
+statistics are able to highlight elements of the data that are invisible
+to the typical summary statistics. We also see this in recall
+experiments, where something as simple as sketching a distribution
+before recalling statistics or making predictions can greatly increase
+the accuracy of those measures {[}\citet{Hullman2018}; Goldstein2014{]}.
+Taken together, uncertainty visualisation implies a need to pull back
+the curtain and expose put light on the unknowns of our analysis.
 
 As nice as this sentiment is, it turns out to be easier said than done.
 Reviews on uncertainty visualisation rarely offer tried and tested rules
@@ -290,31 +290,29 @@ build a house.
 \section{The purpose of uncertainty
 visualisation}\label{the-purpose-of-uncertainty-visualisation}
 
-Early mentions of ``uncertainty visualisation'' start springing up in
-the late 1980s and early 1990s across several different fields
+Mentions of ``uncertainty visualisation'' start springing up around
+1990, across several different fields
 \citep{Ibrekk1987, MacEachren1992}, each with its own motivation for the
-work. The earliest work appears in computer science, motivated by issues
-in the public's perception of random variables, with the hope that
+work. In computer science the area appears to be motivated by issues in
+the public's perception of random variables, with the hope that
 visualisations would give laypeople the ability to extract important
-information from graphical representations \citep{Ibrekk1987}. Stemming
-from similar concerns in the public's understanding of randomness,
-psychology, statistics, and economics used ``uncertainty
+information from graphical representations \citep{Ibrekk1987}. With
+similar concerns about the public's understanding of randomness, the
+field of psychology, statistics, and economics used ``uncertainty
 visualisations'' as a communication tool to mitigate the psychological
 bias associated with the communication of risk, a topic of concern since
-the early 1980s \citep{Spiegelhalter2017}. Finally, around the early
-1990s, discussions of uncertainty emerged in the cartography literature,
-motivated by the inherent uncertainty of geoscience data, the field's
-reliance on visualisation as an exploratory tool, and the constrained
-visual channels from map representations \citep{MacEachren1992}. As the
-field has progressed, these disparate motivations have merged together,
-and today, uncertainty visualisation is usually motivated by the vague
-goal of ``decision making''. In recent years, the umbrella term of
-``decision making'' have been used to mean: the mitigation of
-psychological bias to ensure economically rational decisions
-\citep{Padilla2022, Padilla2021, Kale2021}, the facilitation of trust or
-confidence {[}Zhao2023; Yang2023{]}, the ability to extract values
-related a distribution \citep{Sarma2023}, the prevention of false
-discovery in plots {[}\citet{Sarma2024}; Koonchanok2023{]}; or the
+the early 1980s \citep{Spiegelhalter2017}. In the cartography
+literature, it was motivated by inherent uncertainty of geoscience data,
+the practical use of visualisation as an exploratory tool, and the
+constrained visual channels from map representations
+\citep{MacEachren1992}. These disparate motivations have merged
+together, and today, uncertainty visualisation is usually motivated by
+the vague goal of ``decision-making''. This term has been used to mean
+the mitigation of psychological bias to ensure economically rational
+decisions \citep{Padilla2022, Padilla2021, Kale2021}, the facilitation
+of trust or confidence \citep{Zhao2023, Yang2023}, the ability to
+extract values related a distribution \citep{Sarma2023}, the prevention
+of false discovery in plots \citep{Sarma2024, Koonchanok2023}; or the
 extraction of some other metric that is vaguely related to
 ``uncertainty'' \citep{Chakraborty2024, Ndlovu2023}. This gradual scope
 creep of the field, motivated by the hazy definition of
@@ -355,16 +353,17 @@ calculations. Therefore, an effective uncertainty visualisation should
 not just ``show'' uncertainty; untrustworthy conclusions should
 \emph{not be visible}. If we refer to the conclusion we draw from a
 graphic as its signal and the uncertainty that should make this signal
-harder to read as the ``noise'', we can summarise the above information
-into three key requirements. A good uncertainty visualisation should:
+harder to read as the ``noise'' increases, we can summarise the above
+information into three key requirements. A good uncertainty
+visualisation should:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi})}
 \tightlist
 \item
-  Reinforce justified signals to encourage confidence in results
+  Reinforce justified signals to encourage confidence in results.
 \item
-  Hide spurious signals that are overwhelmed by noise
+  Hide spurious signals that are overwhelmed by noise.
 \item
   Perform tasks 1) and 2) in a way that is proportional to the level of
   confidence in those conclusions.
@@ -372,11 +371,11 @@ into three key requirements. A good uncertainty visualisation should:
 
 Usually, visualisations that are unconcerned with uncertainty have no
 issue showing justified signals, but struggle with the display of
-unjustified signals. Therefore, we call this approach to uncertainty
-visualisation ``signal-suppression'' since it primarily differentiates
-itself from the normal ``noiseless'' visualisation approach through
-criterion (2). This is the main criterion we will use to assess the
-current literature on uncertainty visualisation.
+unjustified signals. Therefore, we \emph{suggest calling this approach
+to uncertainty visualisation ``signal-suppression''} since it primarily
+differentiates itself from the normal ``noiseless'' visualisation
+approach through criterion (2). This is the main criterion we will use
+to assess the current literature on uncertainty visualisation.
 
 \section{Current Approaches}\label{current-approaches}
 
