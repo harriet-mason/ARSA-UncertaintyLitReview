@@ -557,8 +557,8 @@ estimate and the other on the uncertainty.
 
 }
 
-\caption{\label{fig-statistic}Taking the uncertainty as a statistic, to
-the extreme, with the same six examples. The easiest to digest is the
+\caption{\label{fig-statistic}Treating the uncertainty as a statistic,
+to the extreme, with the same six examples. The easiest to digest is the
 choropleth (S1, S2): instead of temperature, the probability of
 exceeding 27\(^o\)C is shown. This has the effect of highlighting (sine
 wave) trend in the low error data, and de-emphasizing it in the high
@@ -695,21 +695,19 @@ able to communicate signal and noise as a single signal.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-variable-1.pdf}}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-variable-1.pdf}
 
 }
 
-\caption{\label{fig-variable}Six different plots, each depicting a high
-and low uncertainty case for three plots (regression, choropleth, and
-group comparison). Plots (a) and (b) have the standard error of the
-slope mapped to the line width, while the standard error of the
-intercept is mapped to the transparency. Plots (c) and (d) use a
-bivariate colour palette where the mean of the distribution is mapped to
-the colour hue, while the variance is mapped to the colour saturation.
-Plots (e) and (f) visualise the mean of each group as a point, and the
-uncertainty as an interval. We can see that there are some differences
-between the top and bottom row, but the `signals' in the plots are still
-visible in the bottom row.}
+\caption{\label{fig-variable}Treating the uncertainty as a variable,
+with the same six examples. In plots R1, R2 the standard error of the
+slope mapped to the line width. The standard error of the intercept is
+mapped to the transparency, which is less conventional. In plots S1, S2
+a bivariate colour palette is used with mean mapped to the hue, and
+error mapped to saturation. Plots G1 and G2 represent the mean of each
+group as a point, and variance as an interval. The uncertainty is
+integrated well with the signal, but for the choropleth the result is
+undesirable: the signal is easier to see when the error is higher.}
 
 \end{figure}%
 
