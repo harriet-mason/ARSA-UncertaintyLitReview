@@ -179,12 +179,12 @@ slope_se_2 <- model_summary2$coefficients["wt", "Std. Error"]
 # Estimate Plots
 reg1a <- mtcars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point(size=2, alpha=0.5) + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few()  + 
   geom_abline(intercept = int_est_1,
               slope = slope_est_1,
               colour = "dodgerblue3",
-              linesize = 3) +
+              linewidth = 1.5) +
   theme(aspect.ratio=1) +
   ggtitle("R1 - low") + 
   ylim(9,35) +
@@ -192,12 +192,12 @@ reg1a <- mtcars |>
 
 reg1b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point(size=2, alpha=0.5) + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few()  + 
   geom_abline(intercept = int_est_2,
               slope = slope_est_2,
               colour = "dodgerblue3",
-              linesize = 3) +
+              linewidth = 1.5) +
   ggtitle("R2 - high") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
@@ -206,11 +206,12 @@ reg1b <- small_cars |>
 # Stat plot
 reg2a <- mtcars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point() + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few()  + 
   geom_abline(intercept = int_se_1,
               slope = slope_se_1,
-              colour = "dodgerblue3") +
+              colour = "dodgerblue3", 
+              linewidth = 1.5) +
   ggtitle("R1 - low") + 
   theme(aspect.ratio=1) +
   ylim(0,35) +
@@ -218,11 +219,12 @@ reg2a <- mtcars |>
 
 reg2b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point() + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few()  + 
   geom_abline(intercept = int_se_2,
               slope = slope_se_2,
-              colour = "dodgerblue3") +
+              colour = "dodgerblue3",
+              linewidth = 1.5) +
   ggtitle("R2 - high") + 
   theme(aspect.ratio=1) +
   ylim(0,35) +
@@ -232,7 +234,7 @@ reg2b <- small_cars |>
 # Width plot
 reg3a <- mtcars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point() + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few()  + 
   geom_abline(intercept = int_est_1,
               slope = slope_est_1,
@@ -246,7 +248,7 @@ reg3a <- mtcars |>
 
 reg3b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point() + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few()  + 
   geom_abline(intercept = int_est_2,
               slope = slope_est_2,
@@ -322,7 +324,7 @@ uni1b <- group_df |>
 # Statistic
 uni2a <- group_df |>
   ggplot() +
-  geom_point(aes(x=round(variance(dist_low), 4), y=group), colour = "forestgreen") +
+  geom_point(aes(x=round(variance(dist_low), 4), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
   ggtitle("G1 - low") + 
   labs(x = "Variance") + 
@@ -330,7 +332,7 @@ uni2a <- group_df |>
 
 uni2b <- group_df |>
   ggplot() +
-  geom_point(aes(x=variance(dist_high), y=group), colour = "forestgreen") +
+  geom_point(aes(x=variance(dist_high), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
   ggtitle("G2 - high") + 
   labs(x = "Variance") + 
@@ -409,9 +411,14 @@ exceed1 <- exeed_data |>
   geom_sf(aes(fill = xprob, 
               geometry = geometry), colour=NA) + 
   scale_fill_gradientn(colours = basecols, limits=c(0,1)) +
-  theme_void() +
+  #theme_void() +
   labs(fill = "P(X>27)") +
-  theme(legend.position = "bottom") + 
+  theme_map() +
+  theme(legend.position = "inside", 
+        legend.position.inside = c(0.1, -0.2),
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill=NA),
+        plot.title = element_text(size = 14)) +   
   ggtitle("S1 - low") 
 
 exceed2 <- exceed1 %+% filter(exeed_data, variance_class=="highvar") + 
@@ -698,15 +705,13 @@ reg1a + choro1 + uni1a + reg1b + choro2 + uni1b + plot_layout(ncol=3, widths=c(3
 
 <!-- Six different plots, each depicting a high and low uncertainty case for three plots commonly seen in discussions around uncertainty visualisation. The plots are: (a) linear regression with low uncertainty, (b) linear regression with high uncertainty, (c) spatial trend with low uncertainty, (d) spatial trend with high uncertainty, (e) group comparison with low uncertainty, (f) group comparison with high uncertainty. The linear regressions have a downward slope, the spatial map has a sine wave pattern, and the groups show an increasing value in X. These patterns should be visible in the low uncertainty case, but almost invisible in the high uncertainty case. As each plot only shows the central estimate of each uncertainty value, the high and low scenarios look identical for each plot.-->
 
-We will use these examples as touchstones for our discussion on uncertainty visualisation, and return to them when we discuss the approaches suggested in the literature. 
-They will be used to assess the approaches on how well methods may hide spurious relationships or reveal the hidden variance patterns in the data.
+We will use these examples as touchstones for this discussion on uncertainty visualisation, particularly to discuss the approaches suggested in the literature. 
+<!--They will be used to assess the approaches on how well methods may hide spurious relationships or reveal the hidden variance patterns in the data.-->
 
 ### Uncertainty as a statistic
-The most common approach to uncertainty visualisation is to swap out our original statistic for one that shows uncertainty. 
-We see it as an exceedance probability map in geoscience [@Kuhnert2018; @Lucchesi2021], as an icon array in risk communication [@Spiegelhalter2017], or as a summary plot in computer science [@Potter2010].
-Some authors take this approach because they explicitly believe uncertainty is a variable of importance in and of itself [@Blenkinsop2000], others straddle the line, asserting uncertainty is acting as signal and noise and should fulfil both roles [@geointerviews].
-This seems a little too easy. Can we just swap out the statistic for an "uncertainty statistic" and get an "uncertainty visualisation"?
-Is it that easy?
+Uncertainty is often treated as another statistic. An example is an exceedance probability map of spatial data (see @Kuhnert2018 with software available in @Lucchesi2021). Here probability of exceeding a specified value is displayed on the map. This places the focus on extreme events. Another is the icon array used for risk communication (e.g. @Spiegelhalter2017). Here the probability is translated to a set of icons, like people images, coloured for happening or not. It is argued that people will understand the impact if they can see the coarse number of affected individuals. The summary plot, proposed by @Potter2010 developed to address concerns about uncertainty in data displays, is an extraordinarily dense chart. It combines the plot of a single set of numeric values, with a density estimate, boxplot elements and statistical moments.
+
+Some authors take this approach because they explicitly believe uncertainty is a variable of importance in and of itself [@Blenkinsop2000], others straddle the line, asserting uncertainty is acting as signal and noise and should fulfil both roles [@geointerviews]. Simply put, these approaches might be described as swapping out the statistic for an "uncertainty statistic" to get an "uncertainty visualisation". Is it really that easy?
 
 #### Example: visualising variance
 @fig-statistic depicts the six plots from @fig-ignore, except that the original central value estimate has been replaced with an uncertainty statistic.
@@ -723,13 +728,12 @@ This change in the meaning results in the trend of the regression, and univariat
 #| message: false
 #| warning: false
 #| label: fig-statistic
-#| fig-height: 9
-#| fig-width: 12
+#| fig-height: 6
+#| fig-width: 10
+#| out-width: 100%
 #| fig-cap: "Six different plots, each depicting a high and low uncertainty case for three plots (regression, choropleth, and group comparison) commonly seen in discussions around uncertainty visualisation. Plots (a) and (b) have the standard error of the slope and intercept mapped to the slope and intercept of the line, plots (c) and (d) visualise the estimated value of P(X>27), and plots (e) and (f) visualise the mean of each group. We can see that there are some differences between the top and bottom row, but our visualisations are functionally meaningless in their new context. The standard error of a slope and intercept has no meaning when mapped to a line; the spatial pattern in the high and low spatial map is still visible. The group comparison is interpretable, but we are looking at a fundamentally different visualisation."
-#| cap-location: "bottom"
 
-(reg2a | exceed1 | uni2a) / (reg2b | exceed2 | uni2b) 
-  
+reg2a + exceed1 + uni2a + reg2b + exceed2 + uni2b + plot_layout(ncol=3, widths=c(30, 40, 30))  
 ```
 
 #### What is an uncertainty visualisation?

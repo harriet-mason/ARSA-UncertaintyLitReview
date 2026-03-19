@@ -177,7 +177,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\date{March 19, 2026}
+\date{March 20, 2026}
 \title{\bf The Noisy Work of Uncertainty Visualisation}
 \author{
 Harriet Mason\\
@@ -499,27 +499,34 @@ can lead to misrepresentation of data.}
 
 \end{figure}%
 
-We will use these examples as touchstones for our discussion on
-uncertainty visualisation, and return to them when we discuss the
-approaches suggested in the literature. They will be used to assess the
-approaches on how well methods may hide spurious relationships or reveal
-the hidden variance patterns in the data.
+We will use these examples as touchstones for this discussion on
+uncertainty visualisation, particularly to discuss the approaches
+suggested in the literature.
 
 \subsection{Uncertainty as a
 statistic}\label{uncertainty-as-a-statistic}
 
-The most common approach to uncertainty visualisation is to swap out our
-original statistic for one that shows uncertainty. We see it as an
-exceedance probability map in geoscience
-\citep{Kuhnert2018, Lucchesi2021}, as an icon array in risk
-communication \citep{Spiegelhalter2017}, or as a summary plot in
-computer science \citep{Potter2010}. Some authors take this approach
-because they explicitly believe uncertainty is a variable of importance
-in and of itself \citep{Blenkinsop2000}, others straddle the line,
-asserting uncertainty is acting as signal and noise and should fulfil
-both roles \citep{geointerviews}. This seems a little too easy. Can we
-just swap out the statistic for an ``uncertainty statistic'' and get an
-``uncertainty visualisation''? Is it that easy?
+Uncertainty is often treated as another statistic. An example is an
+exceedance probability map of spatial data (see \citet{Kuhnert2018} with
+software available in \citet{Lucchesi2021}). Here probability of
+exceeding a specified value is displayed on the map. This places the
+focus on extreme events. Another is the icon array used for risk
+communication (e.g. \citet{Spiegelhalter2017}). Here the probability is
+translated to a set of icons, like people images, coloured for happening
+or not. It is argued that people will understand the impact if they can
+see the coarse number of affected individuals. The summary plot,
+proposed by \citet{Potter2010} developed to address concerns about
+uncertainty in data displays, is an extraordinarily dense chart. It
+combines the plot of a single set of numeric values, with a density
+estimate, boxplot elements and statistical moments.
+
+Some authors take this approach because they explicitly believe
+uncertainty is a variable of importance in and of itself
+\citep{Blenkinsop2000}, others straddle the line, asserting uncertainty
+is acting as signal and noise and should fulfil both roles
+\citep{geointerviews}. Simply put, these approaches might be described
+as swapping out the statistic for an ``uncertainty statistic'' to get an
+``uncertainty visualisation''. Is it really that easy?
 
 \subsubsection{Example: visualising
 variance}\label{example-visualising-variance}
@@ -546,7 +553,7 @@ proper integration of uncertainty.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-statistic-1.pdf}}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-statistic-1.pdf}
 
 }
 
