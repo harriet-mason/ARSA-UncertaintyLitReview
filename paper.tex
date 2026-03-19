@@ -531,23 +531,23 @@ as swapping out the statistic for an ``uncertainty statistic'' to get an
 \subsubsection{Example: visualising
 variance}\label{example-visualising-variance}
 
-Figure~\ref{fig-statistic} depicts the six plots from
-Figure~\ref{fig-ignore}, except that the original central value estimate
-has been replaced with an uncertainty statistic. Plots (a) and (b) are
-the most absurd examples of this visualisation approach, as replacing
-the estimated slope and intercept of a line with the standard error of
-said estimate produces a plot that is inherently meaningless. This will
-not always be the case, as we can see in the exceedance probability maps
-depicted in plots (c) and (d) that visualise \(P(Temperature>27)\) for
-each county. Plots (e) and (f) simply show a scatter plot that depicts
-the variance of each distribution instead of the mean. In terms of the
-actual geometric object used to visualise our data, these graphics plots
-are identical to their certain counterparts. While it is only the
-statistic that has changed, this has changed the fundamental meaning of
-the plot. This change in the meaning results in the trend of the
-regression, and univariate distributions becoming invisible, but that is
-because we are visualising a fundamentally different plot, rather than a
-proper integration of uncertainty.
+Figure~\ref{fig-statistic} depicts the six plots showing this approach
+for the data introduced in Figure~\ref{fig-ignore}. The original central
+value estimate has been replaced with an uncertainty statistic. Plots
+R1, R2 are absurd examples of this approach: the regression line
+replaces the estimated slope and intercept of a line with their standard
+errors. To understand to plot you would read: the intercept of the line
+now says that the standard error of the trend is close to 0 in R1 and 20
+in R2, and the error of the slope is low for R1 and very high for R2.
+Sometimes this approach is sensible, as we can see in the exceedance
+probability maps depicted in plots S1 and S2. These map
+\(P(temperature>27)\) to colour for each county. The sine wave trend is
+clearly visible when error is low but barely visible with high error.
+This does reveal something interesting: that the variance is constant in
+G1 but different for eacg group in G2. It is a nonsensical display,
+though, because the trned has completely disappeared. If this approach
+is used in practice, you tend to see two plots, one focusing on the main
+estimate and the other on the uncertainty.
 
 \begin{figure}
 
@@ -557,33 +557,32 @@ proper integration of uncertainty.
 
 }
 
-\caption{\label{fig-statistic}Six different plots, each depicting a high
-and low uncertainty case for three plots (regression, choropleth, and
-group comparison) commonly seen in discussions around uncertainty
-visualisation. Plots (a) and (b) have the standard error of the slope
-and intercept mapped to the slope and intercept of the line, plots (c)
-and (d) visualise the estimated value of P(X\textgreater27), and plots
-(e) and (f) visualise the mean of each group. We can see that there are
-some differences between the top and bottom row, but our visualisations
-are functionally meaningless in their new context. The standard error of
-a slope and intercept has no meaning when mapped to a line; the spatial
-pattern in the high and low spatial map is still visible. The group
-comparison is interpretable, but we are looking at a fundamentally
-different visualisation.}
+\caption{\label{fig-statistic}Taking the uncertainty as a statistic, to
+the extreme, with the same six examples. The easiest to digest is the
+choropleth (S1, S2): instead of temperature, the probability of
+exceeding 27\(^o\)C is shown. This has the effect of highlighting (sine
+wave) trend in the low error data, and de-emphasizing it in the high
+error data. The other four take some thinking. In R1, R2, the line now
+indicates the standard error of the intercept and slope of the
+regression line, and one would read that the error for `R1 - low' is
+close to 0 but `R2 - high' is closer to 20, and similarly for slope.
+Yes, this is an absurd display! With G1 and G2, it is similar, but we
+learn something interesting that was not seen earlier: the variance in
+G2 is not uniform like that in G1.}
 
 \end{figure}%
 
 \subsubsection{What is an uncertainty
 visualisation?}\label{what-is-an-uncertainty-visualisation}
 
-The question about what is, or is not, an uncertainty visualisation
-seems to be one of the most pervasive divides in the literature. For
-example, \citet{Leland2005} mentions that popular graphics, such as pie
-charts and bar charts, omit uncertainty, and \citet{Wickham2011}
-suggests their product plot framework, which includes histograms and bar
-charts, should be extended to include uncertainty. However, pie charts,
-bar charts and histograms have all been used as a significant number of
-experiments as examples of an ``uncertainty visualisation''
+What is, or is not, an uncertainty visualisation is one of the most
+pervasive divides in the literature. For example, \citet{Leland2005}
+mentions that popular graphics, such as pie charts and bar charts, omit
+uncertainty, and \citet{Wickham2011} suggests their product plot
+framework, which includes histograms and bar charts, should be extended
+to include uncertainty. However, pie charts, bar charts and histograms
+have all been used as a significant number of experiments as examples of
+an ``uncertainty visualisation''
 \citep{Ibrekk1987, Olston2002, Zhao2023, Hofmann2012}. What is going on
 here?
 
