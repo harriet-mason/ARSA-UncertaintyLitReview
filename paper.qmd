@@ -760,12 +760,12 @@ The problem with this approach is that it means everything is an uncertainty vis
 
 ### Uncertainty as a variable
 Another common sentiment in the literature is the characterisation of uncertainty as just another variable that needs to be integrated into the visualisation, which means uncertainty visualisation is, at its core, a high-dimensional visualisation problem [@Griethe2006; @geointerviews].
-This sentiment is quite common, with many discussions across computer science [@Kinkeldey2014], cartography [@MacEachren2005], and statistical graphics [@Leland2005] treating this "additional aesthetic" approach as the only method.
+There are examples of this thinking across computer science [@Kinkeldey2014], cartography [@MacEachren2005], and statistical graphics [@Leland2005].
 
-This approach is often discussed in relation to how "integrated" the uncertainty is with the estimate.
+Discussion of the visualisations are in relation to how "integrated" the uncertainty is with the estimate.
 @Kinkeldey2014 identified a split between intrinsic plots, where we map uncertainty to the colour or size of the geometric object of our estimate, and extrinsic plots, where uncertainty is mapped to a separate geometric object, such as glyphs or error bars.
 A similar distinction was made by @uncertchap2022, who classified uncertainty visualisations as graphical annotations (extrinsic), and probability mapped to a visual encoding channel (intrinsic), or a hybrid of the two.
-It is unclear if these levels of "integration" in a plot design affect its ability to perform signal suppression.
+It is unclear if these levels of "integration" in a plot design affect its ability to suppress false signals. 
 
 #### Example: mapping two independent variables
 @fig-variable depicts the six visualisations @fig-ignore, except we have also mapped uncertainty to a spare aesthetic in the plot.
