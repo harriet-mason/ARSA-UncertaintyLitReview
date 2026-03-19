@@ -335,11 +335,12 @@ uncertainty visualisations should communicate a degree of confidence
 \citep{Boukhelifa2012} or validity \citep{Hullman2020a, Griethe2006} in
 our conclusions. We see it when authors suggest uncertainty
 visualisation should ``guide, qualify, or soften our judgements of
-uncertain data'' \citep{Leland2005}. These authors are not wrong about
-the need for transparency in science communication, either. A 6-month
-survey of anti-mask groups on Facebook during the COVID-19 pandemic
-showed that anti-maskers made persuasive arguments by exploiting
-inherent uncertainty that was ignored by pro-maskers \citep{Lee2021}.
+uncertain data'' (e.g. \citet{Leland2005} in his seminal work on the
+grammar of graphics). These authors are not wrong about the need for
+transparency in science communication, either. A six-month survey of
+anti-mask groups on Facebook during the COVID-19 pandemic showed that
+anti-maskers made persuasive arguments by exploiting inherent
+uncertainty that was ignored by pro-maskers \citep{Lee2021}.
 
 This consensus leads us to understand that uncertainty visualisation is
 motivated by the need for a sort of ``visual hypothesis test'', a
@@ -654,8 +655,8 @@ core, a high-dimensional visualisation problem
 across computer science \citep{Kinkeldey2014}, cartography
 \citep{MacEachren2005}, and statistical graphics \citep{Leland2005}.
 
-Discussion of the visualisations are in relation to how ``integrated''
-the uncertainty is with the estimate. \citet{Kinkeldey2014} identified a
+Discussion of the visualisations focus on how ``integrated'' the
+uncertainty is with the estimate. \citet{Kinkeldey2014} identified a
 split between intrinsic plots, where we map uncertainty to the colour or
 size of the geometric object of our estimate, and extrinsic plots, where
 uncertainty is mapped to a separate geometric object, such as glyphs or
@@ -669,27 +670,43 @@ signals.
 \subsubsection{Example: mapping two independent
 variables}\label{example-mapping-two-independent-variables}
 
-Figure~\ref{fig-variable} depicts the six visualisations
-Figure~\ref{fig-ignore}, except we have also mapped uncertainty to a
-spare aesthetic in the plot. The integrable approach is shown in plots
-(a) and (b), where the standard error of the slope is represented by the
-width of the line, and the standard error of the intercept is mapped to
-transparency. A bivariate map is shown in plots (c) and (d), and it
-offers a slight divergence from the intrinsic/extrinsic approach as it
-maps the estimate to colour hue and the variance to colour saturation,
-keeping the signal and noise contained to one visual aesthetic. The
-extrinsic approach, shown in plots (e) and (f), where we have
-represented the estimate with a point, and represented the variance as a
-95\% confidence interval, with a line range. While the high and low
-variance cases do not look identical as they did in
-Figure~\ref{fig-ignore}, the trend is still visible in the bottom row,
-where the variance is high, thus failing at signal suppression. Because
-these graphics visualise the distribution's estimate and uncertainty as
-two separate pieces of information, the message of the plot is two
-separate pieces of information that say ``here is the trend \emph{and}
-here is the uncertainty''. It is worthwhile to interrogate why this
-occurs to see if we can move towards a version of this plot where we are
-able to communicate signal and noise as a single signal.
+Figure~\ref{fig-variable} shows the six examples introduced in
+Figure~\ref{fig-ignore}. Here, uncertainty is mapped to a spare
+aesthetic in the plot. (In the grammar of graphics variables are mapped
+to aesthetics, like position, colour, size, in a plot.) In plots R1 and
+R2, the standard error of the slope is represented by the width of the
+line. This is a a common practice but it fails to also represent the
+standard error of the intercept. We might think we can examine the width
+of the line at \texttt{wt=0}, but this would be incorrect. Here it has
+been included, less obviously, by mapping the standard error of the
+intercept to transparency. While these help to give a gestalt of the
+uncertainty, they are not exacting representations. One would expect
+that the width above and below the line is one standard error, but why
+not map the width to two standard deviations, or even three?
+Interpreting transparency into a numerical quantity is also virtually
+impossible, so using this aesthetic mapping is effectively useless.
+
+A bivariate colour palette map is shown in plots S1, S2. With two
+dimensions of the plot reserved for spatial position, how to incorporate
+the error has been uncertain itself. The bivariate colour palette maps
+the estimate to hue and the error to saturation, keeping the signal and
+noise contained to one visual aesthetic. This has the unfortunate effect
+of making the signal appear stronger when the error is higher (S2).
+Perception of colour is a wild beast, hard to tame.
+
+The extrinsic approach, shown in plots G1 and G2, has the estimate
+represented by a point, and uncertainty computed as a 95\% confidence
+interval mapped to line length. The trend is still visible in both
+displays. It could be argued that where the variance is high, the trend
+remains a main focus, which means the display fails to sufficiently
+supporess the signal.
+
+Because al of these graphics visualise the distribution's estimate and
+uncertainty as two separate pieces of information, the message of the
+plot is two separate pieces of information that say ``here is the trend
+\emph{and} here is the uncertainty''. It is worthwhile to interrogate
+why this occurs to see if we can move towards a version of this plot
+where we are able to communicate signal and noise as a single item.
 
 \begin{figure}
 
