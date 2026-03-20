@@ -372,7 +372,7 @@ visualisation should:
 
 Usually, visualisations that are unconcerned with uncertainty have no
 issue showing justified signals, but struggle with the display of
-unjustified signals. Therefore, we \emph{suggest calling this approach
+unjustified signals. Therefore, we \textbf{suggest calling this approach
 to uncertainty visualisation ``signal-suppression''} since it primarily
 differentiates itself from the normal ``noiseless'' visualisation
 approach through criterion (2). This is the main criterion we will use
@@ -664,15 +664,15 @@ error bars. A similar distinction was made by \citet{uncertchap2022},
 who classified uncertainty visualisations as graphical annotations
 (extrinsic), and probability mapped to a visual encoding channel
 (intrinsic), or a hybrid of the two. It is unclear if these levels of
-``integration'' in a plot design affect its ability to suppress false
-signals.
+``integration'' in a plot design affect its ability to do signal
+suppression.
 
 \subsubsection{Example: mapping two independent
 variables}\label{example-mapping-two-independent-variables}
 
 Figure~\ref{fig-variable} shows the six examples introduced in
 Figure~\ref{fig-ignore}. Here, uncertainty is mapped to a spare
-aesthetic in the plot. (In the grammar of graphics variables are mapped
+aesthetic in the plot. (In the grammar of graphics, variables are mapped
 to aesthetics, like position, colour, size, in a plot.) In plots R1 and
 R2, the standard error of the slope is represented by the width of the
 line. This is a a common practice but it fails to also represent the
@@ -699,9 +699,9 @@ represented by a point, and uncertainty computed as a 95\% confidence
 interval mapped to line length. The trend is still visible in both
 displays. It could be argued that where the variance is high, the trend
 remains a main focus, which means the display fails to sufficiently
-supporess the signal.
+suppress the signal.
 
-Because al of these graphics visualise the distribution's estimate and
+Because all of these graphics visualise the distribution's estimate and
 uncertainty as two separate pieces of information, the message of the
 plot is two separate pieces of information that say ``here is the trend
 \emph{and} here is the uncertainty''. It is worthwhile to interrogate
@@ -728,52 +728,51 @@ undesirable: the signal is easier to see when the error is higher.}
 
 \end{figure}%
 
-\subsubsection{How to visualise a ``single integrated uncertain
-value''}\label{how-to-visualise-a-single-integrated-uncertain-value}
+\subsubsection{Can we visualise a ``single integrated uncertain
+value''?}\label{can-we-visualise-a-single-integrated-uncertain-value}
 
 The reality is, based on our discussion on inferential statistics,
 uncertainty \emph{isn't} a separate variable; it is a component of the
 random variable that is indistinguishable from the random variable
-itself. Similarities between the ``high-dimensional'' approach and the
-``uncertainty as a statistic'' approach are apparent when we read
-motivations for using this method over visualising an estimate (i.e.
-Figure~\ref{fig-ignore}) and variance (i.e. Figure~\ref{fig-statistic})
-side by side on separate graphics. The preference for the methods
-utilised in Figure~\ref{fig-variable} is usually motivated by the
-difficulties in combining information on two separate graphics
-{[}\citet{moritz2017trust}; Correll2018{]}, rather than an understanding
-that the ``uncertainty statistic'' approach is not philosophically
-sound. To achieve signal suppression, we need to visualise noise and
-signal together as a ``single integrated uncertain value''
+itself. Similarities between the ``as a variable'' approach and the ``as
+a statistic'' approach are apparent when we read motivations for
+visualising an estimate (i.e. Figure~\ref{fig-ignore}) and variance
+(i.e. Figure~\ref{fig-statistic}) side-by-side using two separate
+graphics. The preference for the methods utilised in
+Figure~\ref{fig-variable} is usually motivated by the difficulties in
+combining information on two separate graphics
+\citep{moritz2017trust, Correll2018}, rather than an understanding that
+the ``uncertainty statistic'' approach is not philosophically sound. To
+achieve signal suppression, we need to visualise noise and signal
+together as a ``single integrated uncertain value''
 \citep{Kinkeldey2014} rather than as two separate statistics.
 
-Just because we can still see the signal in Figure~\ref{fig-ignore},
+Just because we can still see the signal in Figure~\ref{fig-variable},
 that does not mean the reading of the estimate is completely independent
-of the estimate. When making ``non-uncertainty'' visualisations, we
-usually want the visual channels to be separable, that is, we don't want
-the data represented through one visual channel to interfere with the
-others \citep{Smart2019}. While this approach works for standard data
-visualisation, in uncertainty visualisation, it allows the estimate and
-its variance to be read independently, leading to the uncertainty being
-ignored \citep{uncertchap2022}. Therefore, rather than trying to
-maintain visual separability, the goals of uncertainty visualisation
-align far better with the pursuit of visual integrability. In an ideal
-system, our estimate and uncertainty would be separately manipulable,
-but so well integrated that they are read as a single channel by the
-human brain. The problem is that even if we implement the most extreme
-versions of integrable, our methods fall short, as illustrated by the
-bivariate map in Figure~\ref{fig-variable}. Colour hue and brightness
-are one of the classic examples of integrable variables
-\citep{Vanderplas2020}, and decreasing saturation should make the
-colours harder to distinguish, but the signal is still clearly visible.
-This is to say nothing of the fact that multi-dimensional colour
-palettes can make the graphics harder to read and hurt the accessibility
-of the plots \citep{Vanderplas2015}.
-
-Instead of hoping that uncertainty might collapse signal values into a
-single dimension, we might instead decide to do some of that work
-ourselves. As a matter of fact, some uncertainty visualisation authors
-already have.
+of the uncertainty. When making any visualisations, we usually want the
+visual channels to be separable, that is, we don't want the data
+represented through one visual channel to interfere with the others
+\citep{Smart2019}. It is also interesting to know whether readers can
+see all structures when there are multiple structures present in a data
+plot, or whether they systematically fixate one one
+\citep{vanderplas2017}. While aiming for separability is useful for
+standard data visualisation, in uncertainty visualisation it allows the
+estimate and its variance to be read independently, potentially leading
+to the uncertainty being ignored \citep{uncertchap2022}. Therefore,
+rather than trying to maintain visual separability, the goals of
+uncertainty visualisation align far better with the pursuit of visual
+integrability. In an ideal system, our estimate and uncertainty would be
+separately manipulatable, but so \emph{well-integrated that they are
+read as a single channel by the human brain}. The problem is that even
+if we can implement the most extreme versions of integrable, our methods
+fall short, as illustrated by the bivariate colour palette map in
+Figure~\ref{fig-variable}. Colour hue and brightness are one of the
+classic examples of integrable variables \citep{Vanderplas2020}, and
+decreasing saturation should make the colours harder to distinguish, but
+the signal is still clearly visible with the high variance. This is to
+say nothing of the fact that multi-dimensional colour palettes can make
+the graphics harder to read and hurt the accessibility of the plots
+\citep{Vanderplas2015}.
 
 \subsubsection{Another example: mapping combined
 variables}\label{another-example-mapping-combined-variables}
@@ -781,14 +780,12 @@ variables}\label{another-example-mapping-combined-variables}
 The Value Suppressing Uncertainty Palette (VSUP) \citep{Correll2018}
 were designed with the intention of preventing high uncertainty values
 from being extracted from a map by blending colours together as they
-become more uncertain. Figure~\ref{fig-vsup} depicts the Iowa choropleth
-map from Figure~\ref{fig-variable}, but instead of the standard
-bivariate palette, we have used the VSUP approach. Since the palette was
-designed with the extraction of individual values in mind and it has
-only been tested on simple value extraction tasks \citep{Correll2018} or
-search tasks \citep{Ndlovu2023}, we can see that, at least for our
-example, the high uncertainty spatial trend has functionally
-disappeared.
+become less certain. Figure~\ref{fig-vsup} shows the spatial example
+(S1, S2) using the VSUP approach. Since the palette was designed with
+the extraction of individual values in mind and it has only been tested
+on simple value extraction tasks \citep{Correll2018} or search tasks
+\citep{Ndlovu2023}, we can see that, at least for our example, when the
+uncertainty is high, the spatial trend has functionally disappeared.
 
 \begin{figure}
 
@@ -798,15 +795,11 @@ disappeared.
 
 }
 
-\caption{\label{fig-vsup}A variation of the choropleth map designed with
-a VSUP colour palette. The counties of Iowa are coloured acording to its
-average daily temperature and the variance in temperature. Similar to
-the bivariate map, temperature is mapped to hue while variance is mapped
-to saturation. Unlike the bivariance map, the colour space we are
-mapping our variables to has been transformed so that high variance
-estimates are harder to discern from each other. One of the maps has
-successfully implemented signal suppression, but a closer look at the
-scale brings into question if this should be the case.}
+\caption{\label{fig-vsup}The spatial examples displayed with a
+choropleth map using a VSUP colour palette, where hue is blended when
+increased uncertainty. Plot b has successfully produced signal
+suppression. Look closely at the scales, though: it may have you
+question whether this should have happened.}
 
 \end{figure}%
 
