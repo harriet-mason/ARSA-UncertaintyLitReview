@@ -925,40 +925,41 @@ forecasts \citep{fpp3}.
 \subsubsection{Example: visualising
 samples}\label{example-visualising-samples}
 
-Figure~\ref{fig-variable} depicts the six visualisations
-Figure~\ref{fig-ignore} as distributions represented by either a sample
-of outcomes or a quantile dot plot. Plots (a) and (b) show a linear
-regression as a sample of possible outcomes from the distribution. Plots
-(c) and (d) show a pixel map, which is a choropleth map with each county
-coloured by a sample of outcomes from the distribution. Plots (e) and
-(f) show each univariate distribution as a quantile dot plot. We can see
+Figure~\ref{fig-variable} shows the six examples introduced in
+Figure~\ref{fig-ignore}, shown as distributions. The distribution us
+represented by either a sample of outcomes or a quantile dot plot. Plots
+R1 and R2 show a linear regression as a sample of possible outcomes from
+the distribution. The distribution used for both the slope and intercept
+is normal with the conventional mean and standard error. Plots S1 and S2
+show a pixel map, which is a choropleth map where each county is
+coloured by a sample of outcomes from the distribution. Plots G1 and G2
+show each univariate distribution as a quantile dot plot. We can see
 that the strong downward trend in the linear regression, the sine wave
 in the choropleth map, and the incremental increase in the univariate
-distributions are all clearly visible in the low variance case, and
-invisible in the high variance cases. This means the graphic has finally
-achieved all criteria for signal suppression. In addition to
-successfully performing signal suppression, visualising the random
-variable as a distribution gives us additional information, such as the
-previously hidden bimodality of the univariate distributions in (e) and
-(f).
+distributions are all clearly visible in the low variance case, but
+disappear in the high variance cases. (What is interesting about G2 is
+that the variance pattern, where the tails have high probability, now
+dominates.) The upshot is a graphic has achieves signal suppression.
+Visualising the random variable as a distribution gives additional
+information, such as the previously hidden bimodality of the univariate
+distributions in G1 and G2.
 
 \begin{figure}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-distribution-1.pdf}}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-distribution-1.pdf}
 
 }
 
-\caption{\label{fig-distribution}Six different plots, each depicting a
-high and low uncertainty case for our three examples: regression,
-choropleth, and group comparison. Plots (a) and (b) show a linear
+\caption{\label{fig-distribution}Treating the uncertainty as a
+distribution, with the same six examples. Plots R1 and R2 show a linear
 regression as a sample of possible outcomes from the distribution. Plots
-(c) and (d) show a pixel map, which is a choropleth map with each county
-coloured by a sample of outcomes from the distribution. Plots (e) and
-(f) show the groups as quantile dot plots. We can see that the strong
-downward trend in the linear regression, the sine wave in the choropleth
-map, and the incremental increase in the groups have all disappeared.}
+S1 and S2 show a pixel map, which is a choropleth map with each county
+coloured by a sample of outcomes from the distribution. Plots G1 and G2
+show the groups as quantile dot plots. In each case the signal
+(regression line, sine wave, increasing trend) has disappeared with high
+uncertainty.}
 
 \end{figure}%
 

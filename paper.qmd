@@ -264,7 +264,7 @@ reg3b <- small_cars |>
 # Sample plot
 reg4a <-  mtcars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point() + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few()  + 
   geom_abline_sample(intercept = dist_normal(int_est_1, int_se_1),
                      slope = dist_normal(slope_est_1,slope_se_1),
@@ -277,7 +277,7 @@ reg4a <-  mtcars |>
 
 reg4b <- small_cars |>
   ggplot(aes(wt, mpg)) + 
-  geom_point() + 
+  geom_point(size = 2, alpha = 0.5) + 
   theme_few() + 
   geom_abline_sample(intercept = dist_normal(int_est_2, int_se_2),
                      slope = dist_normal(slope_est_2, slope_se_2),
@@ -554,10 +554,15 @@ pixel1 <- my_map_data |>
   ggplot() +
   geom_sf_sample(aes(fill = dist_normal(temp, variance), 
               geometry = geometry), colour=NA, times=30) + 
-  theme_void() + 
+  #theme_void() + 
   scale_fill_gradientn(colours = longpal) +
   labs(fill = "temperature") +
-  theme(legend.position = "bottom")  + 
+  theme_map() +
+  theme(legend.position = "inside", 
+        legend.position.inside = c(0.1, -0.2),
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill=NA),
+        plot.title = element_text(size = 14)) +   
   ggtitle("S1 - low") 
 
 # high variance
@@ -567,9 +572,14 @@ pixel2 <- my_map_data |>
   geom_sf_sample(aes(fill = dist_normal(temp, variance), 
               geometry = geometry), colour=NA, times=30) + 
   scale_fill_gradientn(colours = longpal) +
-  theme_void() +
+  #theme_void() +
   labs(fill = "temperature") +
-  theme(legend.position = "bottom") + 
+  theme_map() +
+  theme(legend.position = "inside", 
+        legend.position.inside = c(0.1, -0.2),
+        legend.direction = "horizontal",
+        legend.background = element_rect(fill=NA),
+        plot.title = element_text(size = 14)) +   
   ggtitle("S2 - high") 
 ```
 
@@ -883,13 +893,13 @@ Rather than trying to summarise our random variables down into a single value or
 This is also a common sentiment in the literature, and we can see the approach in computer science with the HOPs [@Hullman2015], in geoscience with pixel-maps [@Lucchesi2021; @Blenkinsop2000], and in statistics to show multiple forecasts [@fpp3].
 
 #### Example: visualising samples
-@fig-variable depicts the six visualisations @fig-ignore as distributions represented by either a sample of outcomes or a quantile dot plot.
-Plots (a) and (b) show a linear regression as a sample of possible outcomes from the distribution.
-Plots (c) and (d) show a pixel map, which is a choropleth map with each county coloured by a sample of outcomes from the distribution.
-Plots (e) and (f) show each univariate distribution as a quantile dot plot.
-We can see that the strong downward trend in the linear regression, the sine wave in the choropleth map, and the incremental increase in the univariate distributions are all clearly visible in the low variance case, and invisible in the high variance cases. 
-This means the graphic has finally achieved all criteria for signal suppression.
-In addition to successfully performing signal suppression, visualising the random variable as a distribution gives us additional information, such as the previously hidden bimodality of the univariate distributions in (e) and (f).
+@fig-variable shows the six examples introduced in @fig-ignore, shown as distributions. The distribution us represented by either a sample of outcomes or a quantile dot plot.
+Plots R1 and R2 show a linear regression as a sample of possible outcomes from the distribution. The distribution used for both the slope and intercept is normal with the conventional mean and standard error.
+Plots S1 and S2 show a pixel map, which is a choropleth map where each county is coloured by a sample of outcomes from the distribution.
+Plots G1 and G2 show each univariate distribution as a quantile dot plot.
+We can see that the strong downward trend in the linear regression, the sine wave in the choropleth map, and the incremental increase in the univariate distributions are all clearly visible in the low variance case, but disappear in the high variance cases. (What is interesting about G2 is that the variance pattern, where the tails have high probability, now dominates.)
+The upshot is a graphic has achieves signal suppression.
+Visualising the random variable as a distribution gives additional information, such as the previously hidden bimodality of the univariate distributions in G1 and G2.
 
 
 ```{r}
@@ -897,13 +907,13 @@ In addition to successfully performing signal suppression, visualising the rando
 #| message: false
 #| warning: false
 #| label: fig-distribution
-#| fig-height: 9
-#| fig-width: 12
-#| fig-cap: "Six different plots, each depicting a high and low uncertainty case for our three examples: regression, choropleth, and group comparison. Plots (a) and (b) show a linear regression as a sample of possible outcomes from the distribution. Plots (c) and (d) show a pixel map, which is a choropleth map with each county coloured by a sample of outcomes from the distribution. Plots (e) and (f) show the groups as quantile dot plots. We can see that the strong downward trend in the linear regression, the sine wave in the choropleth map, and the incremental increase in the groups have all disappeared."
-#| layout-valign: "bottom"
-#| cap-location: "bottom"
+#| fig-height: 6
+#| fig-width: 10
+#| out-width: 100%
+#| fig-cap: "Treating the uncertainty as a distribution, with the same six examples. Plots R1 and R2 show a linear regression as a sample of possible outcomes from the distribution. Plots S1 and S2 show a pixel map, which is a choropleth map with each county coloured by a sample of outcomes from the distribution. Plots G1 and G2 show the groups as quantile dot plots. In each case the signal (regression line, sine wave, increasing trend) has disappeared with high uncertainty."
 
-(reg4a | pixel1 | uni3a) / (reg4b | pixel2 | uni4b) 
+reg4a + pixel1 + uni4a + reg4b + pixel2 + uni4b + plot_layout(ncol=3, widths=c(30, 40, 30)) 
+
 
 ```
 
