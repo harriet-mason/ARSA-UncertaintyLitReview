@@ -939,34 +939,33 @@ This is not to say you should do one method over another; visualising both quant
 Data analysis often works in cycles, where we find assumption violations using EDA, quantify the effect of these violations on our inference, and then visualise the output of that inference using uncertainty visualisation.
 
 ## Evaluating uncertainty visualisations
-If we want to make conclusions about how effective any uncertainty visualisation method is, we need to look at the results of evaluation experiments. 
-The illustrative examples we have used thus far, i.e. showing a graphic and saying “wow, look at this”, are lacking if we want results that should be taken seriously.
+<!--If we want to make conclusions about how effective any uncertainty visualisation method is, we need to look at the results of evaluation experiments. 
+The illustrative examples we have used thus far, i.e. showing a graphic and saying “wow, look at this”, are lacking if we want results that should be taken seriously.-->
 Unfortunately, the conflicting results in the field are not limited to plot design and extend to the experimental findings as well [@MacEachren2005; @Kinkeldey2014; @Hullman2016].
 There are as many explanations for the noisy evaluation studies as there are contradictions in the research itself. 
 @Kim2019 believes there is some interference in results from participants' prior beliefs; 
 @Hullman2016 believes the noise in the literature could come from visual heuristics, subjective probabilities, unknown participant utility functions, or a misunderstanding of statistical concepts (such as confidence intervals).
-@Kinkeldey2014 suggest the best visualisation changes depending on the audience, so we cannot expect the same results between different subpopulations. 
-@Brennen2018 attributes issues to cognitive load caused by the complicated nature of uncertainty visualisations, as well as the participants' prior experience in the topic.
+@Kinkeldey2014 suggest the perception of visualisation changes by audience, so we cannot expect the same results between different subpopulations. 
+@Brennen2018 attributes evaluation difficulties to cognitive load from complicated uncertainty visualisations, as well as the participants' prior experience in the topic.
 While these issues will certainly have some impact on our ability to synthesise, none of them is unique to uncertainty visualisation. 
 Rather, the issue is likely due to a disconnect between the evaluation methods used and the stated goals of any one experiment.
 
 
 ### Current evaluation methods
-The inconsistency in the broader motivations of uncertainty visualisation bleeds into the evaluation studies and creates conflicting findings.
-This problem is pervasive within standard visualisation evaluation literature, where studies are regularly criticised for failing to correctly align questions and plot types [@Vanderplas2020], but it is particularly egregious in uncertainty visualisation because, unlike other statistics, uncertainty plays two roles in our analysis.
+<!-- Inconsistency is pervasive within standard visualisation evaluation literature, where studies are regularly criticised for failing to correctly align questions and plot types [@Vanderplas2020], but it is particularly egregious in uncertainty visualisation because, unlike other statistics, uncertainty plays two roles in our analysis.
 The role of signal is to be visible, while the role of noise is to obfuscate, so flipping the role of uncertainty also flips our conclusions about a method's effectiveness.
-This problem was also identified by @Brennen2018, their solution was to measure cognitive load and confidence, which would not alleviate the root cause of this issue.
-This complication is further aggravated by the fact that authors often provide little justification for their chosen response models [@Hullman2016], and the fact that approaches are compared on the basis of being "uncertainty visualisations" [@Ibrekk1987; @Hullman2015; @Hofman2020], a classification that holds little to no meaning. 
+This problem is described by @Brennen2018; their solution was to measure cognitive load and confidence. However, this will not alleviate the root cause of the problem.
+This complication is further aggravated by the fact that authors often provide little justification for their chosen response models [@Hullman2016], and the fact that approaches are compared on the basis of being "uncertainty visualisations" [@Ibrekk1987; @Hullman2015; @Hofman2020], a classification that holds little to no meaning. XXX this is mostly a repeat of the section above. Anything from here, not covered could be put back there. --> 
 
-#### Value Extraction
+#### Value extraction
 Uncertainty visualisations are most commonly evaluated based on how accurately viewers can extract an estimate and its variance [@Kinkeldey2014; @Hullman2019]. 
 This is not unusual, as direct observation is the simplest way to verify that information can be accurately read from a graph [@Vanderplas2020].
 Unfortunately, this approach doesn't work for uncertainty visualisation.
 The second we ask a specific question about a statistic, that statistic becomes our inferential statistic, even if the plot was not the intent behind the question. 
 By shifting the focus from $\hat{X}$ to $Var(\hat{X})$ or $P(\hat{X}<x)$, we end up evaluating visualisations on their ability to convey uncertainty statistics, rather than their ability to perform signal suppression.
-There is nothing unique to uncertainty in these studies, so when we boil the findings down to generalised results, they simply restate existing principles within information visualisation, even if they do not realise it themselves.
+Even if the authors do not realise it themselves, there is nothing unique to uncertainty in these studies, so when we boil the findings down to generalised results, they simply restate existing principles within information visualisation.
 Some of the findings are particularly obvious, such as studies that found participants were more accurate when reading a probability expressed as text than when they had to extract it from a graphic [@Cheong2016; @Savelli2013].
-Other studies replicate existing research, such as the finding that a probability mapped to a position is more accurate than one mapped to an area [@Ibrekk1987; @Gschwandtnei2016], a finding that established the hierarchy of perceptual tasks [@Cleveland1984; @Vanderplas2020], research dating back over 40 years. 
+Other studies replicate existing research, such as the finding that a probability mapped to a position is more accurate than one mapped to an area [@Ibrekk1987; @Gschwandtnei2016], a finding that established the hierarchy of perceptual tasks from more than 40 years ago (see @Cleveland1984 and replicated by @heer2010). 
 This extends beyond simple accuracy evaluations, as some authors have found that colour was more effective than size when searching for maximums and minimums in variances [@Sanyal2009], even though it has been well known that pre-attentive aesthetics, such as colour, are more efficient for search tasks since the 1980s [@Vanderplas2020].
 By classifying these studies as evaluations of "uncertainty visualisation" while evaluating uncertainty as a signal, we are encouraged to see successful examples of signal suppression as failure. 
 This approach leads authors to advise against particular aesthetic mappings for uncertainty, because they cause participants to have more difficulty extracting values [@Blenkinsop2000].
@@ -987,17 +986,17 @@ Risk aversion is an economic term used to describe an agent who would choose a r
 Risk aversion's role in the uncertainty visualisation is unclear, as authors will argue uncertainty should elicit more risk aversion in one paper [@Hullman2019], and argue for less risk aversion (by proxy of suggesting rational agents as a benchmark) in the next [@wu2023rational].
 Ultimately, these approaches have similar issues to the value extraction studies, except they are slightly more confusing in their goals, leading them to simultaneously argue for and against the inclusion of uncertainty in a visualisation.
 
-#### Vague Questions
-Some authors recognise these issues in the evaluation literature, but their attempts to evaluate uncertainty as noise are often ad hoc with varying levels of success.
-Some authors try to incorporate uncertainty by asking vague questions but compare the results to a ground truth, creating a situation where plots are *evaluated* as a value extraction study without participants being asked the *questions* of a value extraction task.
-Examples include asking participants for the "best estimate" [@Ibrekk1987], or identifying when a distribution is "furthest to the right" [@Hofmann2012] and then comparing these results to the distribution's expected value.
-The convoluted questions also seem to frequently confuse the participants and lead to obviously wrong responses.
-For example, @Hullman2015 asked participants to compare two normally distributed groups, A and B, and had many participants say that group A was more likely to be bigger, despite group B having a higher mean.
-In another study, @Gschwandtnei2016 asked participants the "probability that the interval has already ended at the marked point in time?” and participants replied with the probability that the interval had already started.
+#### Open-ended questions
+<!--Some authors recognise these issues in the evaluation literature, but their attempts to evaluate uncertainty as noise are often ad hoc with varying levels of success.-->
+Some authors try to incorporate uncertainty by asking open-ended questions but compare the results to a ground truth, creating a situation where plots are *evaluated* as a value extraction study without participants being asked the *questions* of a value extraction task.
+@Ibrekk1987 asked participants for the "best estimate" <!--, or identifying when a distribution is "furthest to the right" [@Hofmann2012] XXX technically not correct here --> and then compared the result to the distribution's expected value.
+<!--The convoluted questions also seem to frequently confuse the participants and lead to obviously wrong responses.
+For example,--> @Hullman2015 asked participants to compare two normally distributed groups, A and B, and had many participants say that group A was more likely to be bigger, despite group B having a higher mean.
+@Gschwandtnei2016 asked participants the "probability that the interval has already ended at the marked point in time?” and participants replied with the probability that the interval had already started.
 The confusion around trying to capture the effects of uncertainty can also extend to the authors of the study itself. 
-We can see an example of this in @Padilla2017 where in order to answer the question correctly, the first experiment required participants to assume that an oil rig being "more likely to be hit" by a hurricane would *not* translate to the rig sustaining "more damage", while the second experiment required participants to assume the opposite.
-This contradictory assumption in how to appropriately use uncertainty information seemed to go unnoticed by the authors.
-While these approaches are certainly a step in the right direction, the experiments overcomplicate the problem and ultimately confuse everyone involved. 
+We can see an example of this in @Padilla2017, In order to answer the question correctly, the first experiment required participants to assume that an oil rig being "more likely to be hit" by a hurricane would *not* translate to the rig sustaining "more damage". The second experiment required participants to assume the opposite.
+<!-- This contradictory assumption in how to appropriately use uncertainty information seemed to go unnoticed by the authors.
+While these approaches are certainly a step in the right direction, the experiments overcomplicate the problem and ultimately confuse everyone involved.--> 
 
 #### Effective methods
 This is not to say all evaluation studies fail to properly evaluate uncertainty as noise. 
@@ -1048,27 +1047,26 @@ We should also try to avoid visualising central estimates if possible, as severa
 These heuristics have the potential to create noise in signal suppression evaluations, and should be kept in mind when designing uncertainty visualisations as well as evaluation experiments.
 
 ## Conclusions and Future Work
-This paper has formalised the purpose of uncertainty visualisation, and in doing so, highlighted several gaps in the existing literature.
+This paper has summarised the literature and provides suggestions for structural framework around uncertainty visualisation. Particularly, we propose that the purpose of an uncertainty visualisation be signal-suppression, to dampen weak signals and amplify strong signals. It has highlighted several gaps in the existing literature.
 
-*Experimental practices on uncertainty visualisation need to be standardised.* 
+*Experimental practices on uncertainty visualisation need standards.* 
 Some existing evaluation experiments treat uncertainty as a signal, while others treat uncertainty as noise. 
-As the literature currently exists, there is no way to combine papers to get a meaningful sense of how uncertainty information is understood by a viewer.
+As the literature currently exists, it is difficult to combine results from papers to get a meaningful sense of how uncertainty information is understood by a viewer.
 Researchers need to ensure that when they identify the motivation behind their visualisation technique, their evaluation methods align with the stated goals of the paper. 
 
-Additionally *experimental methods that evaluate uncertainty as noise need to be developed.*
-Research into separability and integrability is of particular interest to uncertainty visualisation, as it allows interference from the uncertainty variable. 
+*Experimental methods that evaluate uncertainty as noise need to be developed.*
+Research into separability and integrability of signal and noise is of particular interest to uncertainty visualisation, as it allows assessment of the interference between the two. 
 When designing experiments, authors often choose aesthetics that are visually distinguishable; uncertainty visualisation authors should consider doing the opposite. 
 
 *Uncertainty needs to be formalised within the grammar of graphics.* 
-The ad hoc nature of the field is in desperate need of formalisation.
-Some of this formalisation was done by @Kay2023, but this work was limited to the visualisation of univariate distributions.
-Giving authors the ability to describe uncertainty visualisations in terms of statistics, geometries and aesthetics will support evaluation experiments that can build towards a cohesive theory of visualising uncertainty as noise.
+Some of this formalisation was done by @Kay2023, but it focuses only on the visualisation of univariate distributions.
+Giving authors the ability to describe uncertainty visualisations in terms of statistics, geometries and aesthetics will support evaluation experiments that can build towards a cohesive theory of visualising uncertainty.
 
-*Software that allows users to easily perform signal suppression should be developed.* 
-Existing uncertainty visualisation methods view a distribution as its own object, and there are no software options for the "an uncertainty visualisation is a function of an existing visualisation" philosophy.  
+*Software that allows users to easily perform signal suppression is needed.* 
+Existing uncertainty visualisation methods view a distribution as its own object, and there are no software options treating "an uncertainty visualisation as a function of an existing visualisation" philosophy.  
 
-Signal suppression is an untouched area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
-We are interested in seeing how this challenge plays out.
+Signal suppression is an undeveloped area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
+<!--We are interested in seeing how this challenge plays out.-->
 
 ## Acknowledgements
 
