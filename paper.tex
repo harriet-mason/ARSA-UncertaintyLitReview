@@ -1174,7 +1174,7 @@ questions about specific features of a plot, and implicit testing, where
 users identify both the purpose and function of the plot. The lineup
 protocol is the most salient example of the implicit approach. Lineups
 are a confirmatory visualisation tool where participants are shown a set
-of \(M-1\) plots, and asked to identify the plot that is the ``most
+of \(M\) plots, and asked to identify the plot that is the ``most
 different'', leaving participants to decide what ``most different''
 means to them, even if it is not what the authors intended
 \citep{vanderplas2017}. The implicit testing does not limit the
@@ -1186,12 +1186,12 @@ Lineup protocols are not only useful for their implicit testing, but
 they also have parallels to hypothesis testing that can be leveraged for
 uncertainty visualisation. The concept of signal suppression is, at its
 core, an assertion of statistical validity, which means the visibility
-of signals should be directly proportional to p-values or some
+of signals should be directly proportional to \(p\)-values or some
 equivalent measure. This comparison is not new in uncertainty
 visualisation, where parallels have been drawn to frequentist statistics
 by \citet{Correll2014}, who compared results to Cohen's D, and to
 Bayesian statistics by \citet{Kim2019}, who evaluated plots based on
-their impact on users' prior beliefs. The comparison to hypothesis
+their impact on the users' prior beliefs. The comparison to hypothesis
 testing is far more natural for the lineup protocol, with
 \citet{Majumder2013} explicitly defining a visual test statistic, while
 \citet{Patrick2023} compared lineups to standard statistical tests using
@@ -1210,46 +1210,6 @@ lineup approach. Designing an implicit testing method for uncertainty
 visualisation that allows us to draw parallels to standard notions of
 statistical significance would solve many of the issues with the current
 evaluation approaches.
-
-\subsection{Heuristics research}\label{heuristics-research}
-
-There is one element of uncertainty visualisation research that we have
-not touched on yet, but it is incredibly consistent, and that is the
-research around visual heuristics. The heuristics research, unlike the
-plot evaluation work, is incredibly consistent, likely because
-heuristics are indifferent to the goal of our analysis and uncertainty's
-role as signal or noise. Several heuristics are of particular importance
-for uncertainty visualisation. We will give a brief overview of them
-here, and for a more in-depth analysis, see \citet{uncertchap2022}.
-
-The use of confidence intervals or boundaries has a few known issues in
-their interpretation. The sine illusion can cause the confidence
-interval of a smoothed sine curve to seem wider at the peaks than the
-troughs, causing us to underestimate uncertainty associated with
-changing values \citep{Vanderplas2015}. Similarly, researchers
-frequently find that visual boundaries such as the cone of uncertainty
-in hurricane forecasts \citep{uncertchap2022}, or confidence bands or
-ellipses \citep{vanderplas2017} create the impression of a meaningful
-bound, separating points outside the bounds from those within it, which
-can create problems if said bound is not inherently meaningful.
-
-While many researchers tend to prefer frequency framing, they are not
-without their issues. Points that were on an outcome of an ensemble
-display were perceived as more likely than points not on an outcome,
-even when the point that was not on an outcome was closer to the centre
-of the distribution (and therefore more likely) \citep{Padilla2017}.
-This is considered to be a variation of the within-bar bias, where
-outcomes within the bar on a bar chart as perceived to be more likely
-than those outside it \citep{Newman2012}.
-
-We should also try to avoid visualising central estimates if possible,
-as several studies have found that viewers ignore uncertainty
-information and compare the difference between the two means if they
-have the option \citep{uncertchap2022}.
-
-These heuristics have the potential to create noise in signal
-suppression evaluations, and should be kept in mind when designing
-uncertainty visualisations as well as evaluation experiments.
 
 \section{Conclusions and Future Work}\label{conclusions-and-future-work}
 

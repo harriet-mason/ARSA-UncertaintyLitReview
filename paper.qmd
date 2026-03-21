@@ -1015,12 +1015,12 @@ The main problems with current uncertainty visualisation evaluations are that th
 Asking direct questions about the statistics or outcomes is not an explicit requirement of visualisation evaluations.
 In their review of testing statistical graphics, @Vanderplas2020 drew a distinction between explicit tests, where participants are asked direct questions about specific features of a plot, and implicit testing, where users identify both the purpose and function of the plot.
 The lineup protocol is the most salient example of the implicit approach.
-Lineups are a confirmatory visualisation tool where participants are shown a set of $M-1$ plots, and asked to identify the plot that is the "most different", leaving participants to decide what "most different" means to them, even if it is not what the authors intended [@vanderplas2017].
+Lineups are a confirmatory visualisation tool where participants are shown a set of $M$ plots, and asked to identify the plot that is the "most different", leaving participants to decide what "most different" means to them, even if it is not what the authors intended [@vanderplas2017].
 The implicit testing does not limit the versatility of the approach, with the lineup being used to evaluate the effectiveness of different types of plots [@Hofmann2012], colour palettes [@Reda2021], and design decisions [@vanderplas2017].
 
 Lineup protocols are not only useful for their implicit testing, but they also have parallels to hypothesis testing that can be leveraged for uncertainty visualisation.
-The concept of signal suppression is, at its core, an assertion of statistical validity, which means the visibility of signals should be directly proportional to p-values or some equivalent measure.
-This comparison is not new in uncertainty visualisation, where parallels have been drawn to frequentist statistics by @Correll2014, who compared results to Cohen's D, and to Bayesian statistics by @Kim2019, who evaluated plots based on their impact on users' prior beliefs. 
+The concept of signal suppression is, at its core, an assertion of statistical validity, which means the visibility of signals should be directly proportional to $p$-values or some equivalent measure.
+This comparison is not new in uncertainty visualisation, where parallels have been drawn to frequentist statistics by @Correll2014, who compared results to Cohen's D, and to Bayesian statistics by @Kim2019, who evaluated plots based on their impact on the users' prior beliefs. 
 The comparison to hypothesis testing is far more natural for the lineup protocol, with @Majumder2013 explicitly defining a visual test statistic, while @Patrick2023 compared lineups to standard statistical tests using power curves. 
 The parallels to lineups and uncertainty visualisation are numerous, with the relationship even being identified by @Hullman2015 in their development of hypothetical outcome plots.
 
@@ -1028,6 +1028,7 @@ The lineup protocol and uncertainty visualisation share a lot in common, with th
 As both approaches are attempting to do the same thing, it is likely that we are unable to leverage the lineup protocol directly to evaluate uncertainty visualisation, but a new evaluation methodology should try to learn from the success of the lineup approach. 
 Designing an implicit testing method for uncertainty visualisation that allows us to draw parallels to standard notions of statistical significance would solve many of the issues with the current evaluation approaches.
 
+<!-- XXX I don't think this belongs in this paper
 ### Heuristics research
 There is one element of uncertainty visualisation research that we have not touched on yet, but it is incredibly consistent, and that is the research around visual heuristics.
 The heuristics research, unlike the plot evaluation work, is incredibly consistent, likely because heuristics are indifferent to the goal of our analysis and uncertainty's role as signal or noise.
@@ -1044,7 +1045,7 @@ This is considered to be a variation of the within-bar bias, where outcomes with
 
 We should also try to avoid visualising central estimates if possible, as several studies have found that viewers ignore uncertainty information and compare the difference between the two means if they have the option [@uncertchap2022].
 
-These heuristics have the potential to create noise in signal suppression evaluations, and should be kept in mind when designing uncertainty visualisations as well as evaluation experiments.
+These heuristics have the potential to create noise in signal suppression evaluations, and should be kept in mind when designing uncertainty visualisations as well as evaluation experiments.-->
 
 ## Conclusions and Future Work
 This paper has summarised the literature and provides suggestions for structural framework around uncertainty visualisation. Particularly, we propose that the purpose of an uncertainty visualisation be signal-suppression, to dampen weak signals and amplify strong signals. It has highlighted several gaps in the existing literature.
