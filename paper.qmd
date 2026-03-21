@@ -776,7 +776,7 @@ A bivariate colour palette map is shown in plots S1, S2. With two dimensions of 
 
 The extrinsic approach, shown in plots G1 and G2, has the estimate represented by a point, and uncertainty computed as a 95% confidence interval mapped to line length. The trend is still visible in both displays. It could be argued that where the variance is high, the trend remains a main focus, which means the display fails to sufficiently suppress the signal.
 
-Because all of these graphics visualise the distribution's estimate and uncertainty as two separate pieces of information, the message of the plot is two separate pieces of information that say "here is the trend *and* here is the uncertainty".
+Because all of these graphics visualise the distribution's estimate and uncertainty as two separate pieces of information, the message of the plot is  "here is the trend *and* here is the uncertainty".
 It is worthwhile to interrogate why this occurs to see if we can move towards a version of this plot where we are able to communicate signal and noise as a single item.
 
 ```{r}
@@ -795,7 +795,7 @@ reg3a + bivar1 + uni3a + reg3b + bivar2 + uni3b + plot_layout(ncol=3, widths=c(3
 
 #### Can we visualise a "single integrated uncertain value"?
 The reality is, based on our discussion on inferential statistics, uncertainty *isn't* a separate variable; it is a component of the random variable that is indistinguishable from the random variable itself.
-Similarities between the "as a variable" approach and the "as a statistic" approach are apparent when we read motivations for visualising an estimate (i.e. @fig-ignore) and variance (i.e. @fig-statistic) side-by-side using two separate graphics.
+Similarities between the "as a variable" approach and the "as a statistic" approach are apparent when we read motivations for visualising an estimate (i.e. @fig-ignore) and variance (i.e. @fig-statistic) side-by-side using two separate graphics. (This organisation could also be considered to suffer from the condition of change blindness [@simons1997] as one needs to switch focus between two displays.)
 The preference for the methods utilised in @fig-variable is usually motivated by the difficulties in combining information on two separate graphics [@moritz2017trust; @Correll2018], rather than an understanding that the "uncertainty statistic" approach is not philosophically sound. 
 To achieve signal suppression, we need to visualise noise and signal together as a “single integrated uncertain value” [@Kinkeldey2014] rather than as two separate statistics.
 
@@ -840,29 +840,32 @@ This means that VSUP maps are not suitable for exploratory data analysis.
 
 #### Uncertainty and exploratory data analysis
 The reason there is no uncertainty in descriptive statistics is not due to a unique property of descriptive statistics, but rather due to the lack of inference.
-Descriptive statistics are actually a small piece of a much larger subfield that does not perform statistical inference, and that subfield is exploratory data analysis (EDA).
-@Tukey1977 described EDA as the process of searching for interesting hypotheses, and defined it in relation to confirmatory data analysis (CDA), the process of verifying a hypothesis.
-This EDA vs CDA dichotomy is the same dichotomy we drew earlier between descriptive and inferential statistics.
-Some have argued that the two methods are not entirely distinct, as it is often difficult to draw a hard line between EDA and CDA [@Hullman2021].
-As with many concepts, these approaches exist on a continuum, where we have an inherent trade-off between the number of hypotheses we can look for and the certainty of any conclusions reached. 
+Descriptive statistics are actually a small piece of a much larger field, exploratory data analysis (EDA), that tends not perform statistical inference.
+@Tukey1977 described EDA as the process of searching for interesting hypotheses ("the greatest value of a picture is when it forces us to notice what we never expected to see"), and defined it in relation to confirmatory data analysis (CDA), the process of verifying a hypothesis. There are more subfields of EDA: initial data analysis [@huebner2016; @chatfield] which involves checking assumption and data quality prior to CDA, and model diagnostics (e.g. @bkw1980) which includes posterior checks on the model fit. What binds these pursuits together is their reliance on visual summaries for making assessments, and an absence of formal inference.  
+
+<!--This EDA vs CDA dichotomy is the same dichotomy we drew earlier between descriptive and inferential statistics.-->
+Some have argued that the EDA and CDA are not entirely distinct, as it is often difficult to draw a hard line (e.g. @Hullman2021).
+Our belief, as with many concepts, is that these approaches exist on a continuum, where we have an inherent trade-off between the number of hypotheses we can look for and the certainty of any conclusions reached. 
 It can help to think of the knowledge-generating process of EDA and CDA as the nozzle on a hose with multiple spray options, where EDA is a fine misting spray that touches everything in the room, and CDA is a high-pressure jet capable of obliterating any and all debris from any single spot. 
 
-The EDA versus CDA dichotomy can create some confusion when it comes to understanding the source of uncertainty in our analysis.
-This is why, despite the fact that an uncertainty visualisation system for EDA is one of the most discussed topics in the field [@Hadjimichael2024; @geointerviews; @MacEachren2005; @Sarma2024; @Griethe2006], we have avoided the topic until now.
+Viewing EDA and CDA as a dichotomy can create some confusion when it comes to understanding the source of uncertainty in our analysis.
+This is why we have avoided the topic until now, despite the fact that an uncertainty visualisation system for EDA is one of the most discussed topics in the field [@Hadjimichael2024; @geointerviews; @MacEachren2005; @Sarma2024; @Griethe2006].
 The EDA versus CDA dichotomy can be compared to the dichotomy between induction, for building theories, and deduction, for testing theories, from formal logic.
 One of the trade-offs in the two methods is that deductive conclusions provide certainty, while conclusions from induction are inherently uncertain. 
 This means that EDA, the inductive counterpart, has uncertainty in any conclusions reached through the method, with the requirement to follow up our newfound hypothesis with CDA if we want true certainty. 
-This adds another layer of confusion to our analysis, as authors frequently conflate the uncertainty in our data with the uncertainty that is inherent to EDA itself. 
+This adds another layer of confusion to the study of uncertainty visualisation: conflating the uncertainty in our data with the uncertainty that is inherent to an exploratory process characterised by EDA. 
 
-Authors often try to account for this inherent uncertainty and believe it should be incorporated into their plots, an argument made explicitly by @Hullman2021 when they said there is no such thing as a "model-free" visualisation.
-The fear of this inherent uncertainty leads authors to try to perform some kind of statistical super-test, where they pre-emptively hedge against every false inference that could possibly be drawn from a graphic [@Guo2024; @Savvides2019; @Hullman2021].
-This is typically done by visualising a null distribution alongside the observed data on a single plot, an approach that is statistically identical to the line-up protocol [@Buja2009]. 
-As a line-up protocols were designed to a graphical parallel to standard statistical hypothesis tests, a core tool of inductive statistics, they are deductive reasoning, and therefore not EDA.
+Authors often over-compensate for the inherent EDA uncertainty, to pre-emptively hedge against every false inference that could possibly be drawn from a graphic. @Hullman2021 argues there is no such thing as a "model-free" visualisation. @Guo2024 provides a grammar for visualising statistical model checks. The lineup protocol [@Buja2009] provide the viewer with plots of the data in a field of plots of null data where any patterns seen are due to sampling variability. The Rorschach protocol, from the same paper, shows only null plots to give the reader some intuition for what spurious sampling patterns exists. @Savvides2019 provides a statistical super-test against multiple comparisons driven by probabilistic arguments. There is a CDA quality to these approaches. The sum total of a lot of CDA is not EDA, just as swinging a high-pressure jet around a room is not equivalent to using a misting spray. While EDA and CDA may be along a continuum, 
+we cannot simultaneously perform EDA and CDA as the approaches are, philosophically speaking, perpendicular to one another.
+
+<!-- The fear of this inherent uncertainty leads authors to try to perform some kind of statistical super-test, where they pre-emptively hedge against every false inference that could possibly be drawn from a graphic [@Guo2024; @Savvides2019; @Hullman2021].
+The lineup protocol [@Buja2009] where the observed data is visualised alongside  a field of null samples. 
+As a lineup protocols were designed to a graphical parallel to standard statistical hypothesis tests, a core tool of inductive statistics, they are deductive reasoning, and therefore not EDA.
 The sum total of a lot of CDA is not EDA, just as frantically swinging a high-pressure jet around a room is not equivalent to using a misting spray.
 Even if you do manage to wet everything, you are going to use an exorbitant amount of water to do it (and possibly also break a few things).
 This is not to say there is anything wrong with these approaches; they are incredibly useful tools for induction.
-The line-up protocol, in particular, is a useful alternative to hypothesis testing, as it allows for statistical inference when there is no classical test available or when tests involve multiple effects [@Hofmann2012].
-Rather, the problem is that we cannot simultaneously perform EDA and CDA as the approaches are, philosophically speaking, perpendicular to one another.
+The lineup protocol, in particular, is a useful alternative to hypothesis testing, as it allows for statistical inference when there is no classical test available or when tests involve multiple effects [@Hofmann2012].
+Rather, the problem is that we cannot simultaneously perform EDA and CDA as the approaches are, philosophically speaking, perpendicular to one another.-->
 
 To truly create an uncertainty visualisation approach that is capable of EDA, we need to accept that uncertainty is inherent to the method, and it cannot be pre-emptively removed from the visualisations. 
 If we accept this fact, then the only possible source of uncertainty in an uncertainty visualisation system that performs EDA is from the data itself. 
@@ -877,7 +880,7 @@ Ensuring this property means we cannot treat signal and noise as separate variab
 
 ### Uncertainty as a distribution
 Rather than trying to summarise our random variables down into a single value or pair of values, why don't we just visualise the whole distribution?
-This is also a common sentiment in the literature, and we can see the approach in computer science with the HOPs [@Hullman2015], in geoscience with pixel-maps [@Lucchesi2021; @Blenkinsop2000], and in statistics with spaghetti plots.
+This is also a common sentiment in the literature, and we can see the approach in computer science with the HOPs [@Hullman2015], in geoscience with pixel-maps [@Lucchesi2021; @Blenkinsop2000], and in statistics to show multiple forecasts [@fpp3].
 
 #### Example: visualising samples
 @fig-variable depicts the six visualisations @fig-ignore as distributions represented by either a sample of outcomes or a quantile dot plot.
@@ -1002,18 +1005,18 @@ Designing tests for signal suppression will require a formalisation of uncertain
 The main problems with current uncertainty visualisation evaluations are that they often require explicit (or convoluted) questions about the variance.
 Asking direct questions about the statistics or outcomes is not an explicit requirement of visualisation evaluations.
 In their review of testing statistical graphics, @Vanderplas2020 drew a distinction between explicit tests, where participants are asked direct questions about specific features of a plot, and implicit testing, where users identify both the purpose and function of the plot.
-The line-up protocol is the most salient example of the implicit approach.
-Line-ups are a confirmatory visualisation tool where participants are shown a set of $M-1$ plots, and asked to identify the plot that is the "most different", leaving participants to decide what "most different" means to them, even if it is not what the authors intended [@vanderplas2017].
-The implicit testing does not limit the versatility of the approach, with the line-up being used to evaluate the effectiveness of different types of plots [@Hofmann2012], colour palettes [@Reda2021], and design decisions [@vanderplas2017].
+The lineup protocol is the most salient example of the implicit approach.
+Lineups are a confirmatory visualisation tool where participants are shown a set of $M-1$ plots, and asked to identify the plot that is the "most different", leaving participants to decide what "most different" means to them, even if it is not what the authors intended [@vanderplas2017].
+The implicit testing does not limit the versatility of the approach, with the lineup being used to evaluate the effectiveness of different types of plots [@Hofmann2012], colour palettes [@Reda2021], and design decisions [@vanderplas2017].
 
-Line-up protocols are not only useful for their implicit testing, but they also have parallels to hypothesis testing that can be leveraged for uncertainty visualisation.
+Lineup protocols are not only useful for their implicit testing, but they also have parallels to hypothesis testing that can be leveraged for uncertainty visualisation.
 The concept of signal suppression is, at its core, an assertion of statistical validity, which means the visibility of signals should be directly proportional to p-values or some equivalent measure.
 This comparison is not new in uncertainty visualisation, where parallels have been drawn to frequentist statistics by @Correll2014, who compared results to Cohen's D, and to Bayesian statistics by @Kim2019, who evaluated plots based on their impact on users' prior beliefs. 
-The comparison to hypothesis testing is far more natural for the line-up protocol, with @Majumder2013 explicitly defining a visual test statistic, while @Patrick2023 compared line-ups to standard statistical tests using power curves. 
-The parallels to line-ups and uncertainty visualisation are numerous, with the relationship even being identified by @Hullman2015 in their development of hypothetical outcome plots.
+The comparison to hypothesis testing is far more natural for the lineup protocol, with @Majumder2013 explicitly defining a visual test statistic, while @Patrick2023 compared lineups to standard statistical tests using power curves. 
+The parallels to lineups and uncertainty visualisation are numerous, with the relationship even being identified by @Hullman2015 in their development of hypothetical outcome plots.
 
-The line-up protocol and uncertainty visualisation share a lot in common, with the motivation behind line-ups also rooted in checking if perceived patterns are real or merely the result of chance [@Buja2009; @Wickham2010].
-As both approaches are attempting to do the same thing, it is likely that we are unable to leverage the line-up protocol directly to evaluate uncertainty visualisation, but a new evaluation methodology should try to learn from the success of the line-up approach. 
+The lineup protocol and uncertainty visualisation share a lot in common, with the motivation behind lineups also rooted in checking if perceived patterns are real or merely the result of chance [@Buja2009; @Wickham2010].
+As both approaches are attempting to do the same thing, it is likely that we are unable to leverage the lineup protocol directly to evaluate uncertainty visualisation, but a new evaluation methodology should try to learn from the success of the lineup approach. 
 Designing an implicit testing method for uncertainty visualisation that allows us to draw parallels to standard notions of statistical significance would solve many of the issues with the current evaluation approaches.
 
 ### Heuristics research
