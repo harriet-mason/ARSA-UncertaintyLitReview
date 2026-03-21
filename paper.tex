@@ -937,12 +937,10 @@ show each univariate distribution as a quantile dot plot. We can see
 that the strong downward trend in the linear regression, the sine wave
 in the choropleth map, and the incremental increase in the univariate
 distributions are all clearly visible in the low variance case, but
-disappear in the high variance cases. (What is interesting about G2 is
-that the variance pattern, where the tails have high probability, now
-dominates.) The upshot is a graphic has achieves signal suppression.
-Visualising the random variable as a distribution gives additional
-information, such as the previously hidden bimodality of the univariate
-distributions in G1 and G2.
+disappear in the high variance cases. The upshot is a graphic has
+achieves signal suppression. Visualising the random variable as a
+distribution gives additional information, such as the previously hidden
+bimodality of the univariate distributions in G1 and G2.
 
 \begin{figure}
 
@@ -955,36 +953,30 @@ distributions in G1 and G2.
 \caption{\label{fig-distribution}Treating the uncertainty as a
 distribution, with the same six examples. Plots R1 and R2 show a linear
 regression as a sample of possible outcomes from the distribution. Plots
-S1 and S2 show a pixel map, which is a choropleth map with each county
-coloured by a sample of outcomes from the distribution. Plots G1 and G2
-show the groups as quantile dot plots. In each case the signal
-(regression line, sine wave, increasing trend) has disappeared with high
-uncertainty.}
+S1 and S2 show a pixel map. Plots G1 and G2 show the groups as quantile
+dot plots. In each case the signal (regression line, sine wave,
+increasing trend) has disappeared with high uncertainty.}
 
 \end{figure}%
 
 \subsubsection{Quantified versus unquantified
 uncertainty}\label{quantified-versus-unquantified-uncertainty}
 
-The visualisation in Figure~\ref{fig-distribution} performs signal
-suppression, without sacrificing the viewer's ability to extract general
-statistics, unless those statistics \emph{should} be harder to extract
-due to the uncertainty in the value. By showing our distribution as
-``data'', we are able to read the ``uncertainty'' plots using the same
-perceptual tasks that are used to read the ``non-uncertainty'' plot.
-This leads to more effective communication, as people tend to read more
-complicated visualisations like the bivariate and VSUP plots the same
-way they read the simple choropleth counterpart \citep{Ndlovu2023}. This
-approach also does not significantly hinder our ability to extract the
-individual values mapped by the previous plots, as extracting global
-statistics from a sample can be done with relative ease
-\citep{Franconeri2021}. We are able to include more information by
-offloading more computation to visual processing, but what is the
-limitation on this approach? Which aspects of uncertainty should be
-processed by our visual system, and which should be processed by our
-statistical computation? It is not obvious from the question, but this
-is actually a question about how much of our uncertainty should be
-quantified.
+By showing our distribution as ``data'', we are able to read the
+``uncertainty'' plots using the same perceptual tasks that are used to
+read the ``non-uncertainty'' plot. This should lead to more effective
+communication, as people tend to read more complicated visualisations
+like the bivariate and VSUP plots the same way they read the simple
+choropleth counterpart \citep{Ndlovu2023}. This approach also does not
+significantly hinder our ability to extract the individual values mapped
+by the previous plots, as extracting global statistics from a sample can
+be done with relative ease \citep{Franconeri2021}. We are able to
+include more information by offloading more computation to visual
+processing, but what is the limitation on this approach? Which aspects
+of uncertainty should be processed by our visual system, and which
+should be processed by our statistical computation? It is not obvious
+from the question, but this is actually a question about how much of our
+uncertainty should be quantified.
 
 Quantified uncertainty usually focuses narrowly on concepts such as
 probability, confidence intervals, variance, error, or precision
