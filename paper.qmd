@@ -635,29 +635,26 @@ That is, we will use the wealth of established stone to construct a foundation t
 
 ## The purpose of uncertainty visualisation
 Mentions of "uncertainty visualisation" start springing up around 1990, across several different fields [@Ibrekk1987; @MacEachren1992], each with its own motivation for the work.
-In computer science the area appears to be motivated by issues in the public's perception of random variables, with the hope that visualisations would give laypeople the ability to extract important information from graphical representations [@Ibrekk1987].
-With similar concerns about the public's understanding of randomness, the field of psychology, statistics, and economics used "uncertainty visualisations" as a communication tool to mitigate the psychological bias associated with the communication of risk, a topic of concern since the early 1980s [@Spiegelhalter2017].
-In the cartography literature, it was motivated by inherent uncertainty of geoscience data, the practical use of visualisation as an exploratory tool, and the constrained visual channels from map representations [@MacEachren1992].
-These disparate motivations have merged together, and today, uncertainty visualisation is usually motivated by the vague goal of "decision-making".
-This term has been used to mean the mitigation of psychological bias to ensure economically rational decisions [@Padilla2022; @Padilla2021; @Kale2021], the facilitation of trust or confidence [@Zhao2023; @Yang2023],  the ability to extract values related to a distribution [@Sarma2023], the prevention of false discovery in plots [@Sarma2024; @Koonchanok2023]; or the extraction of some other metric that is vaguely related to "uncertainty" [@Chakraborty2024; @Ndlovu2023].
-This gradual scope creep of the field, motivated by the hazy definition of "decision-making", is the most likely culprit for the irreconcilable literature that makes up the field today. 
+In computer science, the area appears to be motivated by issues in the public's perception of random variables, with the hope that visualisations would give laypeople the ability to extract important information from graphical representations [@Ibrekk1987].
+With similar concerns about the public's understanding of randomness, the fields of psychology, statistics, and economics used "uncertainty visualisations" as a communication tool to mitigate the psychological bias associated with the communication of risk, a topic of concern since the early 1980s [@Spiegelhalter2017].
+In cartography, it was motivated by inherent uncertainty of geoscience data, the practical use of visualisation as an exploratory tool, and the constrained visual channels from map representations [@MacEachren1992].
+These disparate motivations have blended together, and today, uncertainty visualisation is usually motivated by the vague goal of "decision-making".
+This term has been used to mean the mitigation of psychological bias to ensure economically rational decisions [@Padilla2022; @Padilla2021; @Kale2021], the facilitation of trust or confidence [@Zhao2023; @Yang2023],  the ability to extract values related to a distribution [@Sarma2023], the prevention of false discovery in plots [@Sarma2024; @Koonchanok2023], or the extraction of some other metric that is vaguely related to "uncertainty" [@Chakraborty2024; @Ndlovu2023].
+This gradual scope creep of the field, motivated by the hazy definition of "decision-making", is the most likely culprit for the jumbled literature that makes up the field today. 
 
 Given that there is so much subliminal disagreement in uncertainty visualisation, how did these disparate motivations come to be seen as interchangeable? 
-All discussions on uncertainty visualisation seem to have a common thread that connects them; the belief that the ultimate goal of uncertainty visualisation is not trust, rationality, or value extraction, but *transparency*.
-We see it said directly in reviews of the field [@uncertchap2022].
-We see it when authors claim that failing to include uncertainty is akin to fraud or lying [@Hullman2020a; @Manski2020].
+All discussions on uncertainty visualisation seem to have a common thread that connects them: the belief that the ultimate goal of uncertainty visualisation is not trust, rationality, or value extraction, but *transparency*.
+We see it said directly in reviews of the field [@uncertchap2022], or when authors claim that failing to include uncertainty is akin to fraud or lying [@Hullman2020a; @Manski2020].
 We see it when authors assert that uncertainty communicates the legitimacy (or illegitimacy) of the conclusion drawn from visual inference [@Correll2014; @Kale2018; @Griethe2006]. 
 We see it when authors say uncertainty visualisations should communicate a degree of confidence [@Boukhelifa2012] or validity [@Hullman2020a; @Griethe2006] in our conclusions.
 We see it when authors suggest uncertainty visualisation should "guide, qualify, or soften our judgements of uncertain data" (e.g. @Leland2005 in his seminal work on the grammar of graphics).
-These authors are not wrong about the need for transparency in science communication, either.
-A six-month survey of anti-mask groups on Facebook during the COVID-19 pandemic showed that anti-maskers made persuasive arguments by exploiting inherent uncertainty that was ignored by pro-maskers [@Lee2021].
+These authors are not wrong about the need for transparency in science communication: a six-month survey of anti-mask groups on Facebook during the COVID-19 pandemic showed that anti-maskers made persuasive arguments by exploiting inherent uncertainty ignored by pro-maskers [@Lee2021].
 
-This consensus leads us to understand that uncertainty visualisation is motivated by the
-need for a sort of “visual hypothesis test”, a sentiment expressed by some authors directly [@Correll2018; @MacEachren1992]. 
+Uncertainty visualisation is motivated by the need for a sort of “visual hypothesis test”, a sentiment expressed by some authors directly [@Correll2018; @MacEachren1992]. 
 A successful uncertainty visualisation would act as a “statistical hedge” for any inference we make using the graphic. 
 Since the purpose of a visualisation is to give a quick gist of the information [@Spiegelhalter2017], this hedging should be communicated visually without the need for complicated mental calculations.
 Therefore, an effective uncertainty visualisation should not just "show" uncertainty; untrustworthy conclusions should *not be visible*.
-If we refer to the conclusion we draw from a graphic as its signal and the uncertainty that should make this signal harder to read as the "noise" increases, we can summarise the above information into three key requirements. 
+If we refer to the conclusion we draw from a graphic as its signal, where uncertainty should make this signal harder to read as the "noise" increases, we can summarise the above information into three key requirements. 
 A good uncertainty visualisation should:
 
   1) Reinforce justified signals to encourage confidence in results.
