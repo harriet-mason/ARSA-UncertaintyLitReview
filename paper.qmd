@@ -667,49 +667,44 @@ This is the main criterion we will use to assess the current literature on uncer
 
 ## Current Approaches
 ### Ignoring uncertainty
-The most common way to visualise uncertainty is to simply not do it at all. 
-A study conducted by @Hullman2020a found that only a quarter of authors surveyed included uncertainty in 50% or more of their visualisations.
-Part of the abstinence comes from the fact that authors are not sure how to calculate the uncertainty [@Hullman2020a].
+The most common way to visualise uncertainty is to simply not. 
+A study conducted by @Hullman2020a found that only a quarter of authors surveyed included uncertainty in 50% or more of their visualisations, in part because authors are not sure how to calculate uncertainty [@Hullman2020a].
 This is not entirely unreasonable, given that even visualisation authors themselves seem to be in conflict about what exactly uncertainty is. 
-Therefore, it makes sense to start with visualisations that ignore uncertainty with the hope that, by looking at where uncertainty *isn't*, we can better understand where it *is*. 
+We will start with visualisations that ignore uncertainty with the hope that by looking at where uncertainty isn't, we can better understand where it is. 
 
 #### What is uncertainty?
-It is surprisingly hard to describe what uncertainty actually is.
-Most authors simply avoid the problem and describe the characteristics of uncertainty, of which there are plenty.
-Often, uncertainty is split using an endless stream of ever changing boundaries, such as whether the uncertainty is: due to true randomness or a lack of knowledge [@Begg2014; @Spiegelhalter2017; @Gustafson2019; @uncertchap2022; @Hullman2016; @utypo] quantifiable or unquantifiable [@Spiegelhalter2017; @utypo; @uncertchap2022]; scientific or human [@Benjamin2018; @Gustafson2019]; systematic or random [@Sanyal2009]; statistical or bounded [@Gschwandtnei2016; @Olston2002]; accuracy or precision [@Griethe2006; @Benjamin2018; @Hullman2016]; etc.
+It is surprisingly hard to describe what uncertainty is.
+Most authors avoid the problem and describe the many characteristics of uncertainty.
+Often, uncertainty is split by factors such as whether it is due to true randomness or a lack of knowledge [@Begg2014; @Spiegelhalter2017; @Gustafson2019; @uncertchap2022; @Hullman2016; @utypo]; quantifiable or unquantifiable [@Spiegelhalter2017; @utypo; @uncertchap2022]; scientific or human [@Benjamin2018; @Gustafson2019]; systematic or random [@Sanyal2009]; statistical or bounded [@Gschwandtnei2016; @Olston2002]; accuracy or precision [@Griethe2006; @Benjamin2018; @Hullman2016]; etc.
 There are enough qualitative descriptors of uncertainty to fill a
 paper, but none of this is particularly helpful in understanding how to integrate it into a
 visualisation. 
 
 Rather than trying to define uncertainty by looking at the myriad ways in which it *does* appear in an analysis, we may find it easier to look at where it *does not*.
-Descriptive statistics describe our sample as it is and summarise large data down into an easy-to-swallow format. 
-Descriptive statistics are not seen as the primary goal of modern statistics; however, this was not always the case. 
+Descriptive statistics describe our sample as it is and summarise large data into a useable format, but they are not seen as the primary goal of modern statistics.
 In 19th-century England, *positivism* was the popular philosophical approach to science (positivists included famous statisticians such as Francis Galton and Karl Pearson). 
-Practitioners of the approach believed statistics ended with descriptive statistics as science must be based on actual experience and observations [@Otsuka2023]. 
+Practitioners of the approach believed statistics ended with descriptive statistics, as science must be based on actual experience and observations [@Otsuka2023]. 
 In order to make statements about population statistics, future values, or new observations, we need to perform inference, which requires the assumption of the "uniformity of nature", that is, we need to assume that unobserved phenomena should be similar to observed phenomena [@Otsuka2023]. 
-Positivists believed referencing the unobservable was bad science. 
-In other words, these scientists embraced descriptive statistics due to the inherent certainty that came with them.
-Since uncertainty is nonexistent in descriptive statistics, it is clear that uncertainty is a by-product of inference.
-Uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
+Positivists believed referencing the unobservable was bad science, embracing descriptive statistics due to the inherent certainty associated with them.
+Since uncertainty is nonexistent in descriptive statistics, it is clear that uncertainty is a by-product of inference: uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
 
 If we consider uncertainty as a byproduct of statistical inference, it would make sense to simply quantify it as a distribution.
 Suggesting distributions as a representation of uncertainty is not new.
 @Kay2023 originally suggested thinking about uncertainty visualisations as visualisations with distribution inputs, to replace the commonly used mean and standard deviation, removing the assumption of a Gaussian distribution.
-Taking this point a step further, we suggest that a distribution is sufficient to characterise *any* uncertainty, no matter how intangible it is.
-This is in contrast to the assertions made by some authors, who believe abstract notions of uncertainty, such as credibility [@Thomson2005], forecaster confidence [@Padilla2021], or uncertainty about uncertainty [@Hadjimichael2024], are too complex to be quantified. 
-This is simply untrue, as abstract concepts such as human belief or credibility are regularly quantified by Bayesians and hierarchical models are often used for uncertainty about uncertainty.
+Taking this point a step further, we suggest that a distribution is sufficient to characterise *any* uncertainty, no matter how intangible.
+While some researchers believe abstract notions of uncertainty, such as credibility [@Thomson2005], forecaster confidence [@Padilla2021], or uncertainty about uncertainty [@Hadjimichael2024], are too complex to be quantified, 
+abstract concepts such as human belief or credibility are regularly quantified by Bayesians, and hierarchical approaches are often used to model uncertainty about uncertainty.
 
 #### Example: ignoring uncertainty
 
-If visualising uncertainty is fundamentally a scenario where we are visualising a set of random variables, what does "ignoring" uncertainty look like?
+If visualising uncertainty is fundamentally visualising a set of random variables, what does "ignoring" uncertainty look like?
 @fig-ignore shows plots of data from three different scenarios, each with either high or low uncertainty. The plots show the expected value of the input distribution.
 In plots R1 and R2, the expected value is the line from a simple linear regression on the `mtcars` data (available in `ggplot2` [@ggplot2], and originally from @mtcars), with differing sample size underlying the uncertainty. 
 Plots S1 and S2 show a choropleth map of Iowa, where counties are coloured according to a simulated temperature measurement, with measurement error being the uncertainty associated with the measuring instrument. 
 Plots G1 and G2 show samples simulated from five populations (A-E). In G1 distributions have the same low variance, and in G2 they have the same high variance.
-In the linear regression, we see a downward trend, and because this is overlaid on the observed data we can get a sense of the uncertainty. It is not entirely ignored in this plot, because the data is plotted. However, the uncertainty of interest is in relation to the regression line. In the map you should see a sine wave  spatial trend. In the univariate distributions, an incremental increase in treatment.
-If we were to ask a reader: 
-Can you see a difference between the plots in the top row versus the bottom row?
-Is the strength of the trend communicated through the visualisation?
+In the linear regression, we see a downward trend, and because this is overlaid on the observed data we can get a sense of the uncertainty, which is not entirely ignored in this plot because the data is plotted. However, the uncertainty of interest relates to the regression line. In the map you should see a sine wave  spatial trend, and in the univariate distributions, an incremental increase in treatment.
+If we were to ask a reader "Can you see a difference between the plots in the top row versus the bottom row?
+Is the strength of the trend communicated through the visualisation?"
 The answer to both of these questions will be no, for S1, S2, G1, G2, as the high and low variance cases are identical. For R1 and R2, the answer would likely only relate to the points in the plots, not the regression line.
 
 ```{r}
@@ -727,7 +722,7 @@ reg1a + choro1 + uni1a + reg1b + choro2 + uni1b + plot_layout(ncol=3, widths=c(3
 
 ```
 
-We will use these examples as touchstones for this discussion on uncertainty visualisation, particularly to discuss the approaches suggested in the literature. 
+These examples will serve as touchstones for a discussion of uncertainty visualisation, focusing on the approaches suggested in the literature. 
 
 ### Uncertainty as a statistic
 Uncertainty is often treated as another statistic. An example is an exceedance probability map of spatial data (see @Kuhnert2018 with software available in @Lucchesi2021). Here probability of exceeding a specified value is displayed on the map. This places the focus on extreme events. Another is the icon array used for risk communication (e.g. @Spiegelhalter2017). Here the probability is translated to a set of icons, like people images, coloured for happening or not. It is argued that people will understand the impact if they can see the coarse number of affected individuals. The summary plot, proposed by @Potter2010 developed to address concerns about uncertainty in data displays, is an extraordinarily dense chart. It combines the plot of a single set of numeric values, with a density estimate, boxplot elements and statistical moments.
