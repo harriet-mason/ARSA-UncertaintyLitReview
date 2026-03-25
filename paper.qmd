@@ -621,18 +621,17 @@ Reviews on uncertainty visualisation rarely offer tried and tested rules for eff
 @Spiegelhalter2017 concluded that different plots are good for different things, arguing against a universal best plot for all people and circumstances.
 @uncertchap2022 summarised several cognitive effects that repeatedly arise in uncertainty visualisation experiments; these effects were each discussed in isolation as a list of considerations rather than an overarching theory for effective uncertainty visualisation.
 
-While these reviews are thorough in scope, none discuss how the existing literature contributes to the broader goal of uncertainty visualisation. 
-The problem faced by the literature is easily summarised with a famous quote by Henri Poincaré.
+<!--The problem faced by the literature is easily summarised with a famous quote by Henri Poincaré.-->
 
 > "Science is built up of facts, as a house is built of stones; but an accumulation of facts is no more a science than a heap of stones is a house." - Henri Poincaré (1905)
 
-That is to say, despite the wealth of reviews, the field of uncertainty visualisation remains a heap of stones. 
+While these reviews are thorough in scope, none discuss how the existing literature contributes to the broader goal of uncertainty visualisation -- that is, despite the wealth of reviews, the field of uncertainty visualisation remains a heap of stones. 
 There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluates competing plot designs, or starts a theoretical discussion on a niche aspect of the field. 
-This is important work that needs to be done, but each of these papers offers up its own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their periphery. 
-This becomes even more difficult to manage when these studies conflict. 
-The field is in desperate need of a unifying theory that can tie this swath of research together. 
+While important, each of these papers offers up its own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their fiefdom. 
+<!--This becomes even more difficult to manage when these studies conflict. -->
+The field is in desperate need of a unifying theory that can tie the conflicting and siloed research together. 
 This review attempts to address this issue by offering a novel perspective on the uncertainty visualisation problem.
-That is, we are going to use the wealth of established stone to construct the foundations on which we can build a house.
+That is, we will use the wealth of established stone to construct a foundation to build a house.
 
 ## The purpose of uncertainty visualisation
 Mentions of "uncertainty visualisation" start springing up around 1990, across several different fields [@Ibrekk1987; @MacEachren1992], each with its own motivation for the work.
