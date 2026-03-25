@@ -886,11 +886,11 @@ As much of the transparency in data visualisation comes from this feature in EDA
 Ensuring this property means we cannot treat signal and noise as separate variables, but rather as a single integrated unit.
 
 ### Uncertainty as a distribution
-Rather than trying to summarise our random variables down into a single value or pair of values, why don't we just visualise the whole distribution?
-This is also a common sentiment in the literature, and we can see the approach in computer science with the hypothetical outcome plots (HOPs) which animate a sequence of potential outcomes of a distribution [@Hullman2015], in geoscience with pixel-maps [@Lucchesi2021; @Blenkinsop2000], and in statistics to show multiple forecasts [@fpp3].
+Rather than trying to reduce random variables to a single value or pair of values, why not visualise the whole distribution?
+This approach is found in computer science's hypothetical outcome plots (HOPs) which animate a sequence of potential outcomes of a distribution [@Hullman2015], in geoscience's pixel-maps [@Lucchesi2021; @Blenkinsop2000], and in statistics multiple forecasts [@fpp3].
 
 #### Example: visualising samples
-@fig-variable shows the six examples introduced in @fig-ignore, shown as distributions. The distribution us represented by either a sample of outcomes or a quantile dot plot.
+@fig-variable shows the six examples introduced in @fig-ignore, shown as distributions. The distribution is represented by either a sample of outcomes or a quantile dot plot.
 Plots R1 and R2 show a linear regression as a sample of possible outcomes from the distribution. The distribution used for both the slope and intercept is normal with the conventional mean and standard error.
 Plots S1 and S2 show a pixel map, which is a choropleth map where each county is coloured by a sample of outcomes from the distribution.
 Plots G1 and G2 show each univariate distribution as a quantile dot plot.
@@ -915,7 +915,7 @@ reg4a + pixel1 + uni4a + reg4b + pixel2 + uni4b + plot_layout(ncol=3, widths=c(3
 ```
 
 #### Quantified versus unquantified uncertainty
-By showing our distribution as "data", we are able to read the "uncertainty" plots using the same perceptual tasks that are used to read the  "non-uncertainty" plot.
+By showing our distribution as "data", we are able to read the "uncertainty" plots using the same perceptual mechanisms we use to read the  "non-uncertainty" plot.
 This should lead to more effective communication, as people tend to read more complicated visualisations like the bivariate and VSUP plots the same way they read the simple choropleth counterpart [@Ndlovu2023].
 This approach also does not significantly hinder our ability to extract the individual values mapped by the previous plots, as extracting global statistics from a sample can be done with relative ease [@Franconeri2021]. 
 We are able to include more information by offloading more computation to visual processing, but what is the limitation on this approach?
@@ -931,8 +931,8 @@ For example, we can check for structure in our missing data using the `naniar` p
 This approach amounts to just "showing the data", which is a simple but effective option for uncertainty visualisation that is largely overlooked.
 While this approach is useful for better understanding data, it will not eliminate trends that have become invalid due to structure in missing data or an invalid model.
 We can only integrate uncertainty as noise when that uncertainty has been *quantified* as an effect on the estimates we are visualising. 
-This is not to say you should do one method over another; visualising both quantified and unquantified uncertainty is necessary for a healthy analysis.
-Data analysis often works in cycles, where we find assumption violations using EDA, quantify the effect of these violations on our inference, and then visualise the output of that inference using uncertainty visualisation.
+This is not to say one method is preferable; visualising both quantified and unquantified uncertainty is necessary for a healthy analysis.
+Data analysis often works in cycles, where we find assumption violations using EDA, quantify the effect of these violations on inference, and then visualise the output of that inference using uncertainty visualisation.
 
 ## Evaluating uncertainty visualisations
 Unfortunately, the conflicting results in the field are not limited to plot design and extend to the experimental findings as well [@MacEachren2005; @Kinkeldey2014; @Hullman2016].
