@@ -3,6 +3,25 @@ title: "Writing Trash Bin"
 author: "Harriet Mason"
 format: html
 ---
+
+### Heuristics research
+There is one element of uncertainty visualisation research that we have not touched on yet, but it is incredibly consistent, and that is the research around visual heuristics.
+The heuristics research, unlike the plot evaluation work, is incredibly consistent, likely because heuristics are indifferent to the goal of our analysis and uncertainty's role as signal or noise.
+Several heuristics are of particular importance for uncertainty visualisation.
+We will give a brief overview of them here, and for a more in-depth analysis, see @uncertchap2022.
+
+The use of confidence intervals or boundaries has a few known issues in their interpretation.
+The sine illusion can cause the confidence interval of a smoothed sine curve to seem wider at the peaks than the troughs, causing us to underestimate uncertainty associated with changing values [@Vanderplas2015]. 
+Similarly, researchers frequently find that visual boundaries such as the cone of uncertainty in hurricane forecasts [@uncertchap2022], or confidence bands or ellipses [@vanderplas2017] create the impression of a meaningful bound, separating points outside the bounds from those within it, which can create problems if said bound is not inherently meaningful.
+
+While many researchers tend to prefer frequency framing, they are not without their issues.
+Points that were on an outcome of an ensemble display were perceived as more likely than points not on an outcome, even when the point that was not on an outcome was closer to the centre of the distribution (and therefore more likely) [@Padilla2017]. 
+This is considered to be a variation of the within-bar bias, where outcomes within the bar on a bar chart as perceived to be more likely than those outside it [@Newman2012].
+
+We should also try to avoid visualising central estimates if possible, as several studies have found that viewers ignore uncertainty information and compare the difference between the two means if they have the option [@uncertchap2022].
+
+These heuristics have the potential to create noise in signal suppression evaluations, and should be kept in mind when designing uncertainty visualisations as well as evaluation experiments.
+
 ### Removed on second draft
 Rather, our point is that uncertainty is a living breathing component of our visualisations that is always changing, and we should shine a light on it's shape with visualisation whenever we get the chance.
 
