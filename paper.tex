@@ -1,25 +1,27 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   12pt]{article}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -37,9 +39,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -65,8 +64,7 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -78,17 +76,35 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[]{natbib}
+\bibliographystyle{agsm}
+
 
 \addtolength{\oddsidemargin}{-.5in}%
 \addtolength{\evensidemargin}{-1in}%
@@ -136,16 +152,9 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[]{natbib}
-\bibliographystyle{agsm}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={The Noisy Work of Uncertainty Visualisation},
   pdfauthor={Harriet Mason; Dianne Cook; Sarah Goodwin; Emi Tanaka; Susan VanderPlas},
@@ -167,7 +176,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\date{March 26, 2026}
+\date{March 25, 2026}
 \title{\bf The Noisy Work of Uncertainty Visualisation}
 \author{
 Harriet Mason\\
@@ -179,7 +188,7 @@ Department of Human Centred Computing, Monash University\\
 and\\Emi Tanaka\\
 Biological Data Science Institute, The Australian National University\\
 and\\Susan VanderPlas\\
-Statistics Department, University of Nebraska--Lincoln\\
+Department of Mathematics \& Statistics, Utah State University\\
 }
 \maketitle
 
@@ -207,49 +216,48 @@ for guiding new graphics methodology and experimental research.
 \section{Introduction}\label{introduction}
 
 What do we mean when we talk about ``uncertainty visualisation''? The
-phrase can feel like a bit of a contradiction to anyone who is familiar
-with the term. Among statisticians, ``uncertainty'' is often discussed
-as though it is an omnipresent spectre that touches every stage of our
-analysis without ever being fully seen. Authors will often mention that
-the phrase is incredibly vague \citep{Spiegelhalter2017, Griethe2006},
-or talk around the topic by describing a list of things uncertainty
-\emph{could} be \citep{Kinkeldey2014, Hullman2016}, but rarely do we see
-authors attempt to discuss what uncertainty actually \emph{is}. Almost
-as if in direct contrast with this, visual statistics (information
-visualisations, data plots) are one of the most powerful tools in the
-statistician's toolbox, allowing for quick and memorable communication
-that identifies quirks in our data that we didn't even know to look for.
-We see this in datasets such as Anscombe's quartet \citep{anscombe} or
-the Datasaurus Dozen \citep{datasaurus, datasaurpkg}, where visual
-statistics are able to highlight elements of the data that are invisible
-to the typical summary statistics. We also see this in recall
-experiments, where something as simple as sketching a distribution
-before recalling statistics or making predictions can greatly increase
-the accuracy of those measures \citep{Hullman2018, Goldstein2014}. Taken
-together, uncertainty visualisation implies a need to pull back the
-curtain and expose on the unknowns of our analysis.
+phrase can feel contradictory to anyone who is familiar with the term.
+Among statisticians, ``uncertainty'' is often discussed as an
+omnipresent spectre touching every stage of our analysis without ever
+being fully seen. Authors will often mention that the phrase is vague
+\citep{Spiegelhalter2017, Griethe2006}, or avoid defining it by
+describing a list of things uncertainty \emph{could} be
+\citep{Kinkeldey2014, Hullman2016}, but rarely do authors attempt to
+discuss what uncertainty actually \emph{is}. By contrast, visual
+statistics (information visualisations, data plots) are one of the most
+powerful tools in the statistician's toolbox, allowing for quick and
+memorable communication that identifies quirks in our data that we
+didn't even know to look for. We see this in datasets such as Anscombe's
+quartet \citep{anscombe} or the Datasaurus Dozen
+\citep{datasaurus, datasaurpkg}, where visual statistics are able to
+highlight elements of the data that are invisible to the typical summary
+statistics. We also see this in recall experiments, where simply
+sketching a distribution before recalling statistics or making
+predictions can greatly increase the accuracy of those measures
+\citep{Hullman2018, Goldstein2014}. Taken together, uncertainty
+visualisation implies a need to pull back the curtain and explore the
+unknowns of our analysis.
 
 As nice as this sentiment is, it turns out to be easier said than done.
 Reviews on uncertainty visualisation rarely offer tried and tested rules
-for effective uncertainty visualisation, but rather, they comment on the
+for effective uncertainty visualisation, instead commenting on the
 difficulties faced when trying to summarise the field.
 \citet{Kinkeldey2014} found most experimental methods to be ad hoc, with
 no commonly agreed upon methodology, formalisations, or a greater goal
 of describing general principles. \citet{Hullman2016} noticed there is a
 serious noise issue in the field, with noise from participants
 misunderstanding visualisations, misinterpreting questions, and
-incorrectly applying heuristics, all overwhelming any information we can
+incorrectly applying heuristics overwhelming any information we can
 glean from studies. \citet{MacEachren2005} identified so much
-contradicting evidence that they were able to spend an entire page
-discussing the conflicting evidence for the question: ``Should I map
-uncertainty to colour hue?'' \citet{Spiegelhalter2017} concluded that
-different plots are good for different things, and ultimately disagreed
-with the goal of identifying a universal best plot for all people and
-circumstances. \citet{uncertchap2022} summarised several cognitive
-effects that repeatedly arise in uncertainty visualisation experiments;
-these effects were each discussed in isolation as a list of
-considerations an author might make, rather than an overarching theory
-of rules for effective uncertainty visualisation.
+contradicting evidence that they spent an entire page discussing the
+conflicting evidence for the question ``Should I map uncertainty to
+colour hue?'' \citet{Spiegelhalter2017} concluded that different plots
+are good for different things, arguing against a universal best plot for
+all people and circumstances. \citet{uncertchap2022} summarised several
+cognitive effects that repeatedly arise in uncertainty visualisation
+experiments; these effects were each discussed in isolation as a list of
+considerations rather than an overarching theory for effective
+uncertainty visualisation.
 
 While these reviews are thorough in scope, none discuss how the existing
 literature contributes to the broader goal of uncertainty visualisation.
@@ -475,7 +483,7 @@ the regression line.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-ignore-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-ignore-1.pdf}
 
 }
 
@@ -544,7 +552,7 @@ estimate and the other on the uncertainty.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-statistic-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-statistic-1.pdf}
 
 }
 
@@ -702,7 +710,7 @@ as a single item.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-variable-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-variable-1.pdf}
 
 }
 
@@ -783,7 +791,7 @@ uncertainty is high, the spatial trend has functionally disappeared.
 
 \centering{
 
-\includegraphics{paper_files/figure-pdf/fig-vsup-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-vsup-1.pdf}}
 
 }
 
@@ -937,7 +945,7 @@ univariate distributions in G1 and G2.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-distribution-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-distribution-1.pdf}
 
 }
 
@@ -1277,9 +1285,12 @@ packages were used for this work were: \texttt{tidyverse}
 be found at https://github.com/harriet-mason/ARSA-UncertaintyLitReview,
 which contains the files required to reproduce this article in full.
 
+\section{Bibliography}\label{bibliography}
 
-\renewcommand\refname{Bibliography}
-  \bibliography{paper.bib}
+\renewcommand{\bibsection}{}
+\bibliography{paper.bib}
+
+
 
 
 

@@ -40,11 +40,10 @@ author:
   - name: Susan VanderPlas
     url: https://srvanderplas.github.io
     orcid: 0000-0002-3803-0972
-    email: susan.vanderplas@unl.edu
     affiliation:
-    - name: University of Nebraska–Lincoln
-      department: Statistics Department
-      city:  Lincoln
+    - name: Utah State University
+      department: Department of Mathematics & Statistics
+      city:  Logan, UT
       country: United States
 bibliography: paper.bib
 abstract: Better representation of the uncertainty in a data visualisation is a focus of recent research activity. A problem with the current literature is that there is a lack of clarity about the definition of uncertainty and what it means to represent it in a plot. This confusion results in a significant amount of conflicting results in the literature, especially in experiments that assess the effectiveness of different uncertainty representations. In this review, we summarise the current literature, provide workable definitions, and illustrate these definitions with examples. In doing so, we ask what it really takes to achieve transparency in statistical graphics. It is hoped that it will be useful for guiding new graphics methodology and experimental research.
@@ -52,12 +51,23 @@ date: last-modified
 toc: false
 number-sections: true
 latex-clean: true
-format:
+format:  
   jasa-pdf:
     keep-tex: true  
     journal:
       blinded: false
-  jasa-html: default
+    filters:
+    - at: pre-quarto
+      path: _extensions/andrewheiss/wordcount/citeproc.lua
+    - at: pre-quarto
+      path: _extensions/andrewheiss/wordcount/wordcount.lua
+
+  jasa-html: 
+    filters:
+    - at: pre-quarto
+      path: _extensions/andrewheiss/wordcount/citeproc.lua
+    - at: pre-quarto
+      path: _extensions/andrewheiss/wordcount/wordcount.lua
 fig-valign: bottom
 cap-location: bottom
 editor_options: 
@@ -594,22 +604,22 @@ pixel2 <- my_map_data |>
 
 ## Introduction
 What do we mean when we talk about "uncertainty visualisation"?
-The phrase can feel like a bit of a contradiction to anyone who is familiar with the term.
-Among statisticians, "uncertainty" is often discussed as though it is an omnipresent spectre that touches every stage of our analysis without ever being fully seen. 
-Authors will often mention that the phrase is incredibly vague [@Spiegelhalter2017; @Griethe2006], or talk around the topic by describing a list of things uncertainty *could* be [@Kinkeldey2014; @Hullman2016], but rarely do we see authors attempt to discuss what uncertainty actually *is*. 
-Almost as if in direct contrast with this, visual statistics (information visualisations, data plots) are one of the most powerful tools in the statistician's toolbox, allowing for quick and memorable communication that identifies quirks in our data that we didn’t even know to look for.
+The phrase can feel contradictory to anyone who is familiar with the term.
+Among statisticians, "uncertainty" is often discussed as an omnipresent spectre touching every stage of our analysis without ever being fully seen. 
+Authors will often mention that the phrase is vague [@Spiegelhalter2017; @Griethe2006], or avoid defining it by describing a list of things uncertainty *could* be [@Kinkeldey2014; @Hullman2016], but rarely do authors attempt to discuss what uncertainty actually *is*. 
+<!--Almost as if in direct contrast with this, -->
+By contrast, visual statistics (information visualisations, data plots) are one of the most powerful tools in the statistician's toolbox, allowing for quick and memorable communication that identifies quirks in our data that we didn’t even know to look for.
 We see this in datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurus; @datasaurpkg], where visual statistics are able to highlight elements of the data that are invisible to the typical summary statistics.
-We also see this in recall experiments, where something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
-Taken together, uncertainty visualisation implies a need to pull back the curtain and expose on the unknowns of our analysis.
+We also see this in recall experiments, where simply sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
+Taken together, uncertainty visualisation implies a need to pull back the curtain and explore the unknowns of our analysis.
 
 As nice as this sentiment is, it turns out to be easier said than done.
-Reviews on uncertainty visualisation rarely offer tried and tested rules for effective uncertainty visualisation, but rather, they comment on the difficulties faced when trying to
-summarise the field.
+Reviews on uncertainty visualisation rarely offer tried and tested rules for effective uncertainty visualisation, instead commenting on the difficulties faced when trying to summarise the field.
 @Kinkeldey2014 found most experimental methods to be ad hoc, with no commonly agreed upon methodology, formalisations, or a greater goal of describing general principles. 
-@Hullman2016 noticed there is a serious noise issue in the field, with noise from participants misunderstanding visualisations, misinterpreting questions, and incorrectly applying heuristics, all overwhelming any information we can glean from studies.
-@MacEachren2005 identified so much contradicting evidence that they were able to spend an entire page discussing the conflicting evidence for the question: "Should I map uncertainty to colour hue?"
-@Spiegelhalter2017 concluded that different plots are good for different things, and ultimately disagreed with the goal of identifying a universal best plot for all people and circumstances.
-@uncertchap2022 summarised several cognitive effects that repeatedly arise in uncertainty visualisation experiments; these effects were each discussed in isolation as a list of considerations an author might make, rather than an overarching theory of rules for effective uncertainty visualisation.
+@Hullman2016 noticed there is a serious noise issue in the field, with noise from participants misunderstanding visualisations, misinterpreting questions, and incorrectly applying heuristics overwhelming any information we can glean from studies.
+@MacEachren2005 identified so much contradicting evidence that they spent an entire page discussing the conflicting evidence for the question "Should I map uncertainty to colour hue?"
+@Spiegelhalter2017 concluded that different plots are good for different things, arguing against a universal best plot for all people and circumstances.
+@uncertchap2022 summarised several cognitive effects that repeatedly arise in uncertainty visualisation experiments; these effects were each discussed in isolation as a list of considerations rather than an overarching theory for effective uncertainty visualisation.
 
 While these reviews are thorough in scope, none discuss how the existing literature contributes to the broader goal of uncertainty visualisation. 
 The problem faced by the literature is easily summarised with a famous quote by Henri Poincaré.
