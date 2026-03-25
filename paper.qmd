@@ -310,7 +310,8 @@ uni1a <- group_df |>
   geom_point(aes(x=mean(dist_low), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
   ggtitle("G1 - low") + 
-  labs(x = "treatment") + 
+  labs(y = "treatment group",
+       x = "treatment effect") + 
   theme(aspect.ratio=1)
 
 uni1b <- group_df |>
@@ -318,7 +319,8 @@ uni1b <- group_df |>
   geom_point(aes(x=mean(dist_high), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
   ggtitle("G2 - high") + 
-  labs(x = "treatment") + 
+  labs(y = "treatment group",
+       x = "treatment effect") + 
   theme(aspect.ratio=1)
 
 # Statistic
@@ -327,7 +329,8 @@ uni2a <- group_df |>
   geom_point(aes(x=round(variance(dist_low), 4), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
   ggtitle("G1 - low") + 
-  labs(x = "Variance") + 
+  labs(y = "treatment group",
+       x = "variance of treatment effect") + 
   theme(aspect.ratio=1)
 
 uni2b <- group_df |>
@@ -335,7 +338,8 @@ uni2b <- group_df |>
   geom_point(aes(x=variance(dist_high), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
   ggtitle("G2 - high") + 
-  labs(x = "Variance") + 
+  labs(y = "treatment group",
+       x = "variance of treatment effect") + 
   theme(aspect.ratio=1)
 
 # Error bars
@@ -344,7 +348,8 @@ uni3a <- group_df |>
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
   ggtitle("G1 - low") + 
-  labs(x = "treatment") + 
+  labs(y = "treatment group",
+       x = "treatment effect") + 
   theme(aspect.ratio=1)
 
 uni3b <- group_df |>
@@ -352,7 +357,8 @@ uni3b <- group_df |>
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
   ggtitle("G2 - high") + 
-  labs(x = "treatment") + 
+  labs(y = "treatment group",
+       x = "treatment effect") + 
   theme(aspect.ratio=1)
 
 # Distribution
@@ -361,7 +367,8 @@ uni4a <- group_df |>
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
   ggtitle("G1 - low") + 
-  labs(x = "treatment") + 
+  labs(y = "treatment group",
+       x = "treatment effect") + 
   theme(aspect.ratio=1)
 
 uni4b <- group_df |>
@@ -369,7 +376,8 @@ uni4b <- group_df |>
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
   ggtitle("G2 - high") + 
-  labs(x = "treatment") + 
+  labs(y = "treatment group",
+       x = "treatment effect") + 
   theme(aspect.ratio=1)
 
 ```
@@ -464,7 +472,7 @@ bivar3 <- bivar_pal |>
   geom_tile() +
   scale_fill_manual(values = bivariatepal) +
   theme_classic() +
-  theme(aspect.ratio=0.1) + 
+  theme(aspect.ratio=0.2) + 
   scale_x_continuous(breaks = c(1,2,3,4,5,6,7,8),
                      expand=c(0,0)) +
   scale_y_reverse(breaks = c(0,1,2,3,4),
@@ -591,8 +599,8 @@ Among statisticians, "uncertainty" is often discussed as though it is an omnipre
 Authors will often mention that the phrase is incredibly vague [@Spiegelhalter2017; @Griethe2006], or talk around the topic by describing a list of things uncertainty *could* be [@Kinkeldey2014; @Hullman2016], but rarely do we see authors attempt to discuss what uncertainty actually *is*. 
 Almost as if in direct contrast with this, visual statistics (information visualisations, data plots) are one of the most powerful tools in the statistician's toolbox, allowing for quick and memorable communication that identifies quirks in our data that we didn’t even know to look for.
 We see this in datasets such as Anscombe's quartet [@anscombe] or the Datasaurus Dozen [@datasaurus; @datasaurpkg], where visual statistics are able to highlight elements of the data that are invisible to the typical summary statistics.
-We also see this in recall experiments, where something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; Goldstein2014].
-Taken together, uncertainty visualisation implies a need to pull back the curtain and expose put light on the unknowns of our analysis.
+We also see this in recall experiments, where something as simple as sketching a distribution before recalling statistics or making predictions can greatly increase the accuracy of those measures [@Hullman2018; @Goldstein2014].
+Taken together, uncertainty visualisation implies a need to pull back the curtain and expose on the unknowns of our analysis.
 
 As nice as this sentiment is, it turns out to be easier said than done.
 Reviews on uncertainty visualisation rarely offer tried and tested rules for effective uncertainty visualisation, but rather, they comment on the difficulties faced when trying to
@@ -622,7 +630,7 @@ In computer science the area appears to be motivated by issues in the public's p
 With similar concerns about the public's understanding of randomness, the field of psychology, statistics, and economics used "uncertainty visualisations" as a communication tool to mitigate the psychological bias associated with the communication of risk, a topic of concern since the early 1980s [@Spiegelhalter2017].
 In the cartography literature, it was motivated by inherent uncertainty of geoscience data, the practical use of visualisation as an exploratory tool, and the constrained visual channels from map representations [@MacEachren1992].
 These disparate motivations have merged together, and today, uncertainty visualisation is usually motivated by the vague goal of "decision-making".
-This term has been used to mean the mitigation of psychological bias to ensure economically rational decisions [@Padilla2022; @Padilla2021; @Kale2021], the facilitation of trust or confidence [@Zhao2023; @Yang2023],  the ability to extract values related a distribution [@Sarma2023], the prevention of false discovery in plots [@Sarma2024; @Koonchanok2023]; or the extraction of some other metric that is vaguely related to "uncertainty" [@Chakraborty2024; @Ndlovu2023].
+This term has been used to mean the mitigation of psychological bias to ensure economically rational decisions [@Padilla2022; @Padilla2021; @Kale2021], the facilitation of trust or confidence [@Zhao2023; @Yang2023],  the ability to extract values related to a distribution [@Sarma2023], the prevention of false discovery in plots [@Sarma2024; @Koonchanok2023]; or the extraction of some other metric that is vaguely related to "uncertainty" [@Chakraborty2024; @Ndlovu2023].
 This gradual scope creep of the field, motivated by the hazy definition of "decision-making", is the most likely culprit for the irreconcilable literature that makes up the field today. 
 
 Given that there is so much subliminal disagreement in uncertainty visualisation, how did these disparate motivations come to be seen as interchangeable? 
@@ -807,7 +815,7 @@ The preference for the methods utilised in @fig-variable is usually motivated by
 To achieve signal suppression, we need to visualise noise and signal together as a “single integrated uncertain value” [@Kinkeldey2014] rather than as two separate statistics.
 
 Just because we can still see the signal in @fig-variable, that does not mean the reading of the estimate is completely independent of the uncertainty.
-When making any visualisations, we usually want the visual channels to be separable, that is, we don't want the data represented through one visual channel to interfere with the others [@Smart2019]. It is also interesting to know whether readers can see all structures when there are multiple structures present in a data plot, or whether they systematically fixate one one [@vanderplas2017].
+When making any visualisations, we usually want the visual channels to be separable, that is, we don't want the data represented through one visual channel to interfere with the others [@Smart2019]. It is also interesting to know whether readers can see all structures when there are multiple structures present in a data plot, or whether they systematically fixate on one [@vanderplas2017].
 While aiming for separability is useful for standard data visualisation, in uncertainty visualisation it allows the estimate and its variance to be read independently, potentially leading to the uncertainty being ignored [@uncertchap2022]. 
 Therefore, rather than trying to maintain visual separability, the goals of uncertainty visualisation align far better with the pursuit of visual integrability.
 In an ideal system, our estimate and uncertainty would be separately manipulatable, but so *well-integrated that they are read as a single channel by the human brain*.
@@ -874,7 +882,7 @@ Ensuring this property means we cannot treat signal and noise as separate variab
 
 ### Uncertainty as a distribution
 Rather than trying to summarise our random variables down into a single value or pair of values, why don't we just visualise the whole distribution?
-This is also a common sentiment in the literature, and we can see the approach in computer science with the HOPs [@Hullman2015], in geoscience with pixel-maps [@Lucchesi2021; @Blenkinsop2000], and in statistics to show multiple forecasts [@fpp3].
+This is also a common sentiment in the literature, and we can see the approach in computer science with the hypothetical outcome plots (HOPs) which animate a sequence of potential outcomes of a distribution [@Hullman2015], in geoscience with pixel-maps [@Lucchesi2021; @Blenkinsop2000], and in statistics to show multiple forecasts [@fpp3].
 
 #### Example: visualising samples
 @fig-variable shows the six examples introduced in @fig-ignore, shown as distributions. The distribution us represented by either a sample of outcomes or a quantile dot plot.
@@ -1002,7 +1010,7 @@ Lineup protocols are not only useful for their implicit testing, but they also h
 The concept of signal suppression is, at its core, an assertion of statistical validity, which means the visibility of signals should be directly proportional to $p$-values or some equivalent measure.
 This comparison is not new in uncertainty visualisation, where parallels have been drawn to frequentist statistics by @Correll2014, who compared results to Cohen's D, and to Bayesian statistics by @Kim2019, who evaluated plots based on their impact on the users' prior beliefs. 
 The comparison to hypothesis testing is far more natural for the lineup protocol, with @Majumder2013 explicitly defining a visual test statistic, while @Patrick2023 compared lineups to standard statistical tests using power curves. 
-The parallels to lineups and uncertainty visualisation are numerous, with the relationship even being identified by @Hullman2015 in their development of hypothetical outcome plots.
+The parallels to lineups and uncertainty visualisation are numerous, with the relationship even being identified by @Hullman2015 in their development of HOPs.
 
 The lineup protocol and uncertainty visualisation share a lot in common, with the motivation behind lineups also rooted in checking if perceived patterns are real or merely the result of chance [@Buja2009; @Wickham2010].
 As both approaches are attempting to do the same thing, it is likely that we are unable to leverage the lineup protocol directly to evaluate uncertainty visualisation, but a new evaluation methodology should try to learn from the success of the lineup approach. 

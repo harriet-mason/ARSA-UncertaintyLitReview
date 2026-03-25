@@ -225,9 +225,9 @@ statistics are able to highlight elements of the data that are invisible
 to the typical summary statistics. We also see this in recall
 experiments, where something as simple as sketching a distribution
 before recalling statistics or making predictions can greatly increase
-the accuracy of those measures {[}\citet{Hullman2018}; Goldstein2014{]}.
-Taken together, uncertainty visualisation implies a need to pull back
-the curtain and expose put light on the unknowns of our analysis.
+the accuracy of those measures \citep{Hullman2018, Goldstein2014}. Taken
+together, uncertainty visualisation implies a need to pull back the
+curtain and expose on the unknowns of our analysis.
 
 As nice as this sentiment is, it turns out to be easier said than done.
 Reviews on uncertainty visualisation rarely offer tried and tested rules
@@ -301,13 +301,14 @@ the vague goal of ``decision-making''. This term has been used to mean
 the mitigation of psychological bias to ensure economically rational
 decisions \citep{Padilla2022, Padilla2021, Kale2021}, the facilitation
 of trust or confidence \citep{Zhao2023, Yang2023}, the ability to
-extract values related a distribution \citep{Sarma2023}, the prevention
-of false discovery in plots \citep{Sarma2024, Koonchanok2023}; or the
-extraction of some other metric that is vaguely related to
-``uncertainty'' \citep{Chakraborty2024, Ndlovu2023}. This gradual scope
-creep of the field, motivated by the hazy definition of
-``decision-making'', is the most likely culprit for the irreconcilable
-literature that makes up the field today.
+extract values related to a distribution \citep{Sarma2023}, the
+prevention of false discovery in plots
+\citep{Sarma2024, Koonchanok2023}; or the extraction of some other
+metric that is vaguely related to ``uncertainty''
+\citep{Chakraborty2024, Ndlovu2023}. This gradual scope creep of the
+field, motivated by the hazy definition of ``decision-making'', is the
+most likely culprit for the irreconcilable literature that makes up the
+field today.
 
 Given that there is so much subliminal disagreement in uncertainty
 visualisation, how did these disparate motivations come to be seen as
@@ -745,7 +746,7 @@ visual channels to be separable, that is, we don't want the data
 represented through one visual channel to interfere with the others
 \citep{Smart2019}. It is also interesting to know whether readers can
 see all structures when there are multiple structures present in a data
-plot, or whether they systematically fixate one one
+plot, or whether they systematically fixate on one
 \citep{vanderplas2017}. While aiming for separability is useful for
 standard data visualisation, in uncertainty visualisation it allows the
 estimate and its variance to be read independently, potentially leading
@@ -906,8 +907,9 @@ distribution}\label{uncertainty-as-a-distribution}
 Rather than trying to summarise our random variables down into a single
 value or pair of values, why don't we just visualise the whole
 distribution? This is also a common sentiment in the literature, and we
-can see the approach in computer science with the HOPs
-\citep{Hullman2015}, in geoscience with pixel-maps
+can see the approach in computer science with the hypothetical outcome
+plots (HOPs) which animate a sequence of potential outcomes of a
+distribution \citep{Hullman2015}, in geoscience with pixel-maps
 \citep{Lucchesi2021, Blenkinsop2000}, and in statistics to show multiple
 forecasts \citep{fpp3}.
 
@@ -1200,7 +1202,7 @@ testing is far more natural for the lineup protocol, with
 \citet{Patrick2023} compared lineups to standard statistical tests using
 power curves. The parallels to lineups and uncertainty visualisation are
 numerous, with the relationship even being identified by
-\citet{Hullman2015} in their development of hypothetical outcome plots.
+\citet{Hullman2015} in their development of HOPs.
 
 The lineup protocol and uncertainty visualisation share a lot in common,
 with the motivation behind lineups also rooted in checking if perceived
