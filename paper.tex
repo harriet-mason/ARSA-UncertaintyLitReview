@@ -453,27 +453,28 @@ variables, what does ``ignoring'' uncertainty look like?
 Figure~\ref{fig-ignore} shows plots of data from three different
 scenarios, each with either high or low uncertainty. The plots show the
 expected value of the input distribution. In plots R1 and R2, the
-expected value is the line from a simple linear regression on the
-\texttt{mtcars} data (available in \texttt{ggplot2} \citep{ggplot2}, and
-originally from \citet{mtcars}), with differing sample sizes underlying
-the uncertainty. Plots S1 and S2 show a choropleth map of Iowa, where
-counties are coloured according to a simulated temperature measurement,
-with measurement error being the uncertainty associated with the
-measuring instrument. Plots G1 and G2 show samples simulated from five
-populations (A-E). In G1, distributions have the same low variance, and
-in G2, they have the same high variance. In the linear regression, we
-see a downward trend, and because this is overlaid on the observed data,
-we can get a sense of the uncertainty, which is not entirely ignored in
-this plot because the data is plotted. However, the uncertainty of
-interest relates to the regression line. In the map, you should see a
-sine wave spatial trend, and in the univariate distributions, an
-incremental increase in treatment. If we were to ask a reader, ``Can you
-see a difference between the plots in the top row versus the bottom row?
-Is the strength of the trend communicated through the visualisation?''
-The answer to both of these questions will be no, for S1, S2, G1, and
-G2, as the high and low variance cases are identical. For R1 and R2, the
-answer would likely only relate to the points in the plots, not the
-regression line.
+expected value is the line from a simple linear regression on a car's
+miles per gallon (\texttt{mpg}) and weight (\texttt{wt}) using the
+\texttt{mtcars} data, or a subset of it (available in \texttt{ggplot2}
+\citep{ggplot2}, and originally from \citet{mtcars}), with differing
+sample sizes creating differing levels of uncertainty. Plots S1 and S2
+show a choropleth map of Iowa, where counties are coloured according to
+a simulated temperature measurement, with measurement error being the
+uncertainty associated with the measuring instrument. Plots G1 and G2
+show samples simulated from five populations (A-E). In G1, distributions
+have the same low variance, and in G2, they have the same high variance.
+In the linear regression, we see a downward trend, and because this is
+overlaid on the observed data, we can get a sense of the uncertainty,
+which is not entirely ignored in this plot because the data is plotted.
+However, the uncertainty of interest relates to the regression line. In
+the map, you should see a sine wave spatial trend, and in the univariate
+distributions, an incremental increase in treatment. If we were to ask a
+reader, ``Can you see a difference between the plots in the top row
+versus the bottom row? Is the strength of the trend communicated through
+the visualisation?'' The answer to both of these questions will be no,
+for S1, S2, G1, and G2, as the high and low variance cases are
+identical. For R1 and R2, the answer would likely only relate to the
+points in the plots, not the regression line.
 
 \begin{figure}[t]
 
@@ -528,20 +529,20 @@ variance}\label{example-visualising-variance}
 Figure~\ref{fig-statistic} depicts the six plots showing this approach
 for the data introduced in Figure~\ref{fig-ignore}. The original central
 value estimate has been replaced with an uncertainty statistic. Plots R1
-and R2 are absurd examples of this approach: the regression line
-replaces the estimated slope and intercept of a line with their standard
-errors. To understand the plot, you would read: the intercept of the
-line now says that the standard error of the trend is close to 0 in R1
-and 20 in R2, and the error of the slope is low for R1 and very high for
-R2. Sometimes this approach is sensible, as we can see in the exceedance
-probability maps depicted in plots S1 and S2. These map
+and R2 show the residual plot of our linear regression, with a fitted
+loess curve, instead of simply displaying the regression itself. The
+visual pattern we are looking for in this plot is largely irrelevant to
+linear regression depicted earlier, so we cannot evaluate it on the
+basis of the trend being visible or invisible. Sometimes this approach
+is still related to our original display, as we can see in the
+exceedance probability maps depicted in plots S1 and S2. These map
 \(P(temperature>27)\) to colour for each county. The sine wave trend is
 clearly visible when the error is low, but barely visible with high
-error. This does reveal something interesting: the variance is constant
-in G1 but different for each group in G2. It is a nonsensical display,
-though, because the trend has completely disappeared. In practice, two
-plots are typically presented: one showing the main estimate and the
-other showing the uncertainty.
+error. Our visualisation of the univariate groups does reveal something
+interesting: the variance is constant in G1 but different for each group
+in G2. It is a nonsensical display, though, because the trend has
+completely disappeared. In practice, two plots are typically presented:
+one showing the main estimate and the other showing the uncertainty.
 
 \begin{figure}
 
@@ -552,17 +553,17 @@ other showing the uncertainty.
 }
 
 \caption{\label{fig-statistic}Treating the uncertainty as a statistic,
-to the extreme, with the same six examples. The easiest to digest is the
-choropleth (S1, S2): instead of temperature, the probability of
-exceeding 27\(^o\)C is shown. This has the effect of highlighting (sine
-wave) trend in the low error data, and de-emphasising it in the high
-error data. The other four take some thinking. In R1 and R2, the line
-now indicates the standard error of the intercept and slope of the
-regression line, and one would read that the error for `R1 - low' is
-close to 0, but `R2 - high' is closer to 20, and similarly for slope.
-Yes, this is an absurd display! With G1 and G2, it is similar, but we
-learn something interesting that was not seen earlier: the variance in
-G2 is not uniform like that in G1.}
+with the same six examples. The easiest to digest is the choropleth (S1,
+S2): instead of temperature, the probability of exceeding 27\(^o\)C is
+shown. This has the effect of highlighting (sine wave) trend in the low
+error data, and de-emphasising it in the high error data. The other four
+take some thinking. The regression (R1 and R2) now depict the line of
+best fit on the residuals of our regression, rather than the data
+itself. The pattern in the trend now has very little to do with our
+display. The plots G1 and G2 is similar, as we have replaced our
+treatment effect with the variance on our treatment effect, but we learn
+something interesting that was not seen earlier: the variance in G2 is
+not uniform like that in G1.}
 
 \end{figure}%
 
@@ -1259,10 +1260,11 @@ packages were used for this work were: \texttt{tidyverse}
 \citep{flextable}, \texttt{colorspace} \citep{colorspace},
 \texttt{ggdist} \citep{Kay2023}, \texttt{ggdibbler} \citep{ggdibbler},
 \texttt{patchwork} \citep{patchwork}, \texttt{distributional}
-\citep{distributional}, \texttt{ggthemes} \citep{ggthemes}, and
-\texttt{rgeos} \citep{rgeos}. The GitHub repository for this paper can
-be found at https://github.com/harriet-mason/ARSA-UncertaintyLitReview,
-which contains the files required to reproduce this article in full.
+\citep{distributional}, \texttt{ggthemes} \citep{ggthemes},
+\texttt{broom} \citep{broom}, and \texttt{rgeos} \citep{rgeos}. The
+GitHub repository for this paper can be found at
+https://github.com/harriet-mason/ARSA-UncertaintyLitReview, which
+contains the files required to reproduce this article in full.
 
 \section{Bibliography}\label{bibliography}
 
