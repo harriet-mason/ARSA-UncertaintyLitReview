@@ -764,7 +764,7 @@ Unlike plots, which are not defined by a statistic, uncertainty is *only* define
 @Meng2014 commented that what is kept as data and what is tossed away is determined by the motivation of an analysis - what was previously noise can become signal depending on the question. @Otsuka2023 suggested that the process of observing data to calculate statistics is largely dependent on our goals, because the process of boiling real-world entities down into probabilities depends on the relationships we seek to identify within our data.
 @Wallsten1997 argue that the best method for evaluating or combining subjective probabilities depends on the uncertainty the decision-maker wants to represent, and why it matters. 
 @Fischhoff2014 suggested we should have methods for communicating uncertainty depending on what the user is supposed to do with it. @Spiegelhalter2017 says we "cannot assess the quality of risk communication unless the objectives are clear". 
-@geointerviews asserted that whether or not it XXX uncertainty? XXX is a source of doubt that depends on the context.
+@geointerviews asserted that whether or not uncertainty is a source of doubt that depends on the context.
 The sentiment behind this repeated point is clear: the role of uncertainty or signal is not dependent on the "type" of statistic, on the source of the information, or the methods we use; it is determined by the statistic we wish to draw inference on.
 Therefore, the fundamental problem with the "uncertainty statistic" approach is that the uncertainty in the plot isn't acting as noise; it is acting as signal.
 
@@ -973,12 +973,11 @@ Ultimately, these approaches have similar issues to value extraction studies, ex
 
 #### Alternative approaches
 Often, authors understand that the effects of uncertainty are more complicated than simple value extraction.
-While these approaches are a step in the right direction,  evaluating uncertainty or visualisations of distributions without a solid definition of the effects can lead to unintended consequences, no matter what approach we take.
+These studies indicate that accurately capturing uncertainty will be more complicated than simply avoiding value extraction or trust as a measure.
 
-One approach is to ask open-ended questions, such as asking participants for the "best estimate" [@Ibrekk1987], or to select which distribution is the "furthest to the right" from a lineup [@Hofmann2012]. 
-<!-- I agree with Di, this isn't open-ended -- it's a multiple choice question with 20 possible responses XXX -->
-In both cases, the ground truth is based on the mean of the distribution.
-This approach can lead to inconclusive results, as we are left unclear whether it was the phrasing of the question or the plot design that caused the participants to answer incorrectly.
+One approach is to ask indeterminate questions, such as asking participants for the "best estimate" [@Ibrekk1987], or to select which distribution is the "furthest to the right" in a lineup [@Hofmann2012]. 
+In both cases, the ground truth is based on the mean of the distribution, which is not as indeterminate as the question.
+This approach can lead to inconclusive results, as we are left unclear whether it was the phrasing of the question, or the plot design, that caused the participants to answer incorrectly.
 
 On the other hand, questions that are incredibly specific about the distribution information can confuse the participants and induce noisy results.
 For example,  @Hullman2015 asked participants to compare two normally distributed groups, A and B, and had many participants say that group A was more likely to be bigger, despite group B having a higher mean.
