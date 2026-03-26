@@ -625,7 +625,6 @@ Reviews on uncertainty visualisation rarely offer tried and tested rules for eff
 While these reviews are thorough in scope, none discuss how the existing literature contributes to the broader goal of uncertainty visualisation -- that is, despite the wealth of reviews, the field of uncertainty visualisation remains a heap of stones. 
 There is a mountain of work that identifies common heuristics found in uncertainty visualisations, evaluates competing plot designs, or starts a theoretical discussion on a niche aspect of the field. 
 While important, each of these papers offers up its own bespoke motivation and methodology, with little reference to the uncertainty visualisation papers outside their fiefdom. 
-<!--This becomes even more difficult to manage when these studies conflict. -->
 The field is in desperate need of a unifying theory that can tie the conflicting and siloed research together. 
 This review attempts to address this issue by offering a novel perspective on the uncertainty visualisation problem.
 That is, we will use the wealth of established stone to construct a foundation to build a house.
@@ -665,7 +664,7 @@ This is the main criterion we will use to assess the current literature on uncer
 ## Current Approaches
 ### Ignoring uncertainty
 The most common way to visualise uncertainty is to simply not. 
-A study conducted by @Hullman2020a found that only a quarter of authors surveyed included uncertainty in 50% or more of their visualisations, in part because authors are not sure how to calculate uncertainty [@Hullman2020a].
+A study conducted by @Hullman2020a found that only a quarter of authors surveyed included uncertainty in 50% or more of their visualisations, in part because authors are not sure how to calculate uncertainty.
 This is not entirely unreasonable, given that even visualisation authors themselves seem to be in conflict about what exactly uncertainty is. 
 We will start with visualisations that ignore uncertainty with the hope that by looking at where uncertainty isn't, we can better understand where it is. 
 
@@ -685,11 +684,18 @@ In order to make statements about population statistics, future values, or new o
 Positivists believed referencing the unobservable was bad science, embracing descriptive statistics due to the inherent certainty associated with them.
 Since uncertainty is nonexistent in descriptive statistics, it is clear that uncertainty is a by-product of inference: uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
 
-If we consider uncertainty as a byproduct of statistical inference, it would make sense to simply quantify it as a distribution.
+rather than extracting just one element of the distribution, if you can retain the whole distribution, that not only allows the uncertainty calculation to be reproduced, but also makes it possible to derive other estimates as well.
+I think it's also important to acknowledge that if you use this approach, you need to know the "chicken" (i.e. distribution) that gave birth to the "egg" (uncertainty estimate). In practice, uncertainties are sometimes calculated by other people or organisations, and the process used to derive them may not be known.
+
+
+If we consider uncertainty to be a by-product of statistical inference, then uncertainty visualisations are the plots that depict an estimate, and therefore have an associated uncertainty. 
+The most complete description of these estimates are their distributions. 
+Rather than extracting just one element of the distribution, if you can retain the whole distribution, that not only allows the uncertainty calculation to be reproduced, but also makes it possible to derive other estimates as well.
 Suggesting distributions as a representation of uncertainty is not new.
 @Kay2023 originally suggested thinking about uncertainty visualisations as visualisations with distribution inputs, to replace the commonly used mean and standard deviation, removing the assumption of a Gaussian distribution.
-Taking this point a step further, we suggest that a distribution is sufficient to characterise *any* uncertainty, no matter how intangible.
-While some researchers believe abstract notions of uncertainty, such as credibility [@Thomson2005], forecaster confidence [@Padilla2021], or uncertainty about uncertainty [@Hadjimichael2024], are too complex to be quantified, abstract concepts such as human belief or credibility are regularly quantified by Bayesians, and hierarchical approaches are often used to model uncertainty about uncertainty.
+In practice, uncertainties are sometimes calculated by other people or organisations, and the process used to derive them may not be known.
+While some researchers believe these abstract notions of uncertainty, such as credibility [@Thomson2005], forecaster confidence [@Padilla2021], or uncertainty about uncertainty [@Hadjimichael2024], are too complex to be quantified, this is not necessarily true.
+Abstract concepts such as human belief or credibility are regularly quantified by Bayesians, and hierarchical approaches are often used to model uncertainty about uncertainty.
 
 #### Example: ignoring uncertainty
 
@@ -963,8 +969,6 @@ Unfortunately, measuring these secondary effects often leads to confusing conclu
 This is most commonly noticed in the use of trust as a measure, as several authors have commented that measuring trust, and not transparency, can lead to a questionable subtext that argues against transparency [@Spiegelhalter2017; @ONeill2018].
 We see this directly play out in the visualisation literature, where surveyed visualisation authors explicitly said they didn't include uncertainty due to the fact that they might decrease trust in their conclusions [@Hullman2020a].
 This sentiment is also true for confidence, as @Blenkinsop2000 commented that visually integrable depictions of uncertainty should be avoided, as they decrease the viewer's confidence in their extracted data values.
-Confidence is also used as a proxy for poorly constructed visualisation in standard visualisation experiments, so using confidence as a measure of uncertainty collapses these confounding factors down into a single metric. 
-<!--XXX citation? We use it as a measure, but it doesn't correlate with much usually XXX-->
 
 Another secondary effect that is similar to trust and confidence is risk aversion.
 Risk aversion is an economic term used to describe an agent who would choose a random variable with a lower expected payout because it also has a lower variance.
