@@ -994,6 +994,7 @@ This is not to say all evaluation studies fail to properly evaluate uncertainty 
 There are several studies that ask participants to identify a particular signal that the noise is trying to obfuscate [@Kale2018; @Correll2014], which seems to be an effective method. 
 The only problem with these studies is that most uncertainty visualisation methods are not integrated into *the grammar of graphics* [@Leland2005; @ggplot2], so we regularly see comparisons between disparate plots that would never be considered substitutes for one another outside the artificial "uncertainty visualisation" framework they are placed within.
 For example, @Kale2018 compared static bar charts with error bars to a bar chart with animated samples, meaning that any difference in participants' ability to read the plot could be due to the statistic (confidence interval versus sample), the geometry (bars versus intervals), or the use of animation (static versus animated plots).
+This issue was rectified in their second experiment, where they compare overlayed and animated samples, giving us an insight into the types of visualisations that are appropriate to compare in uncertainty visualisation experiments.
 This means that even when evaluations *are* done correctly, there is no generalisable theory we can take from the results.
 
 The point here is not to accuse the authors of poor academic rigour.
