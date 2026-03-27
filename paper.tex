@@ -4,8 +4,7 @@
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
-\documentclass[
-  12pt]{article}
+\documentclass[]{ar-1col-S2O}
 \usepackage{xcolor}
 \usepackage{amsmath,amssymb}
 \setcounter{secnumdepth}{5}
@@ -103,15 +102,13 @@
 
 
  
-\usepackage[]{natbib}
-\bibliographystyle{agsm}
+\usepackage[comma]{natbib}
+\bibliographystyle{ar-style1}
 
 
-\addtolength{\oddsidemargin}{-.5in}%
-\addtolength{\evensidemargin}{-1in}%
-\addtolength{\textwidth}{1in}%
-\addtolength{\textheight}{1.7in}%
-\addtolength{\topmargin}{-1in}%
+% latex packages
+\usepackage{url}
+\setcounter{secnumdepth}{4}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -167,34 +164,41 @@
   pdfcreator={LaTeX via pandoc}}
 
 
+% Metadata Information
+\jname{Xxxx. Xxx. Xxx. Xxx.}
+
+\jvol{AA}
+
+\jyear{2023}
+
+\doi{10.1146/((please add article doi))}
 
 \begin{document}
+% Page header
+\markboth{Authors et al.}{Short Title}
 
+% Title
+\title{The Noisy Work of Uncertainty Visualisation}
 
-\def\spacingset#1{\renewcommand{\baselinestretch}%
-{#1}\small\normalsize} \spacingset{1}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\date{March 27, 2026}
-\title{\bf The Noisy Work of Uncertainty Visualisation}
+% author
 \author{
-Harriet Mason\\
-Department of Econometrics and Business Statistics, Monash University\\
-and\\Dianne Cook\\
-Department of Econometrics and Business Statistics, Monash University\\
-and\\Sarah Goodwin\\
-Department of Human Centred Computing, Monash University\\
-and\\Emi Tanaka\\
-Biological Data Science Institute, The Australian National University\\
-and\\Susan VanderPlas\\
-Department of Mathematics \& Statistics, Utah State University\\
+Harriet Mason\textsuperscript{aff-1}
+Dianne Cook\textsuperscript{aff-1}
+Sarah Goodwin\textsuperscript{aff-2}
+Emi Tanaka\textsuperscript{aff-3}
+Susan VanderPlas\textsuperscript{aff-4}
+% affil
+\affil{\textsuperscript{aff-1}Department of Econometrics and Business
+Statistics, Monash University, Melbourne,   Australia, }
+\affil{\textsuperscript{aff-2}Department of Human Centred
+Computing, Monash University, Melbourne,   Australia, }
+\affil{\textsuperscript{aff-3}Biological Data Science Institute, The
+Australian National University, Canberra,   Australia, }
+\affil{\textsuperscript{aff-4}Department of Mathematics \&
+Statistics, Utah State University, Logan, UT,   United States, }
 }
-\maketitle
 
-\bigskip
-\bigskip
+
 \begin{abstract}
 Better representation of the uncertainty in a data visualisation is a
 focus of recent research activity. A problem with the current literature
@@ -210,8 +214,7 @@ for guiding new graphics methodology and experimental research.
 \end{abstract}
 
 
-\newpage
-\spacingset{1.9} % DON'T change the spacing!
+\maketitle
 
 
 \section{Introduction}\label{introduction}
@@ -1281,6 +1284,9 @@ contains the files required to reproduce this article in full.
 \bibliography{paper.bib}
 
 
+
+\hypertarget{literature-cited}{%
+\section*{Literature Cited}\label{literature-cited}}
 
 
 

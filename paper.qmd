@@ -52,10 +52,8 @@ toc: false
 number-sections: true
 latex-clean: true
 format:  
-  jasa-pdf:
+  annual-reviews-pdf:
     keep-tex: true  
-    journal:
-      blinded: false
     filters:
     - at: pre-quarto
       path: _extensions/andrewheiss/wordcount/citeproc.lua
