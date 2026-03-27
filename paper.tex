@@ -515,12 +515,10 @@ Uncertainty is also often treated as another statistic, for example, the
 exceedance probability map of spatial data (see \citet{Kuhnert2018} with
 software available in \citet{Lucchesi2021}), where the probability of
 exceeding a specified value is displayed on the map, placing the focus
-on extreme events. An additional example is the icon array used for risk
-communication (e.g. \citet{Spiegelhalter2017}), where probability is
-translated to a set of icons, like people images, coloured by outcome.
-The idea is that people will understand the impact if they can see the
-coarse number of affected individuals. The summary plot
-\citep{Potter2010} was also developed to address concerns about
+on extreme events. For risk communication, \citet{Spiegelhalter2017}
+recommends showing probability with a set of coloured icons to
+communicate the relative number of affected individuals. The summary
+plot \citep{Potter2010} was also developed to address concerns about
 uncertainty in data displays. This dense display combines the plot of a
 single set of numeric values with a density estimate, boxplot, and
 statistical moments.
@@ -794,15 +792,15 @@ uncertainty is high, the spatial trend has functionally disappeared.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{paper_files/figure-pdf/fig-vsup-1.pdf}}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-vsup-1.pdf}
 
 }
 
 \caption{\label{fig-vsup}The spatial examples displayed with a
 choropleth map using a VSUP colour palette, where hue is blended when
-increased uncertainty. Plot b has successfully produced signal
-suppression. Look closely at the scales, though: it may have you
-question whether this should have happened.}
+increased uncertainty. Plot B has successfully produced signal
+suppression. Look closely at the scales, though: it may have another
+explanation.}
 
 \end{figure}%
 
@@ -810,9 +808,9 @@ Finally, we have signal suppression! Well, not really, sorry, we tricked
 you. The two plots depicted in Figure~\ref{fig-vsup} actually show the
 exact same data; they are both the low variance case. If you look
 closely, you can see that the two plots have a different scale, where
-plot (a) has been scaled according to our existing knowledge about this
-data, while plot (b) has been scaled using the range of the data passed
-to the plot. Since the variance and estimate are scaled independently,
+plot A has been scaled according to our existing knowledge about this
+data, while plot B has been scaled using the range of the data passed to
+the plot. Since the variance and estimate are scaled independently,
 arbitrary differences in the range of our variance, unrelated to the
 estimate itself, will have significant impacts on the visual appearance
 of our plot. The scale issue in VSUP maps was also recognised by
