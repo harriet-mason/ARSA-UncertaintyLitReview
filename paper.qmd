@@ -1,5 +1,7 @@
 ---
 title: "The Noisy Work of Uncertainty Visualisation"
+runningtitle: Uncertainty Visualisation
+runningauthor: Mason, et al
 author: 
   - name: Harriet Mason
     url: https://harrietmason.netlify.app/
@@ -68,6 +70,13 @@ format:
       path: _extensions/andrewheiss/wordcount/wordcount.lua
 fig-valign: bottom
 cap-location: bottom
+journal-name: Annual Review of Statistics and Its Application
+journal-volume: AA
+journal-year: 2023
+doi: "10.1146/annurev-statistics-XXXXXX-XXXXXX"
+conflict-of-interest: |
+  The authors are not aware of any affiliations, memberships, funding, or financial holdings that
+  might be perceived as affecting the objectivity of this review.
 editor_options: 
   chunk_output_type: console
 ---
@@ -1049,14 +1058,14 @@ Existing uncertainty visualisation methods view a distribution as its own object
 
 Signal suppression is an undeveloped area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
 
-## Acknowledgements
+## Acknowledgements {-}
 
 The first author of this paper is supported in part by a scholarship from the Australian Energy Market Operator.
 This research was supported by the Commonwealth through an Australian Government Research Training Program Scholarship [DOI: https://doi.org/10.82133/C42F-K220]. 
 The R packages were used for this work were: `tidyverse` [@tidyverse], `RColorBrewer` [@RColorBrewer], `scales` [@scales], `sf` [@sf], `urbnmapr` [@urbnmapr], `flextable` [@flextable], `colorspace` [@colorspace], `ggdist` [@Kay2023], `ggdibbler` [@ggdibbler], `patchwork` [@patchwork], `distributional` [@distributional], `ggthemes` [@ggthemes], `broom` [@broom], and `rgeos` [@rgeos]. 
 The GitHub repository for this paper can be found at https://github.com/harriet-mason/ARSA-UncertaintyLitReview, which contains the files required to reproduce this article in full.
 
-## Bibliography
+## Bibliography {-}
 
 ```{r, include=FALSE, eval=FALSE}
 library(spelling)
