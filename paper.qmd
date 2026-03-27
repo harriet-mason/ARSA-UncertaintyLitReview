@@ -710,7 +710,7 @@ If visualising uncertainty is fundamentally visualising a set of random variable
 In plots R1 and R2, the expected value is the line from a simple linear regression on a car's miles per gallon (`mpg`) and weight (`wt`) using the `mtcars` data, or a subset of it (available in `ggplot2` [@ggplot2], and originally from @mtcars), with differing sample sizes creating differing levels of uncertainty. 
 Plots S1 and S2 show a choropleth map of Iowa, where counties are coloured according to a simulated temperature measurement, with measurement error being the uncertainty associated with the measuring instrument. 
 Plots G1 and G2 show samples simulated from five populations (A-E). In G1, distributions have the same low variance, and in G2, they have the same high variance.
-In the linear regression, we see a downward trend, and because this is overlaid on the observed data, we can get a sense of the uncertainty, which is not entirely ignored in this plot because the data is plotted. However, the uncertainty of interest relates to the regression line. In the map, you should see a sine wave spatial trend, and in the univariate distributions, an incremental increase in treatment.
+In the linear regression, we see a downward trend for both levels of uncertainty. Here, we elected to plot the data under the fit, to provide context for this example, and help follow the thinking through to the later illustrations. Often, only the fitted line is shown. In the map, you should see a sine wave spatial trend, and in the univariate distributions, an incremental increase in treatment.
 If we were to ask a reader, "Can you see a difference between the plots in the top row versus the bottom row?
 Is the strength of the trend communicated through the visualisation?"
 The answer to both of these questions will be no for S1, S2, G1, and G2, as the high and low variance cases are identical. For R1 and R2, the answer would likely only relate to the points in the plots, not the regression line.
@@ -724,7 +724,7 @@ The answer to both of these questions will be no for S1, S2, G1, and G2, as the 
 #| fig-width: 10
 #| out-width: 100%
 #| fig-pos: t
-#| fig-cap: "Three example types of data and associated plots that will be used to illustrate various choices of uncertainty representation throughout the paper: scatterplot and regression line (R1, R2), spatial choropleth map (S1, S2), grouped dotplot (G1, G2). Two levels of uncertainty (low, high) are used with each example. Only with plots R1 and R2, where the regression overlays the scatterplot, can we see a difference between low and high uncertainty. Ignoring uncertainty can lead to misrepresentation of data."
+#| fig-cap: "Three example types of data and associated plots that will be used to illustrate various choices of uncertainty representation throughout the paper: scatterplot and regression line (R1, R2), spatial choropleth map (S1, S2), grouped dotplot (G1, G2). Two levels of uncertainty (low, high) are used with each example. Ignoring the points in R1 and R2, there are no differences between the high and low uncertainty versions. Ignoring uncertainty can lead to misrepresentation of data."
 
 reg1a + choro1 + uni1a + reg1b + choro2 + uni1b + plot_layout(ncol=3, widths=c(30, 40, 30))
 
