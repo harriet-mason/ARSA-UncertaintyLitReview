@@ -54,10 +54,14 @@ author:
       country: United States
 abstract: Better representation of the uncertainty in a data visualisation is a focus of recent research activity. A problem with the current literature is that there is a lack of clarity about the definition of uncertainty and what it means to represent it in a plot. This confusion results in a significant amount of conflicting results in the literature, especially in experiments that assess the effectiveness of different uncertainty representations. In this review, we summarise the current literature, provide workable definitions, and illustrate these definitions with examples. In doing so, we ask what it really takes to achieve transparency in statistical graphics. It is hoped that it will be useful for guiding new graphics methodology and experimental research.
 date: last-modified
+toc: false
+number-sections: true
+latex-clean: true
 format:  
-  annual-reviews-pdf:
+  jasa-pdf:
     keep-tex: true  
-    toc: false
+    journal:
+      blinded: false
     filters:
     - at: pre-quarto
       path: _extensions/andrewheiss/wordcount/citeproc.lua
@@ -73,7 +77,7 @@ format:
 fig-valign: bottom
 cap-location: bottom
 bibliography: paper.bib
-keywords: [data visualisation, statistical graphics, data science]
+keywords: [data visualisation, statistical graphics, data science, information visualisation]
 journal-name: Annual Review of Statistics and Its Application
 journal-volume: AA
 journal-year: 2023
