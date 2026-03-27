@@ -740,9 +740,9 @@ Some authors take this approach because they explicitly believe uncertainty is a
 
 #### Example: visualising variance
 @fig-statistic depicts the six plots showing this approach for the data introduced in @fig-ignore.  The original central value estimate has been replaced with an uncertainty statistic.
-Plots R1 and R2 show the residual plot of our linear regression, with a fitted loess curve, instead of simply displaying the regression itself.
-The visual pattern we are looking for in this plot is largely irrelevant to the linear regression depicted earlier, so we cannot evaluate it on the basis of the trend being visible or invisible. 
-Sometimes this approach is still related to our original display, as we can see in the exceedance probability maps depicted in plots S1 and S2. These map $P(temperature>27)$ to colour for each county. The sine wave trend is clearly visible when the error is low, but barely visible with high error. 
+Plots R1 and R2 show the residual plot of our linear regression instead of the scatterplot and the regression line.
+The visual patterns we are looking for in this plot are distinct from the linear regression, so it is hard evaluate it relative to the trend. 
+Sometimes the variance approach is still related to our original display, as we can see in the exceedance probability maps depicted in plots S1 and S2. These map $P(temperature>27)$ to colour for each county. The sine wave trend is clearly visible when the error is low, but barely visible with high error. 
 Our visualisation of the univariate groups does reveal something interesting: the variance is constant in G1 but different for each group in G2. It is a nonsensical display, though, because the trend has completely disappeared. 
 In practice, two plots are typically presented: one showing the main estimate and the other showing the uncertainty.
 
@@ -754,7 +754,7 @@ In practice, two plots are typically presented: one showing the main estimate an
 #| fig-height: 6
 #| fig-width: 10
 #| out-width: 100%
-#| fig-cap: "Treating the uncertainty as a statistic,  with the same six examples. The easiest to digest is the choropleth (S1, S2): instead of temperature, the probability of exceeding 27$^o$C is shown. This has the effect of highlighting (sine wave) trend in the low error data, and de-emphasising it in the high error data. The other four take some thinking. The regression (R1 and R2) now depicts the line of best fit on the residuals of our regression, rather than the data itself. The pattern in the trend now has very little to do with our display. The plots G1 and G2 are similar, as we have replaced our treatment effect with the variance on our treatment effect, but we learn something interesting that was not seen earlier: the variance in G2 is not uniform like that in G1."
+#| fig-cap: "Treating the uncertainty as a statistic,  with the same six examples. The regression (R1 and R2) is a scatterplot of residuals vs explanatory variable, separated from the regression making comparison of uncertainty related to the trend more difficult. For the choropleth (S1, S2): instead of temperature, the probability of exceeding 27$^o$C is shown. This has the effect of highlighting (sine wave) trend in the low error data, and de-emphasising it in the high error data. The plots G1 and G2 have replaced the treatment effect with the variance on our treatment effect. It is a bit nonsensical, but we learn something interesting that was not seen earlier: the variance in G2 is not uniform like that in G1."
 
 reg2a + exceed1 + uni2a + reg2b + exceed2 + uni2b + plot_layout(ncol=3, widths=c(30, 40, 30))  
 ```
