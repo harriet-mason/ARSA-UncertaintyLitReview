@@ -9,6 +9,7 @@ author:
     email:  harriet.m.mason@gmail.com
     affiliation:
     - name: Monash University
+      id: 1
       department: Department of Econometrics and Business Statistics
       city: Melbourne
       country: Australia
@@ -18,6 +19,7 @@ author:
     email: dicook@monash.edu
     affiliation:
     - name: Monash University
+      id: 1
       department: Department of Econometrics and Business Statistics
       city: Melbourne
       country: Australia
@@ -27,6 +29,7 @@ author:
     email: Sarah.Goodwin@monash.edu
     affiliation:
     - name: Monash University
+      id: 2
       department: Department of Human Centred Computing
       city: Melbourne
       country: Australia
@@ -36,6 +39,7 @@ author:
     email: Emi.Tanaka@anu.edu.au
     affiliation: 
     - name: The Australian National University
+      id: 3
       department: Biological Data Science Institute
       city: Canberra
       country: Australia
@@ -44,18 +48,16 @@ author:
     orcid: 0000-0002-3803-0972
     affiliation:
     - name: Utah State University
+      id: 4
       department: Department of Mathematics & Statistics
       city:  Logan, UT
       country: United States
-bibliography: paper.bib
 abstract: Better representation of the uncertainty in a data visualisation is a focus of recent research activity. A problem with the current literature is that there is a lack of clarity about the definition of uncertainty and what it means to represent it in a plot. This confusion results in a significant amount of conflicting results in the literature, especially in experiments that assess the effectiveness of different uncertainty representations. In this review, we summarise the current literature, provide workable definitions, and illustrate these definitions with examples. In doing so, we ask what it really takes to achieve transparency in statistical graphics. It is hoped that it will be useful for guiding new graphics methodology and experimental research.
 date: last-modified
-toc: false
-number-sections: true
-latex-clean: true
 format:  
   annual-reviews-pdf:
     keep-tex: true  
+    toc: false
     filters:
     - at: pre-quarto
       path: _extensions/andrewheiss/wordcount/citeproc.lua
@@ -70,6 +72,8 @@ format:
       path: _extensions/andrewheiss/wordcount/wordcount.lua
 fig-valign: bottom
 cap-location: bottom
+bibliography: paper.bib
+keywords: [data visualisation, statistical graphics, data science]
 journal-name: Annual Review of Statistics and Its Application
 journal-volume: AA
 journal-year: 2023
@@ -77,6 +81,8 @@ doi: "10.1146/annurev-statistics-XXXXXX-XXXXXX"
 conflict-of-interest: |
   The authors are not aware of any affiliations, memberships, funding, or financial holdings that
   might be perceived as affecting the objectivity of this review.
+acknowledgements: |
+  The first author of this paper is supported in part by a scholarship from the Australian Energy Market Operator. This research was supported by the Commonwealth through an Australian Government Research Training Program Scholarship [DOI: https://doi.org/10.82133/C42F-K220]. 
 editor_options: 
   chunk_output_type: console
 ---
@@ -1058,14 +1064,10 @@ Existing uncertainty visualisation methods view a distribution as its own object
 
 Signal suppression is an undeveloped area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
 
-## Acknowledgements {-}
+## Reproducibility {-}
 
-The first author of this paper is supported in part by a scholarship from the Australian Energy Market Operator.
-This research was supported by the Commonwealth through an Australian Government Research Training Program Scholarship [DOI: https://doi.org/10.82133/C42F-K220]. 
 The R packages were used for this work were: `tidyverse` [@tidyverse], `RColorBrewer` [@RColorBrewer], `scales` [@scales], `sf` [@sf], `urbnmapr` [@urbnmapr], `flextable` [@flextable], `colorspace` [@colorspace], `ggdist` [@Kay2023], `ggdibbler` [@ggdibbler], `patchwork` [@patchwork], `distributional` [@distributional], `ggthemes` [@ggthemes], `broom` [@broom], and `rgeos` [@rgeos]. 
 The GitHub repository for this paper can be found at https://github.com/harriet-mason/ARSA-UncertaintyLitReview, which contains the files required to reproduce this article in full.
-
-## Bibliography {-}
 
 ```{r, include=FALSE, eval=FALSE}
 library(spelling)
