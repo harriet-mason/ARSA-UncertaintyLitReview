@@ -3,8 +3,7 @@
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
-\documentclass[
-  12pt]{article}
+\documentclass[]{ar-1col-S2O}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -39,7 +38,7 @@
 \makeatother
 \usepackage{xcolor}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -90,11 +89,9 @@
 \def\fps@figure{htbp}
 \makeatother
 
-\addtolength{\oddsidemargin}{-.5in}%
-\addtolength{\evensidemargin}{-1in}%
-\addtolength{\textwidth}{1in}%
-\addtolength{\textheight}{1.7in}%
-\addtolength{\topmargin}{-1in}%
+% latex packages
+\usepackage{url}
+\setcounter{secnumdepth}{4}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -140,8 +137,8 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage[]{natbib}
-\bibliographystyle{agsm}
+\usepackage[comma]{natbib}
+\bibliographystyle{ar-style1}
 \usepackage{bookmark}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -149,8 +146,7 @@
 \hypersetup{
   pdftitle={The Noisy Work of Uncertainty Visualisation},
   pdfauthor={Harriet Mason; Dianne Cook; Sarah Goodwin; Emi Tanaka; Susan VanderPlas},
-  pdfkeywords={data visualisation, statistical graphics, data
-science, information visualisation},
+  pdfkeywords={data visualisation, statistical graphics, data science},
   colorlinks=true,
   linkcolor={blue},
   filecolor={Maroon},
@@ -159,34 +155,41 @@ science, information visualisation},
   pdfcreator={LaTeX via pandoc}}
 
 
+% Metadata Information
+\jname{Annual Review of Statistics and Its Application}
+
+\jvol{AA}
+
+\jyear{2023}
+
+\doi{10.1146/annurev-statistics-XXXXXX-XXXXXX}
 
 \begin{document}
+% Page header
+\markboth{Mason, et al}{Uncertainty Visualisation}
 
+% Title
+\title{The Noisy Work of Uncertainty Visualisation}
 
-\def\spacingset#1{\renewcommand{\baselinestretch}%
-{#1}\small\normalsize} \spacingset{1}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\date{March 28, 2026}
-\title{\bf The Noisy Work of Uncertainty Visualisation}
+% author
 \author{
-Harriet Mason\\
-Department of Econometrics and Business Statistics, Monash University\\
-and\\Dianne Cook\\
-Department of Econometrics and Business Statistics, Monash University\\
-and\\Sarah Goodwin\\
-Department of Human Centred Computing, Monash University\\
-and\\Emi Tanaka\\
-Biological Data Science Institute, The Australian National University\\
-and\\Susan VanderPlas\\
-Department of Mathematics \& Statistics, Utah State University\\
+Harriet Mason\textsuperscript{1}
+Dianne Cook\textsuperscript{1}
+Sarah Goodwin\textsuperscript{2}
+Emi Tanaka\textsuperscript{3}
+Susan VanderPlas\textsuperscript{4}
+% affil
+\affil{\textsuperscript{1}Department of Econometrics and Business
+Statistics, Monash University, Melbourne,   Australia, }
+\affil{\textsuperscript{2}Department of Human Centred Computing, Monash
+University, Melbourne,   Australia, }
+\affil{\textsuperscript{3}Biological Data Science Institute, The
+Australian National University, Canberra,   Australia, }
+\affil{\textsuperscript{4}Department of Mathematics \& Statistics, Utah
+State University, Logan, UT,   United States, }
 }
-\maketitle
 
-\bigskip
-\bigskip
+
 \begin{abstract}
 Better representation of the uncertainty in a data visualisation is a
 focus of recent research activity. A problem with the current literature
@@ -201,13 +204,11 @@ transparency in statistical graphics. It is hoped that it will be useful
 for guiding new graphics methodology and experimental research.
 \end{abstract}
 
-\noindent%
-{\it Keywords:} data visualisation, statistical graphics, data
-science, information visualisation
-\vfill
+\begin{keywords}
+data visualisation, statistical graphics, data science
+\end{keywords}
 
-\newpage
-\spacingset{1.9} % DON'T change the spacing!
+\maketitle
 
 
 \section{Introduction}\label{introduction}
@@ -1267,10 +1268,20 @@ GitHub repository for this paper can be found at
 https://github.com/harriet-mason/ARSA-UncertaintyLitReview, which
 contains the files required to reproduce this article in full.
 
-\renewcommand{\bibsection}{}
-\bibliography{paper.bib}
+\hypertarget{disclosure-statement}{%
+\section*{DISCLOSURE STATEMENT}\label{disclosure-statement}}
+The authors are not aware of any affiliations, memberships, funding, or
+financial holdings that might be perceived as affecting the objectivity
+of this review.
 
+\hypertarget{acknowledgments}{%
+\section*{ACKNOWLEDGMENTS}\label{acknowledgments}}
+The first author of this paper is supported in part by a scholarship
+from the Australian Energy Market Operator. This research was supported
+by the Commonwealth through an Australian Government Research Training
+Program Scholarship {[}DOI: https://doi.org/10.82133/C42F-K220{]}.
 
+  \bibliography{paper.bib}
 
 
 
