@@ -757,17 +757,17 @@ reg1a + choro1 + uni1a + reg1b + choro2 + uni1b + plot_layout(ncol=3, widths=c(3
 These examples will serve as touchstones for a discussion of uncertainty visualisation, focusing on the approaches suggested in the literature.
 
 ## Uncertainty as a statistic
-The next most common approach to uncertainty visualisation is to treat uncertainty as another statistic.
-Examples of this approach appear frequently in the literature.
-In geospatial visualisation an example can be seen in the exceedance probability map [@Kuhnert2018], where areas are coloured according to the probability the estimate exceeds a specified value. 
-An example from risk communication can be seen in the icon array (or pictograph) [@Spiegelhalter2017] that communicates the relative number of affected individuals for a particular treatment using coloured human icons. 
-An example in statistics can be seen in the summary plot [@Potter2010] which combines the plot of a single set of numeric values with a density estimate, boxplot, and statistical moments.
-Simply put, these approaches might be described as swapping our original statistic out for an "uncertainty statistic" to give us an "uncertainty visualisation". 
+To avoid ignoring uncertainty entirely, some authors opt to visualise uncertainty using an "uncertainty statistic".
+Rather than visualise the statistic we wish to draw inference on, we calculate some statistic related to the uncertainty (such as a probability, variance, or error) and visualise that instead.
+For example, in geospatial visualisation we might see an exceedance probability map [@Kuhnert2018], where areas are coloured according to the probability the estimate exceeds a specified value. 
+In risk communication this approach can be seen in the icon array (or pictograph) [@Spiegelhalter2017] that communicates the relative number of affected individuals for a particular treatment using coloured human icons. 
+In statistics we have the summary plot of @Potter2010  which combines the plot of a single set of numeric values with a density estimate, boxplot, and statistical moments.
+
 Some authors take these approaches because they explicitly see uncertainty as a variable of importance in of itself [@Blenkinsop2000], while others straddle the line, asserting uncertainty is acting as signal and noise, and should fulfil both roles [@geointerviews]. 
-This leads to the question, how does visualising uncertainty as a statistic change our view of the data, and the conclusions we draw from our plot?
+Is making an uncertainty visualisation as easy as swapping out our inferential statistic for the correct "uncertainty statistic"?
 
 ### Example: visualising variance
-@fig-statistic depicts the six plots introduced in @fig-ignore but the central value has been replaced with an uncertainty statistic.
+@fig-statistic depicts the six plots introduced in @fig-ignore but instead of visualising the central value of the distribution, we visualise an uncertainty statistic.
 Plots R1 and R2 show the residual plot of our linear regression instead of the linear regression itself. 
 Swapping the underlying statistic completely changes the meaning conveyed by the visual structures in the plot.
 Thee interpretation of the slope of the line in our residual plot has little in common with the slope of our linear regression.
