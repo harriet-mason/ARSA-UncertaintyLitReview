@@ -212,7 +212,7 @@ reg1a <- mtcars |>
               colour = "dodgerblue3",
               linewidth = 1.5) +
   theme(aspect.ratio=1) +
-  ggtitle("R1 - low") + 
+  ggtitle("R1 - low uncertainty") + 
   ylim(9,35) +
   xlim(1.5,5.5)
 
@@ -224,7 +224,7 @@ reg1b <- small_cars |>
               slope = slope_est_2,
               colour = "dodgerblue3",
               linewidth = 1.5) +
-  ggtitle("R2 - high") + 
+  ggtitle("R2 - high uncertainty") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -237,7 +237,7 @@ reg2a <- augment(fit1) |>
   theme_few()  + 
   #geom_smooth(linewidth = 1.5, 
   #            colour = "dodgerblue3", se=FALSE) +
-  ggtitle("R1 - low") + 
+  ggtitle("R1 - low uncertainty") + 
   ylab("residual") +
   theme(aspect.ratio=1) +
   ylim(-5.5,7) +
@@ -250,7 +250,7 @@ reg2b <- augment(fit2) |>
   theme_few()  + 
   #geom_smooth(linewidth = 1.5, 
   #            colour = "dodgerblue3", se=FALSE) +
-  ggtitle("R2 - high") + 
+  ggtitle("R2 - high uncertainty") + 
   ylab("residual") +
   theme(aspect.ratio=1) +
   ylim(-5.5,7) +
@@ -267,7 +267,7 @@ reg3a <- mtcars |>
               alpha = 2/int_se_1,
               linewidth = 2*slope_se_1,
               colour = "dodgerblue3") +
-  ggtitle("R1 - low") + 
+  ggtitle("R1 - low uncertainty") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -281,7 +281,7 @@ reg3b <- small_cars |>
               alpha = 2/int_se_2,
               linewidth = 2*slope_se_2,
               colour = "dodgerblue3") +
-  ggtitle("R2 - high") + 
+  ggtitle("R2 - high uncertainty") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -296,7 +296,7 @@ reg4a <-  mtcars |>
                      slope = dist_normal(slope_est_1,slope_se_1),
                      alpha=0.2, times=100,
                      colour = "dodgerblue3")+
-  ggtitle("R1 - low") + 
+  ggtitle("R1 - low uncertainty") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -309,7 +309,7 @@ reg4b <- small_cars |>
                      slope = dist_normal(slope_est_2, slope_se_2),
                      alpha=0.5, times=100,
                      colour = "dodgerblue3")+
-  ggtitle("R2 - high") + 
+  ggtitle("R2 - high uncertainty") + 
   theme(aspect.ratio=1) +
   ylim(9,35) +
   xlim(1.5,5.5)
@@ -335,7 +335,7 @@ uni1a <- group_df |>
   ggplot() +
   geom_point(aes(x=mean(dist_low), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
-  ggtitle("G1 - low") + 
+  ggtitle("G1 - low uncertainty") + 
   labs(y = "treatment group",
        x = "treatment effect") + 
   theme(aspect.ratio=1)
@@ -344,7 +344,7 @@ uni1b <- group_df |>
   ggplot() +
   geom_point(aes(x=mean(dist_high), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
-  ggtitle("G2 - high") + 
+  ggtitle("G2 - high uncertainty") + 
   labs(y = "treatment group",
        x = "treatment effect") + 
   theme(aspect.ratio=1)
@@ -354,7 +354,7 @@ uni2a <- group_df |>
   ggplot() +
   geom_point(aes(x=round(variance(dist_low), 4), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
-  ggtitle("G1 - low") + 
+  ggtitle("G1 - low uncertainty") + 
   labs(y = "treatment group",
        x = "variance of treatment effect") + 
   theme(aspect.ratio=1)
@@ -363,7 +363,7 @@ uni2b <- group_df |>
   ggplot() +
   geom_point(aes(x=variance(dist_high), y=group), size = 3, colour = "forestgreen") +
   theme_few() + 
-  ggtitle("G2 - high") + 
+  ggtitle("G2 - high uncertainty") + 
   labs(y = "treatment group",
        x = "variance of treatment effect") + 
   theme(aspect.ratio=1)
@@ -373,7 +373,7 @@ uni3a <- group_df |>
   ggplot(aes(xdist = dist_low, y=group)) +
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
-  ggtitle("G1 - low") + 
+  ggtitle("G1 - low uncertainty") + 
   labs(y = "treatment group",
        x = "treatment effect") + 
   theme(aspect.ratio=1)
@@ -382,7 +382,7 @@ uni3b <- group_df |>
   ggplot(aes(xdist = dist_high, y=group)) +
   theme_few() +
   stat_pointinterval(.width = c(.95), colour = "forestgreen") + 
-  ggtitle("G2 - high") + 
+  ggtitle("G2 - high uncertainty") + 
   labs(y = "treatment group",
        x = "treatment effect") + 
   theme(aspect.ratio=1)
@@ -392,7 +392,7 @@ uni4a <- group_df |>
   ggplot(aes(xdist = dist_low, y=group)) +
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
-  ggtitle("G1 - low") + 
+  ggtitle("G1 - low uncertainty") + 
   labs(y = "treatment group",
        x = "treatment effect") + 
   theme(aspect.ratio=1)
@@ -401,7 +401,7 @@ uni4b <- group_df |>
   ggplot(aes(xdist = dist_high, y=group)) +
   theme_few() +
   stat_dots(fill = "forestgreen", colour=NA) + 
-  ggtitle("G2 - high") + 
+  ggtitle("G2 - high uncertainty") + 
   labs(y = "treatment group",
        x = "treatment effect") + 
   theme(aspect.ratio=1)
@@ -428,10 +428,10 @@ choro1 <- my_map_data |>
         legend.direction = "horizontal",
         legend.background = element_rect(fill=NA),
         plot.title = element_text(size = 14)) + 
-  ggtitle("S1 - low") 
+  ggtitle("S1 - low uncertainty") 
 
 choro2 <- choro1 %+% filter(my_map_data, variance_class=="highvar") +
-  ggtitle("S2 - high") 
+  ggtitle("S2 - high uncertainty") 
 
 ######################  Exceed Prob Map ######################  
 
@@ -453,10 +453,10 @@ exceed1 <- exeed_data |>
         legend.direction = "horizontal",
         legend.background = element_rect(fill=NA),
         plot.title = element_text(size = 14)) +   
-  ggtitle("S1 - low") 
+  ggtitle("S1 - low uncertainty") 
 
 exceed2 <- exceed1 %+% filter(exeed_data, variance_class=="highvar") + 
-  ggtitle("S2 - high") 
+  ggtitle("S2 - high uncertainty") 
 
 ####################### Bivariate maps ###################### 
 
@@ -484,10 +484,10 @@ bivar1 <- my_map_data |>
   scale_fill_manual(values = bivariatepal) +
   theme_void() + 
   theme(legend.position = "none") +
-  ggtitle("S1 - low") 
+  ggtitle("S1 - low uncertainty") 
   
 bivar2 <- bivar1 %+% filter(my_map_data, variance_class=="highvar") +
-  ggtitle("S2 - high") 
+  ggtitle("S2 - high uncertainty") 
 
 
 bivar_pal<- expand_grid(bitemp = seq(1,8), bivar = seq(1,4)) |>
@@ -608,7 +608,7 @@ pixel1 <- my_map_data |>
         legend.direction = "horizontal",
         legend.background = element_rect(fill=NA),
         plot.title = element_text(size = 14)) +   
-  ggtitle("S1 - low") 
+  ggtitle("S1 - low uncertainty") 
 
 # high variance
 pixel2 <- my_map_data |>
@@ -625,7 +625,7 @@ pixel2 <- my_map_data |>
         legend.direction = "horizontal",
         legend.background = element_rect(fill=NA),
         plot.title = element_text(size = 14)) +   
-  ggtitle("S2 - high") 
+  ggtitle("S2 - high uncertainty") 
 ```
 
 
@@ -698,18 +698,18 @@ We will start with visualisations that ignore uncertainty with the hope that by 
 ### What is uncertainty?
 It is surprisingly hard to describe what uncertainty is.
 Most authors avoid the problem and describe the many characteristics of uncertainty.
-Often, uncertainty is split by factors such as whether it is due to true randomness or a lack of knowledge [@Begg2014; @Spiegelhalter2017; @Gustafson2019; @uncertchap2022; @Hullman2016; @utypo]; quantifiable or unquantifiable [@Spiegelhalter2017; @utypo; @uncertchap2022]; scientific or human [@Benjamin2018; @Gustafson2019]; systematic or random [@Sanyal2009]; statistical or bounded [@Gschwandtnei2016; @Olston2002]; accuracy or precision [@Griethe2006; @Benjamin2018; @Hullman2016]; etc.
-There are enough qualitative descriptors of uncertainty to fill a
-paper, but none of this is particularly helpful in understanding how to integrate it into a
+Often, uncertainty is split by factors such as whether it is due to true randomness or a lack of knowledge [@Begg2014; @Spiegelhalter2017; @Gustafson2019; @uncertchap2022; @Hullman2016; @utypo]; quantifiable or unquantifiable [@Spiegelhalter2017; @utypo; @uncertchap2022]; scientific or human [@Benjamin2018; @Gustafson2019]; systematic or random [@Sanyal2009]; statistical or bounded [@Gschwandtnei2016; @Olston2002]; due to a lack of accuracy or precision [@Griethe2006; @Benjamin2018; @Hullman2016]; etc.
+There are enough qualitative descriptors of uncertainty to fill a paper, but none of this is particularly helpful in understanding how to integrate it into a
 visualisation. 
 
 Rather than trying to define uncertainty by looking at the myriad ways in which it *does* appear in an analysis, we may find it easier to look at where it *does not*.
 Descriptive statistics describe our sample as it is and summarise large data into a usable format, but they are not seen as the primary goal of modern statistics.
-In 19th-century England, *positivism* was the popular philosophical approach to science (positivists included famous statisticians such as Francis Galton and Karl Pearson). 
+In 19th-century England, *positivism* was the popular philosophical approach to science. 
 Practitioners of the approach believed statistics ended with descriptive statistics, as science must be based on actual experience and observations [@Otsuka2023]. 
+Positivists included famous statisticians such as Francis Galton and Karl Pearson. 
 In order to make statements about population statistics, future values, or new observations, we need to perform inference, which requires the assumption of the "uniformity of nature", that is, we need to assume that unobserved phenomena should be similar to observed phenomena [@Otsuka2023]. 
 Positivists believed referencing the unobservable was bad science, embracing descriptive statistics due to the inherent certainty associated with them.
-Since uncertainty is nonexistent in descriptive statistics, it is clear that uncertainty is a by-product of inference: uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
+Since uncertainty is non-existent in descriptive statistics, it is clear that uncertainty is a by-product of inference: uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
 If we consider uncertainty to be a by-product of statistical inference, then uncertainty visualisations are the plots that depict an estimate, and therefore have an associated uncertainty. 
 The most complete description of these estimates is their distributions. 
 Rather than extracting just one element of the distribution, if you can retain the whole distribution, that not only allows the uncertainty calculation to be reproduced, but also makes it possible to derive other estimates as well.
@@ -722,13 +722,15 @@ Abstract concepts such as human belief or credibility are regularly quantified b
 ### Example: ignoring uncertainty
 
 If visualising uncertainty is fundamentally visualising a set of random variables, what does "ignoring" uncertainty look like?
-We investigate this question using @fig-ignore which shows three different scenarios under which we might want to visualise uncertainty, each with a high or low uncertainty case.
-Each plot shows the expected value of the input distribution.
-In plots R1 and R2, the expected value depicts the point estimates from a simple linear regression on a car's miles per gallon (`mpg`) and weight (`wt`) using the `mtcars` data (available in `ggplot2` [@ggplot2], and originally from @mtcars).
+@fig-ignore shows plots of data from three different scenarios, each with either high or low uncertainty. 
+The plots show the expected value of the input distribution.
+In plots R1 and R2, the expected value is the point estimate from a simple linear regression on a car's miles per gallon (`mpg`) and weight (`wt`) using the `mtcars` data (available in `ggplot2` [@ggplot2], and originally from @mtcars).
 For the low uncertainty case, the linear regression is calculated on the full `mtcars` data, but in the high uncertainty case, it is calculated using a subset of three points.
 The points used to calculate the linear regression are also shown on the plot, however, the fitted line is the only component that should include any uncertainty.
 Plots S1 and S2 show a choropleth map of Iowa, where counties are coloured according to a simulated temperature measurement, with measurement error being the uncertainty associated with the measuring instrument. 
-Plots G1 and G2 show the central value of five different simulated distributions representing five different treatment groups (A-E). 
+In S1 the measurement error is low, while in S2 the measurement error is high.
+Plots G1 and G2 show samples simulated from five populations (A-E). 
+In G1, the distributions have a low variance, and in G2, they have a high variance. 
 In the linear regression, we see a downward trend, in the map, we see a sine wave, and in the univariate distributions, an incremental increase in treatment effect.
 The noise in the high uncertainty case is set such that it should overwhelm the trend in all three plots.
 Can you see a difference between the plots in the top row versus the bottom row? 
@@ -752,6 +754,7 @@ reg1a + choro1 + uni1a + reg1b + choro2 + uni1b + plot_layout(ncol=3, widths=c(3
 
 ```
 
+These examples will serve as touchstones for a discussion of uncertainty visualisation, focusing on the approaches suggested in the literature.
 
 ## Uncertainty as a statistic
 The next most common approach to uncertainty visualisation is to treat uncertainty as another statistic.
