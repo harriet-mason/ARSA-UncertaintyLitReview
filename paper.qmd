@@ -760,26 +760,26 @@ These examples will serve as touchstones for a discussion of uncertainty visuali
 To avoid ignoring uncertainty entirely, some authors opt to visualise uncertainty using an "uncertainty statistic".
 Rather than visualise the statistic we wish to draw inference on, we calculate some statistic related to the uncertainty (such as a probability, variance, or error) and visualise that instead.
 For example, in geospatial visualisation we might see an exceedance probability map [@Kuhnert2018], where areas are coloured according to the probability the estimate exceeds a specified value. 
-In risk communication this approach can be seen in the icon array (or pictograph) [@Spiegelhalter2017] that communicates the relative number of affected individuals for a particular treatment using coloured human icons. 
+In risk communication we might see an icon array (or pictograph) [@Spiegelhalter2017] that communicates the relative number of affected individuals for a particular treatment using coloured human icons. 
 In statistics we have the summary plot of @Potter2010  which combines the plot of a single set of numeric values with a density estimate, boxplot, and statistical moments.
 
-Some authors take these approaches because they explicitly see uncertainty as a variable of importance in of itself [@Blenkinsop2000], while others straddle the line, asserting uncertainty is acting as signal and noise, and should fulfil both roles [@geointerviews]. 
-Is making an uncertainty visualisation as easy as swapping out our inferential statistic for the correct "uncertainty statistic"?
+Authors take these approaches because they explicitly see uncertainty as a variable of importance in of itself [@Blenkinsop2000].
+This is a perfectly acceptable motivation as uncertainty is often a variable of importance, but should we consider these visualisations "uncertainty visualisations"?
+Is making an uncertainty visualisation that easy?
 
 ### Example: visualising variance
 @fig-statistic depicts the six plots introduced in @fig-ignore but instead of visualising the central value of the distribution, we visualise an uncertainty statistic.
-Plots R1 and R2 show the residual plot of our linear regression instead of the linear regression itself. 
-Swapping the underlying statistic completely changes the meaning conveyed by the visual structures in the plot.
-Thee interpretation of the slope of the line in our residual plot has little in common with the slope of our linear regression.
-Plots S1 and S2 show an exceed probability map, where each county is coloured according to $P(temperature>27)$.
-At first glance, we might think this plot is performing signal suppression as the sine wave trend is clearly visible when the error is low, but barely visible with high error.
-However, just like R1 and R2, the meaning of these plots was changed when we swapped the underlying statistic. 
-The exceedance probability map actually identifies extreme values, and the change in visibility of the signal comes from a uniformity in the shape of the distributions, rather than from signal suppression.
+Plots R1 and R2 show the residual plot of our linear regression, which is a common approach for isolating and evaluating the noise in a regression.
+By changing the underlying statistic, we have completely changed the interpretation of our plot, and therefore the plot cannot be evaluated using our signal validation criteria.
+While the divergence from the signal validation goal is clear in the case of regression residuals, this is not always the case.
+Plots S1 and S2 show an exceed probability map, where each county is coloured according to $\widehat{P(temperature>27)}$.
+At first glance, we might think this plot is performing signal suppression as the sine wave trend is clearly visible when the error is low, but barely visible with high error, however, just like R1 and R2, the meaning of these plots was changed when we swapped the underlying statistic. 
+As a temperature of 27 is a middling value in our example, as the variance increases, $\widehat{P(temperature>27)}$ approaches $0.5$ for all counties. 
+Exceedance probability maps are often used to identify extreme values, and if we replaced 27 with a more extreme value (such as 35) the signal would swap, and we would see the wave pattern in the high uncertainty case, but not the low uncertainty case.
 Continuing this trend, G1 and G2 visualise the variance of the distributions, and once again show that changing the underlying statistic changes the fundamental meaning of our graphics, but with a slight twist.
 This plot reveals some interesting information about our data: the variance is constant in G1 but different for each group in G2.
 Here, we highlight what is *actually* going on when we visualise uncertainty as a statistic.
-The approach allows us to can glean new information about the variance itself, but this variance is treated as independent of the estimates, and does not recontextualise the signal conveyed by @fig-ignore.
-This then leads to the question, does visualising uncertainty as a statistic count as "uncertainty visualisation"?
+The approach allows us to can glean new information about the variance itself, but this information is largely independent of the signal conveyed by @fig-ignore.
 
 
 ```{r}
@@ -790,7 +790,7 @@ This then leads to the question, does visualising uncertainty as a statistic cou
 #| fig-height: 6
 #| fig-width: 10
 #| out-width: 100%
-#| fig-cap: "Treating the uncertainty as a statistic,  with the same six examples. The regression (R1 and R2) is a scatterplot of residuals vs explanatory variable, separated from the regression, making comparison of uncertainty related to the trend more difficult. For the choropleth (S1, S2): instead of temperature, the probability of exceeding 27$^o$C is shown. This has the effect of highlighting (sine wave) trend in the low error data, and de-emphasising it in the high error data. The plots G1 and G2 have replaced the treatment effect with the variance of our treatment effect. It is a bit nonsensical, but we learn something interesting that was not seen earlier: the variance in G2 is not uniform like that in G1."
+#| fig-cap: "Treating the uncertainty as a statistic,  with the same six examples. The regression (R1 and R2) is a scatterplot of residuals vs explanatory variable, separated from the regression, making comparison of uncertainty related to the trend more difficult. For the choropleth (S1, S2): instead of temperature, the probability of exceeding 27$^o$C is shown. This has the effect of highlighting (sine wave) trend in the low error data, and de-emphasising it in the high error data. The plots G1 and G2 have replaced the treatment effect with the variance of our treatment effect. It is a bit nonsensical, but we learn something interesting that was not seen earlier: the variance in G2 is not constant like it is in G1."
 
 reg2a + exceed1 + uni2a + reg2b + exceed2 + uni2b + plot_layout(ncol=3, widths=c(30, 40, 30))  
 ```
@@ -799,32 +799,40 @@ reg2a + exceed1 + uni2a + reg2b + exceed2 + uni2b + plot_layout(ncol=3, widths=c
 What an uncertainty visualisation is or is not is one of the most pervasive divides in the literature.
 For example, @Leland2005 mentions that popular graphics, such as pie charts and bar charts, omit uncertainty. @Wickham2011 suggests their product plot framework, for area plots like bar charts and also histograms, needs to be extended to include uncertainty representation.
 However, pie charts, bar charts, and histograms have all been used in a significant number of experiments as examples of an "uncertainty visualisation" [@Ibrekk1987; @Olston2002; @Zhao2023; @Hofmann2012]. 
-What is going on here?
+The vague boundary of what is or isn't an uncertainty visualisation means that almost anything can be classified as an uncertainty visualisation, and if everything is an uncertainty visualisation, nothing is.
+So, what is going on here?
 
-This conflict stems from a subconscious disagreement about the purpose of uncertainty visualisation.
-If you believe uncertainty visualisation is about communicating risks or probabilities, uncertainty visualisations are just visualisations of "uncertainty statistics".
+This conflict stems from a unrecognised disagreement about the purpose of uncertainty visualisation.
+If you think uncertainty visualisation is about communicating risks or probabilities, uncertainty visualisations are just visualisations of "uncertainty statistics".
 On the other hand, if you believe uncertainty visualisation is about suppressing false visual signals, then you see an uncertainty visualisation as a transformation of an existing graphic that adds the uncertainty in.
 The former has no limitation on the visual appearance of an "uncertainty visualisation", allowing pie charts, bar charts, or histograms, so long as the graphic is visualising "uncertainty", while the latter believes uncertainty visualisations only exist in relation to some "normal" visualisation.
-When we refer to the graphics depicted in @fig-statistic as "uncertainty visualisations", we are classifying visualisations by the data they display, not their visual features.
+When we refer to the graphics depicted in @fig-statistic as "uncertainty visualisations", we are classifying visualisations by the data they display, not by their visual features.
 This is not the standard approach in statistical graphics. 
 A scatter plot that compares means and a scatter plot that compares variances are both scatter plots. 
 
+**UPTOHERE Beyond the existing conventions of statistical graphics, visualisations of risk also **
 Unlike plots, which are not defined by their underlying statistic, uncertainty can *only* by defined in relation to a particular inferential statistic.
 This is frequently discussed in the literature as a dependence on the "goals" of our analysis.
-@Meng2014 commented that what is kept as data and what is tossed away is determined by the motivation of an analysis - what was previously noise can become signal depending on the question. @Otsuka2023 suggested that the process of observing data to calculate statistics is largely dependent on our goals, because the process of boiling real-world entities down into probabilities depends on the relationships we seek to identify within our data.
+@Meng2014 commented that what is kept as data and what is tossed away is determined by the motivation of an analysis - what was previously noise can become signal depending on the question.
+@Otsuka2023 argued that the entire process of boiling real-world entities down into data requires us to have an internal model, which he refers to as "probabilistic kinds", that are defined by the relationships we seek to identify. 
 @Wallsten1997 argue that the best method for evaluating or combining subjective probabilities depends on the uncertainty the decision-maker wants to represent, and why it matters. 
 @Fischhoff2014 suggested we should have methods for communicating uncertainty depending on what the user is supposed to do with it. @Spiegelhalter2017 says we "cannot assess the quality of risk communication unless the objectives are clear". 
 @geointerviews asserted that whether or not uncertainty is a source of doubt depends on the context.
-The sentiment behind this repeated point is clear: the role of uncertainty or signal is not dependent on the "type" of statistic, on the source of the information, or the methods we use; it is determined by the statistic we wish to draw inference on.
+This repeated point conveys a clear idea: the role of signal and noise in our analysis does not depend on the type of statistic being estimated; whether it is a measure of central tendency or a measure of spread is largely irrelevant.
+Instead, our the role of signal is given to the measure that represents the underlying relationship we seek to identify.
+This is our inferential statistic.
+If we replace a measure of central tendency, such as a mean, with a measure of spread, such as a variance, we are not visualising the “uncertainty” inherent to our inferential statistics; we have just changed the inferential statistic entirely.
 Therefore, the fundamental problem with the "uncertainty statistic" approach is that the uncertainty in the plot isn't acting as noise; it is acting as signal.
 
 If the uncertainty in a graphic is acting as a signal, there isn't an interesting perceptual challenge associated with the visualisation: the uncertainty can be displayed using standard principles of graphic design.
 In changing the inferential statistic, we also haven't dealt with the original problem of integrating noise, as these "uncertainty statistics" *also have associated uncertainty in the estimates* (e.g., variance of standard deviation estimate) that is being ignored.
 There is nothing wrong with explicitly visualising variance, error, bias, or any other statistic. 
 These metrics provide important and useful information for analysis and decisions.
-The problem with this approach is that it is so broad that it defines everything as an uncertainty visualisation, and if everything is an uncertainty visualisation, nothing is.
+The problem with this approach is that it is so broad that it defines everything as an uncertainty visualisation, gutting the phrase of any meaning. 
 
 ## Uncertainty as a variable
+while others straddle the line, asserting uncertainty is acting as signal and noise, and should fulfil both roles [@geointerviews]. 
+
 Another common characterisation of uncertainty is as just another variable to be integrated into the visualisation, which means uncertainty visualisation is, at its core, a high-dimensional visualisation problem [@Griethe2006; @geointerviews].
 This approach emerges in computer science [@Kinkeldey2014], cartography [@MacEachren2005], and statistical graphics [@Leland2005] alike. 
 Discussion on these visualisations focuses on how "integrated" the uncertainty is with the estimate.
