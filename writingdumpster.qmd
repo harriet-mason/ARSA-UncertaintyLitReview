@@ -4,6 +4,8 @@ author: "Harriet Mason"
 format: html
 ---
 
+while others straddle the line, asserting uncertainty is acting as signal and noise, and should fulfil both roles [@geointerviews].
+
 ### Heuristics research
 There is one element of uncertainty visualisation research that we have not touched on yet, but it is incredibly consistent, and that is the research around visual heuristics.
 The heuristics research, unlike the plot evaluation work, is incredibly consistent, likely because heuristics are indifferent to the goal of our analysis and uncertainty's role as signal or noise.
