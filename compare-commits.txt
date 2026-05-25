@@ -1,7 +1,7 @@
 # Compare submitted and revised version
 
 submitted: 268d598
-revised: 17c70bd
+revised: 624b544
 
-https://github.com/harriet-mason/ARSA-UncertaintyLitReview/compare/268d598..17c70bd
+https://github.com/harriet-mason/ARSA-UncertaintyLitReview/compare/268d598..624b544
 
