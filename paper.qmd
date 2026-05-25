@@ -764,7 +764,7 @@ For example, in geospatial visualisation, we might see an exceedance probability
 In risk communication, we might see an icon array (or pictograph) [@Spiegelhalter2017] that communicates the relative number of affected individuals for a particular treatment using coloured human icons. 
 In statistics, we have the summary plot of @Potter2010, which combines the plot of a single set of numeric values with a density estimate, boxplot, and statistical moments.
 
-Authors take these approaches because they explicitly see uncertainty as a variable of importance in itself [@Blenkinsop2000].
+Authors take these approaches because they explicitly see uncertainty as a variable of importance in and of itself [@Blenkinsop2000].
 This is a perfectly acceptable motivation as uncertainty is often a variable of importance, but should we consider these visualisations "uncertainty visualisations"?
 Is making an uncertainty visualisation that easy?
 
@@ -798,9 +798,11 @@ reg2a + exceed1 + uni2a + reg2b + exceed2 + uni2b + plot_layout(ncol=3, widths=c
 
 ### What is an uncertainty visualisation, then?
 What an uncertainty visualisation is or is not is one of the most pervasive divides in the literature.
-For example, @Leland2005 mentions that popular graphics, such as pie charts and bar charts, omit uncertainty. @Wickham2011 suggests their product plot framework, for area plots like bar charts and also histograms, needs to be extended to include uncertainty representation.
+For example, @Leland2005 mentions that popular graphics, such as pie charts and bar charts, omit uncertainty. 
+@Wickham2011 suggests their product plot framework, for area plots like bar charts and also histograms, needs to be extended to include uncertainty representation.
 However, pie charts, bar charts, and histograms have all been used in a significant number of experiments as examples of an "uncertainty visualisation" [@Ibrekk1987; @Olston2002; @Zhao2023; @Hofmann2012]. 
-What is going on here?
+These examples imply that a chart being classified as an "uncertainty visualisation" is entirely at the discretion of the author, which brings into question whether the category is meaningful at all.
+How did such a conflict arrise in the literature?
 
 This conflict stems from an unrecognised disagreement about the purpose of uncertainty visualisation.
 If you think uncertainty visualisation is about communicating risks or probabilities, uncertainty visualisations are just visualisations of "uncertainty statistics".
