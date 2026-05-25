@@ -685,7 +685,7 @@ A good uncertainty visualisation should perform:
   
 Additionally, the performance of tasks 1) and 2) should be proportional to the level of confidence in those conclusions.
 When correctly performing uncertainty visualisation, we should feel reassured that what we see is actually there.
-Therefore, we **suggest calling this approach to uncertainty visualisation "signal verification"**.
+Therefore, we **suggest calling this approach to uncertainty visualisation "signal modulation"**.
 This is the main criterion we will use to assess the current literature on uncertainty visualisation.
 
 # Current Approaches
@@ -708,7 +708,7 @@ In 19th-century England, *positivism* was the popular philosophical approach to 
 Practitioners of the approach believed statistics ended with descriptive statistics, as science must be based on actual experience and observations [@Otsuka2023]. 
 Positivists included famous statisticians such as Francis Galton and Karl Pearson. 
 In order to make statements about population statistics, future values, or new observations, we need to perform inference, which requires the assumption of the "uniformity of nature", that is, we need to assume that unobserved phenomena should be similar to observed phenomena [@Otsuka2023]. 
-Positivists believed referencing the unobservable was bad science, embracing descriptive statistics due to the inherent certainty associated with them.
+Positivists believed that referencing the unobservable was bad science, and that one should not make claims beyond descriptive statistics.
 Since uncertainty is non-existent in descriptive statistics, it is clear that uncertainty is a by-product of inference: uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
 If we consider uncertainty to be a by-product of statistical inference, then uncertainty visualisations are the plots that depict an estimate, and therefore have an associated uncertainty. 
 The most complete description of these estimates is their distributions. 
@@ -771,11 +771,11 @@ Is making an uncertainty visualisation that easy?
 ### Example: visualising variance
 @fig-statistic depicts the six plots introduced in @fig-ignore, but instead of visualising the central value of the distribution, we visualise an uncertainty statistic.
 Plots R1 and R2 show the residual plot of our linear regression, which is a common approach for isolating and evaluating the noise in a regression.
-By changing the underlying statistic, we have completely changed the interpretation of our plot, and therefore, the plot cannot be evaluated using our signal verification criteria.
-While the divergence from the signal verification goal is clear in the case of regression residuals, this is not always the case.
-Plots S1 and S2 show an exceed probability map, where each county is coloured according to $\widehat{P(temperature>27)}$.
-At first glance, we might think this plot is performing signal verification as the sine wave trend is clearly visible when the error is low, but barely visible with high error; however, just like R1 and R2, the meaning of these plots was changed when we swapped the underlying statistic. 
-As a temperature of 27 is a middling value in our example, as the variance increases, $\widehat{P(temperature>27)}$ approaches $0.5$ for all counties. 
+By changing the underlying statistic, we have completely changed the interpretation of our plot, and therefore, the plot cannot be evaluated using our signal modulation criteria.
+While the divergence from the signal modulation goal is clear in the case of regression residuals, this is not always the case.
+Plots S1 and S2 show an exceed probability map, where each county is coloured according to $\widehat{P}(temperature>27)$.
+At first glance, we might think this plot is performing signal modulation as the sine wave trend is clearly visible when the error is low, but barely visible with high error; however, just like R1 and R2, the meaning of these plots was changed when we swapped the underlying statistic. 
+As a temperature of 27 is a middling value in our example, as the variance increases, $\widehat{P}(temperature>27)$ approaches $0.5$ for all counties. 
 Exceedance probability maps are often used to identify extreme values, and if we replaced 27 with a more extreme value (such as 35), the signal would swap, and we would see the wave pattern in the high uncertainty case, but not the low uncertainty case.
 Continuing this trend, G1 and G2 visualise the variance of the distributions, and once again show that changing the underlying statistic changes the fundamental meaning of our graphics, but with a slight twist.
 This plot reveals some interesting information about our data: the variance is constant in G1 but different for each group in G2.
@@ -804,7 +804,7 @@ What is going on here?
 
 This conflict stems from an unrecognised disagreement about the purpose of uncertainty visualisation.
 If you think uncertainty visualisation is about communicating risks or probabilities, uncertainty visualisations are just visualisations of "uncertainty statistics".
-On the other hand, if you believe uncertainty visualisation is about signal verification, then you see an uncertainty visualisation as a transformation of an existing graphic that adds the uncertainty in.
+On the other hand, if you think uncertainty visualisation is about signal modulation, then you see an uncertainty visualisation as a transformation of an existing graphic that adds the uncertainty in.
 The former has no limitation on the visual appearance of an "uncertainty visualisation", allowing pie charts, bar charts, or histograms, so long as the graphic is visualising "uncertainty", while the latter believes uncertainty visualisations only exist in relation to some "normal" visualisation.
 
 While arguments have been made for both approaches, there are two key reasons we shouldn't think of visualisations of "uncertainty statistics" as uncertainty visualisations.
@@ -845,7 +845,7 @@ We can reframe these two approaches within the grammar of graphics.
 In the grammar, *geometries* are the geometric objects we draw on the plot, while *aesthetics* represent things like position, colour, and size of said geometric objects.
 In this framework, extrinsic approaches manage uncertainty at the geometry stage, while intrinsic approaches manage uncertainty at the aesthetic stage.
 
-While the intrinsic versus extrinsic dichotomy is interesting, it is unclear if these levels of "integration" have any effect on the plot's ability to perform signal verification. 
+While the intrinsic versus extrinsic dichotomy is interesting, it is unclear if these levels of "integration" have any effect on the plot's ability to perform signal modulation. 
 
 ### Example: mapping two variables
 @fig-variable shows the six examples introduced in @fig-ignore, with uncertainty mapped using an intrinsic or extrinsic approach.
@@ -869,7 +869,7 @@ The extrinsic approach, shown in plots G1 and G2, has the estimate represented b
 Our plot now clearly shows the change in variance in the high uncertainty case, but the incremental trend in the average is still visible.
 Therefore, the display fails to sufficiently suppress the high uncertainty signal.
 
-We can see that all three approaches are unsuccessful when we evaluate their ability to perform signal verification.
+We can see that all three approaches are unsuccessful when we evaluate their ability to perform signal modulation.
 Because all of these graphics visualise the distribution's estimate and uncertainty as two separate pieces of information, the message of the plot is  "here is the trend *and* here is the uncertainty".
 It is worthwhile to examine why this occurs, to see if we can move towards a version of this plot where we are able to communicate signal and noise simultaneously.
 
@@ -892,7 +892,7 @@ The reality is, based on our discussion on inferential statistics, uncertainty *
 Similarities between the "as a variable" approach and the "as a statistic" approach become apparent when investigating why some authors opt for the variable approach in the first place.
 When visualising a point estimate (i.e., @fig-ignore) and variance (i.e., @fig-statistic) side-by-side, one needs to switch focus between the two displays, which makes it difficult to combine the information on the graphics [@moritz2017trust; @Correll2018].
 This implies that the reason authors stop visualising uncertainty as a statistic and instead visualise uncertainty as a variable is because of the cognitive burden imposed by switching focus, rather than the understanding that the method is not philosophically sound.
-To achieve signal verification, we need to visualise noise and signal together as a “single integrated uncertain value” [@Kinkeldey2014] rather than as two separate statistics.
+To achieve signal modulation, we need to visualise noise and signal together as a “single integrated uncertain value” [@Kinkeldey2014] rather than as two separate statistics.
 
 Just because we can still see the signal in @fig-variable, that does not mean the reading of the estimate is completely independent of the uncertainty.
 When making any visualisation, we usually want the visual channels to be separable, that is, we don't want the data represented through one visual channel to interfere with the others [@Smart2019]. 
@@ -986,7 +986,7 @@ Plots G1 and G2 show each univariate distribution as a quantile dot plot.
 Quantile dotplots plot a uniform sample of quantiles as a dotplot, offering a discrete alternative to density plots [@Kay2023].
 We can see that the strong downward trend in the linear regression, the sine wave in the choropleth map, and the incremental increase in the univariate distributions are all clearly visible in the low variance case, but disappear in the high variance cases. 
 The graphics have achieved signal validation.
-Visualising the estimate as a distribution also gives additional information, such as the previously hidden bimodality of the univariate distributions in G1 and G2.
+Visualising the estimate as a distribution also gives additional information, such as the previously hidden end peaks of the univariate distributions in G1 and G2.
 
 
 ```{r}
@@ -1047,7 +1047,7 @@ Uncertainty visualisations are most commonly evaluated based on how accurately v
 This is not unusual, as direct observation is the simplest way to verify that information can be accurately read from a graph [@Vanderplas2020].
 Unfortunately, this approach doesn't work for uncertainty visualisation.
 Once we ask a specific question about a statistic, that statistic becomes inferential, even if the plot was not designed for this purpose. 
-By shifting the focus from $\hat{X}$ to $Var(\hat{X})$ or $P(\hat{X}<x)$, we end up evaluating visualisations on their ability to convey uncertainty statistics, rather than their ability to perform signal verification.
+By shifting the focus from $\hat{X}$ to $Var(\hat{X})$ or $P(\hat{X}<x)$, we end up evaluating visualisations on their ability to convey uncertainty statistics, rather than their ability to perform signal modulation.
 Some of the findings are obvious: participants were more accurate when reading a probability expressed as text than when they had to extract it from a graphic [@Cheong2016; @Savelli2013].
 Other studies replicate existing research, such as the finding that a probability mapped to a position is more accurate than one mapped to an area [@Ibrekk1987; @Gschwandtnei2016], established as part of the hierarchy of perceptual tasks more than 40 years ago [@Cleveland1984; replicated by @heer2010]. 
 This extends beyond simple accuracy evaluations: @Sanyal2009 found that colour was more effective than size when searching for extrema in variances; we have known that pre-attentive (subconsciously processed) aesthetics, such as colour, are more efficient for search tasks since the 1980s [@Vanderplas2020].
@@ -1116,7 +1116,7 @@ Designing an implicit testing method for uncertainty visualisation that allows u
 
 # Conclusions and Future Work
 This paper examines the literature and provides suggestions for a structural framework to support uncertainty visualisation. 
-Particularly, we propose that uncertainty visualisation should act as a signal verification, suppressing weak signals, and amplifying strong signals. 
+Particularly, we propose that uncertainty visualisation should act as a signal modulation, suppressing weak signals, and amplifying strong signals. 
 Using this framework, there are four key gaps identified by this review.
 
 *Experimental practices on uncertainty visualisation need standards.* 
@@ -1135,7 +1135,7 @@ Giving authors the ability to describe uncertainty visualisations in terms of st
 *Software that allows users to easily perform signal validation is needed.* 
 Existing uncertainty visualisation methods view a distribution as its own object, and there are no software options treating "an uncertainty visualisation as a function of an existing visualisation" philosophy.  
 
-Signal verification is an undeveloped area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
+signal modulation is an undeveloped area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
 
 
 # Reproducibility {-}
