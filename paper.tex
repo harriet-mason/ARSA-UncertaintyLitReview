@@ -1,24 +1,26 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[]{ar-1col-S2O}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -36,9 +38,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -64,8 +63,8 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -77,17 +76,35 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[comma]{natbib}
+\bibliographystyle{ar-style1}
+
 
 % latex packages
 \usepackage{url}
@@ -133,16 +150,9 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[comma]{natbib}
-\bibliographystyle{ar-style1}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={The Noisy Work of Uncertainty Visualisation},
   pdfauthor={Harriet Mason; Dianne Cook; Sarah Goodwin; Emi Tanaka; Susan VanderPlas},
@@ -409,7 +419,7 @@ observations, we need to perform inference, which requires the
 assumption of the ``uniformity of nature'', that is, we need to assume
 that unobserved phenomena should be similar to observed phenomena
 \citep{Otsuka2023}. Positivists believed that referencing the
-unobservable was bad science, and that one should not make claims beyond
+unobservable was bad science and that one should not make claims beyond
 descriptive statistics. Since uncertainty is non-existent in descriptive
 statistics, it is clear that uncertainty is a by-product of inference:
 uncertainty is the noise that is both inseparable from our inference and
@@ -465,7 +475,7 @@ effect. The noise in the high uncertainty case is set such that it
 should overwhelm the trend in all three plots. Can you see a difference
 between the plots in the top row versus the bottom row? Is the strength
 of the trend communicated through the visualisation? The answer to both
-of these questions, for S1, S2, G1, and G2, is no as the high and low
+of these questions, for S1, S2, G1, and G2, is no, as the high and low
 variance cases are identical. For R1 and R2, any ability to
 differentiate the plots would likely relate to the data points, rather
 than the regression line. The lack of differentiability between the high
@@ -476,7 +486,7 @@ in our visualisations.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-ignore-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-ignore-1.pdf}
 
 }
 
@@ -556,7 +566,7 @@ Figure~\ref{fig-ignore}.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-statistic-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-statistic-1.pdf}
 
 }
 
@@ -588,8 +598,8 @@ as examples of an ``uncertainty visualisation''
 \citep{Ibrekk1987, Olston2002, Zhao2023, Hofmann2012}. These examples
 imply that a chart being classified as an ``uncertainty visualisation''
 is entirely at the discretion of the author, which brings into question
-whether the category is meaningful at all. How did such a conflict
-arrise in the literature?
+whether the category is meaningful at all. How did such a conflict arise
+in the literature?
 
 This conflict stems from an unrecognised disagreement about the purpose
 of uncertainty visualisation. If you think uncertainty visualisation is
@@ -746,7 +756,7 @@ where we are able to communicate signal and noise simultaneously.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-variable-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-variable-1.pdf}
 
 }
 
@@ -828,7 +838,7 @@ functionally disappeared.
 
 \centering{
 
-\includegraphics[width=0.8\textwidth,height=\textheight]{paper_files/figure-pdf/fig-vsup-1.pdf}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-vsup-1.pdf}
 
 }
 
@@ -986,7 +996,7 @@ peaks of the univariate distributions in G1 and G2.
 
 \centering{
 
-\includegraphics[width=1\textwidth,height=\textheight]{paper_files/figure-pdf/fig-distribution-1.pdf}
+\includegraphics[width=1\linewidth,height=\textheight,keepaspectratio]{paper_files/figure-pdf/fig-distribution-1.pdf}
 
 }
 
@@ -1307,7 +1317,7 @@ as its own object, and there are no software options treating ``an
 uncertainty visualisation as a function of an existing visualisation''
 philosophy.
 
-signal modulation is an undeveloped area of visualisation research, and
+Signal modulation is an undeveloped area of visualisation research, and
 developing methods for the practice may require us to challenge our
 entire notion of what makes a good visualisation.
 
@@ -1340,7 +1350,7 @@ from the Australian Energy Market Operator. This research was supported
 by the Commonwealth through an Australian Government Research Training
 Program Scholarship {[}DOI: https://doi.org/10.82133/C42F-K220{]}.
 
-  \bibliography{paper.bib}
+\bibliography{paper.bib}
 
 
 

@@ -708,7 +708,7 @@ In 19th-century England, *positivism* was the popular philosophical approach to 
 Practitioners of the approach believed statistics ended with descriptive statistics, as science must be based on actual experience and observations [@Otsuka2023]. 
 Positivists included famous statisticians such as Francis Galton and Karl Pearson. 
 In order to make statements about population statistics, future values, or new observations, we need to perform inference, which requires the assumption of the "uniformity of nature", that is, we need to assume that unobserved phenomena should be similar to observed phenomena [@Otsuka2023]. 
-Positivists believed that referencing the unobservable was bad science, and that one should not make claims beyond descriptive statistics.
+Positivists believed that referencing the unobservable was bad science and that one should not make claims beyond descriptive statistics.
 Since uncertainty is non-existent in descriptive statistics, it is clear that uncertainty is a by-product of inference: uncertainty is the noise that is both inseparable from our inference and meaningless without it. 
 If we consider uncertainty to be a by-product of statistical inference, then uncertainty visualisations are the plots that depict an estimate, and therefore have an associated uncertainty. 
 The most complete description of these estimates is their distributions. 
@@ -736,7 +736,7 @@ In the linear regression, we see a downward trend, in the map, we see a sine wav
 The noise in the high uncertainty case is set such that it should overwhelm the trend in all three plots.
 Can you see a difference between the plots in the top row versus the bottom row? 
 Is the strength of the trend communicated through the visualisation?
-The answer to both of these questions, for S1, S2, G1, and G2, is no as the high and low variance cases are identical. 
+The answer to both of these questions, for S1, S2, G1, and G2, is no, as the high and low variance cases are identical. 
 For R1 and R2, any ability to differentiate the plots would likely relate to the data points, rather than the regression line.
 The lack of differentiability between the high and low uncertainty cases highlights the danger of ignoring uncertainty in our visualisations.
 
@@ -802,7 +802,7 @@ For example, @Leland2005 mentions that popular graphics, such as pie charts and 
 @Wickham2011 suggests their product plot framework, for area plots like bar charts and also histograms, needs to be extended to include uncertainty representation.
 However, pie charts, bar charts, and histograms have all been used in a significant number of experiments as examples of an "uncertainty visualisation" [@Ibrekk1987; @Olston2002; @Zhao2023; @Hofmann2012]. 
 These examples imply that a chart being classified as an "uncertainty visualisation" is entirely at the discretion of the author, which brings into question whether the category is meaningful at all.
-How did such a conflict arrise in the literature?
+How did such a conflict arise in the literature?
 
 This conflict stems from an unrecognised disagreement about the purpose of uncertainty visualisation.
 If you think uncertainty visualisation is about communicating risks or probabilities, uncertainty visualisations are just visualisations of "uncertainty statistics".
@@ -1137,7 +1137,7 @@ Giving authors the ability to describe uncertainty visualisations in terms of st
 *Software that allows users to easily perform signal validation is needed.* 
 Existing uncertainty visualisation methods view a distribution as its own object, and there are no software options treating "an uncertainty visualisation as a function of an existing visualisation" philosophy.  
 
-signal modulation is an undeveloped area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
+Signal modulation is an undeveloped area of visualisation research, and developing methods for the practice may require us to challenge our entire notion of what makes a good visualisation.
 
 
 # Reproducibility {-}
