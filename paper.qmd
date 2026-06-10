@@ -589,7 +589,7 @@ vsup4 <- vsup3 +
 vsup1 <- vsup1 + inset_element(vsup3, left = 0.55, bottom = -0.5, 
                           right = 1, top = 0.2)
 
-vsup2 <- vsup2 + inset_element(vsup3, left = 0.55, bottom = -0.5, 
+vsup2 <- vsup2 + inset_element(vsup4, left = 0.55, bottom = -0.5, 
                           right = 1, top = 0.2)
 
 ####################### Pixel maps ######################
